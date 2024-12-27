@@ -148,13 +148,13 @@
                         <table id="beer-table" class="table-auto w-full text-left text-gray-900">
                             <thead class="sticky top-0 text-gray-900 uppercase border-b-2 border-gray-800">
                             <tr>
-                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">#</th>
-                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">Pivovar</th>
-                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">Název</th>
-                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">Pivní styl</th>
-                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">ALK.</th>
-                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">IBU</th>
-                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">Cena</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">#</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">Pivovar</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">Název</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">Pivní styl</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">ALK.</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">IBU</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">Cena</th>
                             </tr>
                             </thead>
                             <tbody id="beer-table-body" class="divide-y divide-gray-200">
@@ -206,13 +206,13 @@
                 tr.classList.add("hover:bg-gray-50");
 
                 tr.innerHTML = `
-                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">${index + 1}</td>
-                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">${row[2] || ""}</td>
-                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">${row[2] || ""}</td>
-                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">${row[3] || ""}</td>
-                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">${row[4] || ""}</td>
-                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">${row[5] || ""}</td>
-                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">${row[6] || ""}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">${index + 1}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">${row[2] || ""}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">${row[2] || ""}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">${row[3] || ""}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">${row[4] || ""}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">${row[5] || ""}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">${row[6] || ""}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -227,7 +227,7 @@
                 card.classList.add("p-4", "mb-4", "bg-white", "rounded-lg", "shadow", "border", "border-gray-200");
 
                 card.innerHTML = `
-                    <div class="font-bold text-lg lg:text-xl mb-2">#${index + 1}</div>
+                    <div class="font-bold text-lg lg:text-2xl mb-2">#${index + 1}</div>
                     <div class="mb-2"><span class="font-bold">Pivovar:</span> ${row[1] || ""}</div>
                     <div class="mb-2"><span class="font-bold">Název:</span> ${row[2] || ""}</div>
                     <div class="mb-2"><span class="font-bold">Pivní styl:</span> ${row[3] || ""}</div>
