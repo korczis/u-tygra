@@ -143,19 +143,19 @@
         <!-- Table Section -->
         <div class="flex-grow overflow-hidden">
             <div class="h-full">
-                <div class="relative h-full px-6">
-                    <!-- Responsive Table/Card Wrapper -->
+                <div class="relative h-full px-4 lg:px-8">
+                    <!-- Responsive Table Wrapper -->
                     <div class="overflow-x-auto hidden md:block">
                         <table id="beer-table" class="table-auto w-full text-left text-gray-900">
                             <thead class="bg-gray-50 sticky top-0 text-gray-900 uppercase border-b-2 border-gray-800">
                             <tr>
-                                <th scope="col" class="px-6 py-4 text-4xl">#</th>
-                                <th scope="col" class="px-6 py-4 text-4xl">Pivovar</th>
-                                <th scope="col" class="px-6 py-4 text-4xl">Název</th>
-                                <th scope="col" class="px-6 py-4 text-4xl">Pivní styl</th>
-                                <th scope="col" class="px-6 py-4 text-4xl">ALK.</th>
-                                <th scope="col" class="px-6 py-4 text-4xl">IBU</th>
-                                <th scope="col" class="px-6 py-4 text-4xl">Cena</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">#</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">Pivovar</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">Název</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">Pivní styl</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">ALK.</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">IBU</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">Cena</th>
                             </tr>
                             </thead>
                             <tbody id="beer-table-body" class="divide-y divide-gray-200">
@@ -179,37 +179,41 @@
         const csvUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRyhn3V6hajkaKVUEd6R6DXocr0KHEvHuG_KAPgLvFuWPctsPj6dQMMu-jI9J1ZYdSPzntdtkZNM47h/pub?gid=0&single=true&output=csv";
         const skipLines = 2; // Number of lines to skip (headers included)
         const maxLines = 6; // Number of lines to display
+        const refreshInterval = 15000; // Refresh every 15 seconds
 
-        // Fetch and parse the CSV using PapaParse
-        Papa.parse(csvUrl, {
-            download: true,
-            header: false, // Treat all rows as raw arrays
-            skipEmptyLines: true,
-            complete: function (results) {
-                const data = results.data.slice(skipLines, skipLines + maxLines); // Skip `n` lines and take `M` lines
-                populateTable(data);
-                populateCards(data);
-            },
-            error: function (error) {
-                console.error("Error loading CSV:", error);
-            },
-        });
+        // Function to fetch and parse the CSV
+        function fetchData() {
+            Papa.parse(csvUrl, {
+                download: true,
+                header: false, // Treat all rows as raw arrays
+                skipEmptyLines: true,
+                complete: function (results) {
+                    const data = results.data.slice(skipLines, skipLines + maxLines); // Skip `n` lines and take `M` lines
+                    populateTable(data);
+                    populateCards(data);
+                },
+                error: function (error) {
+                    console.error("Error loading CSV:", error);
+                },
+            });
+        }
 
         // Populate the table with data for desktop
         function populateTable(data) {
             const tbody = document.getElementById("beer-table-body");
+            tbody.innerHTML = ""; // Clear existing content
             data.forEach((row, index) => {
                 const tr = document.createElement("tr");
                 tr.classList.add("hover:bg-gray-50");
 
                 tr.innerHTML = `
-                    <td class="px-6 py-6 font-bold text-2xl">${index + 1}</td>
-                    <td class="px-6 py-6 font-bold text-2xl">${row[0] || ""}</td>
-                    <td class="px-6 py-6 font-bold text-2xl text-gray-900">${row[1] || ""}</td>
-                    <td class="px-6 py-6 font-bold text-2xl">${row[2] || ""}</td>
-                    <td class="px-6 py-6 font-bold text-2xl">${row[3] || ""}</td>
-                    <td class="px-6 py-6 font-bold text-2xl">${row[4] || ""}</td>
-                    <td class="px-6 py-6 font-bold text-2xl">${row[5] || ""}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">${index + 1}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">${row[2] || ""}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">${row[2] || ""}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">${row[3] || ""}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">${row[4] || ""}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">${row[5] || ""}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-xl">${row[6] || ""}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -218,22 +222,29 @@
         // Populate cards for mobile
         function populateCards(data) {
             const container = document.getElementById("beer-cards");
+            container.innerHTML = ""; // Clear existing content
             data.forEach((row, index) => {
                 const card = document.createElement("div");
                 card.classList.add("p-4", "mb-4", "bg-white", "rounded-lg", "shadow", "border", "border-gray-200");
 
                 card.innerHTML = `
-                    <div class="font-bold text-2xl mb-2">#${index + 1}</div>
-                    <div class="mb-2"><span class="font-bold">Pivovar:</span> ${row[0] || ""}</div>
-                    <div class="mb-2"><span class="font-bold">Název:</span> ${row[1] || ""}</div>
-                    <div class="mb-2"><span class="font-bold">Pivní styl:</span> ${row[2] || ""}</div>
-                    <div class="mb-2"><span class="font-bold">ALK.:</span> ${row[3] || ""}</div>
-                    <div class="mb-2"><span class="font-bold">IBU:</span> ${row[4] || ""}</div>
-                    <div><span class="font-bold">Cena:</span> ${row[5] || ""}</div>
+                    <div class="font-bold text-lg lg:text-xl mb-2">#${index + 1}</div>
+                    <div class="mb-2"><span class="font-bold">Pivovar:</span> ${row[1] || ""}</div>
+                    <div class="mb-2"><span class="font-bold">Název:</span> ${row[2] || ""}</div>
+                    <div class="mb-2"><span class="font-bold">Pivní styl:</span> ${row[3] || ""}</div>
+                    <div class="mb-2"><span class="font-bold">ALK.:</span> ${row[4] || ""}</div>
+                    <div class="mb-2"><span class="font-bold">IBU:</span> ${row[5] || ""}</div>
+                    <div><span class="font-bold">Cena:</span> ${row[6] || ""}</div>
                 `;
                 container.appendChild(card);
             });
         }
+
+        // Initial fetch
+        fetchData();
+
+        // Refresh data every 15 seconds
+        setInterval(fetchData, refreshInterval);
     });
 </script>
 
