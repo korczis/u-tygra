@@ -26,7 +26,9 @@
   
 
   <script defer src="/js/zolarwind/logic.js" integrity="sha384-GYtsrgYVRYoxdEL+C+79KROm+MCl1ArSzQnqVnPTV78UNz5a1vFxAEiKbobXhQlw"></script>
+
   
+
   
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
@@ -122,18 +124,23 @@
     
 <div class="flex flex-col h-[calc(100vh-4rem)] p-6 mt-16">
     <!-- Centered Quote Section -->
-    <div class="bg-blue-500 text-white rounded-xl">
-        <div class="max-w-4xl mx-auto py-6 px-4 text-center">
-            
-            <div class="text-lg lg:text-2xl font-bold">
-                "Život je příliš krátký na špatné pivo"
+    <a href="https://blog.korczis.com/u-tygra/">
+        <div class="bg-blue-500 text-white rounded-xl">
+            <div class="max-w-4xl mx-auto py-6 px-4 text-center">
                 
-                <span class="block mt-2 text-sm font-normal">– České přísloví</span>
+                <div class="text-lg lg:text-2xl font-bold">
+                    "Život je příliš krátký na špatné pivo"
+                    
+                    <span class="block mt-2 text-sm font-normal">– České přísloví</span>
+                    
+                </div>
+                
+                
+                <!-- div class="mt-4 text-base lg:text-lg font-normal">Tradiční česká pivnice s výběrem kvalitních piv</div -->
                 
             </div>
-            
         </div>
-    </div>
+    </a>
 
     <!-- Main Table/Card Section -->
     <div class="flex flex-col h-full rounded-xl shadow-lg border border-gray-200 overflow-hidden mt-4">
@@ -141,17 +148,17 @@
             <div class="h-full">
                 <div class="relative h-full px-4 lg:px-8">
                     <!-- Responsive Table Wrapper -->
-                    <div class="overflow-x-auto scrollbar-hide hidden md:block">
+                    <div class="overflow-x-auto hidden md:block">
                         <table id="beer-table" class="table-auto w-full text-left text-gray-900">
                             <thead class="sticky top-0 text-gray-900 uppercase border-b-2 border-gray-800">
                             <tr>
-                                <th scope="col" class="px-6 py-4 text-xl lg:text-2xl">#</th>
-                                <th scope="col" class="px-6 py-4 text-xl lg:text-2xl">Pivovar</th>
-                                <th scope="col" class="px-6 py-4 text-xl lg:text-2xl">Název</th>
-                                <th scope="col" class="px-6 py-4 text-xl lg:text-2xl">Pivní styl</th>
-                                <th scope="col" class="px-6 py-4 text-xl lg:text-2xl">ALK.</th>
-                                <th scope="col" class="px-6 py-4 text-xl lg:text-2xl">IBU</th>
-                                <th scope="col" class="px-6 py-4 text-xl lg:text-2xl">Cena</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">#</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">Pivovar</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">Název</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">Pivní styl</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">ALK.</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">IBU</th>
+                                <th scope="col" class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">Cena</th>
                             </tr>
                             </thead>
                             <tbody id="beer-table-body" class="divide-y divide-gray-200">
@@ -203,13 +210,13 @@
                 tr.classList.add("hover:bg-gray-50");
 
                 tr.innerHTML = `
-                    <td class="px-6 py-4 text-xl lg:text-2xl">${index + 1}</td>
-                    <td class="px-6 py-4 text-xl lg:text-2xl">${row[2] || ""}</td>
-                    <td class="px-6 py-4 text-xl lg:text-2xl">${row[2] || ""}</td>
-                    <td class="px-6 py-4 text-xl lg:text-2xl">${row[3] || ""}</td>
-                    <td class="px-6 py-4 text-xl lg:text-2xl">${row[4] || ""}</td>
-                    <td class="px-6 py-4 text-xl lg:text-2xl">${row[5] || ""}</td>
-                    <td class="px-6 py-4 text-xl lg:text-2xl">${row[6] || ""}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">${index + 1}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">${row[2] || ""}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">${row[2] || ""}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">${row[3] || ""}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">${row[4] || ""}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">${row[5] || ""}</td>
+                    <td class="px-4 py-2 lg:px-6 lg:py-4 text-lg lg:text-2xl">${row[6] || ""}</td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -224,7 +231,7 @@
                 card.classList.add("p-4", "mb-4", "bg-white", "rounded-lg", "shadow", "border", "border-gray-200");
 
                 card.innerHTML = `
-                    <div class="font-bold text-xl lg:text-2xl mb-2">#${index + 1}</div>
+                    <div class="font-bold text-lg lg:text-2xl mb-2">#${index + 1}</div>
                     <div class="mb-2"><span class="font-bold">Pivovar:</span> ${row[1] || ""}</div>
                     <div class="mb-2"><span class="font-bold">Název:</span> ${row[2] || ""}</div>
                     <div class="mb-2"><span class="font-bold">Pivní styl:</span> ${row[3] || ""}</div>
