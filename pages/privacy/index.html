@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="cs">
+<head>
+  
+  
+  
+  
+  
+
+  <meta charset="UTF-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name=generator content="Zola v0.19.1">
+
+  
+    <meta name="description" content="My privacy rules">
+  
+
+  <title>U Tygra</title>
+  <link rel="stylesheet" href="/css/generated.css">
+  
+    <link rel="icon" href="&#x2F;img&#x2F;yin-yang.svg" />
+  
+
+  
+    <link rel="alternate" type="application/atom+xml" title="Atom Feed for https://www.pivniceutygra.cz/" href="/atom.xml" />
+  
+
+  <script defer src="/js/zolarwind/logic.js" integrity="sha384-GYtsrgYVRYoxdEL+C+79KROm+MCl1ArSzQnqVnPTV78UNz5a1vFxAEiKbobXhQlw"></script>
+  
+  
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+</head>
+
+<body>
+  
+
+  
+
+
+<header class="sticky top-0 w-full z-10">
+  <nav class="bg-gray-600">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <a href="/" aria-label="Přejít na úvodní stránku">
+              <div class="h-8 w-8 text-gray-200 hover:text-white fill-current">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor">
+                  <path d="M3 12L5 10M5 10L12 3L19 10M5 10V20C5 20.5523 5.44772 21 6 21H9M19 10L21 12M19 10V20C19 20.5523 18.5523 21 18 21H15M9 21C9.55228 21 10 20.5523 10 20V16C10 15.4477 10.4477 15 11 15H13C13.5523 15 14 15.4477 14 16V20C14 20.5523 14.4477 21 15 21M9 21H15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </a>
+          </div>
+          <div class="hidden md:block">
+            <div class="ml-8 flex items-baseline">
+              
+                
+                  
+                    <a class="px-3 py-2 ml-2 rounded-md font-medium text-gray-200 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-600" href="/piva-tocena" title="Točená piva">Točená piva</a>
+                  
+                
+                  
+                    <a class="px-3 py-2 ml-2 rounded-md font-medium text-gray-200 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-600" href="/piva-lahvova" title="Lahvová piva">Lahvová piva</a>
+                  
+                
+                  
+                    <a class="px-3 py-2 ml-2 rounded-md font-medium text-gray-200 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-600" href="/napojovy-listek" title="Nápojový lístek">Nápojový lístek</a>
+                  
+                
+                  
+                    <a class="px-3 py-2 ml-2 rounded-md font-medium text-gray-200 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-600" href="/jidelni-listek" title="Jídelní lístek">Jídelní lístek</a>
+                  
+                
+              
+            </div>
+          </div>
+        </div>
+        <div class="-mr-2 flex md:hidden">
+          <button id="toggleMobileMenu" class="icon inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white" aria-label="Menu">
+            <span id="mobile-icon-menu-unselected">
+              <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </span>
+            <span id="mobile-icon-menu-selected" class="hidden">
+              <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+      <div id="mobile-menu" class="hidden md:hidden px-2 pt-2 pb-3 sm:px-3">
+        
+          
+            <a class="mt-1 block px-3 py-2 rounded-md font-medium text-gray-200 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-600" href="/piva-tocena" title="Točená piva">Točená piva</a>
+          
+        
+          
+            <a class="mt-1 block px-3 py-2 rounded-md font-medium text-gray-200 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-600" href="/piva-lahvova" title="Lahvová piva">Lahvová piva</a>
+          
+        
+          
+            <a class="mt-1 block px-3 py-2 rounded-md font-medium text-gray-200 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-600" href="/napojovy-listek" title="Nápojový lístek">Nápojový lístek</a>
+          
+        
+          
+            <a class="mt-1 block px-3 py-2 rounded-md font-medium text-gray-200 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-600" href="/jidelni-listek" title="Jídelní lístek">Jídelní lístek</a>
+          
+        
+      </div>
+    
+  </nav>
+</header>
+
+  <div id="content" class="h-screen">
+    
+<div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8 bg-gray-100">
+  <article class="prose">
+    <h1>Privacy Policy</h1>
+    <div>
+      <h3 id="data-protection">Data protection</h3>
+<p>The use of my website is possible without providing personal data.
+If personal data can be entered (for example: name, address, or email addresses), this is on a voluntary basis.
+These data will not be disclosed to third parties without your explicit consent.</p>
+<p>Data transmission in the Internet (e.g.
+in the communication by email) can have security gaps.
+A complete protection of the data from access by third parties is not possible.
+The use of contact data published in the imprint by third parties for sending me unsolicited advertising and information materials is hereby prohibited.
+I reserve the right to take legal action in the event of unsolicited promotional information, such as spam emails.</p>
+<h3 id="hosting">Hosting</h3>
+<p>I host my website at netcup. The provider is netcup GmbH, Daimlerstr. 25, 76185 Karlsruhe, referred to as "netcup".</p>
+<p>Details on netcup's privacy policy can be found on their homepage under <a href="https://www.netcup.eu/kontakt/datenschutzerklaerung.php">privacy policy</a>.</p>
+<p>The use of netcup is based on Article 6(1)(f) GDPR.
+I have a legitimate interest that my website is available to visitors as reliably as possible.
+If consent was requested, data processing takes place exclusively based on Article 6(1)(a) GDPR.
+Consent can be revoked at any time.</p>
+<h3 id="data-processing">Data processing</h3>
+<p>I have signed a data processing contract with netcup.
+This contract is required by privacy law and guarantees, that data of visitors of my website will be processed in compliance with the GDPR.</p>
+<h3 id="responsible-controller">Responsible controller</h3>
+<p>The person responsible for data processing on this website is the person named in the [imprint]({{&lt; relref "imprint" &gt;}}).
+The "responsible controller" means the natural or legal person who decides on the processing of data (for example: name, address, or email addresses).</p>
+<h3 id="information-cancellation-deletion">Information, cancellation, deletion</h3>
+<p>At any time you have the right to free information about your stored personal data, its origins, recipients, and the purpose of the data processing, as well as a right to correction or deletion of this data.
+You can contact me at any time via the address given in the imprint for further questions on the subject of your personal data.</p>
+<h3 id="log-files-on-the-server">Log files on the server</h3>
+<p>The web server stores information in its log files, some of which your browser transmits to me.
+These are:</p>
+<ul>
+<li>the IP address of your computer</li>
+<li>the time of the request</li>
+<li>the name of the requested page</li>
+<li>a status code (if the request was successful or not)</li>
+<li>the referrer URL</li>
+<li>the browser type, browser version and other information sent by your browser</li>
+</ul>
+<p>This data can not be used to identify a specific person.
+I will not merge this data with other data sources.
+I reserve the right to check this data retrospectively, if I become aware of illegal use of my website.</p>
+<h3 id="ssl-encryption">SSL encryption</h3>
+<p>This site uses SSL encryption for security reasons and to protect the transmission of sensitive content, such as the requests you send to me.
+An encrypted connection can be recognized by the fact that the address in the address bar of the browser starts with <code>https://</code> and a lock symbol nearby.
+If SSL encryption is enabled, the data you submit to me can not be read by third parties.</p>
+<h3 id="cookies">Cookies</h3>
+<p>This site uses functional cookies only on pages where math formulas are displayed with the help of the <a href="https://www.mathjax.org/">MathJax</a> library.
+These cookies are only used in the context of MathJax and the display of math formulas.
+The readability of the website represents a legitimate interest within the meaning of Article 6(1)(f) GDPR.
+I do not use any other cookies on this website.</p>
+<h3 id="embedded-content-from-other-websites">Embedded content from other websites</h3>
+<p>Posts on this site may contain embedded content (e.g. videos, pictures, comments, etc.).
+Embedded content from other websites behaves just as if the visitor had visited the other website.</p>
+<p>These websites may collect information about you, use cookies, embed additional third-party tracking services, and record your interaction with this embedded content, if you have an account and are logged in to this other site.</p>
+<h3 id="what-rights-do-you-have-to-your-data">What rights do you have to your data?</h3>
+<p>You may request that I export your personal information, including any data you have provided to me.
+In addition, you may request the deletion of any personal information I have stored about you.
+This does not include the data that I need to keep for administrative, legal, or security-related purposes.</p>
+
+    </div>
+  </article>
+</div>
+
+  </div>
+  
+</body>
+</html>

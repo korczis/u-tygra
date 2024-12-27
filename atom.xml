@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="cs">
+    <title></title>
+    <link rel="self" type="application/atom+xml" href="https://www.pivniceutygra.cz/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://www.pivniceutygra.cz/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2024-12-27T00:00:00+00:00</updated>
+    <id>https://www.pivniceutygra.cz/atom.xml</id>
+    <entry xml:lang="cs">
+        <title>Nápojový lístek</title>
+        <published>2024-12-27T00:00:00+00:00</published>
+        <updated>2024-12-27T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            Tomas Korcak &lt;korczis@gmail.com&gt;
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.pivniceutygra.cz/jidelni-listek/"/>
+        <id>https://www.pivniceutygra.cz/jidelni-listek/</id>
+        
+        <content type="html" xml:base="https://www.pivniceutygra.cz/jidelni-listek/">&lt;h1 id=&quot;jidelni-listek&quot;&gt;Jidelní lístek&lt;&#x2F;h1&gt;
+&lt;p&gt;Detail about točená piva goes here. You can include images, descriptions, or a beer list.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="cs">
+        <title>Nápojový lístek</title>
+        <published>2024-12-27T00:00:00+00:00</published>
+        <updated>2024-12-27T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            Tomas Korcak &lt;korczis@gmail.com&gt;
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.pivniceutygra.cz/napojovy-listek/"/>
+        <id>https://www.pivniceutygra.cz/napojovy-listek/</id>
+        
+        <content type="html" xml:base="https://www.pivniceutygra.cz/napojovy-listek/">&lt;h1 id=&quot;tocena-piva&quot;&gt;Točená piva&lt;&#x2F;h1&gt;
+&lt;p&gt;Detail about točená piva goes here. You can include images, descriptions, or a beer list.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="cs">
+        <title>Piva Lahvová</title>
+        <published>2024-12-27T00:00:00+00:00</published>
+        <updated>2024-12-27T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            Tomas Korcak &lt;korczis@gmail.com&gt;
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.pivniceutygra.cz/piva-lahvova/"/>
+        <id>https://www.pivniceutygra.cz/piva-lahvova/</id>
+        
+        <content type="html" xml:base="https://www.pivniceutygra.cz/piva-lahvova/">&lt;h1 id=&quot;lahvova-piva&quot;&gt;Lahvová piva&lt;&#x2F;h1&gt;
+&lt;p&gt;Detail about točená piva goes here. You can include images, descriptions, or a beer list.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="cs">
+        <title>Piva Točená</title>
+        <published>2024-12-27T00:00:00+00:00</published>
+        <updated>2024-12-27T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            Tomas Korcak &lt;korczis@gmail.com&gt;
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.pivniceutygra.cz/piva-tocena/"/>
+        <id>https://www.pivniceutygra.cz/piva-tocena/</id>
+        
+        <content type="html" xml:base="https://www.pivniceutygra.cz/piva-tocena/">&lt;h1 id=&quot;tocena-piva&quot;&gt;Točená piva&lt;&#x2F;h1&gt;
+&lt;p&gt;Detail about točená piva goes here. You can include images, descriptions, or a beer list.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="cs">
+        <title>Terms</title>
+        <published>2020-01-08T00:00:00+00:00</published>
+        <updated>2020-01-08T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            Thomas Weitzel
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.pivniceutygra.cz/pages/terms/"/>
+        <id>https://www.pivniceutygra.cz/pages/terms/</id>
+        
+        <content type="html" xml:base="https://www.pivniceutygra.cz/pages/terms/">&lt;p&gt;&lt;em&gt;These terms have been last updated on January 8, 2020&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;All content on this web site is for informational purposes only.&lt;&#x2F;p&gt;
+&lt;p&gt;As the owner of this web site, I ...&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;make no representations as to the accuracy or completeness of any information on this site or by following any link.&lt;&#x2F;li&gt;
+&lt;li&gt;will not be liable for any errors or omissions in this information, nor for the availability of this information.&lt;&#x2F;li&gt;
+&lt;li&gt;will not be liable for any losses, injuries, or damages from the display or use of this information.&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;These terms are subject to change at any time and without notice.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="cs">
+        <title>About</title>
+        <published>2019-03-11T00:00:00+00:00</published>
+        <updated>2019-03-11T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            Thomas Weitzel
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.pivniceutygra.cz/pages/about/"/>
+        <id>https://www.pivniceutygra.cz/pages/about/</id>
+        
+        <content type="html" xml:base="https://www.pivniceutygra.cz/pages/about/">&lt;h2 id=&quot;who-am-i&quot;&gt;Who am I?&lt;&#x2F;h2&gt;
+&lt;p&gt;My name is &lt;strong&gt;Thomas Weitzel&lt;&#x2F;strong&gt;.
+When people have trouble pronouncing my last name, I suggest to try &lt;em&gt;White Cell&lt;&#x2F;em&gt;.
+If you want to call me by my nickname, that&#x27;s fine, too.
+It is &lt;strong&gt;Thomy&lt;&#x2F;strong&gt;, pronounced like &lt;em&gt;Tommy&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;I work as an independent software developer since more than twenty years.
+Industries I&#x27;ve worked in include Finance, Health Care, Automotive, Military, and Government.
+Mostly I worked on internal projects, but also some software products.
+My mother tongue is German.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-s-the-topic&quot;&gt;What&#x27;s the topic?&lt;&#x2F;h2&gt;
+&lt;p&gt;This blog covers my findings while exploring various aspects of programming in general, with a special focus on functional programming.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;the-motivation&quot;&gt;The motivation?&lt;&#x2F;h2&gt;
+&lt;p&gt;Why do people climb mountains?
+British mountaineer George Mallory famously answered: &lt;em&gt;Because they&#x27;re there&lt;&#x2F;em&gt;.
+They want to reach the top faster, in a more efficient or elegant way, differently than anybody else, or even at all.
+That&#x27;s how you approach problem-solving in programming.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;what-to-expect&quot;&gt;What to expect&lt;&#x2F;h2&gt;
+&lt;p&gt;Since I&#x27;m coming from an object-oriented background, expect all sorts of problems I&#x27;m stumbling into and then getting out of.
+C, C++, and Java were my first professionally used programming languages.
+Later I switched to Scala, and even later to Kotlin.
+I had, and still have, a lot to learn, even more to unlearn, and I&#x27;m not nearly done yet.
+If you&#x27;re having a similar background, maybe you can get something out of my mistakes and the occasional success.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;do-or-not-do-there-is-no-try-yoda&quot;&gt;&lt;em&gt;Do, or not do. There is no try&lt;&#x2F;em&gt;. – Yoda&lt;&#x2F;h2&gt;
+&lt;p&gt;The decision is not between doing something or not.
+It&#x27;s that &lt;em&gt;trying&lt;&#x2F;em&gt; is something more than just any attempt.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="cs">
+        <title>Imprint</title>
+        <published>2019-03-11T00:00:00+00:00</published>
+        <updated>2019-03-11T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            Thomas Weitzel
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.pivniceutygra.cz/pages/imprint/"/>
+        <id>https://www.pivniceutygra.cz/pages/imprint/</id>
+        
+        <content type="html" xml:base="https://www.pivniceutygra.cz/pages/imprint/">&lt;!-- Add two spaces after each line to enforce line break --&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;Thomas Weitzel&lt;&#x2F;em&gt;&lt;br &#x2F;&gt;
+&lt;em&gt;Theodor-Heuss-Str. 21&lt;&#x2F;em&gt;&lt;br &#x2F;&gt;
+&lt;em&gt;63225 Langen (Hesse)&lt;&#x2F;em&gt;&lt;br &#x2F;&gt;
+&lt;em&gt;Germany&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;p&gt;Copying and redistribution of all my pages for private, non-commercial use is permitted provided this notice is attached.
+See section &lt;a href=&quot;https:&#x2F;&#x2F;www.pivniceutygra.cz&#x2F;pages&#x2F;imprint&#x2F;#copyright&quot;&gt;Copyright&lt;&#x2F;a&gt; for more information.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;disclaimer&quot;&gt;Disclaimer&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;liability-for-content&quot;&gt;Liability for content&lt;&#x2F;h3&gt;
+&lt;p&gt;As a service provider I&#x27;m responsible according to Article 7(1) TMG (Germany) for my own contents on these pages according to the general laws.
+According to Article 8 to 10 TMG (Germany) I am not obliged to monitor transmitted or stored third-party information or to investigate circumstances that indicate an illegal activity.
+Obligations to remove or block the use of information under general law remain unaffected.
+A liability in this regard is only possible from the date of knowledge of a specific infringement.
+Upon notification of violations, I will remove such content immediately.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;liability-for-links&quot;&gt;Liability for links&lt;&#x2F;h3&gt;
+&lt;p&gt;My website contains links to external websites of third parties over whose contents I have no influence.
+Therefore, I&#x27;m not liable for these external contents.
+The provider or operator of these pages is always responsible for the contents of the linked pages.
+At the time of linking I have checked the linked pages for possible legal violations.
+Illegal content was not recognizable at the time of linking.
+A permanent control of the content of the linked pages is not reasonable without concrete evidence of an infringement.
+Upon notification of violations, I will remove such links immediately.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;copyright&quot;&gt;Copyright&lt;&#x2F;h3&gt;
+&lt;p&gt;The content and works created by me on these pages are subject to copyright law.
+Reproduction, adaptation, distribution, and any kind of exploitation outside the limits of copyright require my written consent.
+Downloads and copies of these pages are for private, non-commercial use only.
+As far as it wasn&#x27;t me who created the contents on these pages, I respect the copyright of third parties.
+In particular, content of third parties is marked as such.
+Still, should you be aware of a copyright infringement, please let me know.
+Upon notification of violations, I will remove such content immediately.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="cs">
+        <title>Privacy Policy</title>
+        <published>2019-03-11T00:00:00+00:00</published>
+        <updated>2019-03-11T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            Thomas Weitzel
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.pivniceutygra.cz/pages/privacy/"/>
+        <id>https://www.pivniceutygra.cz/pages/privacy/</id>
+        
+        <content type="html" xml:base="https://www.pivniceutygra.cz/pages/privacy/">&lt;h3 id=&quot;data-protection&quot;&gt;Data protection&lt;&#x2F;h3&gt;
+&lt;p&gt;The use of my website is possible without providing personal data.
+If personal data can be entered (for example: name, address, or email addresses), this is on a voluntary basis.
+These data will not be disclosed to third parties without your explicit consent.&lt;&#x2F;p&gt;
+&lt;p&gt;Data transmission in the Internet (e.g.
+in the communication by email) can have security gaps.
+A complete protection of the data from access by third parties is not possible.
+The use of contact data published in the imprint by third parties for sending me unsolicited advertising and information materials is hereby prohibited.
+I reserve the right to take legal action in the event of unsolicited promotional information, such as spam emails.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;hosting&quot;&gt;Hosting&lt;&#x2F;h3&gt;
+&lt;p&gt;I host my website at netcup. The provider is netcup GmbH, Daimlerstr. 25, 76185 Karlsruhe, referred to as &quot;netcup&quot;.&lt;&#x2F;p&gt;
+&lt;p&gt;Details on netcup&#x27;s privacy policy can be found on their homepage under &lt;a href=&quot;https:&#x2F;&#x2F;www.netcup.eu&#x2F;kontakt&#x2F;datenschutzerklaerung.php&quot;&gt;privacy policy&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;The use of netcup is based on Article 6(1)(f) GDPR.
+I have a legitimate interest that my website is available to visitors as reliably as possible.
+If consent was requested, data processing takes place exclusively based on Article 6(1)(a) GDPR.
+Consent can be revoked at any time.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;data-processing&quot;&gt;Data processing&lt;&#x2F;h3&gt;
+&lt;p&gt;I have signed a data processing contract with netcup.
+This contract is required by privacy law and guarantees, that data of visitors of my website will be processed in compliance with the GDPR.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;responsible-controller&quot;&gt;Responsible controller&lt;&#x2F;h3&gt;
+&lt;p&gt;The person responsible for data processing on this website is the person named in the [imprint]({{&amp;lt; relref &quot;imprint&quot; &amp;gt;}}).
+The &quot;responsible controller&quot; means the natural or legal person who decides on the processing of data (for example: name, address, or email addresses).&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;information-cancellation-deletion&quot;&gt;Information, cancellation, deletion&lt;&#x2F;h3&gt;
+&lt;p&gt;At any time you have the right to free information about your stored personal data, its origins, recipients, and the purpose of the data processing, as well as a right to correction or deletion of this data.
+You can contact me at any time via the address given in the imprint for further questions on the subject of your personal data.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;log-files-on-the-server&quot;&gt;Log files on the server&lt;&#x2F;h3&gt;
+&lt;p&gt;The web server stores information in its log files, some of which your browser transmits to me.
+These are:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;the IP address of your computer&lt;&#x2F;li&gt;
+&lt;li&gt;the time of the request&lt;&#x2F;li&gt;
+&lt;li&gt;the name of the requested page&lt;&#x2F;li&gt;
+&lt;li&gt;a status code (if the request was successful or not)&lt;&#x2F;li&gt;
+&lt;li&gt;the referrer URL&lt;&#x2F;li&gt;
+&lt;li&gt;the browser type, browser version and other information sent by your browser&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;This data can not be used to identify a specific person.
+I will not merge this data with other data sources.
+I reserve the right to check this data retrospectively, if I become aware of illegal use of my website.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;ssl-encryption&quot;&gt;SSL encryption&lt;&#x2F;h3&gt;
+&lt;p&gt;This site uses SSL encryption for security reasons and to protect the transmission of sensitive content, such as the requests you send to me.
+An encrypted connection can be recognized by the fact that the address in the address bar of the browser starts with &lt;code&gt;https:&#x2F;&#x2F;&lt;&#x2F;code&gt; and a lock symbol nearby.
+If SSL encryption is enabled, the data you submit to me can not be read by third parties.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;cookies&quot;&gt;Cookies&lt;&#x2F;h3&gt;
+&lt;p&gt;This site uses functional cookies only on pages where math formulas are displayed with the help of the &lt;a href=&quot;https:&#x2F;&#x2F;www.mathjax.org&#x2F;&quot;&gt;MathJax&lt;&#x2F;a&gt; library.
+These cookies are only used in the context of MathJax and the display of math formulas.
+The readability of the website represents a legitimate interest within the meaning of Article 6(1)(f) GDPR.
+I do not use any other cookies on this website.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;embedded-content-from-other-websites&quot;&gt;Embedded content from other websites&lt;&#x2F;h3&gt;
+&lt;p&gt;Posts on this site may contain embedded content (e.g. videos, pictures, comments, etc.).
+Embedded content from other websites behaves just as if the visitor had visited the other website.&lt;&#x2F;p&gt;
+&lt;p&gt;These websites may collect information about you, use cookies, embed additional third-party tracking services, and record your interaction with this embedded content, if you have an account and are logged in to this other site.&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;what-rights-do-you-have-to-your-data&quot;&gt;What rights do you have to your data?&lt;&#x2F;h3&gt;
+&lt;p&gt;You may request that I export your personal information, including any data you have provided to me.
+In addition, you may request the deletion of any personal information I have stored about you.
+This does not include the data that I need to keep for administrative, legal, or security-related purposes.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>
