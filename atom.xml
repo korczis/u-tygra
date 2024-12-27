@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="cs">
     <title></title>
-    <link rel="self" type="application/atom+xml" href="https://www.pivniceutygra.cz/atom.xml"/>
-    <link rel="alternate" type="text/html" href="https://www.pivniceutygra.cz/"/>
+    <link rel="self" type="application/atom+xml" href="https://korczis.github.io/u-tygra/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://korczis.github.io/u-tygra"/>
     <generator uri="https://www.getzola.org/">Zola</generator>
     <updated>2024-12-27T00:00:00+00:00</updated>
-    <id>https://www.pivniceutygra.cz/atom.xml</id>
+    <id>https://korczis.github.io/u-tygra/atom.xml</id>
     <entry xml:lang="cs">
         <title>Nápojový lístek</title>
         <published>2024-12-27T00:00:00+00:00</published>
@@ -17,10 +17,10 @@
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://www.pivniceutygra.cz/jidelni-listek/"/>
-        <id>https://www.pivniceutygra.cz/jidelni-listek/</id>
+        <link rel="alternate" type="text/html" href="https://korczis.github.io/u-tygra/jidelni-listek/"/>
+        <id>https://korczis.github.io/u-tygra/jidelni-listek/</id>
         
-        <content type="html" xml:base="https://www.pivniceutygra.cz/jidelni-listek/">&lt;h1 id=&quot;jidelni-listek&quot;&gt;Jidelní lístek&lt;&#x2F;h1&gt;
+        <content type="html" xml:base="https://korczis.github.io/u-tygra/jidelni-listek/">&lt;h1 id=&quot;jidelni-listek&quot;&gt;Jidelní lístek&lt;&#x2F;h1&gt;
 &lt;p&gt;Detail about točená piva goes here. You can include images, descriptions, or a beer list.&lt;&#x2F;p&gt;
 </content>
         
@@ -36,10 +36,10 @@
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://www.pivniceutygra.cz/napojovy-listek/"/>
-        <id>https://www.pivniceutygra.cz/napojovy-listek/</id>
+        <link rel="alternate" type="text/html" href="https://korczis.github.io/u-tygra/napojovy-listek/"/>
+        <id>https://korczis.github.io/u-tygra/napojovy-listek/</id>
         
-        <content type="html" xml:base="https://www.pivniceutygra.cz/napojovy-listek/">&lt;h1 id=&quot;tocena-piva&quot;&gt;Točená piva&lt;&#x2F;h1&gt;
+        <content type="html" xml:base="https://korczis.github.io/u-tygra/napojovy-listek/">&lt;h1 id=&quot;tocena-piva&quot;&gt;Točená piva&lt;&#x2F;h1&gt;
 &lt;p&gt;Detail about točená piva goes here. You can include images, descriptions, or a beer list.&lt;&#x2F;p&gt;
 </content>
         
@@ -55,10 +55,10 @@
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://www.pivniceutygra.cz/piva-lahvova/"/>
-        <id>https://www.pivniceutygra.cz/piva-lahvova/</id>
+        <link rel="alternate" type="text/html" href="https://korczis.github.io/u-tygra/piva-lahvova/"/>
+        <id>https://korczis.github.io/u-tygra/piva-lahvova/</id>
         
-        <content type="html" xml:base="https://www.pivniceutygra.cz/piva-lahvova/">&lt;h1 id=&quot;lahvova-piva&quot;&gt;Lahvová piva&lt;&#x2F;h1&gt;
+        <content type="html" xml:base="https://korczis.github.io/u-tygra/piva-lahvova/">&lt;h1 id=&quot;lahvova-piva&quot;&gt;Lahvová piva&lt;&#x2F;h1&gt;
 &lt;p&gt;Detail about točená piva goes here. You can include images, descriptions, or a beer list.&lt;&#x2F;p&gt;
 </content>
         
@@ -74,10 +74,10 @@
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://www.pivniceutygra.cz/piva-tocena/"/>
-        <id>https://www.pivniceutygra.cz/piva-tocena/</id>
+        <link rel="alternate" type="text/html" href="https://korczis.github.io/u-tygra/piva-tocena/"/>
+        <id>https://korczis.github.io/u-tygra/piva-tocena/</id>
         
-        <content type="html" xml:base="https://www.pivniceutygra.cz/piva-tocena/">&lt;h1 id=&quot;tocena-piva&quot;&gt;Točená piva&lt;&#x2F;h1&gt;
+        <content type="html" xml:base="https://korczis.github.io/u-tygra/piva-tocena/">&lt;h1 id=&quot;tocena-piva&quot;&gt;Točená piva&lt;&#x2F;h1&gt;
 &lt;p&gt;Detail about točená piva goes here. You can include images, descriptions, or a beer list.&lt;&#x2F;p&gt;
 </content>
         
@@ -93,10 +93,10 @@
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://www.pivniceutygra.cz/pages/terms/"/>
-        <id>https://www.pivniceutygra.cz/pages/terms/</id>
+        <link rel="alternate" type="text/html" href="https://korczis.github.io/u-tygra/pages/terms/"/>
+        <id>https://korczis.github.io/u-tygra/pages/terms/</id>
         
-        <content type="html" xml:base="https://www.pivniceutygra.cz/pages/terms/">&lt;p&gt;&lt;em&gt;These terms have been last updated on January 8, 2020&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
+        <content type="html" xml:base="https://korczis.github.io/u-tygra/pages/terms/">&lt;p&gt;&lt;em&gt;These terms have been last updated on January 8, 2020&lt;&#x2F;em&gt;.&lt;&#x2F;p&gt;
 &lt;p&gt;All content on this web site is for informational purposes only.&lt;&#x2F;p&gt;
 &lt;p&gt;As the owner of this web site, I ...&lt;&#x2F;p&gt;
 &lt;ul&gt;
@@ -119,10 +119,10 @@
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://www.pivniceutygra.cz/pages/about/"/>
-        <id>https://www.pivniceutygra.cz/pages/about/</id>
+        <link rel="alternate" type="text/html" href="https://korczis.github.io/u-tygra/pages/about/"/>
+        <id>https://korczis.github.io/u-tygra/pages/about/</id>
         
-        <content type="html" xml:base="https://www.pivniceutygra.cz/pages/about/">&lt;h2 id=&quot;who-am-i&quot;&gt;Who am I?&lt;&#x2F;h2&gt;
+        <content type="html" xml:base="https://korczis.github.io/u-tygra/pages/about/">&lt;h2 id=&quot;who-am-i&quot;&gt;Who am I?&lt;&#x2F;h2&gt;
 &lt;p&gt;My name is &lt;strong&gt;Thomas Weitzel&lt;&#x2F;strong&gt;.
 When people have trouble pronouncing my last name, I suggest to try &lt;em&gt;White Cell&lt;&#x2F;em&gt;.
 If you want to call me by my nickname, that&#x27;s fine, too.
@@ -161,10 +161,10 @@ It&#x27;s that &lt;em&gt;trying&lt;&#x2F;em&gt; is something more than just any 
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://www.pivniceutygra.cz/pages/imprint/"/>
-        <id>https://www.pivniceutygra.cz/pages/imprint/</id>
+        <link rel="alternate" type="text/html" href="https://korczis.github.io/u-tygra/pages/imprint/"/>
+        <id>https://korczis.github.io/u-tygra/pages/imprint/</id>
         
-        <content type="html" xml:base="https://www.pivniceutygra.cz/pages/imprint/">&lt;!-- Add two spaces after each line to enforce line break --&gt;
+        <content type="html" xml:base="https://korczis.github.io/u-tygra/pages/imprint/">&lt;!-- Add two spaces after each line to enforce line break --&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;em&gt;Thomas Weitzel&lt;&#x2F;em&gt;&lt;br &#x2F;&gt;
 &lt;em&gt;Theodor-Heuss-Str. 21&lt;&#x2F;em&gt;&lt;br &#x2F;&gt;
@@ -172,7 +172,7 @@ It&#x27;s that &lt;em&gt;trying&lt;&#x2F;em&gt; is something more than just any 
 &lt;em&gt;Germany&lt;&#x2F;em&gt;&lt;&#x2F;p&gt;
 &lt;&#x2F;blockquote&gt;
 &lt;p&gt;Copying and redistribution of all my pages for private, non-commercial use is permitted provided this notice is attached.
-See section &lt;a href=&quot;https:&#x2F;&#x2F;www.pivniceutygra.cz&#x2F;pages&#x2F;imprint&#x2F;#copyright&quot;&gt;Copyright&lt;&#x2F;a&gt; for more information.&lt;&#x2F;p&gt;
+See section &lt;a href=&quot;https:&#x2F;&#x2F;korczis.github.io&#x2F;u-tygra&#x2F;pages&#x2F;imprint&#x2F;#copyright&quot;&gt;Copyright&lt;&#x2F;a&gt; for more information.&lt;&#x2F;p&gt;
 &lt;h2 id=&quot;disclaimer&quot;&gt;Disclaimer&lt;&#x2F;h2&gt;
 &lt;h3 id=&quot;liability-for-content&quot;&gt;Liability for content&lt;&#x2F;h3&gt;
 &lt;p&gt;As a service provider I&#x27;m responsible according to Article 7(1) TMG (Germany) for my own contents on these pages according to the general laws.
@@ -210,10 +210,10 @@ Upon notification of violations, I will remove such content immediately.&lt;&#x2
           </name>
         </author>
         
-        <link rel="alternate" type="text/html" href="https://www.pivniceutygra.cz/pages/privacy/"/>
-        <id>https://www.pivniceutygra.cz/pages/privacy/</id>
+        <link rel="alternate" type="text/html" href="https://korczis.github.io/u-tygra/pages/privacy/"/>
+        <id>https://korczis.github.io/u-tygra/pages/privacy/</id>
         
-        <content type="html" xml:base="https://www.pivniceutygra.cz/pages/privacy/">&lt;h3 id=&quot;data-protection&quot;&gt;Data protection&lt;&#x2F;h3&gt;
+        <content type="html" xml:base="https://korczis.github.io/u-tygra/pages/privacy/">&lt;h3 id=&quot;data-protection&quot;&gt;Data protection&lt;&#x2F;h3&gt;
 &lt;p&gt;The use of my website is possible without providing personal data.
 If personal data can be entered (for example: name, address, or email addresses), this is on a voluntary basis.
 These data will not be disclosed to third parties without your explicit consent.&lt;&#x2F;p&gt;

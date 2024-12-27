@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 Allow: /
-Sitemap: https://www.pivniceutygra.cz/sitemap.xml
+Sitemap: https://korczis.github.io/u-tygra/sitemap.xml
