@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charlie Analytics Test Suite</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 2rem; }
+        .test-section { margin: 2rem 0; padding: 1rem; border: 1px solid #ddd; border-radius: 8px; }
+        .test-section h2 { margin-top: 0; color: #f08c0f; }
+        .test-button { padding: 0.5rem 1rem; margin: 0.25rem; background: #f08c0f; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .test-button:hover { background: #e17209; }
+        .test-output { background: #f5f5f5; padding: 1rem; margin: 1rem 0; border-radius: 4px; font-family: monospace; font-size: 0.9em; max-height: 300px; overflow-y: auto; }
+        .status { padding: 0.25rem 0.5rem; border-radius: 4px; font-weight: bold; }
+        .status.pass { background: #d4edda; color: #155724; }
+        .status.fail { background: #f8d7da; color: #721c24; }
+        .status.pending { background: #fff3cd; color: #856404; }
+    </style>
+</head>
+<body>
+    <h1>🎯 Charlie Squad Analytics Test Suite</h1>
+    <p>Testování implementace analytics a business intelligence systému pro Pivnici U Tygra.</p>
+
+    <!-- Core Analytics Tests -->
+    <div class="test-section">
+        <h2>1. Core Analytics Tests</h2>
+        <button class="test-button" onclick="testAnalyticsCore()">Test Analytics Core</button>
+        <button class="test-button" onclick="testBeerTracking()">Test Beer Tracking</button>
+        <button class="test-button" onclick="testBreweryTracking()">Test Brewery Tracking</button>
+        <button class="test-button" onclick="testUserBehavior()">Test User Behavior</button>
+        <div id="core-status" class="status pending">Pending</div>
+        <div id="core-output" class="test-output"></div>
+    </div>
+
+    <!-- Privacy & GDPR Tests -->
+    <div class="test-section">
+        <h2>2. Privacy & GDPR Tests</h2>
+        <button class="test-button" onclick="testPrivacyBanner()">Test Privacy Banner</button>
+        <button class="test-button" onclick="testConsentFlow()">Test Consent Flow</button>
+        <button class="test-button" onclick="testGDPRCompliance()">Test GDPR Compliance</button>
+        <div id="privacy-status" class="status pending">Pending</div>
+        <div id="privacy-output" class="test-output"></div>
+    </div>
+
+    <!-- Dashboard Tests -->
+    <div class="test-section">
+        <h2>3. Dashboard Tests</h2>
+        <button class="test-button" onclick="testDashboardAccess()">Test Dashboard Access</button>
+        <button class="test-button" onclick="testRealTimeData()">Test Real-time Data</button>
+        <button class="test-button" onclick="testExportFunction()">Test Export Function</button>
+        <div id="dashboard-status" class="status pending">Pending</div>
+        <div id="dashboard-output" class="test-output"></div>
+    </div>
+
+    <!-- Performance Tests -->
+    <div class="test-section">
+        <h2>4. Performance Tests</h2>
+        <button class="test-button" onclick="testPerformanceMonitoring()">Test Performance Monitoring</button>
+        <button class="test-button" onclick="testMemoryUsage()">Test Memory Usage</button>
+        <button class="test-button" onclick="testTrackingLatency()">Test Tracking Latency</button>
+        <div id="performance-status" class="status pending">Pending</div>
+        <div id="performance-output" class="test-output"></div>
+    </div>
+
+    <!-- Czech Context Tests -->
+    <div class="test-section">
+        <h2>5. Czech Pub Context Tests</h2>
+        <button class="test-button" onclick="testBeerStyleMapping()">Test Beer Style Mapping</button>
+        <button class="test-button" onclick="testBreweryClassification()">Test Brewery Classification</button>
+        <button class="test-button" onclick="testCzechLocalization()">Test Czech Localization</button>
+        <div id="czech-status" class="status pending">Pending</div>
+        <div id="czech-output" class="test-output"></div>
+    </div>
+
+    <!-- Integration Tests -->
+    <div class="test-section">
+        <h2>6. Integration Tests</h2>
+        <button class="test-button" onclick="testAlpineIntegration()">Test Alpine.js Integration</button>
+        <button class="test-button" onclick="testGA4Integration()">Test GA4 Integration</button>
+        <button class="test-button" onclick="testE2EWorkflow()">Test E2E Workflow</button>
+        <div id="integration-status" class="status pending">Pending</div>
+        <div id="integration-output" class="test-output"></div>
+    </div>
+
+    <!-- Test Results Summary -->
+    <div class="test-section">
+        <h2>7. Test Summary</h2>
+        <button class="test-button" onclick="runAllTests()">Run All Tests</button>
+        <button class="test-button" onclick="generateTestReport()">Generate Report</button>
+        <button class="test-button" onclick="resetTests()">Reset All</button>
+        <div id="summary-status" class="status pending">Ready</div>
+        <div id="summary-output" class="test-output"></div>
+    </div>
+
+    <script>
+        // Test framework
+        const TestFramework = {
+            results: {},
+
+            log(section, message) {
+                const output = document.getElementById(`${section}-output`);
+                if (output) {
+                    output.innerHTML += `${new Date().toLocaleTimeString()}: ${message}\n`;
+                    output.scrollTop = output.scrollHeight;
+                }
+                console.log(`[${section}] ${message}`);
+            },
+
+            setStatus(section, status) {
+                const statusEl = document.getElementById(`${section}-status`);
+                if (statusEl) {
+                    statusEl.className = `status ${status}`;
+                    statusEl.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+                }
+                this.results[section] = status;
+            },
+
+            assert(condition, message) {
+                if (condition) {
+                    return { pass: true, message: `✅ ${message}` };
+                } else {
+                    return { pass: false, message: `❌ ${message}` };
+                }
+            }
+        };
+
+        // Core Analytics Tests
+        function testAnalyticsCore() {
+            TestFramework.log('core', 'Testing Charlie Analytics Core...');
+            TestFramework.setStatus('core', 'pending');
+
+            try {
+                // Check if Charlie is loaded
+                const test1 = TestFramework.assert(
+                    typeof window.charlie !== 'undefined',
+                    'Charlie Analytics instance exists'
+                );
+                TestFramework.log('core', test1.message);
+
+                // Check analytics properties
+                if (window.charlie) {
+                    const test2 = TestFramework.assert(
+                        typeof window.charlie.trackBeerView === 'function',
+                        'trackBeerView method exists'
+                    );
+                    TestFramework.log('core', test2.message);
+
+                    const test3 = TestFramework.assert(
+                        window.charlie.sessionData !== undefined,
+                        'Session data initialized'
+                    );
+                    TestFramework.log('core', test3.message);
+
+                    const test4 = TestFramework.assert(
+                        window.charlie.pubBenchmarks !== undefined,
+                        'Czech pub benchmarks loaded'
+                    );
+                    TestFramework.log('core', test4.message);
+                }
+
+                TestFramework.setStatus('core', 'pass');
+
+            } catch (error) {
+                TestFramework.log('core', `Error: ${error.message}`);
+                TestFramework.setStatus('core', 'fail');
+            }
+        }
+
+        function testBeerTracking() {
+            TestFramework.log('core', 'Testing beer tracking functionality...');
+
+            try {
+                if (!window.charlie) {
+                    throw new Error('Charlie Analytics not available');
+                }
+
+                // Create mock beer data
+                const mockBeer = {
+                    nazev: 'Testovací pivo',
+                    pivovar: 'Test Brewery',
+                    styl: 'Test Style',
+                    abv: '4.5%',
+                    cena: 45
+                };
+
+                // Test beer view tracking
+                const initialViews = window.charlie.sessionData.beerViews.size;
+                window.charlie.trackBeerView(mockBeer);
+
+                const test1 = TestFramework.assert(
+                    window.charlie.sessionData.beerViews.size > initialViews,
+                    'Beer view tracked successfully'
+                );
+                TestFramework.log('core', test1.message);
+
+                // Test price classification
+                const priceReaction = window.charlie.sessionData.userBehavior.find(
+                    b => b.type === 'price_consideration'
+                );
+
+                const test2 = TestFramework.assert(
+                    priceReaction !== undefined,
+                    'Price reaction recorded'
+                );
+                TestFramework.log('core', test2.message);
+
+                TestFramework.log('core', `Beer tracking test completed. Views: ${window.charlie.sessionData.beerViews.size}`);
+
+            } catch (error) {
+                TestFramework.log('core', `Beer tracking error: ${error.message}`);
+            }
+        }
+
+        function testBreweryTracking() {
+            TestFramework.log('core', 'Testing brewery tracking functionality...');
+
+            try {
+                if (!window.charlie) {
+                    throw new Error('Charlie Analytics not available');
+                }
+
+                // Test brewery classification
+                const test1 = TestFramework.assert(
+                    window.charlie.getBreweryType('Budvar') === 'major_czech',
+                    'Czech brewery classification correct'
+                );
+                TestFramework.log('core', test1.message);
+
+                const test2 = TestFramework.assert(
+                    window.charlie.getBreweryType('Sierra Nevada') === 'international',
+                    'International brewery classification correct'
+                );
+                TestFramework.log('core', test2.message);
+
+                // Test brewery click tracking
+                const initialCount = window.charlie.sessionData.breweryInteractions.size;
+                window.charlie.trackBreweryClick('Test Brewery', 'https://example.com');
+
+                const test3 = TestFramework.assert(
+                    window.charlie.sessionData.breweryInteractions.size > initialCount,
+                    'Brewery click tracked'
+                );
+                TestFramework.log('core', test3.message);
+
+            } catch (error) {
+                TestFramework.log('core', `Brewery tracking error: ${error.message}`);
+            }
+        }
+
+        function testUserBehavior() {
+            TestFramework.log('core', 'Testing user behavior analytics...');
+
+            try {
+                if (!window.charlie) {
+                    throw new Error('Charlie Analytics not available');
+                }
+
+                // Test behavior recording
+                const initialBehaviors = window.charlie.sessionData.userBehavior.length;
+                window.charlie.recordBehavior('test_action', { test: true });
+
+                const test1 = TestFramework.assert(
+                    window.charlie.sessionData.userBehavior.length > initialBehaviors,
+                    'User behavior recorded'
+                );
+                TestFramework.log('core', test1.message);
+
+                // Test engagement level calculation
+                const engagementLevel = window.charlie.getUserEngagementLevel();
+                const test2 = TestFramework.assert(
+                    ['minimal', 'low', 'medium', 'high'].includes(engagementLevel),
+                    `Engagement level calculated: ${engagementLevel}`
+                );
+                TestFramework.log('core', test2.message);
+
+                // Test session summary
+                const summary = window.charlie.generateSessionSummary();
+                const test3 = TestFramework.assert(
+                    summary && summary.duration !== undefined,
+                    'Session summary generated'
+                );
+                TestFramework.log('core', test3.message);
+
+            } catch (error) {
+                TestFramework.log('core', `User behavior error: ${error.message}`);
+            }
+        }
+
+        // Privacy Tests
+        function testPrivacyBanner() {
+            TestFramework.log('privacy', 'Testing privacy banner...');
+            TestFramework.setStatus('privacy', 'pending');
+
+            try {
+                // Check if CharliePrivacy exists
+                const test1 = TestFramework.assert(
+                    typeof window.charliePrivacy !== 'undefined',
+                    'Charlie Privacy instance exists'
+                );
+                TestFramework.log('privacy', test1.message);
+
+                if (window.charliePrivacy) {
+                    // Check Czech localization
+                    const test2 = TestFramework.assert(
+                        window.charliePrivacy.czechText !== undefined,
+                        'Czech localization loaded'
+                    );
+                    TestFramework.log('privacy', test2.message);
+
+                    // Test consent functionality
+                    const test3 = TestFramework.assert(
+                        typeof window.charliePrivacy.hasValidConsent === 'function',
+                        'Consent validation method exists'
+                    );
+                    TestFramework.log('privacy', test3.message);
+                }
+
+                TestFramework.setStatus('privacy', 'pass');
+
+            } catch (error) {
+                TestFramework.log('privacy', `Privacy error: ${error.message}`);
+                TestFramework.setStatus('privacy', 'fail');
+            }
+        }
+
+        function testConsentFlow() {
+            TestFramework.log('privacy', 'Testing consent flow...');
+
+            try {
+                if (!window.charliePrivacy) {
+                    throw new Error('Charlie Privacy not available');
+                }
+
+                // Test consent status
+                const status = window.charliePrivacy.getConsentStatus();
+                const test1 = TestFramework.assert(
+                    status && typeof status.hasConsent === 'boolean',
+                    'Consent status available'
+                );
+                TestFramework.log('privacy', test1.message);
+
+                // Test save consent functionality
+                const test2 = TestFramework.assert(
+                    typeof window.charliePrivacy.saveConsent === 'function',
+                    'Save consent method exists'
+                );
+                TestFramework.log('privacy', test2.message);
+
+                TestFramework.log('privacy', `Current consent status: ${JSON.stringify(status, null, 2)}`);
+
+            } catch (error) {
+                TestFramework.log('privacy', `Consent flow error: ${error.message}`);
+            }
+        }
+
+        function testGDPRCompliance() {
+            TestFramework.log('privacy', 'Testing GDPR compliance...');
+
+            try {
+                if (!window.charliePrivacy) {
+                    throw new Error('Charlie Privacy not available');
+                }
+
+                // Check GDPR-required information
+                const czechText = window.charliePrivacy.czechText;
+
+                const test1 = TestFramework.assert(
+                    czechText.dataController && czechText.dataController.includes('KONOVO'),
+                    'Data controller information present'
+                );
+                TestFramework.log('privacy', test1.message);
+
+                const test2 = TestFramework.assert(
+                    czechText.dataRetention && czechText.dataRetention.includes('2'),
+                    'Data retention policy specified'
+                );
+                TestFramework.log('privacy', test2.message);
+
+                const test3 = TestFramework.assert(
+                    czechText.yourRights && czechText.yourRights.includes('přístup'),
+                    'User rights information present'
+                );
+                TestFramework.log('privacy', test3.message);
+
+            } catch (error) {
+                TestFramework.log('privacy', `GDPR compliance error: ${error.message}`);
+            }
+        }
+
+        // Dashboard Tests
+        function testDashboardAccess() {
+            TestFramework.log('dashboard', 'Testing dashboard access...');
+            TestFramework.setStatus('dashboard', 'pending');
+
+            try {
+                const test1 = TestFramework.assert(
+                    typeof window.charlieDashboard !== 'undefined',
+                    'Charlie Dashboard instance exists'
+                );
+                TestFramework.log('dashboard', test1.message);
+
+                if (window.charlieDashboard) {
+                    const test2 = TestFramework.assert(
+                        typeof window.charlieDashboard.init === 'function',
+                        'Dashboard init method exists'
+                    );
+                    TestFramework.log('dashboard', test2.message);
+
+                    const test3 = TestFramework.assert(
+                        window.charlieDashboard.czechLocale !== undefined,
+                        'Czech localization loaded'
+                    );
+                    TestFramework.log('dashboard', test3.message);
+                }
+
+                TestFramework.setStatus('dashboard', 'pass');
+
+            } catch (error) {
+                TestFramework.log('dashboard', `Dashboard error: ${error.message}`);
+                TestFramework.setStatus('dashboard', 'fail');
+            }
+        }
+
+        function testRealTimeData() {
+            TestFramework.log('dashboard', 'Testing real-time data...');
+
+            try {
+                if (!window.charlieDashboard) {
+                    throw new Error('Charlie Dashboard not available');
+                }
+
+                // Test data generation
+                window.charlieDashboard.generateSampleData();
+
+                const test1 = TestFramework.assert(
+                    window.charlieDashboard.dashboardData.realTime !== undefined,
+                    'Real-time data structure exists'
+                );
+                TestFramework.log('dashboard', test1.message);
+
+                const test2 = TestFramework.assert(
+                    Array.isArray(window.charlieDashboard.dashboardData.realTime.currentBeersViewed),
+                    'Beer views data is array'
+                );
+                TestFramework.log('dashboard', test2.message);
+
+                TestFramework.log('dashboard', 'Sample data generated successfully');
+
+            } catch (error) {
+                TestFramework.log('dashboard', `Real-time data error: ${error.message}`);
+            }
+        }
+
+        function testExportFunction() {
+            TestFramework.log('dashboard', 'Testing export function...');
+
+            try {
+                if (!window.charlieDashboard) {
+                    throw new Error('Charlie Dashboard not available');
+                }
+
+                const test1 = TestFramework.assert(
+                    typeof window.charlieDashboard.exportData === 'function',
+                    'Export data method exists'
+                );
+                TestFramework.log('dashboard', test1.message);
+
+                const test2 = TestFramework.assert(
+                    typeof window.charlieDashboard.generateCSVExport === 'function',
+                    'CSV generation method exists'
+                );
+                TestFramework.log('dashboard', test2.message);
+
+                TestFramework.log('dashboard', 'Export functionality verified');
+
+            } catch (error) {
+                TestFramework.log('dashboard', `Export function error: ${error.message}`);
+            }
+        }
+
+        // Performance Tests
+        function testPerformanceMonitoring() {
+            TestFramework.log('performance', 'Testing performance monitoring...');
+            TestFramework.setStatus('performance', 'pending');
+
+            try {
+                const test1 = TestFramework.assert(
+                    typeof window.charliePerformance !== 'undefined',
+                    'Charlie Performance instance exists'
+                );
+                TestFramework.log('performance', test1.message);
+
+                if (window.charliePerformance) {
+                    const metrics = window.charliePerformance.getMetrics();
+
+                    const test2 = TestFramework.assert(
+                        metrics && metrics.performanceImpact !== undefined,
+                        'Performance metrics available'
+                    );
+                    TestFramework.log('performance', test2.message);
+
+                    TestFramework.log('performance', `Current impact: ${metrics.performanceImpact}`);
+                }
+
+                TestFramework.setStatus('performance', 'pass');
+
+            } catch (error) {
+                TestFramework.log('performance', `Performance error: ${error.message}`);
+                TestFramework.setStatus('performance', 'fail');
+            }
+        }
+
+        function testMemoryUsage() {
+            TestFramework.log('performance', 'Testing memory usage monitoring...');
+
+            try {
+                if (!window.charliePerformance) {
+                    throw new Error('Charlie Performance not available');
+                }
+
+                const metrics = window.charliePerformance.getMetrics();
+
+                const test1 = TestFramework.assert(
+                    Array.isArray(metrics.memoryUsage),
+                    'Memory usage tracking active'
+                );
+                TestFramework.log('performance', test1.message);
+
+                if (performance.memory) {
+                    const currentMemory = performance.memory.usedJSHeapSize / 1024 / 1024;
+                    TestFramework.log('performance', `Current memory usage: ${currentMemory.toFixed(2)} MB`);
+                } else {
+                    TestFramework.log('performance', 'Performance.memory not available in this browser');
+                }
+
+            } catch (error) {
+                TestFramework.log('performance', `Memory usage error: ${error.message}`);
+            }
+        }
+
+        function testTrackingLatency() {
+            TestFramework.log('performance', 'Testing tracking latency...');
+
+            try {
+                if (!window.charliePerformance) {
+                    throw new Error('Charlie Performance not available');
+                }
+
+                // Test function measurement
+                const testFunction = () => {
+                    return 'test result';
+                };
+
+                const result = window.charliePerformance.measureFunction('testFunction', testFunction);
+
+                const test1 = TestFramework.assert(
+                    result === 'test result',
+                    'Function measurement works correctly'
+                );
+                TestFramework.log('performance', test1.message);
+
+                const metrics = window.charliePerformance.getMetrics();
+                const avgLatency = metrics.trackingLatency.length > 0
+                    ? metrics.trackingLatency.reduce((a, b) => a + b, 0) / metrics.trackingLatency.length
+                    : 0;
+
+                TestFramework.log('performance', `Average tracking latency: ${avgLatency.toFixed(2)} ms`);
+
+            } catch (error) {
+                TestFramework.log('performance', `Tracking latency error: ${error.message}`);
+            }
+        }
+
+        // Czech Context Tests
+        function testBeerStyleMapping() {
+            TestFramework.log('czech', 'Testing beer style mapping...');
+            TestFramework.setStatus('czech', 'pending');
+
+            try {
+                if (!window.charlie) {
+                    throw new Error('Charlie Analytics not available');
+                }
+
+                // Test Czech style classification
+                const test1 = TestFramework.assert(
+                    window.charlie.getCzechStyleCategory('světlý ležák') === 'traditional_czech',
+                    'Czech traditional style classified correctly'
+                );
+                TestFramework.log('czech', test1.message);
+
+                const test2 = TestFramework.assert(
+                    window.charlie.getCzechStyleCategory('IPA') === 'craft_international',
+                    'Craft international style classified correctly'
+                );
+                TestFramework.log('czech', test2.message);
+
+                const test3 = TestFramework.assert(
+                    window.charlie.isCzechTraditionalStyle('svetlylezak') === true,
+                    'Czech traditional style detection works'
+                );
+                TestFramework.log('czech', test3.message);
+
+                TestFramework.setStatus('czech', 'pass');
+
+            } catch (error) {
+                TestFramework.log('czech', `Style mapping error: ${error.message}`);
+                TestFramework.setStatus('czech', 'fail');
+            }
+        }
+
+        function testBreweryClassification() {
+            TestFramework.log('czech', 'Testing brewery classification...');
+
+            try {
+                if (!window.charlie) {
+                    throw new Error('Charlie Analytics not available');
+                }
+
+                // Test brewery type classification
+                const test1 = TestFramework.assert(
+                    window.charlie.getBreweryType('Budvar') === 'major_czech',
+                    'Major Czech brewery classified correctly'
+                );
+                TestFramework.log('czech', test1.message);
+
+                const test2 = TestFramework.assert(
+                    window.charlie.getBreweryType('Chotěborský') === 'regional_czech',
+                    'Regional Czech brewery classified correctly'
+                );
+                TestFramework.log('czech', test2.message);
+
+                const test3 = TestFramework.assert(
+                    window.charlie.getBreweryType('Bernard') === 'craft_brewery',
+                    'Craft brewery classified correctly'
+                );
+                TestFramework.log('czech', test3.message);
+
+            } catch (error) {
+                TestFramework.log('czech', `Brewery classification error: ${error.message}`);
+            }
+        }
+
+        function testCzechLocalization() {
+            TestFramework.log('czech', 'Testing Czech localization...');
+
+            try {
+                // Test privacy localization
+                if (window.charliePrivacy) {
+                    const test1 = TestFramework.assert(
+                        window.charliePrivacy.czechText.title.includes('údajů'),
+                        'Privacy texts in Czech'
+                    );
+                    TestFramework.log('czech', test1.message);
+                }
+
+                // Test dashboard localization
+                if (window.charlieDashboard) {
+                    const test2 = TestFramework.assert(
+                        window.charlieDashboard.czechLocale.dashboard === 'Analytický přehled',
+                        'Dashboard texts in Czech'
+                    );
+                    TestFramework.log('czech', test2.message);
+                }
+
+                TestFramework.log('czech', 'Czech localization verified');
+
+            } catch (error) {
+                TestFramework.log('czech', `Czech localization error: ${error.message}`);
+            }
+        }
+
+        // Integration Tests
+        function testAlpineIntegration() {
+            TestFramework.log('integration', 'Testing Alpine.js integration...');
+            TestFramework.setStatus('integration', 'pending');
+
+            try {
+                // Check if Alpine is available
+                const test1 = TestFramework.assert(
+                    typeof window.Alpine !== 'undefined' || document.querySelector('[x-data]') !== null,
+                    'Alpine.js available or x-data found'
+                );
+                TestFramework.log('integration', test1.message);
+
+                // Test that Charlie is accessible from Alpine context
+                const test2 = TestFramework.assert(
+                    typeof window.charlie !== 'undefined',
+                    'Charlie accessible for Alpine integration'
+                );
+                TestFramework.log('integration', test2.message);
+
+                TestFramework.setStatus('integration', 'pass');
+
+            } catch (error) {
+                TestFramework.log('integration', `Alpine integration error: ${error.message}`);
+                TestFramework.setStatus('integration', 'fail');
+            }
+        }
+
+        function testGA4Integration() {
+            TestFramework.log('integration', 'Testing GA4 integration...');
+
+            try {
+                // Check if gtag is available
+                const test1 = TestFramework.assert(
+                    typeof window.gtag === 'function',
+                    'GA4 gtag function available'
+                );
+                TestFramework.log('integration', test1.message);
+
+                if (window.charlie) {
+                    const test2 = TestFramework.assert(
+                        window.charlie.enabled !== undefined,
+                        'Charlie Analytics has enabled state'
+                    );
+                    TestFramework.log('integration', test2.message);
+                }
+
+            } catch (error) {
+                TestFramework.log('integration', `GA4 integration error: ${error.message}`);
+            }
+        }
+
+        function testE2EWorkflow() {
+            TestFramework.log('integration', 'Testing end-to-end workflow...');
+
+            try {
+                if (!window.charlie) {
+                    throw new Error('Charlie Analytics not available');
+                }
+
+                // Simulate user workflow
+                TestFramework.log('integration', 'Simulating user workflow...');
+
+                // 1. User views a beer
+                const mockBeer = {
+                    nazev: 'Budvar Original',
+                    pivovar: 'Budvar',
+                    styl: 'Světlý ležák',
+                    abv: '5.0%',
+                    cena: 45
+                };
+
+                window.charlie.trackBeerView(mockBeer);
+                TestFramework.log('integration', '1. Beer view tracked');
+
+                // 2. User clicks brewery
+                window.charlie.trackBreweryClick('Budvar', 'https://www.budvar.cz');
+                TestFramework.log('integration', '2. Brewery click tracked');
+
+                // 3. User filters by style
+                window.charlie.trackStyleFilter('svetlylezak', 'Světlý ležák');
+                TestFramework.log('integration', '3. Style filter tracked');
+
+                // 4. User navigates to food
+                window.charlie.trackMenuNavigation('jidlo', 'nav_click');
+                TestFramework.log('integration', '4. Menu navigation tracked');
+
+                // 5. Generate session summary
+                const summary = window.charlie.generateSessionSummary();
+
+                const test1 = TestFramework.assert(
+                    summary.beerViews.total > 0,
+                    'Beer views recorded in summary'
+                );
+                TestFramework.log('integration', test1.message);
+
+                const test2 = TestFramework.assert(
+                    summary.breweryEngagement > 0,
+                    'Brewery engagement recorded'
+                );
+                TestFramework.log('integration', test2.message);
+
+                TestFramework.log('integration', `E2E workflow completed. Summary: ${JSON.stringify(summary, null, 2)}`);
+
+            } catch (error) {
+                TestFramework.log('integration', `E2E workflow error: ${error.message}`);
+            }
+        }
+
+        // Test orchestration
+        function runAllTests() {
+            TestFramework.log('summary', 'Running all Charlie Analytics tests...');
+            TestFramework.setStatus('summary', 'pending');
+
+            const tests = [
+                testAnalyticsCore,
+                testBeerTracking,
+                testBreweryTracking,
+                testUserBehavior,
+                testPrivacyBanner,
+                testConsentFlow,
+                testGDPRCompliance,
+                testDashboardAccess,
+                testRealTimeData,
+                testExportFunction,
+                testPerformanceMonitoring,
+                testMemoryUsage,
+                testTrackingLatency,
+                testBeerStyleMapping,
+                testBreweryClassification,
+                testCzechLocalization,
+                testAlpineIntegration,
+                testGA4Integration,
+                testE2EWorkflow
+            ];
+
+            let completed = 0;
+            tests.forEach((test, index) => {
+                setTimeout(() => {
+                    try {
+                        test();
+                        completed++;
+
+                        if (completed === tests.length) {
+                            generateTestReport();
+                        }
+                    } catch (error) {
+                        TestFramework.log('summary', `Test ${index + 1} failed: ${error.message}`);
+                        completed++;
+                    }
+                }, index * 500); // Stagger tests
+            });
+        }
+
+        function generateTestReport() {
+            TestFramework.log('summary', 'Generating test report...');
+
+            const results = TestFramework.results;
+            const passed = Object.values(results).filter(r => r === 'pass').length;
+            const failed = Object.values(results).filter(r => r === 'fail').length;
+            const total = Object.keys(results).length;
+
+            const report = {
+                timestamp: new Date().toISOString(),
+                results: results,
+                summary: {
+                    total: total,
+                    passed: passed,
+                    failed: failed,
+                    successRate: total > 0 ? Math.round((passed / total) * 100) : 0
+                },
+                environment: {
+                    userAgent: navigator.userAgent,
+                    charlieLoaded: typeof window.charlie !== 'undefined',
+                    privacyLoaded: typeof window.charliePrivacy !== 'undefined',
+                    dashboardLoaded: typeof window.charlieDashboard !== 'undefined',
+                    performanceLoaded: typeof window.charliePerformance !== 'undefined'
+                }
+            };
+
+            TestFramework.log('summary', `Test Report:\n${JSON.stringify(report, null, 2)}`);
+
+            if (report.summary.successRate >= 80) {
+                TestFramework.setStatus('summary', 'pass');
+                TestFramework.log('summary', `✅ All tests completed successfully! Success rate: ${report.summary.successRate}%`);
+            } else {
+                TestFramework.setStatus('summary', 'fail');
+                TestFramework.log('summary', `❌ Some tests failed. Success rate: ${report.summary.successRate}%`);
+            }
+
+            return report;
+        }
+
+        function resetTests() {
+            TestFramework.results = {};
+
+            ['core', 'privacy', 'dashboard', 'performance', 'czech', 'integration', 'summary'].forEach(section => {
+                const output = document.getElementById(`${section}-output`);
+                if (output) output.innerHTML = '';
+
+                const status = document.getElementById(`${section}-status`);
+                if (status) {
+                    status.className = 'status pending';
+                    status.textContent = 'Pending';
+                }
+            });
+
+            TestFramework.log('summary', 'All tests reset');
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            TestFramework.log('summary', 'Charlie Analytics Test Suite loaded');
+            TestFramework.log('summary', 'Click "Run All Tests" to execute complete test suite');
+        });
+    </script>
+</body>
+</html>

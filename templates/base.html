@@ -226,47 +226,108 @@
   <meta name="msapplication-config" content="{{ get_url(path='browserconfig.xml') }}">
   <meta name="msapplication-TileImage" content="{{ get_url(path='img/mstile-150x150.png') }}">
 
-  <!-- Preconnect for performance -->
+  <!-- Resource hints for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://docs.google.com">
   <link rel="preconnect" href="https://cdn.tailwindcss.com">
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
-  <!-- Tailwind CSS via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Critical resource preloads for Core Web Vitals optimization -->
+  <link rel="preload" as="image" href="{{ get_url(path='img/hero-bg.jpg') }}" fetchpriority="high">
+  <link rel="preload" as="image" href="{{ get_url(path='img/logo.svg') }}" fetchpriority="high">
+  <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js">
+  <link rel="preload" as="script" href="{{ get_url(path='js/app.js') }}">
+  <link rel="preload" as="script" href="{{ get_url(path='js/csv-worker.js') }}">
+
+  <!-- Prefetch likely user interactions -->
+  <link rel="prefetch" href="{{ get_url(path='img/gallery/interior-main.jpg') }}">
+  <link rel="prefetch" href="{{ get_url(path='img/gallery/beer-taps.jpg') }}">
+
+  <!-- Critical CSS - Inlined for instant render -->
+  <style>
+    /* Critical path styles for above-the-fold content */
+    [x-cloak] { display: none !important; }
+    html { scroll-behavior: smooth; scrollbar-gutter: stable; }
+    body { background-color: #2b2219; color: #e8e5d8; font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+
+    /* Hero critical styles */
+    .hero-bg { background: linear-gradient(135deg, #0a0705 0%, #1a0f06 25%, #211408 50%, #1a0f06 75%, #0a0705 100%); position: relative; overflow: hidden; }
+    .hero-bg::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(ellipse at 20% 50%, rgba(240, 140, 15, 0.06) 0%, transparent 50%), radial-gradient(ellipse at 80% 20%, rgba(187, 85, 9, 0.04) 0%, transparent 40%); pointer-events: none; }
+    .hero-bg::after { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle at 25px 25px, rgba(255,255,255,0.015) 1px, transparent 0); background-size: 48px 48px; pointer-events: none; }
+    .text-shadow { text-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), 0 1px 4px rgba(0, 0, 0, 0.3); }
+    .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(16px) saturate(1.1); -webkit-backdrop-filter: blur(16px) saturate(1.1); border: 1px solid rgba(255, 255, 255, 0.06); }
+    .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 8px rgba(34, 197, 94, 0.4); animation: live-pulse 2s ease-in-out infinite; }
+    @keyframes live-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.15); } }
+
+    /* Navigation critical styles */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; transition: all 0.3s; }
+
+    /* Color system - Critical colors only */
+    .text-tiger-400 { color: #f3a533; }
+    .text-tiger-300 { color: #f7c46d; }
+    .text-tiger-500 { color: #f08c0f; }
+    .bg-tiger-500 { background-color: #f08c0f; }
+    .hover\:bg-tiger-600:hover { background-color: #e17209; }
+    .text-white { color: #ffffff; }
+    .text-brew-100 { color: #e8e5d8; }
+    .text-brew-300 { color: #b9af89; }
+    .text-brew-400 { color: #a49766; }
+    .text-brew-500 { color: #958757; }
+    .bg-brew-950 { background-color: #2b2219; }
+    .bg-brew-950\/80 { background-color: rgba(43, 34, 25, 0.8); }
+    .bg-brew-950\/95 { background-color: rgba(43, 34, 25, 0.95); }
+  </style>
+
+  <!-- Google Fonts - Inter with optimized loading -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&subset=latin,latin-ext&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&subset=latin,latin-ext&display=swap" rel="stylesheet"></noscript>
+
+  <!-- Tailwind CSS via CDN - Deferred -->
   <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            tiger: {
-              50: '#fef9ee', 100: '#fdf0d3', 200: '#fadda5', 300: '#f7c46d',
-              400: '#f3a533', 500: '#f08c0f', 600: '#e17209', 700: '#bb5509',
-              800: '#95430e', 900: '#79380f', 950: '#411b05',
-            },
-            brew: {
-              50: '#f6f5f0', 100: '#e8e5d8', 200: '#d3cdb4', 300: '#b9af89',
-              400: '#a49766', 500: '#958757', 600: '#806e4a', 700: '#68573d',
-              800: '#584936', 900: '#4d4031', 950: '#2b2219',
+    // Defer Tailwind loading after critical render
+    document.addEventListener('DOMContentLoaded', function() {
+      const script = document.createElement('script');
+      script.src = 'https://cdn.tailwindcss.com';
+      script.onload = function() {
+        tailwind.config = {
+          darkMode: 'class',
+          theme: {
+            extend: {
+              colors: {
+                tiger: {
+                  50: '#fef9ee', 100: '#fdf0d3', 200: '#fadda5', 300: '#f7c46d',
+                  400: '#f3a533', 500: '#f08c0f', 600: '#e17209', 700: '#bb5509',
+                  800: '#95430e', 900: '#79380f', 950: '#411b05',
+                },
+                brew: {
+                  50: '#f6f5f0', 100: '#e8e5d8', 200: '#d3cdb4', 300: '#b9af89',
+                  400: '#a49766', 500: '#958757', 600: '#806e4a', 700: '#68573d',
+                  800: '#584936', 900: '#4d4031', 950: '#2b2219',
+                },
+              },
+              fontFamily: {
+                display: ['Inter', 'system-ui', 'sans-serif'],
+                body: ['Inter', 'system-ui', 'sans-serif'],
+              },
             },
           },
-          fontFamily: {
-            display: ['Inter', 'system-ui', 'sans-serif'],
-            body: ['Inter', 'system-ui', 'sans-serif'],
-          },
-        },
-      },
-    };
+        };
+      };
+      document.head.appendChild(script);
+    });
   </script>
 
-  <!-- Google Fonts - Inter with Czech characters (latin-ext) -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&subset=latin,latin-ext&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&subset=latin,latin-ext&display=swap" rel="stylesheet"></noscript>
-
-  <!-- Flowbite CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet">
+  <!-- Flowbite CSS - Deferred -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css';
+      document.head.appendChild(link);
+    });
+  </script>
 
   <!-- Custom Styles -->
   <link rel="stylesheet" href="{{ get_url(path='css/style.css') }}">
@@ -289,15 +350,104 @@
 <body class="bg-brew-950 text-brew-100 font-body antialiased" x-data="app()" x-cloak>
   {% block body %}{% endblock %}
 
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/js/sw.js')
+          .then(registration => {
+            console.log('✅ Service Worker registered:', registration.scope);
+
+            // Check for updates
+            registration.addEventListener('updatefound', () => {
+              const newWorker = registration.installing;
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  console.log('🔄 New version available');
+                  // Show update notification
+                  if (window.showUpdateNotification) {
+                    window.showUpdateNotification();
+                  }
+                }
+              });
+            });
+          })
+          .catch(error => {
+            console.warn('❌ Service Worker registration failed:', error);
+          });
+      });
+    }
+
+    // PWA Install prompt handling
+    let deferredPrompt;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      console.log('💾 PWA install prompt available');
+      e.preventDefault();
+      deferredPrompt = e;
+
+      // Show custom install button after user interaction
+      setTimeout(() => {
+        if (window.showInstallPrompt) {
+          window.showInstallPrompt(deferredPrompt);
+        }
+      }, 10000); // Show after 10 seconds
+    });
+
+    window.addEventListener('appinstalled', () => {
+      console.log('🎉 PWA was installed');
+      deferredPrompt = null;
+      if (window.gtag) {
+        gtag('event', 'pwa_install', {
+          event_category: 'engagement',
+          event_label: 'PWA Installation Success'
+        });
+      }
+    });
+  </script>
+
   <!-- Performance monitoring (non-blocking) -->
   <script src="{{ get_url(path='js/performance.js') }}" async></script>
 
-  <!-- Alpine.js -->
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js"></script>
-  <!-- Flowbite JS -->
-  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
-  <!-- App -->
-  <script src="{{ get_url(path='js/app.js') }}"></script>
+  <!-- Performance testing (can be disabled by removing this script) -->
+  <script src="{{ get_url(path='js/performance-test.js') }}" async></script>
+
+  <!-- Charlie Squad Analytics Dashboard (load after main app) -->
+  <script src="{{ get_url(path='js/charlie-dashboard.js') }}" defer></script>
+
+  <!-- Charlie Squad Privacy & GDPR Compliance (load early for consent management) -->
+  <script src="{{ get_url(path='js/charlie-privacy.js') }}" defer></script>
+
+  <!-- Charlie Squad Performance Monitoring (load after analytics) -->
+  <script src="{{ get_url(path='js/charlie-performance.js') }}" defer></script>
+
+  <!-- JavaScript optimization with priority loading -->
+  <script>
+    // Critical: Load Alpine.js with high priority after DOM ready
+    document.addEventListener('DOMContentLoaded', function() {
+      // Load Alpine.js first (critical for app functionality)
+      const alpineScript = document.createElement('script');
+      alpineScript.src = 'https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js';
+      alpineScript.defer = true;
+      document.head.appendChild(alpineScript);
+
+      // Load app.js after Alpine is ready
+      alpineScript.onload = function() {
+        const appScript = document.createElement('script');
+        appScript.src = '{{ get_url(path='js/app.js') | safe }}';
+        appScript.async = true;
+        document.head.appendChild(appScript);
+      };
+
+      // Load Flowbite with lower priority
+      setTimeout(function() {
+        const flowbiteScript = document.createElement('script');
+        flowbiteScript.src = 'https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js';
+        flowbiteScript.async = true;
+        document.head.appendChild(flowbiteScript);
+      }, 100);
+    });
+  </script>
 
   {% block scripts %}{% endblock %}
 </body>

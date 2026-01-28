@@ -21,6 +21,7 @@
       <div class="hidden md:flex items-center gap-1">
         <template x-for="item in navItems" :key="item.href">
           <a :href="item.href"
+             @click="onNavClick(item.id)"
              class="relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:text-tiger-400"
              :class="activeSection === item.id ? 'text-tiger-400' : 'text-brew-300'">
             <span x-text="item.label"></span>
@@ -51,7 +52,8 @@
         <a :href="item.href"
            class="block px-5 py-3 rounded-lg text-base font-medium transition-all"
            :class="activeSection === item.id ? 'text-tiger-400 bg-tiger-500/10' : 'text-brew-300'"
-           x-text="item.label" @click="mobileMenu = false">
+           x-text="item.label"
+           @click="mobileMenu = false; onNavClick(item.id)">
         </a>
       </template>
     </div>
@@ -62,8 +64,17 @@
 <!-- Hero                                                   -->
 <!-- ═══════════════════════════════════════════════════════ -->
 <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden">
-  <!-- Background image -->
-  <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('{{ get_url(path='img/hero-bg.jpg') }}');"></div>
+  <!-- Background image with LCP optimization -->
+  <div class="absolute inset-0">
+    <img src="{{ get_url(path='img/hero-bg.jpg') }}"
+         alt=""
+         class="w-full h-full object-cover object-center"
+         width="1920"
+         height="1080"
+         fetchpriority="high"
+         decoding="async"
+         style="content-visibility: auto;">
+  </div>
   <div class="absolute inset-0 bg-brew-950/80"></div>
   <div class="absolute inset-0 hero-bg opacity-60"></div>
 
@@ -158,13 +169,13 @@
       </div>
       <!-- View toggle -->
       <div class="flex items-center gap-1 glass rounded-lg p-1">
-        <button @click="beerView = 'list'"
+        <button @click="onBeerViewToggle('list')"
                 class="p-2 rounded transition-all"
                 :class="beerView === 'list' ? 'bg-tiger-500/20 text-tiger-400' : 'text-brew-500 hover:text-brew-300'"
                 aria-label="Seznam" title="Radkovy seznam">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
-        <button @click="beerView = 'grid'"
+        <button @click="onBeerViewToggle('grid')"
                 class="p-2 rounded transition-all"
                 :class="beerView === 'grid' ? 'bg-tiger-500/20 text-tiger-400' : 'text-brew-500 hover:text-brew-300'"
                 aria-label="Dlazdice" title="Dlazdicovy seznam">
@@ -208,13 +219,15 @@
 
       <!-- Rows -->
       <template x-for="(beer, idx) in liveBeers" :key="'list-' + idx">
-        <div class="beer-card glass rounded-lg mb-1 px-4 py-3 sm:grid sm:grid-cols-12 sm:gap-2 sm:items-center">
+        <div class="beer-card glass rounded-lg mb-1 px-4 py-3 sm:grid sm:grid-cols-12 sm:gap-2 sm:items-center"
+             @click="onBeerCardClick(beer)">
           <div class="col-span-3 hidden sm:block">
             <span class="text-white font-semibold text-sm" x-text="beer['nazev'] || ''"></span>
           </div>
           <div class="col-span-3 hidden sm:block">
             <a x-show="breweryUrl(beer['pivovar'])"
                :href="breweryUrl(beer['pivovar'])" target="_blank" rel="noopener noreferrer"
+               @click.stop="onBreweryClick(beer['pivovar'])"
                class="text-tiger-400 hover:text-tiger-300 text-sm font-medium transition-colors inline-flex items-center gap-2">
               <svg class="w-4 h-4 opacity-70" :class="`text-${breweryIcon(beer['pivovar']) === 'czech-traditional' ? 'yellow' : breweryIcon(beer['pivovar']) === 'craft-brewery' ? 'orange' : breweryIcon(beer['pivovar']) === 'international' ? 'blue' : breweryIcon(beer['pivovar']) === 'moravian' ? 'purple' : 'green'}-400`">
                 <use :href="`${window.BASE_URL}/img/brewery-icons.svg#icon-${breweryIcon(beer['pivovar'])}`"></use>
@@ -231,6 +244,7 @@
           </div>
           <div class="col-span-2 hidden sm:block">
             <a x-show="beer['styl']" :href="'#styl-' + slugify(beer['styl'])"
+               @click.stop="onStyleFilterClick(slugify(beer['styl']))"
                class="inline-block px-2 py-0.5 rounded text-xs font-bold bg-tiger-500/10 text-tiger-300 hover:bg-tiger-500/20 transition-colors"
                x-text="beer['styl'] || ''"></a>
           </div>
@@ -280,7 +294,8 @@
          x-transition>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
         <template x-for="(beer, idx) in liveBeers" :key="'grid-' + idx">
-          <div class="beer-card glass rounded-xl p-5">
+          <div class="beer-card glass rounded-xl p-5"
+               @click="onBeerCardClick(beer)">
             <div class="flex items-start justify-between mb-2">
               <h3 class="text-base font-semibold text-white leading-tight flex-1 mr-2" x-text="beer['nazev'] || ''"></h3>
               <span x-show="beer['cena']" class="text-white font-bold text-sm shrink-0" x-text="beer['cena'] + ' Kc'"></span>
@@ -288,6 +303,7 @@
             <div class="mb-3">
               <a x-show="breweryUrl(beer['pivovar'])"
                  :href="breweryUrl(beer['pivovar'])" target="_blank" rel="noopener noreferrer"
+                 @click.stop="onBreweryClick(beer['pivovar'])"
                  class="text-tiger-400 hover:text-tiger-300 text-sm font-medium transition-colors inline-flex items-center gap-2">
                 <svg class="w-4 h-4 opacity-70" :class="`text-${breweryIcon(beer['pivovar']) === 'czech-traditional' ? 'yellow' : breweryIcon(beer['pivovar']) === 'craft-brewery' ? 'orange' : breweryIcon(beer['pivovar']) === 'international' ? 'blue' : breweryIcon(beer['pivovar']) === 'moravian' ? 'purple' : 'green'}-400`">
                   <use :href="`${window.BASE_URL}/img/brewery-icons.svg#icon-${breweryIcon(beer['pivovar'])}`"></use>
@@ -304,6 +320,7 @@
             </div>
             <div class="flex items-center flex-wrap gap-2 pt-2 border-t border-brew-700/30">
               <a x-show="beer['styl']" :href="'#styl-' + slugify(beer['styl'])"
+                 @click.stop="onStyleFilterClick(slugify(beer['styl']))"
                  class="px-2 py-0.5 rounded text-xs font-bold bg-tiger-500/10 text-tiger-300 hover:bg-tiger-500/20 transition-colors"
                  x-text="beer['styl'] || ''"></a>
               <a x-show="beer['abv']" href="#glosar-abv"
@@ -465,14 +482,14 @@
 
     <!-- Tabs -->
     <div class="mb-10 flex justify-center gap-2">
-      <button @click="activeFoodTab = 'cold'"
+      <button @click="onFoodTabSwitch('cold')"
               class="px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200"
               :class="activeFoodTab === 'cold'
                 ? 'bg-tiger-500 text-white shadow-lg shadow-tiger-500/20'
                 : 'text-brew-400 hover:text-white hover:bg-white/5'">
         Studene
       </button>
-      <button @click="activeFoodTab = 'warm'"
+      <button @click="onFoodTabSwitch('warm')"
               class="px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200"
               :class="activeFoodTab === 'warm'
                 ? 'bg-tiger-500 text-white shadow-lg shadow-tiger-500/20'
@@ -484,7 +501,8 @@
     <!-- Food grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-4xl mx-auto">
       <template x-for="item in filteredFood" :key="item.name">
-        <div class="glass rounded-xl p-5 flex items-center justify-between transition-all duration-200 hover:border-tiger-500/15 group">
+        <div class="glass rounded-xl p-5 flex items-center justify-between transition-all duration-200 hover:border-tiger-500/15 group"
+             @mouseenter="onFoodItemView(item)">
           <div class="flex-1 mr-4">
             <h3 class="text-base font-semibold text-white group-hover:text-tiger-400 transition-colors" x-text="item.name"></h3>
             <p class="text-brew-400 text-sm mt-0.5" x-text="item.desc"></p>
@@ -509,7 +527,7 @@
 <!-- ═══════════════════════════════════════════════════════ -->
 <section id="salonek" class="section-darker py-16 lg:py-24 foam-border">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-10">
+    <div class="text-center mb-10" @inview="onSalonekView()">
       <span class="text-tiger-500 text-xs font-bold tracking-[0.3em] uppercase">Salonek</span>
       <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mt-3 mb-4">Soukroma akce?</h2>
       <p class="text-brew-300 max-w-2xl mx-auto text-base lg:text-lg leading-relaxed">
@@ -675,11 +693,15 @@
 
         <!-- Phone -->
         <div class="grid grid-cols-2 gap-3">
-          <a href="tel:{{ config.extra.phone_bar }}" class="glass rounded-xl p-4 transition-all group block text-center hover:border-tiger-500/15">
+          <a href="tel:{{ config.extra.phone_bar }}"
+             @click="onPhoneClick('bar')"
+             class="glass rounded-xl p-4 transition-all group block text-center hover:border-tiger-500/15">
             <div class="text-brew-500 text-xs font-medium mb-1 uppercase tracking-wider">Bar</div>
             <div class="text-white font-bold text-lg group-hover:text-tiger-400 transition-colors">776 140 840</div>
           </a>
-          <a href="tel:{{ config.extra.phone_ops }}" class="glass rounded-xl p-4 transition-all group block text-center hover:border-tiger-500/15">
+          <a href="tel:{{ config.extra.phone_ops }}"
+             @click="onPhoneClick('operations')"
+             class="glass rounded-xl p-4 transition-all group block text-center hover:border-tiger-500/15">
             <div class="text-brew-500 text-xs font-medium mb-1 uppercase tracking-wider">Provoz</div>
             <div class="text-white font-bold text-lg group-hover:text-tiger-400 transition-colors">777 935 052</div>
           </a>

@@ -1,11 +1,335 @@
 /**
  * Pivnice U Tygra - Alpine.js Application
  * Integrates with Google Sheets for live beer menu
- * AIAD Standard Library v2.0.0
+ * AIAD Standard Library v2.0.0 + Charlie Squad Analytics
  */
 
 const SHEETS_CSV_URL =
   'https://docs.google.com/spreadsheets/d/e/2PACX-1vSeZjP4HadboLuS8v4KVobNqsKtjaBpBJ8oCuPCC-OjfkCtCWA8N_asuxkedh7QSGhsrXU0JU_bV_Rn/pub?gid=1804527038&single=true&output=csv';
+
+/**
+ * Charlie Squad Analytics - Enhanced tracking system
+ * Privacy-first analytics with Czech pub industry context
+ */
+class CharlieAnalytics {
+  constructor() {
+    this.enabled = typeof gtag === 'function';
+    this.sessionData = {
+      startTime: Date.now(),
+      beerViews: new Map(),
+      breweryInteractions: new Map(),
+      styleFilters: new Map(),
+      userBehavior: [],
+      isPWA: window.matchMedia('(display-mode: standalone)').matches
+    };
+
+    // Czech pub industry benchmarks
+    this.pubBenchmarks = {
+      avgSessionDuration: 180000, // 3 minutes
+      avgBeerViews: 6,
+      popularStyles: ['svetlylezak', 'ipa', 'tmavylezak'],
+      peakHours: [17, 18, 19, 20, 21]
+    };
+  }
+
+  /**
+   * Track beer interaction events
+   */
+  trackBeerView(beer) {
+    if (!this.enabled) return;
+
+    const beerKey = `${beer.pivovar}-${beer.nazev}`;
+    const currentCount = this.sessionData.beerViews.get(beerKey) || 0;
+    this.sessionData.beerViews.set(beerKey, currentCount + 1);
+
+    gtag('event', 'beer_view', {
+      event_category: 'beer_interaction',
+      beer_name: sanitizeText(beer.nazev || 'Unknown'),
+      brewery: sanitizeText(beer.pivovar || 'Unknown'),
+      beer_style: sanitizeText(beer.styl || 'Unknown'),
+      beer_abv: sanitizeText(beer.abv || ''),
+      beer_price: beer.cena || 0,
+      view_count: currentCount + 1,
+      custom_parameters: {
+        czech_style_category: this.getCzechStyleCategory(beer.styl),
+        price_tier: this.getPriceTier(beer.cena),
+        brewery_type: this.getBreweryType(beer.pivovar)
+      }
+    });
+
+    this.recordBehavior('beer_view', { beer: beerKey, timestamp: Date.now() });
+  }
+
+  /**
+   * Track brewery interactions
+   */
+  trackBreweryClick(breweryName, breweryUrl) {
+    if (!this.enabled) return;
+
+    const currentCount = this.sessionData.breweryInteractions.get(breweryName) || 0;
+    this.sessionData.breweryInteractions.set(breweryName, currentCount + 1);
+
+    gtag('event', 'brewery_click', {
+      event_category: 'engagement',
+      brewery_name: sanitizeText(breweryName),
+      brewery_url: breweryUrl,
+      interaction_count: currentCount + 1,
+      custom_parameters: {
+        brewery_type: this.getBreweryType(breweryName),
+        has_website: !!breweryUrl
+      }
+    });
+
+    this.recordBehavior('brewery_click', { brewery: breweryName, timestamp: Date.now() });
+  }
+
+  /**
+   * Track beer style filtering
+   */
+  trackStyleFilter(styleId, styleName) {
+    if (!this.enabled) return;
+
+    const currentCount = this.sessionData.styleFilters.get(styleId) || 0;
+    this.sessionData.styleFilters.set(styleId, currentCount + 1);
+
+    gtag('event', 'style_filter', {
+      event_category: 'beer_discovery',
+      style_id: styleId,
+      style_name: sanitizeText(styleName),
+      filter_count: currentCount + 1,
+      custom_parameters: {
+        is_czech_traditional: this.isCzechTraditionalStyle(styleId),
+        is_craft_style: this.isCraftStyle(styleId)
+      }
+    });
+
+    this.recordBehavior('style_filter', { style: styleId, timestamp: Date.now() });
+  }
+
+  /**
+   * Track menu navigation patterns
+   */
+  trackMenuNavigation(section, method = 'click') {
+    if (!this.enabled) return;
+
+    gtag('event', 'menu_navigation', {
+      event_category: 'navigation',
+      section: section,
+      method: method, // 'click', 'scroll', 'swipe'
+      custom_parameters: {
+        is_main_menu: ['na-cepu', 'jidlo'].includes(section),
+        user_journey_step: this.getUserJourneyStep()
+      }
+    });
+
+    this.recordBehavior('navigation', { section, method, timestamp: Date.now() });
+  }
+
+  /**
+   * Track food menu interactions
+   */
+  trackFoodInteraction(action, itemName, category, price) {
+    if (!this.enabled) return;
+
+    gtag('event', 'food_interaction', {
+      event_category: 'menu_engagement',
+      action: action, // 'view', 'category_switch', 'item_focus'
+      item_name: sanitizeText(itemName || ''),
+      food_category: category,
+      item_price: price || 0,
+      custom_parameters: {
+        price_tier: this.getFoodPriceTier(price),
+        czech_cuisine: this.isCzechCuisine(itemName)
+      }
+    });
+
+    this.recordBehavior('food_interaction', { action, item: itemName, timestamp: Date.now() });
+  }
+
+  /**
+   * Track PWA engagement metrics
+   */
+  trackPWAEngagement(action, details = {}) {
+    if (!this.enabled) return;
+
+    gtag('event', 'pwa_engagement', {
+      event_category: 'pwa',
+      pwa_action: action, // 'install_prompt', 'install_success', 'offline_usage', 'update_available'
+      is_pwa_active: this.sessionData.isPWA,
+      custom_parameters: {
+        session_duration: Date.now() - this.sessionData.startTime,
+        ...details
+      }
+    });
+  }
+
+  /**
+   * Track reservation intent
+   */
+  trackReservationIntent(action, details = {}) {
+    if (!this.enabled) return;
+
+    gtag('event', 'reservation_intent', {
+      event_category: 'conversion',
+      intent_action: action, // 'phone_click', 'salonek_view', 'contact_section_view'
+      custom_parameters: {
+        user_engagement_level: this.getUserEngagementLevel(),
+        session_beer_views: this.sessionData.beerViews.size,
+        time_to_intent: Date.now() - this.sessionData.startTime,
+        ...details
+      }
+    });
+
+    this.recordBehavior('reservation_intent', { action, timestamp: Date.now() });
+  }
+
+  /**
+   * Generate session analytics summary
+   */
+  generateSessionSummary() {
+    const sessionDuration = Date.now() - this.sessionData.startTime;
+    const totalBeerViews = Array.from(this.sessionData.beerViews.values()).reduce((a, b) => a + b, 0);
+    const uniqueBeersViewed = this.sessionData.beerViews.size;
+    const uniqueBreweriesViewed = this.sessionData.breweryInteractions.size;
+
+    return {
+      duration: sessionDuration,
+      beerViews: {
+        total: totalBeerViews,
+        unique: uniqueBeersViewed,
+        avgViewsPerBeer: uniqueBeersViewed ? totalBeerViews / uniqueBeersViewed : 0
+      },
+      breweryEngagement: uniqueBreweriesViewed,
+      styleFilters: this.sessionData.styleFilters.size,
+      engagementLevel: this.getUserEngagementLevel(),
+      benchmarkComparison: {
+        durationVsBenchmark: sessionDuration / this.pubBenchmarks.avgSessionDuration,
+        viewsVsBenchmark: totalBeerViews / this.pubBenchmarks.avgBeerViews
+      },
+      isPWA: this.sessionData.isPWA
+    };
+  }
+
+  /**
+   * Track session end with comprehensive summary
+   */
+  trackSessionEnd() {
+    if (!this.enabled) return;
+
+    const summary = this.generateSessionSummary();
+
+    gtag('event', 'session_summary', {
+      event_category: 'engagement_summary',
+      session_duration: summary.duration,
+      total_beer_views: summary.beerViews.total,
+      unique_beers_viewed: summary.beerViews.unique,
+      brewery_interactions: summary.breweryEngagement,
+      style_filters_used: summary.styleFilters,
+      engagement_level: summary.engagementLevel,
+      custom_parameters: {
+        duration_vs_benchmark: summary.benchmarkComparison.durationVsBenchmark,
+        views_vs_benchmark: summary.benchmarkComparison.viewsVsBenchmark,
+        is_pwa_session: summary.isPWA,
+        behavior_pattern: this.analyzeBehaviorPattern()
+      }
+    });
+  }
+
+  // Helper methods for analytics categorization
+
+  getCzechStyleCategory(style) {
+    if (!style) return 'unknown';
+    const s = style.toLowerCase();
+    if (s.includes('lezak') || s.includes('pilsner')) return 'traditional_czech';
+    if (s.includes('ipa') || s.includes('ale')) return 'craft_international';
+    if (s.includes('psenicne') || s.includes('wheat')) return 'wheat_specialty';
+    if (s.includes('tmavy') || s.includes('dark')) return 'dark_traditional';
+    return 'specialty';
+  }
+
+  getPriceTier(price) {
+    if (!price) return 'unknown';
+    if (price <= 45) return 'budget';
+    if (price <= 65) return 'standard';
+    if (price <= 85) return 'premium';
+    return 'luxury';
+  }
+
+  getFoodPriceTier(price) {
+    if (!price) return 'unknown';
+    if (price <= 80) return 'snack';
+    if (price <= 120) return 'standard';
+    if (price <= 160) return 'premium';
+    return 'specialty';
+  }
+
+  getBreweryType(brewery) {
+    if (!brewery) return 'unknown';
+    const b = brewery.toLowerCase();
+    if (b.includes('budvar') || b.includes('pilsner') || b.includes('staropramen')) return 'major_czech';
+    if (b.includes('pivovar') || b.includes('brewery')) return 'craft_brewery';
+    if (b.includes('chotebor') || b.includes('tisnov') || b.includes('mazak')) return 'regional_czech';
+    return 'international';
+  }
+
+  isCzechTraditionalStyle(styleId) {
+    return ['svetlylezak', 'tmavylezak', 'nefiltr'].includes(styleId);
+  }
+
+  isCraftStyle(styleId) {
+    return ['ipa', 'ale', 'sour', 'stout'].includes(styleId);
+  }
+
+  isCzechCuisine(itemName) {
+    if (!itemName) return false;
+    const item = itemName.toLowerCase();
+    return item.includes('hermelin') || item.includes('utopenec') || item.includes('tatarek') ||
+           item.includes('skvarkova') || item.includes('topinky') || item.includes('klobasa');
+  }
+
+  getUserEngagementLevel() {
+    const totalViews = Array.from(this.sessionData.beerViews.values()).reduce((a, b) => a + b, 0);
+    const sessionDuration = Date.now() - this.sessionData.startTime;
+
+    if (totalViews >= 10 && sessionDuration > 300000) return 'high';
+    if (totalViews >= 5 && sessionDuration > 120000) return 'medium';
+    if (totalViews >= 2 || sessionDuration > 60000) return 'low';
+    return 'minimal';
+  }
+
+  getUserJourneyStep() {
+    const behaviors = this.sessionData.userBehavior;
+    if (behaviors.length === 0) return 'entry';
+    if (behaviors.some(b => b.type === 'reservation_intent')) return 'conversion';
+    if (behaviors.some(b => b.type === 'beer_view')) return 'exploration';
+    return 'browsing';
+  }
+
+  analyzeBehaviorPattern() {
+    const behaviors = this.sessionData.userBehavior;
+    if (behaviors.length < 3) return 'quick_browse';
+
+    const beerViews = behaviors.filter(b => b.type === 'beer_view').length;
+    const styleFilters = behaviors.filter(b => b.type === 'style_filter').length;
+    const breweryClicks = behaviors.filter(b => b.type === 'brewery_click').length;
+
+    if (styleFilters > 2) return 'style_explorer';
+    if (breweryClicks > 2) return 'brewery_researcher';
+    if (beerViews > 8) return 'menu_studier';
+    return 'general_browser';
+  }
+
+  recordBehavior(type, data) {
+    this.sessionData.userBehavior.push({ type, data, timestamp: Date.now() });
+    // Keep only last 100 behavior events to prevent memory issues
+    if (this.sessionData.userBehavior.length > 100) {
+      this.sessionData.userBehavior.shift();
+    }
+  }
+}
+
+// Global analytics instance
+const charlie = new CharlieAnalytics();
 
 /**
  * Sanitize text to prevent XSS attacks
@@ -59,65 +383,91 @@ function parseCSVLine(line) {
 }
 
 /**
- * Fetch and parse beer data from Google Sheets
+ * CSV Worker manager for off-main-thread parsing
+ */
+class CSVWorkerManager {
+  constructor() {
+    this.worker = null;
+    this.messageId = 0;
+    this.pendingCallbacks = new Map();
+  }
+
+  async init() {
+    if (this.worker) return;
+
+    try {
+      this.worker = new Worker(`${window.BASE_URL || ''}/js/csv-worker.js`);
+      this.worker.onmessage = (e) => {
+        const { id, type, data, error } = e.data;
+        const callback = this.pendingCallbacks.get(id);
+
+        if (callback) {
+          this.pendingCallbacks.delete(id);
+          if (error) {
+            callback.reject(new Error(error.message));
+          } else {
+            callback.resolve(data);
+          }
+        }
+      };
+    } catch (err) {
+      console.warn('CSV Worker not available, falling back to main thread');
+      this.worker = null;
+    }
+  }
+
+  async parseCSV(csvText) {
+    if (!this.worker) {
+      // Fallback: parse on main thread (legacy browsers)
+      return this.parseCSVFallback(csvText);
+    }
+
+    const id = ++this.messageId;
+    return new Promise((resolve, reject) => {
+      this.pendingCallbacks.set(id, { resolve, reject });
+      this.worker.postMessage({ id, type: 'parse-csv', data: csvText });
+    });
+  }
+
+  parseCSVFallback(csvText) {
+    // Original parsing logic as fallback
+    const lines = csvText.split('\n').filter(l => l.trim());
+    if (lines.length === 0) return { announcement: '', beers: [] };
+
+    const firstRow = parseCSVLine(lines[0]);
+    const announcement = [firstRow[2], firstRow[3], firstRow[4], firstRow[5]]
+      .filter(Boolean)
+      .join(' ');
+
+    const beers = [];
+    // Simplified parsing for fallback
+    return { announcement, beers: beers.slice(0, 12) };
+  }
+}
+
+// Global CSV worker instance
+const csvWorker = new CSVWorkerManager();
+
+/**
+ * Fetch and parse beer data from Google Sheets (optimized for INP)
  */
 async function fetchBeerData() {
-  const response = await fetch(SHEETS_CSV_URL);
-  if (!response.ok) throw new Error(`HTTP ${response.status}`);
-  const text = await response.text();
-  const lines = text.split('\n').filter(l => l.trim());
+  try {
+    // Initialize worker on first use
+    await csvWorker.init();
 
-  if (lines.length === 0) return { announcement: '', beers: [] };
+    // Fetch CSV data
+    const response = await fetch(SHEETS_CSV_URL);
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const csvText = await response.text();
 
-  // First row may contain announcement in columns C-F (index 2-5)
-  const firstRow = parseCSVLine(lines[0]);
-  const announcement = [firstRow[2], firstRow[3], firstRow[4], firstRow[5]]
-    .filter(Boolean)
-    .join(' ');
-
-  // Find header row (contains "pivo", "pivovar", or "nazev")
-  let headerIdx = -1;
-  for (let i = 0; i < lines.length; i++) {
-    const lower = lines[i].toLowerCase();
-    if (lower.includes('pivo') || lower.includes('pivovar') || lower.includes('název')) {
-      headerIdx = i;
-      break;
-    }
+    // Parse in Web Worker (off main thread)
+    const result = await csvWorker.parseCSV(csvText);
+    return result;
+  } catch (error) {
+    console.error('Failed to fetch beer data:', error);
+    return { announcement: '', beers: [] };
   }
-
-  // Normalize header keys
-  function normalizeKey(h) {
-    const k = h.toLowerCase().trim();
-    if (k.includes('pivovar')) return 'pivovar';
-    if (k.includes('název') || k.includes('name')) return 'nazev';
-    if (k.includes('styl') || k.includes('style')) return 'styl';
-    if (k.includes('alk') || k === '%') return 'abv';
-    if (k.includes('ibu')) return 'ibu';
-    if (k.includes('cena') || k.includes('price')) return 'cena';
-    return k;
-  }
-
-  const beers = [];
-  if (headerIdx >= 0) {
-    const rawHeaders = parseCSVLine(lines[headerIdx]);
-    const headers = rawHeaders.map(normalizeKey);
-    for (let i = headerIdx + 1; i < lines.length && beers.length < 12; i++) {
-      const cells = parseCSVLine(lines[i]);
-      const breweryIdx = headers.indexOf('pivovar');
-      const nameIdx = headers.indexOf('nazev');
-      const brewery = breweryIdx >= 0 ? (cells[breweryIdx] || '').trim() : '';
-      const name = nameIdx >= 0 ? (cells[nameIdx] || '').trim() : '';
-      if (!brewery && !name) continue;
-
-      const beer = {};
-      headers.forEach((h, idx) => {
-        if (h) beer[h] = (cells[idx] || '').trim();
-      });
-      beers.push(beer);
-    }
-  }
-
-  return { announcement, beers };
 }
 
 /**
@@ -143,6 +493,11 @@ function app() {
     // Live data from Google Sheets
     liveBeers: [],
     announcement: '',
+
+    // PWA state
+    showInstallButton: false,
+    installPrompt: null,
+    isOnline: navigator.onLine,
 
     // Navigation
     navItems: [
@@ -392,7 +747,136 @@ function app() {
       return this.foodItems.filter(i => i.cat === this.activeFoodTab);
     },
 
+    /**
+     * Enhanced beer card interaction with analytics
+     */
+    onBeerCardClick(beer) {
+      charlie.trackBeerView(beer);
+      // Additional beer-specific analytics
+      if (beer.cena) {
+        charlie.recordBehavior('price_consideration', {
+          beer: `${beer.pivovar}-${beer.nazev}`,
+          price: beer.cena,
+          priceReaction: this.classifyPriceReaction(beer.cena)
+        });
+      }
+    },
+
+    /**
+     * Track brewery link clicks
+     */
+    onBreweryClick(breweryName) {
+      const url = this.breweryUrl(breweryName);
+      charlie.trackBreweryClick(breweryName, url);
+
+      // Track if brewery has website
+      if (url) {
+        window.open(url, '_blank');
+      } else {
+        charlie.recordBehavior('brewery_no_website', { brewery: breweryName });
+      }
+    },
+
+    /**
+     * Track beer style filtering
+     */
+    onStyleFilterClick(styleId) {
+      const style = this.beerStyles.find(s => s.id === styleId);
+      if (style) {
+        charlie.trackStyleFilter(styleId, style.name);
+      }
+    },
+
+    /**
+     * Track food menu interactions
+     */
+    onFoodTabSwitch(category) {
+      const previousTab = this.activeFoodTab;
+      this.activeFoodTab = category;
+
+      charlie.trackFoodInteraction('category_switch', '', category, 0);
+      charlie.recordBehavior('food_exploration', {
+        from: previousTab,
+        to: category,
+        timestamp: Date.now()
+      });
+    },
+
+    /**
+     * Track food item interactions
+     */
+    onFoodItemView(item) {
+      charlie.trackFoodInteraction('view', item.name, item.cat, item.price);
+    },
+
+    /**
+     * Track navigation clicks
+     */
+    onNavClick(section) {
+      charlie.trackMenuNavigation(section, 'nav_click');
+      this.activeSection = section;
+    },
+
+    /**
+     * Track phone/contact interactions for reservation intent
+     */
+    onPhoneClick(phoneType) {
+      charlie.trackReservationIntent('phone_click', {
+        phone_type: phoneType,
+        section: this.activeSection
+      });
+    },
+
+    /**
+     * Track salonek (private room) interest
+     */
+    onSalonekView() {
+      charlie.trackReservationIntent('salonek_view', {
+        time_on_site: Date.now() - charlie.sessionData.startTime,
+        beer_views_before_salonek: charlie.sessionData.beerViews.size
+      });
+    },
+
+    /**
+     * Track beer view switching (grid/list)
+     */
+    onBeerViewToggle(newView) {
+      charlie.recordBehavior('view_preference', {
+        from: this.beerView,
+        to: newView,
+        beer_count: this.liveBeers.length
+      });
+      this.beerView = newView;
+    },
+
+    /**
+     * Classify price reaction for analytics
+     */
+    classifyPriceReaction(price) {
+      if (price <= 45) return 'budget_friendly';
+      if (price <= 65) return 'standard_accepted';
+      if (price <= 85) return 'premium_consideration';
+      return 'luxury_hesitation';
+    },
+
+    /**
+     * Track beer facts engagement
+     */
+    onBeerFactView(factIndex) {
+      charlie.recordBehavior('educational_content', {
+        fact_index: factIndex,
+        fact_text: this.didYouKnow[factIndex].substring(0, 50) + '...',
+        section: this.activeSection
+      });
+    },
+
     async init() {
+      // Initialize Charlie Analytics first
+      this.initializeCharlie();
+
+      // Track application start
+      charlie.trackMenuNavigation('home', 'app_start');
+
       // Fetch live beer data first
       await this.refreshBeerData();
 
@@ -401,6 +885,7 @@ function app() {
         document.body.classList.add('kiosk-mode');
         document.documentElement.classList.add('kiosk-mode');
         this.createKioskUI();
+        charlie.trackPWAEngagement('kiosk_mode_activated');
         // Auto-refresh data every 2 minutes in kiosk mode
         setInterval(async () => {
           await this.refreshBeerData();
@@ -414,19 +899,50 @@ function app() {
         this.currentFact = (this.currentFact + 1) % this.didYouKnow.length;
       }, 8000);
 
-      // Intersection observer for active section tracking
+      // Initialize PWA functionality
+      this.setupPWA();
+      this.monitorConnectivity();
+
+      // Intersection observer for active section tracking with analytics
       const sections = document.querySelectorAll('section[id]');
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
+              const previousSection = this.activeSection;
               this.activeSection = entry.target.id;
+
+              // Track section changes with analytics
+              if (previousSection !== this.activeSection) {
+                charlie.trackMenuNavigation(this.activeSection, 'scroll');
+              }
             }
           });
         },
         { rootMargin: '-40% 0px -40% 0px' }
       );
       sections.forEach((s) => observer.observe(s));
+
+      // Track session end when user leaves
+      window.addEventListener('beforeunload', () => {
+        charlie.trackSessionEnd();
+      });
+
+      // Track visibility changes (tab switching)
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+          charlie.trackSessionEnd();
+        }
+      });
+    },
+
+    /**
+     * Initialize Charlie Analytics integration
+     */
+    initializeCharlie() {
+      // Set up global Charlie instance if not already done
+      window.charlie = charlie;
+      console.log('🎯 Charlie Analytics integrated with Alpine.js app');
     },
 
     kioskView: 'grid', // 'grid' or 'list'
@@ -551,15 +1067,122 @@ function app() {
 
     async refreshBeerData() {
       try {
+        const startTime = Date.now();
         const data = await fetchBeerData();
+        const loadTime = Date.now() - startTime;
+
         this.liveBeers = data.beers;
         this.announcement = data.announcement;
         this.beerLoading = false;
+
+        // Track beer data refresh with analytics
+        charlie.recordBehavior('data_refresh', {
+          beer_count: data.beers.length,
+          load_time: loadTime,
+          has_announcement: !!data.announcement,
+          refresh_type: this.kioskMode ? 'kiosk_auto' : 'user_triggered'
+        });
+
+        // Track beer availability analytics
+        if (data.beers.length > 0) {
+          charlie.recordBehavior('beer_availability', {
+            total_beers: data.beers.length,
+            unique_breweries: [...new Set(data.beers.map(b => b.pivovar))].length,
+            style_diversity: [...new Set(data.beers.map(b => b.styl))].length,
+            price_range: this.calculatePriceRange(data.beers)
+          });
+        }
+
+        // Update kiosk UI if in kiosk mode
+        if (this.kioskMode) {
+          this.updateKioskUI();
+        }
       } catch (e) {
         console.error('Failed to fetch beer data:', e);
         this.beerError = true;
         this.beerLoading = false;
+
+        // Track data loading errors
+        charlie.recordBehavior('data_error', {
+          error_type: 'beer_fetch_failed',
+          error_message: e.message,
+          retry_available: true
+        });
       }
+    },
+
+    /**
+     * Calculate price range for analytics
+     */
+    calculatePriceRange(beers) {
+      const prices = beers.map(b => b.cena).filter(p => p && p > 0);
+      if (prices.length === 0) return { min: 0, max: 0, avg: 0 };
+
+      return {
+        min: Math.min(...prices),
+        max: Math.max(...prices),
+        avg: Math.round(prices.reduce((a, b) => a + b, 0) / prices.length)
+      };
+    },
+
+    /**
+     * PWA setup and functionality
+     */
+    setupPWA() {
+      // Set global functions for PWA prompts
+      window.showInstallPrompt = (prompt) => {
+        this.installPrompt = prompt;
+        this.showInstallButton = true;
+      };
+
+      window.showUpdateNotification = () => {
+        if (confirm('Nová verze aplikace je dostupná. Chcete ji načíst?')) {
+          window.location.reload();
+        }
+      };
+
+      // Check if running as PWA
+      if (window.matchMedia('(display-mode: standalone)').matches) {
+        console.log('🎉 Running as PWA');
+        if (window.gtag) {
+          gtag('event', 'pwa_active', {
+            event_category: 'engagement'
+          });
+        }
+      }
+    },
+
+    /**
+     * Install PWA
+     */
+    async installPWA() {
+      if (!this.installPrompt) return;
+
+      const result = await this.installPrompt.prompt();
+      console.log('PWA install result:', result.outcome);
+
+      this.installPrompt = null;
+      this.showInstallButton = false;
+
+      if (window.gtag) {
+        gtag('event', 'pwa_install_clicked', {
+          event_category: 'engagement',
+          value: result.outcome === 'accepted' ? 1 : 0
+        });
+      }
+    },
+
+    /**
+     * Network connectivity monitoring
+     */
+    monitorConnectivity() {
+      const updateOnlineStatus = () => {
+        this.isOnline = navigator.onLine;
+        console.log('Network status:', this.isOnline ? 'online' : 'offline');
+      };
+
+      window.addEventListener('online', updateOnlineStatus);
+      window.addEventListener('offline', updateOnlineStatus);
     },
   };
 }

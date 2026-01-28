@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="cs" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline - Pivnice U Tygra</title>
+  <link rel="icon" type="image/svg+xml" href="/img/logo.svg">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #0a0705 0%, #1a0f06 25%, #211408 50%, #1a0f06 75%, #0a0705 100%);
+      color: #e8e5d8;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 1rem;
+      padding: 3rem 2rem;
+    }
+
+    .logo {
+      width: 4rem;
+      height: 4rem;
+      opacity: 0.7;
+      margin: 0 auto 2rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #f08c0f;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #b9af89;
+      margin-bottom: 1.5rem;
+    }
+
+    .cached-info {
+      background: rgba(240, 140, 15, 0.1);
+      border: 1px solid rgba(240, 140, 15, 0.2);
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      text-align: left;
+    }
+
+    .cached-info h3 {
+      font-size: 1rem;
+      color: #f08c0f;
+      margin-bottom: 0.5rem;
+    }
+
+    .cached-info ul {
+      list-style: none;
+      font-size: 0.9rem;
+    }
+
+    .cached-info li {
+      padding: 0.25rem 0;
+      color: #d3cdb4;
+    }
+
+    .cached-info li:before {
+      content: '✓';
+      color: #22c55e;
+      font-weight: bold;
+      margin-right: 0.5rem;
+    }
+
+    .retry-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #f08c0f;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      text-decoration: none;
+    }
+
+    .retry-btn:hover {
+      background: #e17209;
+    }
+
+    .contact-info {
+      margin-top: 2rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .contact-info a {
+      color: #f08c0f;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .contact-info a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      body { padding: 1rem; }
+      .container { padding: 2rem 1.5rem; }
+      h1 { font-size: 1.5rem; }
+      p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="/img/logo.svg" alt="U Tygra" class="logo">
+
+    <h1>Jste offline</h1>
+    <p>Nelze se připojit k internetu, ale můžete si prohlédnout uložené informace o naší pivnici.</p>
+
+    <div class="cached-info">
+      <h3>Dostupné offline:</h3>
+      <ul>
+        <li>Základní informace o pivnici</li>
+        <li>Poslední známá nabídka piv</li>
+        <li>Kontaktní údaje a otevírací doba</li>
+        <li>Fotogalerie interiéru a jídla</li>
+        <li>Informace o salonku</li>
+      </ul>
+    </div>
+
+    <button class="retry-btn" onclick="window.location.reload()">
+      🔄 Zkusit znovu
+    </button>
+
+    <div class="contact-info">
+      <h3 style="color: #f08c0f; margin-bottom: 1rem;">Kontakt:</h3>
+      <p>
+        📍 Vrchlického sad 1893/3, Brno<br>
+        📞 Bar: <a href="tel:+420776140840">776 140 840</a><br>
+        📞 Provoz: <a href="tel:+420777935052">777 935 052</a><br>
+        🕐 Denně 16:00–24:00
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Check for network connectivity
+    function checkConnectivity() {
+      if (navigator.onLine) {
+        window.location.href = '/';
+      }
+    }
+
+    // Listen for online events
+    window.addEventListener('online', checkConnectivity);
+
+    // Periodic connectivity check
+    setInterval(checkConnectivity, 5000);
+
+    // Service worker messaging
+    if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+      navigator.serviceWorker.addEventListener('message', event => {
+        if (event.data.type === 'CACHE_UPDATED') {
+          console.log('Cache updated while offline');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
