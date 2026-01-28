@@ -1,10 +1,7 @@
-# Pivnice U Tygra - GitLab CI/CD Pipeline
-# Optimized for GitLab Pages deployment
-
+# Pivnice U Tygra - GitLab Pages deployment
 variables:
   ZOLA_VERSION: "0.19.2"
 
-# Build with Zola and deploy to GitLab Pages
 pages:
   image: alpine:3.19
   before_script:
@@ -20,10 +17,8 @@ pages:
     - zola build
     - echo "Build completed successfully"
     - ls -la public/
-    - echo "Site will be available at: https://nguyen43.gitlab.io/u-tygra"
   artifacts:
     paths:
       - public
-    expire_in: 30 days
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
+  only:
+    - main
