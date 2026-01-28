@@ -46,16 +46,18 @@
   <meta name="twitter:image" content="{% block twitter_image %}{{ get_url(path='img/gallery/interior-main.jpg') }}{% endblock %}">
   <meta name="twitter:image:alt" content="Pivnice U Tygra - interiér s klenbovým stropem">
 
-  <!-- Apple/iOS -->
+  <!-- Apple/iOS - PWA Support -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="U Tygra">
-  <link rel="apple-touch-icon" sizes="180x180" href="{{ get_url(path='img/logo.svg') }}">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="mobile-web-app-capable" content="yes">
 
-  <!-- Microsoft -->
+  <!-- Theme Colors -->
+  <meta name="theme-color" content="#2b2219" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f08c0f" media="(prefers-color-scheme: light)">
   <meta name="msapplication-TileColor" content="#f08c0f">
-  <meta name="msapplication-config" content="none">
-  <meta name="theme-color" content="#2b2219">
+  <meta name="msapplication-navbutton-color" content="#f08c0f">
 
   <!-- Schema.org - LocalBusiness (BarOrPub) -->
   <script type="application/ld+json">
@@ -200,10 +202,23 @@
   }
   </script>
 
-  <!-- Favicon -->
+  <!-- Favicon - Complete set for all platforms -->
   <link rel="icon" type="image/svg+xml" href="{{ get_url(path='img/logo.svg') }}">
-  <link rel="icon" type="image/png" sizes="32x32" href="{{ get_url(path='img/logo.svg') }}">
-  <link rel="icon" type="image/png" sizes="16x16" href="{{ get_url(path='img/logo.svg') }}">
+  <link rel="icon" type="image/x-icon" href="{{ get_url(path='img/favicon.ico') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ get_url(path='img/favicon-16x16.png') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ get_url(path='img/favicon-32x32.png') }}">
+  <link rel="icon" type="image/png" sizes="48x48" href="{{ get_url(path='img/favicon-48x48.png') }}">
+
+  <!-- Apple Touch Icons -->
+  <link rel="apple-touch-icon" href="{{ get_url(path='img/apple-touch-icon.png') }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ get_url(path='img/apple-touch-icon.png') }}">
+
+  <!-- Android/Chrome -->
+  <link rel="manifest" href="{{ get_url(path='site.webmanifest') }}">
+
+  <!-- Microsoft -->
+  <meta name="msapplication-config" content="{{ get_url(path='browserconfig.xml') }}">
+  <meta name="msapplication-TileImage" content="{{ get_url(path='img/mstile-150x150.png') }}">
 
   <!-- Preconnect for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -1,0 +1,26 @@
+{
+  "name": "Pivnice U Tygra",
+  "short_name": "U Tygra",
+  "description": "Budvar & řemeslná piva u Lužánek. Brno.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2b2219",
+  "theme_color": "#f08c0f",
+  "orientation": "portrait-primary",
+  "categories": ["food", "lifestyle"],
+  "lang": "cs",
+  "icons": [
+    {
+      "src": "/img/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/img/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
