@@ -204,6 +204,7 @@ body.kiosk-mode .foam-border::before {
   flex-direction: column;
   background: linear-gradient(180deg, #0d0906 0%, #150d06 100%);
   overflow: hidden;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 /* Kiosk header */
