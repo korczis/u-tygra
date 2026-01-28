@@ -161,104 +161,145 @@ html {
 }
 
 /* ═══════════════════════════════════════════════════════ */
-/* KIOSK MODE - Fullscreen beer menu display               */
-/* Activate with ?kiosk=1 URL parameter                    */
+/* KIOSK MODE - Fullscreen beer menu for displays          */
+/* URL: ?kiosk=1                                           */
 /* ═══════════════════════════════════════════════════════ */
+
 body.kiosk-mode {
-  overflow: hidden;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  overflow: hidden !important;
+  background: #0d0906 !important;
+}
+
+/* Hide EVERYTHING except kiosk content */
+body.kiosk-mode > *:not(#kiosk-container) {
+  display: none !important;
 }
 
 body.kiosk-mode nav,
 body.kiosk-mode #home,
+body.kiosk-mode #na-cepu,
 body.kiosk-mode #jidlo,
 body.kiosk-mode #salonek,
 body.kiosk-mode #kontakt,
 body.kiosk-mode footer,
-body.kiosk-mode button[aria-label="Nahoru"] {
+body.kiosk-mode button[aria-label="Nahoru"],
+body.kiosk-mode .foam-border::before {
   display: none !important;
 }
 
-body.kiosk-mode #na-cepu {
-  min-height: 100vh;
-  padding: 1rem 1.5rem;
+/* Kiosk container - injected by JS */
+#kiosk-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 2vh 2vw;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  background: linear-gradient(180deg, #0d0906 0%, #150d06 100%);
+  overflow: hidden;
 }
 
-body.kiosk-mode #na-cepu > div {
-  max-width: 100%;
-  width: 100%;
-  flex: 1;
+/* Kiosk header */
+#kiosk-container .kiosk-header {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2vh;
+  flex-shrink: 0;
 }
 
-/* Compact header in kiosk mode */
-body.kiosk-mode #na-cepu .flex.flex-col.sm\:flex-row {
-  margin-bottom: 0.75rem;
-  gap: 0.5rem;
+#kiosk-container .kiosk-title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  color: white;
+  margin: 0;
 }
 
-body.kiosk-mode #na-cepu h2 {
-  font-size: 2rem;
-  line-height: 1;
-}
-
-body.kiosk-mode #na-cepu .text-brew-400.mt-2 {
-  display: none;
-}
-
-/* Hide extra content in kiosk mode */
-body.kiosk-mode #na-cepu .text-center.mt-6,
-body.kiosk-mode #na-cepu .mt-8.p-4.glass,
-body.kiosk-mode #na-cepu .mt-14,
-body.kiosk-mode #na-cepu .mt-10 {
-  display: none !important;
-}
-
-/* Maximize grid space */
-body.kiosk-mode .grid.grid-cols-1 {
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+#kiosk-container .kiosk-live {
+  display: flex;
+  align-items: center;
   gap: 0.75rem;
+  color: #22c55e;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  font-weight: 600;
+}
+
+/* Kiosk grid */
+#kiosk-container .kiosk-grid {
   flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2vh 2vw;
+  overflow: hidden;
   align-content: start;
 }
 
-/* Larger text for visibility */
-body.kiosk-mode .beer-card {
-  padding: 1rem 1.25rem;
+/* Kiosk beer card */
+#kiosk-container .kiosk-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 3vh 2.5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-body.kiosk-mode .beer-card h3 {
-  font-size: 1.25rem;
-  line-height: 1.3;
+#kiosk-container .kiosk-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5vh;
 }
 
-body.kiosk-mode .beer-card .text-white.font-bold {
-  font-size: 1.25rem;
+#kiosk-container .kiosk-beer-name {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+  margin: 0;
 }
 
-/* Announcement banner styling for kiosk */
-body.kiosk-mode .inline-block.glass.rounded-lg {
-  display: block;
-  width: 100%;
-  text-align: center;
-  margin-bottom: 1rem;
-  padding: 0.75rem 1rem;
+#kiosk-container .kiosk-price {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 800;
+  color: white;
+  white-space: nowrap;
 }
 
-/* Kiosk timestamp */
-body.kiosk-mode::after {
-  content: '';
-  position: fixed;
-  bottom: 0.5rem;
-  right: 0.5rem;
-  font-size: 0.65rem;
-  color: rgba(149, 135, 87, 0.3);
-  pointer-events: none;
+#kiosk-container .kiosk-brewery {
+  font-size: clamp(1.1rem, 2vw, 1.75rem);
+  color: #f08c0f;
+  margin-bottom: 1.5vh;
 }
 
-/* Hide view toggle in kiosk - force grid */
-body.kiosk-mode .flex.items-center.gap-1.glass.rounded-lg.p-1 {
-  display: none;
+#kiosk-container .kiosk-card-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1vw;
+  align-items: center;
+  padding-top: 1.5vh;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#kiosk-container .kiosk-style {
+  background: rgba(240, 140, 15, 0.15);
+  color: #f7c46d;
+  padding: 0.5vh 1.5vw;
+  border-radius: 0.5rem;
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+  font-weight: 600;
+}
+
+#kiosk-container .kiosk-stats {
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+  color: #b9af89;
+  font-family: monospace;
 }

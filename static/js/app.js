@@ -378,37 +378,87 @@ function app() {
     },
 
     async init() {
-      // Kiosk mode setup
-      if (this.kioskMode) {
-        document.body.classList.add('kiosk-mode');
-        this.beerView = 'grid'; // Force grid view in kiosk
-        // Auto-refresh data every 2 minutes in kiosk mode
-        setInterval(() => this.refreshBeerData(), 120000);
-      }
-
-      // Fetch live beer data
+      // Fetch live beer data first
       await this.refreshBeerData();
 
-      // Rotate "did you know" facts
+      // Kiosk mode setup - create dedicated fullscreen UI
+      if (this.kioskMode) {
+        document.body.classList.add('kiosk-mode');
+        document.documentElement.classList.add('kiosk-mode');
+        this.createKioskUI();
+        // Auto-refresh data every 2 minutes in kiosk mode
+        setInterval(async () => {
+          await this.refreshBeerData();
+          this.updateKioskUI();
+        }, 120000);
+        return; // Skip normal initialization in kiosk mode
+      }
+
+      // Normal mode - rotate "did you know" facts
       setInterval(() => {
         this.currentFact = (this.currentFact + 1) % this.didYouKnow.length;
       }, 8000);
 
-      // Intersection observer for active section tracking (skip in kiosk mode)
-      if (!this.kioskMode) {
-        const sections = document.querySelectorAll('section[id]');
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                this.activeSection = entry.target.id;
-              }
-            });
-          },
-          { rootMargin: '-40% 0px -40% 0px' }
-        );
-        sections.forEach((s) => observer.observe(s));
-      }
+      // Intersection observer for active section tracking
+      const sections = document.querySelectorAll('section[id]');
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              this.activeSection = entry.target.id;
+            }
+          });
+        },
+        { rootMargin: '-40% 0px -40% 0px' }
+      );
+      sections.forEach((s) => observer.observe(s));
+    },
+
+    createKioskUI() {
+      // Create kiosk container
+      const container = document.createElement('div');
+      container.id = 'kiosk-container';
+
+      // Header
+      const header = document.createElement('div');
+      header.className = 'kiosk-header';
+      header.innerHTML = `
+        <h1 class="kiosk-title">Na Cepu</h1>
+        <div class="kiosk-live">
+          <span class="live-dot"></span>
+          <span>LIVE</span>
+        </div>
+      `;
+      container.appendChild(header);
+
+      // Grid
+      const grid = document.createElement('div');
+      grid.className = 'kiosk-grid';
+      grid.id = 'kiosk-grid';
+      container.appendChild(grid);
+
+      document.body.appendChild(container);
+      this.updateKioskUI();
+    },
+
+    updateKioskUI() {
+      const grid = document.getElementById('kiosk-grid');
+      if (!grid) return;
+
+      grid.innerHTML = this.liveBeers.map(beer => `
+        <div class="kiosk-card">
+          <div class="kiosk-card-top">
+            <h2 class="kiosk-beer-name">${beer.nazev || ''}</h2>
+            <span class="kiosk-price">${beer.cena ? beer.cena + ' Kč' : ''}</span>
+          </div>
+          <div class="kiosk-brewery">${beer.pivovar || ''}</div>
+          <div class="kiosk-card-bottom">
+            ${beer.styl ? `<span class="kiosk-style">${beer.styl}</span>` : ''}
+            ${beer.abv ? `<span class="kiosk-stats">${beer.abv}</span>` : ''}
+            ${beer.ibu ? `<span class="kiosk-stats">${beer.ibu} IBU</span>` : ''}
+          </div>
+        </div>
+      `).join('');
     },
 
     async refreshBeerData() {
