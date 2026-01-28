@@ -159,3 +159,106 @@ html {
   position: relative;
   z-index: 1;
 }
+
+/* ═══════════════════════════════════════════════════════ */
+/* KIOSK MODE - Fullscreen beer menu display               */
+/* Activate with ?kiosk=1 URL parameter                    */
+/* ═══════════════════════════════════════════════════════ */
+body.kiosk-mode {
+  overflow: hidden;
+}
+
+body.kiosk-mode nav,
+body.kiosk-mode #home,
+body.kiosk-mode #jidlo,
+body.kiosk-mode #salonek,
+body.kiosk-mode #kontakt,
+body.kiosk-mode footer,
+body.kiosk-mode button[aria-label="Nahoru"] {
+  display: none !important;
+}
+
+body.kiosk-mode #na-cepu {
+  min-height: 100vh;
+  padding: 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+body.kiosk-mode #na-cepu > div {
+  max-width: 100%;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Compact header in kiosk mode */
+body.kiosk-mode #na-cepu .flex.flex-col.sm\:flex-row {
+  margin-bottom: 0.75rem;
+  gap: 0.5rem;
+}
+
+body.kiosk-mode #na-cepu h2 {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+body.kiosk-mode #na-cepu .text-brew-400.mt-2 {
+  display: none;
+}
+
+/* Hide extra content in kiosk mode */
+body.kiosk-mode #na-cepu .text-center.mt-6,
+body.kiosk-mode #na-cepu .mt-8.p-4.glass,
+body.kiosk-mode #na-cepu .mt-14,
+body.kiosk-mode #na-cepu .mt-10 {
+  display: none !important;
+}
+
+/* Maximize grid space */
+body.kiosk-mode .grid.grid-cols-1 {
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0.75rem;
+  flex: 1;
+  align-content: start;
+}
+
+/* Larger text for visibility */
+body.kiosk-mode .beer-card {
+  padding: 1rem 1.25rem;
+}
+
+body.kiosk-mode .beer-card h3 {
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+
+body.kiosk-mode .beer-card .text-white.font-bold {
+  font-size: 1.25rem;
+}
+
+/* Announcement banner styling for kiosk */
+body.kiosk-mode .inline-block.glass.rounded-lg {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+}
+
+/* Kiosk timestamp */
+body.kiosk-mode::after {
+  content: '';
+  position: fixed;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.65rem;
+  color: rgba(149, 135, 87, 0.3);
+  pointer-events: none;
+}
+
+/* Hide view toggle in kiosk - force grid */
+body.kiosk-mode .flex.items-center.gap-1.glass.rounded-lg.p-1 {
+  display: none;
+}

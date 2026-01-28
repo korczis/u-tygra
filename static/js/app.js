@@ -109,6 +109,10 @@ async function fetchBeerData() {
  * Main Alpine.js app component
  */
 function app() {
+  // Detect kiosk mode from URL param
+  const urlParams = new URLSearchParams(window.location.search);
+  const isKiosk = urlParams.get('kiosk') === '1' || urlParams.get('kiosk') === 'true';
+
   return {
     // UI state
     scrolled: false,
@@ -117,8 +121,9 @@ function app() {
     activeFoodTab: 'cold',
     beerLoading: true,
     beerError: false,
-    beerView: 'list',
+    beerView: 'grid', // Default to grid in kiosk mode for better space usage
     currentFact: 0,
+    kioskMode: isKiosk,
 
     // Live data from Google Sheets
     liveBeers: [],
@@ -373,7 +378,40 @@ function app() {
     },
 
     async init() {
+      // Kiosk mode setup
+      if (this.kioskMode) {
+        document.body.classList.add('kiosk-mode');
+        this.beerView = 'grid'; // Force grid view in kiosk
+        // Auto-refresh data every 2 minutes in kiosk mode
+        setInterval(() => this.refreshBeerData(), 120000);
+      }
+
       // Fetch live beer data
+      await this.refreshBeerData();
+
+      // Rotate "did you know" facts
+      setInterval(() => {
+        this.currentFact = (this.currentFact + 1) % this.didYouKnow.length;
+      }, 8000);
+
+      // Intersection observer for active section tracking (skip in kiosk mode)
+      if (!this.kioskMode) {
+        const sections = document.querySelectorAll('section[id]');
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                this.activeSection = entry.target.id;
+              }
+            });
+          },
+          { rootMargin: '-40% 0px -40% 0px' }
+        );
+        sections.forEach((s) => observer.observe(s));
+      }
+    },
+
+    async refreshBeerData() {
       try {
         const data = await fetchBeerData();
         this.liveBeers = data.beers;
@@ -384,25 +422,6 @@ function app() {
         this.beerError = true;
         this.beerLoading = false;
       }
-
-      // Rotate "did you know" facts
-      setInterval(() => {
-        this.currentFact = (this.currentFact + 1) % this.didYouKnow.length;
-      }, 8000);
-
-      // Intersection observer for active section tracking
-      const sections = document.querySelectorAll('section[id]');
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              this.activeSection = entry.target.id;
-            }
-          });
-        },
-        { rootMargin: '-40% 0px -40% 0px' }
-      );
-      sections.forEach((s) => observer.observe(s));
     },
   };
 }
