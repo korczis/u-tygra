@@ -191,7 +191,7 @@ body.kiosk-mode .foam-border::before {
   display: none !important;
 }
 
-/* Kiosk container - injected by JS */
+/* Kiosk container */
 #kiosk-container {
   position: fixed;
   top: 0;
@@ -213,10 +213,24 @@ body.kiosk-mode .foam-border::before {
   justify-content: space-between;
   margin-bottom: 2vh;
   flex-shrink: 0;
+  padding-bottom: 1.5vh;
+  border-bottom: 1px solid rgba(240, 140, 15, 0.2);
+}
+
+#kiosk-container .kiosk-header-left {
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+}
+
+#kiosk-container .kiosk-header-right {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
 }
 
 #kiosk-container .kiosk-title {
-  font-size: clamp(2rem, 5vw, 4rem);
+  font-size: clamp(1.75rem, 4vw, 3.5rem);
   font-weight: 800;
   color: white;
   margin: 0;
@@ -225,108 +239,212 @@ body.kiosk-mode .foam-border::before {
 #kiosk-container .kiosk-live {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
   color: #22c55e;
-  font-size: clamp(1rem, 2vw, 1.5rem);
+  font-size: clamp(0.875rem, 1.5vw, 1.25rem);
   font-weight: 600;
 }
 
-/* Kiosk grid */
-#kiosk-container .kiosk-grid {
-  flex: 1;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2vh 2vw;
-  overflow: hidden;
-  align-content: start;
+/* View toggle button */
+#kiosk-container .kiosk-view-toggle {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  cursor: pointer;
+  color: #b9af89;
+  transition: all 0.2s;
 }
 
-/* Kiosk beer card */
+#kiosk-container .kiosk-view-toggle:hover {
+  background: rgba(240, 140, 15, 0.15);
+  border-color: rgba(240, 140, 15, 0.3);
+  color: #f08c0f;
+}
+
+#kiosk-container .kiosk-icon {
+  width: clamp(1.5rem, 2.5vw, 2rem);
+  height: clamp(1.5rem, 2.5vw, 2rem);
+  display: block;
+}
+
+/* Kiosk content area */
+#kiosk-container .kiosk-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ═══════ GRID VIEW ═══════ */
+#kiosk-container .kiosk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 350px), 1fr));
+  gap: 1.5vh 1.5vw;
+  padding-bottom: 2vh;
+}
+
 #kiosk-container .kiosk-card {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1rem;
-  padding: 3vh 2.5vw;
+  padding: 2vh 2vw;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
 }
 
 #kiosk-container .kiosk-card-top {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 1.5vh;
+  gap: 1vw;
+  margin-bottom: 1vh;
 }
 
 #kiosk-container .kiosk-beer-name {
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-size: clamp(1.25rem, 2.5vw, 2rem);
   font-weight: 700;
   color: white;
   line-height: 1.2;
   margin: 0;
+  flex: 1;
 }
 
 #kiosk-container .kiosk-price {
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-size: clamp(1.25rem, 2.5vw, 2rem);
   font-weight: 800;
   color: white;
   white-space: nowrap;
 }
 
 #kiosk-container .kiosk-brewery {
-  font-size: clamp(1.1rem, 2vw, 1.75rem);
+  font-size: clamp(1rem, 1.75vw, 1.5rem);
   color: #f08c0f;
-  margin-bottom: 1.5vh;
+  margin-bottom: 1vh;
 }
 
 #kiosk-container .kiosk-card-bottom {
   display: flex;
   flex-wrap: wrap;
-  gap: 1vw;
+  gap: 0.75vw;
   align-items: center;
-  padding-top: 1.5vh;
+  padding-top: 1vh;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: auto;
 }
 
 #kiosk-container .kiosk-style {
   background: rgba(240, 140, 15, 0.15);
   color: #f7c46d;
-  padding: 0.5vh 1.5vw;
-  border-radius: 0.5rem;
-  font-size: clamp(1rem, 1.5vw, 1.5rem);
+  padding: 0.4vh 1vw;
+  border-radius: 0.375rem;
+  font-size: clamp(0.875rem, 1.25vw, 1.25rem);
   font-weight: 600;
 }
 
 #kiosk-container .kiosk-stats {
-  font-size: clamp(1rem, 1.5vw, 1.5rem);
+  font-size: clamp(0.875rem, 1.25vw, 1.25rem);
   color: #b9af89;
   font-family: monospace;
 }
 
+/* ═══════ LIST VIEW ═══════ */
+#kiosk-container .kiosk-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+#kiosk-container .kiosk-list-header {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr 0.75fr 1fr;
+  gap: 1vw;
+  padding: 1.5vh 2vw;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: clamp(0.75rem, 1.25vw, 1rem);
+  font-weight: 600;
+  color: #958757;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+#kiosk-container .kiosk-list-row {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr 0.75fr 1fr;
+  gap: 1vw;
+  padding: 2vh 2vw;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  align-items: center;
+  transition: background 0.2s;
+}
+
+#kiosk-container .kiosk-list-row:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+#kiosk-container .kiosk-col-name {
+  font-size: clamp(1.1rem, 2vw, 1.75rem);
+  font-weight: 700;
+  color: white;
+}
+
+#kiosk-container .kiosk-col-brewery {
+  font-size: clamp(1rem, 1.75vw, 1.5rem);
+  color: #f08c0f;
+}
+
+#kiosk-container .kiosk-col-style {
+  font-size: clamp(0.9rem, 1.5vw, 1.25rem);
+  color: #f7c46d;
+}
+
+#kiosk-container .kiosk-col-abv {
+  font-size: clamp(0.9rem, 1.5vw, 1.25rem);
+  color: #b9af89;
+  font-family: monospace;
+}
+
+#kiosk-container .kiosk-col-price {
+  font-size: clamp(1.1rem, 2vw, 1.75rem);
+  font-weight: 800;
+  color: white;
+  text-align: right;
+}
+
 /* Empty state */
 #kiosk-container .kiosk-empty {
-  grid-column: 1 / -1;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: clamp(1.5rem, 3vw, 3rem);
   color: #958757;
-  height: 100%;
+  height: 50vh;
 }
 
 /* Scrollbar for kiosk */
-#kiosk-container ::-webkit-scrollbar {
-  display: none;
+#kiosk-container .kiosk-content::-webkit-scrollbar {
+  width: 6px;
 }
 
-/* Footer timestamp */
+#kiosk-container .kiosk-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#kiosk-container .kiosk-content::-webkit-scrollbar-thumb {
+  background: rgba(240, 140, 15, 0.3);
+  border-radius: 3px;
+}
+
+/* Footer */
 #kiosk-container::after {
   content: 'Pivnice U Tygra • Brno';
   position: fixed;
   bottom: 1vh;
   right: 2vw;
-  font-size: clamp(0.75rem, 1vw, 1rem);
+  font-size: clamp(0.7rem, 1vw, 0.9rem);
   color: rgba(149, 135, 87, 0.4);
   pointer-events: none;
 }

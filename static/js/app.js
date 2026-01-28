@@ -414,6 +414,13 @@ function app() {
       sections.forEach((s) => observer.observe(s));
     },
 
+    kioskView: 'grid', // 'grid' or 'list'
+
+    toggleKioskView() {
+      this.kioskView = this.kioskView === 'grid' ? 'list' : 'grid';
+      this.updateKioskUI();
+    },
+
     createKioskUI() {
       // Create kiosk container
       const container = document.createElement('div');
@@ -423,47 +430,108 @@ function app() {
       const header = document.createElement('div');
       header.className = 'kiosk-header';
       header.innerHTML = `
-        <h1 class="kiosk-title">Nástěnka</h1>
-        <div class="kiosk-live">
-          <span class="live-dot"></span>
-          <span>ŽIVĚ Z ČEPU</span>
+        <div class="kiosk-header-left">
+          <h1 class="kiosk-title">Nástěnka</h1>
+          <div class="kiosk-live">
+            <span class="live-dot"></span>
+            <span>ŽIVĚ Z ČEPU</span>
+          </div>
+        </div>
+        <div class="kiosk-header-right">
+          <button id="kiosk-toggle-view" class="kiosk-view-toggle" title="Přepnout zobrazení">
+            <svg id="kiosk-icon-grid" class="kiosk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+            </svg>
+            <svg id="kiosk-icon-list" class="kiosk-icon" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
         </div>
       `;
       container.appendChild(header);
 
-      // Grid
-      const grid = document.createElement('div');
-      grid.className = 'kiosk-grid';
-      grid.id = 'kiosk-grid';
-      container.appendChild(grid);
+      // Content area
+      const content = document.createElement('div');
+      content.className = 'kiosk-content';
+      content.id = 'kiosk-content';
+      container.appendChild(content);
 
       document.body.appendChild(container);
+
+      // Add event listener for toggle
+      document.getElementById('kiosk-toggle-view').addEventListener('click', () => {
+        this.toggleKioskView();
+        const gridIcon = document.getElementById('kiosk-icon-grid');
+        const listIcon = document.getElementById('kiosk-icon-list');
+        if (this.kioskView === 'grid') {
+          gridIcon.style.display = 'block';
+          listIcon.style.display = 'none';
+        } else {
+          gridIcon.style.display = 'none';
+          listIcon.style.display = 'block';
+        }
+      });
+
       this.updateKioskUI();
     },
 
     updateKioskUI() {
-      const grid = document.getElementById('kiosk-grid');
-      if (!grid) return;
+      const content = document.getElementById('kiosk-content');
+      if (!content) return;
 
       if (this.liveBeers.length === 0) {
-        grid.innerHTML = `<div class="kiosk-empty">Načítám nabídku...</div>`;
+        content.innerHTML = `<div class="kiosk-empty">Načítám nabídku...</div>`;
         return;
       }
 
-      grid.innerHTML = this.liveBeers.map(beer => `
-        <div class="kiosk-card">
-          <div class="kiosk-card-top">
-            <h2 class="kiosk-beer-name">${beer.nazev || 'Bez názvu'}</h2>
-            <span class="kiosk-price">${beer.cena ? beer.cena + ' Kč' : ''}</span>
+      if (this.kioskView === 'list') {
+        content.innerHTML = `
+          <div class="kiosk-list">
+            <div class="kiosk-list-header">
+              <span class="kiosk-col-name">Název</span>
+              <span class="kiosk-col-brewery">Pivovar</span>
+              <span class="kiosk-col-style">Styl</span>
+              <span class="kiosk-col-abv">Alk.</span>
+              <span class="kiosk-col-price">Cena</span>
+            </div>
+            ${this.liveBeers.map(beer => `
+              <div class="kiosk-list-row">
+                <span class="kiosk-col-name">${beer.nazev || ''}</span>
+                <span class="kiosk-col-brewery">${beer.pivovar || ''}</span>
+                <span class="kiosk-col-style">${beer.styl || ''}</span>
+                <span class="kiosk-col-abv">${beer.abv || ''}</span>
+                <span class="kiosk-col-price">${beer.cena ? beer.cena + ' Kč' : ''}</span>
+              </div>
+            `).join('')}
           </div>
-          <div class="kiosk-brewery">${beer.pivovar || ''}</div>
-          <div class="kiosk-card-bottom">
-            ${beer.styl ? `<span class="kiosk-style">${beer.styl}</span>` : ''}
-            ${beer.abv ? `<span class="kiosk-stats">Alk: ${beer.abv}</span>` : ''}
-            ${beer.ibu ? `<span class="kiosk-stats">Hořkost: ${beer.ibu} IBU</span>` : ''}
-          </div>
+        `;
+        return;
+      }
+
+      // Grid view
+      content.innerHTML = `
+        <div class="kiosk-grid">
+          ${this.liveBeers.map(beer => `
+            <div class="kiosk-card">
+              <div class="kiosk-card-top">
+                <h2 class="kiosk-beer-name">${beer.nazev || 'Bez názvu'}</h2>
+                <span class="kiosk-price">${beer.cena ? beer.cena + ' Kč' : ''}</span>
+              </div>
+              <div class="kiosk-brewery">${beer.pivovar || ''}</div>
+              <div class="kiosk-card-bottom">
+                ${beer.styl ? `<span class="kiosk-style">${beer.styl}</span>` : ''}
+                ${beer.abv ? `<span class="kiosk-stats">Alk: ${beer.abv}</span>` : ''}
+                ${beer.ibu ? `<span class="kiosk-stats">Hořkost: ${beer.ibu} IBU</span>` : ''}
+              </div>
+            </div>
+          `).join('')}
         </div>
-      `).join('');
+      `;
     },
 
     async refreshBeerData() {
