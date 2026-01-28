@@ -2,27 +2,80 @@
 <html lang="cs" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- Primary Meta Tags -->
   <title>{% block title %}{{ config.title }}{% endblock %} | {{ config.extra.tagline }}</title>
-  <meta name="description" content="{{ config.description }}">
-  <meta name="keywords" content="pivnice, pivo, Brno, Budvar, řemeslná piva, hospoda, Lužánky">
+  <meta name="title" content="{% block meta_title %}{{ config.title }} | {{ config.extra.tagline }}{% endblock %}">
+  <meta name="description" content="{% block meta_description %}{{ config.description }}{% endblock %}">
+  <meta name="keywords" content="pivnice, pivo, Brno, Budvar, řemeslná piva, hospoda, Lužánky, craft beer, bar, pub, česká kuchyně, chlebíčky, salonek, oslavy">
+  <meta name="author" content="{{ config.extra.business_name }}">
+  <meta name="robots" content="index, follow">
+  <meta name="googlebot" content="index, follow">
+  <meta name="language" content="Czech">
+  <meta name="revisit-after" content="7 days">
+  <meta name="rating" content="general">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="{{ config.title }} | {{ config.extra.tagline }}">
-  <meta property="og:description" content="{{ config.description }}">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="{{ config.base_url }}">
+  <!-- Geo Tags -->
+  <meta name="geo.region" content="CZ-JM">
+  <meta name="geo.placename" content="Brno">
+  <meta name="geo.position" content="49.205;16.615">
+  <meta name="ICBM" content="49.205, 16.615">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="{% block canonical %}{{ config.base_url }}{% endblock %}">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+  <meta property="og:url" content="{% block og_url %}{{ config.base_url }}{% endblock %}">
+  <meta property="og:title" content="{% block og_title %}{{ config.title }} | {{ config.extra.tagline }}{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}{{ config.description }}{% endblock %}">
+  <meta property="og:image" content="{% block og_image %}{{ get_url(path='img/gallery/interior-main.jpg') }}{% endblock %}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Pivnice U Tygra - interiér s klenbovým stropem">
   <meta property="og:locale" content="cs_CZ">
+  <meta property="og:site_name" content="{{ config.extra.business_name }}">
 
-  <!-- Schema.org -->
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="{% block twitter_url %}{{ config.base_url }}{% endblock %}">
+  <meta name="twitter:title" content="{% block twitter_title %}{{ config.title }} | {{ config.extra.tagline }}{% endblock %}">
+  <meta name="twitter:description" content="{% block twitter_description %}{{ config.description }}{% endblock %}">
+  <meta name="twitter:image" content="{% block twitter_image %}{{ get_url(path='img/gallery/interior-main.jpg') }}{% endblock %}">
+  <meta name="twitter:image:alt" content="Pivnice U Tygra - interiér s klenbovým stropem">
+
+  <!-- Apple/iOS -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="U Tygra">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ get_url(path='img/logo.svg') }}">
+
+  <!-- Microsoft -->
+  <meta name="msapplication-TileColor" content="#f08c0f">
+  <meta name="msapplication-config" content="none">
+  <meta name="theme-color" content="#2b2219">
+
+  <!-- Schema.org - LocalBusiness (BarOrPub) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "BarOrPub",
+    "@id": "{{ config.base_url }}/#bar",
     "name": "{{ config.extra.business_name }}",
-    "description": "{{ config.extra.tagline }}",
+    "description": "{{ config.extra.tagline }}. Budvar a řemeslná piva v centru Brna u parku Lužánky. Studená i teplá kuchyně, privátní salonek pro oslavy.",
     "url": "{{ config.base_url }}",
     "telephone": "{{ config.extra.phone_bar }}",
+    "image": [
+      "{{ get_url(path='img/gallery/interior-main.jpg') }}",
+      "{{ get_url(path='img/gallery/beer-taps.jpg') }}",
+      "{{ get_url(path='img/gallery/salonek-2.jpg') }}",
+      "{{ get_url(path='img/gallery/food-chlebicky-1.jpg') }}"
+    ],
+    "logo": "{{ get_url(path='img/logo.svg') }}",
+    "priceRange": "$$",
+    "servesCuisine": ["Czech", "Beer", "Traditional"],
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "{{ config.extra.address }}",
@@ -30,14 +83,134 @@
       "postalCode": "{{ config.extra.zip }}",
       "addressCountry": "{{ config.extra.country }}"
     },
-    "openingHours": "Mo-Su 16:00-24:00",
-    "servesCuisine": "Czech",
-    "priceRange": "$$"
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 49.205,
+      "longitude": 16.615
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "opens": "16:00",
+        "closes": "00:00"
+      }
+    ],
+    "hasMenu": {
+      "@type": "Menu",
+      "name": "Jídelní lístek",
+      "description": "Studená a teplá kuchyně k pivu"
+    },
+    "acceptsReservations": "True",
+    "amenityFeature": [
+      {"@type": "LocationFeatureSpecification", "name": "Privátní salonek", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Projektor", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Klimatizace", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Venkovní zahrádka", "value": true}
+    ],
+    "sameAs": [
+      "https://www.facebook.com/{{ config.extra.facebook }}"
+    ],
+    "potentialAction": {
+      "@type": "ReserveAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "tel:{{ config.extra.phone_ops }}",
+        "actionPlatform": ["http://schema.org/DesktopWebPlatform", "http://schema.org/MobileWebPlatform"]
+      },
+      "result": {
+        "@type": "Reservation",
+        "name": "Rezervace salonku"
+      }
+    }
+  }
+  </script>
+
+  <!-- Schema.org - Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "{{ config.base_url }}/#organization",
+    "name": "{{ config.extra.company }}",
+    "url": "{{ config.base_url }}",
+    "logo": "{{ get_url(path='img/logo.svg') }}",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "{{ config.extra.phone_bar }}",
+      "contactType": "customer service",
+      "availableLanguage": ["Czech", "English"]
+    }
+  }
+  </script>
+
+  <!-- Schema.org - WebSite -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "{{ config.base_url }}/#website",
+    "url": "{{ config.base_url }}",
+    "name": "{{ config.extra.business_name }}",
+    "description": "{{ config.description }}",
+    "publisher": {
+      "@id": "{{ config.base_url }}/#organization"
+    },
+    "inLanguage": "cs-CZ"
+  }
+  </script>
+
+  <!-- Schema.org - BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Domů",
+        "item": "{{ config.base_url }}"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Na čepu",
+        "item": "{{ config.base_url }}#na-cepu"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Jídlo",
+        "item": "{{ config.base_url }}#jidlo"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Salonek",
+        "item": "{{ config.base_url }}#salonek"
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "name": "Kontakt",
+        "item": "{{ config.base_url }}#kontakt"
+      }
+    ]
   }
   </script>
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="{{ get_url(path='img/logo.svg') }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{{ get_url(path='img/logo.svg') }}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{{ get_url(path='img/logo.svg') }}">
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
   <!-- Tailwind CSS via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -68,8 +241,6 @@
   </script>
 
   <!-- Google Fonts - Inter with Czech characters (latin-ext) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&subset=latin,latin-ext&display=swap" rel="stylesheet">
 
   <!-- Flowbite CSS -->
@@ -89,6 +260,8 @@
     gtag('js', new Date());
     gtag('config', '{{ config.extra.ga_id }}');
   </script>
+
+  {% block head %}{% endblock %}
 </head>
 
 <body class="bg-brew-950 text-brew-100 font-body antialiased" x-data="app()" x-cloak>
@@ -100,5 +273,7 @@
   <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
   <!-- App -->
   <script src="{{ get_url(path='js/app.js') }}"></script>
+
+  {% block scripts %}{% endblock %}
 </body>
 </html>
