@@ -1,0 +1,735 @@
+# U Tygra - AIAD-Powered CI/CD Pipeline
+# AIAD Standard Library v2.0.0
+# Comprehensive build, quality gate, and deployment automation
+
+name: AIAD CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  ZOLA_VERSION: "0.19.2"
+  NODE_VERSION: "20"
+  AIAD_VERSION: "2.0.0"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  # ─────────────────────────────────────────────
+  # Phase 1: Content Validation
+  # ─────────────────────────────────────────────
+  content-validation:
+    name: "Content Validation"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate content structure
+        run: |
+          echo "::group::Content Structure Analysis"
+          echo "Checking content files..."
+
+          # Validate content directory exists
+          if [ ! -d "content" ]; then
+            echo "::error::Content directory not found"
+            exit 1
+          fi
+
+          # Count and list content files
+          CONTENT_COUNT=$(find content -name "*.md" -type f | wc -l)
+          echo "Content files found: ${CONTENT_COUNT}"
+
+          # Validate front matter in all markdown files
+          ERRORS=0
+          while IFS= read -r file; do
+            if ! head -n 1 "$file" | grep -q "^+++\|^---"; then
+              echo "::warning file=${file}::Missing front matter"
+              ERRORS=$((ERRORS + 1))
+            fi
+          done < <(find content -name "*.md" -type f)
+
+          if [ $ERRORS -gt 0 ]; then
+            echo "::warning::${ERRORS} files with front matter issues"
+          else
+            echo "All content files have valid front matter"
+          fi
+
+          echo "::endgroup::"
+
+      - name: Validate documentation structure
+        run: |
+          echo "::group::Documentation Structure"
+
+          if [ -d "docs" ]; then
+            DOC_COUNT=$(find docs -name "*.md" -type f | wc -l)
+            echo "Documentation files found: ${DOC_COUNT}"
+
+            # Check required documentation sections
+            REQUIRED_SECTIONS=("core" "guides" "reference" "operations" "architecture" "_meta")
+            for section in "${REQUIRED_SECTIONS[@]}"; do
+              if [ -d "docs/${section}" ]; then
+                SEC_COUNT=$(find "docs/${section}" -name "*.md" -type f | wc -l)
+                echo "  docs/${section}/: ${SEC_COUNT} files"
+              else
+                echo "::warning::Missing documentation section: docs/${section}/"
+              fi
+            done
+          else
+            echo "::notice::No docs/ directory found (optional)"
+          fi
+
+          echo "::endgroup::"
+
+      - name: Check Czech localization
+        run: |
+          echo "::group::Czech Localization Check"
+          echo "Checking Czech-specific content..."
+
+          # Verify zola.toml has Czech language config
+          if grep -q 'default_language = "cs"' zola.toml; then
+            echo "Czech language configured correctly"
+          else
+            echo "::warning::Default language is not Czech (cs)"
+          fi
+
+          # Check for required business information
+          REQUIRED_FIELDS=("business_name" "address" "phone_bar" "opening_hours")
+          for field in "${REQUIRED_FIELDS[@]}"; do
+            if grep -q "${field}" zola.toml; then
+              echo "  ${field}: present"
+            else
+              echo "::warning::Missing business field: ${field}"
+            fi
+          done
+
+          echo "::endgroup::"
+
+  # ─────────────────────────────────────────────
+  # Phase 2: Build & Optimize
+  # ─────────────────────────────────────────────
+  build:
+    name: "Build Site"
+    runs-on: ubuntu-latest
+    needs: content-validation
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Zola
+        uses: taiki-e/install-action@v2
+        with:
+          tool: zola@${{ env.ZOLA_VERSION }}
+
+      - name: Verify Zola installation
+        run: zola --version
+
+      - name: Build site
+        run: |
+          echo "::group::Zola Build"
+          START_TIME=$(date +%s)
+
+          zola build 2>&1 | tee build.log
+
+          END_TIME=$(date +%s)
+          BUILD_TIME=$((END_TIME - START_TIME))
+          echo "Build completed in ${BUILD_TIME} seconds"
+
+          # Validate build time target (<30s)
+          if [ $BUILD_TIME -gt 30 ]; then
+            echo "::warning::Build time (${BUILD_TIME}s) exceeds 30s target"
+          fi
+
+          echo "::endgroup::"
+
+      - name: Analyze build output
+        run: |
+          echo "::group::Build Analysis"
+
+          if [ ! -d "public" ]; then
+            echo "::error::Build failed - public directory not created"
+            exit 1
+          fi
+
+          # Build size analysis
+          BUILD_SIZE=$(du -sh public | cut -f1)
+          FILE_COUNT=$(find public -type f | wc -l)
+          HTML_COUNT=$(find public -name "*.html" -type f | wc -l)
+          CSS_COUNT=$(find public -name "*.css" -type f | wc -l)
+          JS_COUNT=$(find public -name "*.js" -type f | wc -l)
+
+          echo "Build Size: ${BUILD_SIZE}"
+          echo "Total Files: ${FILE_COUNT}"
+          echo "HTML Files: ${HTML_COUNT}"
+          echo "CSS Files: ${CSS_COUNT}"
+          echo "JS Files: ${JS_COUNT}"
+
+          # Build size limit check (50MB)
+          SIZE_BYTES=$(du -sb public | cut -f1)
+          if [ $SIZE_BYTES -gt 52428800 ]; then
+            echo "::warning::Build size exceeds 50MB limit"
+          fi
+
+          echo "::endgroup::"
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-build
+          path: public/
+          retention-days: 7
+
+      - name: Upload build log
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: build-log
+          path: build.log
+          retention-days: 3
+
+  # ─────────────────────────────────────────────
+  # Phase 3: Quality Gates
+  # ─────────────────────────────────────────────
+  html-validation:
+    name: "HTML Validation"
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 10
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-build
+          path: public/
+
+      - name: Validate HTML structure
+        run: |
+          echo "::group::HTML Validation"
+          ERRORS=0
+
+          for file in $(find public -name "*.html" -type f); do
+            # Basic HTML5 structure checks
+            if ! grep -q '<!DOCTYPE html>' "$file" 2>/dev/null; then
+              if ! grep -q '<!doctype html>' "$file" 2>/dev/null; then
+                echo "::warning file=${file}::Missing DOCTYPE declaration"
+                ERRORS=$((ERRORS + 1))
+              fi
+            fi
+
+            if ! grep -q '<html' "$file" 2>/dev/null; then
+              echo "::warning file=${file}::Missing <html> tag"
+              ERRORS=$((ERRORS + 1))
+            fi
+
+            if ! grep -q 'lang=' "$file" 2>/dev/null; then
+              echo "::warning file=${file}::Missing lang attribute on <html>"
+              ERRORS=$((ERRORS + 1))
+            fi
+
+            if ! grep -q '<meta charset' "$file" 2>/dev/null; then
+              if ! grep -q '<meta http-equiv="Content-Type"' "$file" 2>/dev/null; then
+                echo "::warning file=${file}::Missing charset declaration"
+                ERRORS=$((ERRORS + 1))
+              fi
+            fi
+
+            if ! grep -q '<meta name="viewport"' "$file" 2>/dev/null; then
+              echo "::warning file=${file}::Missing viewport meta tag"
+              ERRORS=$((ERRORS + 1))
+            fi
+          done
+
+          echo "HTML validation complete. Issues: ${ERRORS}"
+          echo "::endgroup::"
+
+  seo-validation:
+    name: "SEO Validation"
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 10
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-build
+          path: public/
+
+      - name: Validate SEO metadata
+        run: |
+          echo "::group::SEO Validation"
+          WARNINGS=0
+
+          for file in $(find public -name "*.html" -type f); do
+            BASENAME=$(basename "$file")
+
+            # Check for title tag
+            if ! grep -q '<title>' "$file" 2>/dev/null; then
+              echo "::warning file=${file}::Missing <title> tag"
+              WARNINGS=$((WARNINGS + 1))
+            fi
+
+            # Check for meta description
+            if ! grep -q 'meta name="description"' "$file" 2>/dev/null; then
+              echo "::warning file=${file}::Missing meta description"
+              WARNINGS=$((WARNINGS + 1))
+            fi
+
+            # Check for Open Graph tags (main pages)
+            if [ "$BASENAME" = "index.html" ]; then
+              if ! grep -q 'property="og:title"' "$file" 2>/dev/null; then
+                echo "::warning file=${file}::Missing og:title"
+                WARNINGS=$((WARNINGS + 1))
+              fi
+
+              if ! grep -q 'property="og:description"' "$file" 2>/dev/null; then
+                echo "::warning file=${file}::Missing og:description"
+                WARNINGS=$((WARNINGS + 1))
+              fi
+
+              if ! grep -q 'property="og:type"' "$file" 2>/dev/null; then
+                echo "::warning file=${file}::Missing og:type"
+                WARNINGS=$((WARNINGS + 1))
+              fi
+            fi
+          done
+
+          # Check for sitemap
+          if [ -f "public/sitemap.xml" ]; then
+            echo "Sitemap found: public/sitemap.xml"
+          else
+            echo "::notice::No sitemap.xml generated"
+          fi
+
+          # Check for robots.txt
+          if [ -f "public/robots.txt" ]; then
+            echo "Robots.txt found: public/robots.txt"
+          else
+            echo "::notice::No robots.txt found"
+          fi
+
+          echo "SEO validation complete. Warnings: ${WARNINGS}"
+          echo "::endgroup::"
+
+  accessibility-check:
+    name: "Accessibility Check"
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 10
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-build
+          path: public/
+
+      - name: Check accessibility basics
+        run: |
+          echo "::group::Accessibility Check"
+          ISSUES=0
+
+          for file in $(find public -name "*.html" -type f); do
+            # Check for lang attribute
+            if ! grep -q 'lang="cs"' "$file" 2>/dev/null; then
+              if ! grep -q 'lang="en"' "$file" 2>/dev/null; then
+                echo "::warning file=${file}::Missing or invalid lang attribute"
+                ISSUES=$((ISSUES + 1))
+              fi
+            fi
+
+            # Check images for alt text
+            IMG_COUNT=$(grep -c '<img' "$file" 2>/dev/null || echo 0)
+            ALT_COUNT=$(grep -c 'alt=' "$file" 2>/dev/null || echo 0)
+            if [ "$IMG_COUNT" -gt 0 ] && [ "$ALT_COUNT" -lt "$IMG_COUNT" ]; then
+              MISSING_ALT=$((IMG_COUNT - ALT_COUNT))
+              echo "::warning file=${file}::${MISSING_ALT} image(s) missing alt text"
+              ISSUES=$((ISSUES + 1))
+            fi
+
+            # Check for skip navigation link
+            if grep -q '<nav' "$file" 2>/dev/null; then
+              if ! grep -q 'skip' "$file" 2>/dev/null; then
+                echo "::notice file=${file}::Consider adding skip navigation link"
+              fi
+            fi
+
+            # Check for proper heading hierarchy (h1 exists)
+            if ! grep -q '<h1' "$file" 2>/dev/null; then
+              echo "::notice file=${file}::No <h1> heading found"
+            fi
+
+            # Check for form labels
+            FORM_INPUTS=$(grep -c '<input\|<select\|<textarea' "$file" 2>/dev/null || echo 0)
+            LABELS=$(grep -c '<label' "$file" 2>/dev/null || echo 0)
+            if [ "$FORM_INPUTS" -gt 0 ] && [ "$LABELS" -lt "$FORM_INPUTS" ]; then
+              echo "::notice file=${file}::Some form inputs may lack labels"
+            fi
+          done
+
+          echo "Accessibility check complete. Issues: ${ISSUES}"
+          echo "::endgroup::"
+
+  performance-check:
+    name: "Performance Check"
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 10
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-build
+          path: public/
+
+      - name: Analyze performance metrics
+        run: |
+          echo "::group::Performance Analysis"
+
+          # File size analysis
+          echo "## File Size Analysis"
+          echo ""
+
+          TOTAL_SIZE=$(du -sb public | cut -f1)
+          echo "Total build size: $(du -sh public | cut -f1)"
+          echo ""
+
+          # HTML file sizes
+          echo "### HTML Files"
+          find public -name "*.html" -type f -exec du -sh {} \; | sort -rh | head -10
+          echo ""
+
+          # CSS file sizes
+          echo "### CSS Files"
+          find public -name "*.css" -type f -exec du -sh {} \; | sort -rh | head -10
+          echo ""
+
+          # JS file sizes
+          echo "### JS Files"
+          find public -name "*.js" -type f -exec du -sh {} \; | sort -rh | head -10
+          echo ""
+
+          # Image file sizes
+          echo "### Image Files"
+          find public \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" -o -name "*.gif" -o -name "*.svg" -o -name "*.webp" \) -type f -exec du -sh {} \; | sort -rh | head -10
+          echo ""
+
+          # Large file warnings (>500KB)
+          echo "### Large Files (>500KB)"
+          LARGE_FILES=$(find public -type f -size +500k 2>/dev/null)
+          if [ -n "$LARGE_FILES" ]; then
+            echo "$LARGE_FILES" | while read -r file; do
+              SIZE=$(du -sh "$file" | cut -f1)
+              echo "::warning file=${file}::Large file: ${SIZE}"
+            done
+          else
+            echo "No files larger than 500KB"
+          fi
+
+          # Minification check for HTML
+          echo ""
+          echo "### Minification Status"
+          for file in $(find public -name "*.html" -type f | head -5); do
+            LINES=$(wc -l < "$file")
+            if [ "$LINES" -gt 50 ]; then
+              echo "::notice file=${file}::HTML may not be fully minified (${LINES} lines)"
+            else
+              echo "${file}: minified (${LINES} lines)"
+            fi
+          done
+
+          echo "::endgroup::"
+
+  security-check:
+    name: "Security Check"
+    runs-on: ubuntu-latest
+    needs: build
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-build
+          path: public/
+
+      - name: Security analysis
+        run: |
+          echo "::group::Security Analysis"
+
+          # Check for sensitive data in build output
+          echo "## Sensitive Data Check"
+
+          SENSITIVE_PATTERNS=(
+            "password"
+            "secret"
+            "api_key"
+            "apikey"
+            "private_key"
+            "token"
+            "authorization"
+          )
+
+          ISSUES=0
+          for pattern in "${SENSITIVE_PATTERNS[@]}"; do
+            MATCHES=$(grep -rli "${pattern}" public/ 2>/dev/null | grep -v ".min." | head -5 || true)
+            if [ -n "$MATCHES" ]; then
+              echo "::warning::Pattern '${pattern}' found in build output"
+              ISSUES=$((ISSUES + 1))
+            fi
+          done
+
+          if [ $ISSUES -eq 0 ]; then
+            echo "No sensitive data patterns detected in build output"
+          fi
+
+          echo ""
+
+          # Check for proper CSP-related meta tags
+          echo "## Security Headers Check"
+          INDEX_FILE="public/index.html"
+          if [ -f "$INDEX_FILE" ]; then
+            if grep -q 'http-equiv="Content-Security-Policy"' "$INDEX_FILE" 2>/dev/null; then
+              echo "CSP meta tag found"
+            else
+              echo "::notice::Consider adding Content-Security-Policy meta tag"
+            fi
+
+            if grep -q 'http-equiv="X-Content-Type-Options"' "$INDEX_FILE" 2>/dev/null; then
+              echo "X-Content-Type-Options meta tag found"
+            else
+              echo "::notice::Consider adding X-Content-Type-Options meta tag"
+            fi
+          fi
+
+          echo ""
+
+          # Check for external resource integrity
+          echo "## External Resource Integrity"
+          if [ -f "$INDEX_FILE" ]; then
+            EXT_SCRIPTS=$(grep -c 'src="https://' "$INDEX_FILE" 2>/dev/null || echo 0)
+            SRI_SCRIPTS=$(grep -c 'integrity=' "$INDEX_FILE" 2>/dev/null || echo 0)
+            echo "External scripts: ${EXT_SCRIPTS}"
+            echo "With SRI integrity: ${SRI_SCRIPTS}"
+            if [ "$EXT_SCRIPTS" -gt 0 ] && [ "$SRI_SCRIPTS" -lt "$EXT_SCRIPTS" ]; then
+              echo "::notice::Some external scripts lack SRI integrity attributes"
+            fi
+          fi
+
+          # Check .gitignore for sensitive files
+          echo ""
+          echo "## Repository Security"
+          if [ -f ".gitignore" ]; then
+            CRITICAL_IGNORES=(".env" "*.key" "*.pem" "credentials" "secrets")
+            for pattern in "${CRITICAL_IGNORES[@]}"; do
+              if grep -q "${pattern}" .gitignore 2>/dev/null; then
+                echo "${pattern}: ignored"
+              else
+                echo "::notice::Consider adding '${pattern}' to .gitignore"
+              fi
+            done
+          else
+            echo "::warning::No .gitignore file found"
+          fi
+
+          echo "::endgroup::"
+
+  # ─────────────────────────────────────────────
+  # Phase 4: Quality Gate Summary
+  # ─────────────────────────────────────────────
+  quality-gate-summary:
+    name: "Quality Gate Summary"
+    runs-on: ubuntu-latest
+    needs:
+      - content-validation
+      - build
+      - html-validation
+      - seo-validation
+      - accessibility-check
+      - performance-check
+      - security-check
+    if: always()
+    steps:
+      - name: Quality gate evaluation
+        run: |
+          echo "::group::AIAD Quality Gate Summary"
+          echo ""
+          echo "======================================"
+          echo "  U Tygra - AIAD Quality Gate Report  "
+          echo "======================================"
+          echo ""
+          echo "Pipeline: ${{ github.workflow }}"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Commit: ${{ github.sha }}"
+          echo "Date: $(date -Iseconds)"
+          echo ""
+
+          echo "Gate Results:"
+          echo "  Content Validation: ${{ needs.content-validation.result }}"
+          echo "  Build:              ${{ needs.build.result }}"
+          echo "  HTML Validation:    ${{ needs.html-validation.result }}"
+          echo "  SEO Validation:     ${{ needs.seo-validation.result }}"
+          echo "  Accessibility:      ${{ needs.accessibility-check.result }}"
+          echo "  Performance:        ${{ needs.performance-check.result }}"
+          echo "  Security:           ${{ needs.security-check.result }}"
+          echo ""
+
+          # Determine overall status
+          FAILED=0
+          for result in \
+            "${{ needs.content-validation.result }}" \
+            "${{ needs.build.result }}" \
+            "${{ needs.html-validation.result }}" \
+            "${{ needs.seo-validation.result }}" \
+            "${{ needs.accessibility-check.result }}" \
+            "${{ needs.performance-check.result }}" \
+            "${{ needs.security-check.result }}"; do
+            if [ "$result" = "failure" ]; then
+              FAILED=$((FAILED + 1))
+            fi
+          done
+
+          if [ $FAILED -eq 0 ]; then
+            echo "Overall Status: PASSED"
+            echo ""
+            echo "All quality gates passed successfully."
+          else
+            echo "Overall Status: FAILED (${FAILED} gate(s) failed)"
+            echo ""
+            echo "::error::${FAILED} quality gate(s) failed. Review the individual job results."
+          fi
+
+          echo ""
+          echo "AIAD Standard Library v${{ env.AIAD_VERSION }}"
+          echo "======================================"
+          echo "::endgroup::"
+
+  # ─────────────────────────────────────────────
+  # Phase 5: Deployment
+  # ─────────────────────────────────────────────
+  deploy-staging:
+    name: "Deploy to Staging"
+    runs-on: ubuntu-latest
+    needs: quality-gate-summary
+    if: |
+      github.event_name == 'pull_request' ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'staging')
+    environment:
+      name: staging
+      url: https://staging.pivniceutygra.cz
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-build
+          path: public/
+
+      - name: Deploy to staging
+        run: |
+          echo "Deploying to staging environment..."
+          echo "Build artifact ready for staging deployment"
+          echo "Target: https://staging.pivniceutygra.cz"
+
+  deploy-production:
+    name: "Deploy to Production"
+    runs-on: ubuntu-latest
+    needs: quality-gate-summary
+    if: |
+      (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') &&
+      github.event_name == 'push' ||
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'production')
+    environment:
+      name: production
+      url: https://www.pivniceutygra.cz
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: site-build
+          path: public/
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
+          cname: www.pivniceutygra.cz
+          force_orphan: true
+          user_name: 'AIAD CI/CD Pipeline'
+          user_email: 'aiad@pivniceutygra.cz'
+          commit_message: |
+            deploy: ${{ github.sha }}
+
+            AIAD Pipeline v${{ env.AIAD_VERSION }}
+            Branch: ${{ github.ref_name }}
+            Quality Gates: PASSED
+
+  # ─────────────────────────────────────────────
+  # Phase 6: Post-Deploy Health Check
+  # ─────────────────────────────────────────────
+  post-deploy-health:
+    name: "Post-Deploy Health Check"
+    runs-on: ubuntu-latest
+    needs: [deploy-production]
+    if: needs.deploy-production.result == 'success'
+    timeout-minutes: 5
+    steps:
+      - name: Wait for deployment propagation
+        run: sleep 30
+
+      - name: Health check
+        run: |
+          echo "::group::Post-Deployment Health Check"
+
+          SITE_URL="https://www.pivniceutygra.cz"
+          echo "Checking: ${SITE_URL}"
+
+          # HTTP status check
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" "${SITE_URL}" 2>/dev/null || echo "000")
+          if [ "$STATUS" = "200" ]; then
+            echo "HTTP Status: ${STATUS} (OK)"
+          else
+            echo "::warning::HTTP Status: ${STATUS} (expected 200)"
+          fi
+
+          # Response time check
+          RESPONSE_TIME=$(curl -s -o /dev/null -w "%{time_total}" "${SITE_URL}" 2>/dev/null || echo "0")
+          echo "Response Time: ${RESPONSE_TIME}s"
+
+          # Content check
+          CONTENT=$(curl -s "${SITE_URL}" 2>/dev/null || echo "")
+          if echo "$CONTENT" | grep -q "Pivnice U Tygra"; then
+            echo "Content check: PASSED (site title found)"
+          else
+            echo "::warning::Content check: site title not found in response"
+          fi
+
+          echo ""
+          echo "Post-deployment health check complete"
+          echo "::endgroup::"

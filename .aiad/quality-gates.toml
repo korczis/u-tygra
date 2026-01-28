@@ -1,0 +1,334 @@
+# U Tygra - AIAD Quality Gates Configuration
+# Centralized quality gate definitions
+# Version: 1.0.0 | AIAD Standard Library v2.0.0
+
+[meta]
+name = "quality-gates"
+version = "1.0.0"
+description = "Comprehensive quality gate definitions for U Tygra static site"
+created = "2026-01-28"
+enforcement = "strict"  # strict | moderate | advisory
+
+# ─────────────────────────────────────────────
+# Gate 1: HTML Validation
+# ─────────────────────────────────────────────
+[gates.html_validation]
+name = "HTML Validation"
+enabled = true
+blocking = true
+priority = 1
+
+[gates.html_validation.checks]
+doctype = { required = true, value = "html" }
+charset = { required = true, value = "utf-8" }
+viewport = { required = true }
+lang_attribute = { required = true, value = "cs" }
+valid_markup = { required = true, max_errors = 0 }
+semantic_html = { recommended = true }
+
+[gates.html_validation.tools]
+primary = "nu-html-checker"
+fallback = "html-validate"
+ci_integration = true
+
+# ─────────────────────────────────────────────
+# Gate 2: Accessibility
+# ─────────────────────────────────────────────
+[gates.accessibility]
+name = "Accessibility"
+enabled = true
+blocking = true
+priority = 2
+
+[gates.accessibility.standards]
+wcag_version = "2.1"
+compliance_level = "AA"
+min_score = 95
+
+[gates.accessibility.checks]
+alt_text = { required = true, all_images = true }
+heading_hierarchy = { required = true }
+keyboard_navigation = { required = true }
+color_contrast = { required = true, ratio = 4.5 }
+focus_indicators = { required = true }
+aria_labels = { recommended = true }
+skip_navigation = { recommended = true }
+form_labels = { required = true }
+screen_reader_compat = { required = true }
+
+[gates.accessibility.tools]
+primary = "axe-core"
+secondary = "pa11y"
+ci_integration = true
+
+# ─────────────────────────────────────────────
+# Gate 3: Performance
+# ─────────────────────────────────────────────
+[gates.performance]
+name = "Performance"
+enabled = true
+blocking = true
+priority = 3
+
+[gates.performance.core_web_vitals]
+lcp = { max_ms = 2500, target_ms = 1800 }  # Largest Contentful Paint
+fid = { max_ms = 100, target_ms = 50 }      # First Input Delay
+cls = { max_score = 0.1, target_score = 0.05 }  # Cumulative Layout Shift
+fcp = { max_ms = 1800, target_ms = 1200 }   # First Contentful Paint
+ttfb = { max_ms = 800, target_ms = 400 }    # Time to First Byte
+
+[gates.performance.lighthouse]
+performance_score = { min = 90, target = 95 }
+best_practices_score = { min = 90, target = 95 }
+
+[gates.performance.budgets]
+total_page_size = { max_kb = 2048 }
+html_size = { max_kb = 100 }
+css_size = { max_kb = 200 }
+js_size = { max_kb = 500 }
+image_size = { max_kb = 1024 }
+font_size = { max_kb = 256 }
+total_requests = { max = 30 }
+
+[gates.performance.build]
+build_time = { max_seconds = 30 }
+output_size = { max_mb = 50 }
+
+[gates.performance.tools]
+primary = "lighthouse-ci"
+secondary = "web-vitals"
+ci_integration = true
+
+# ─────────────────────────────────────────────
+# Gate 4: SEO
+# ─────────────────────────────────────────────
+[gates.seo]
+name = "SEO"
+enabled = true
+blocking = false  # advisory for now
+priority = 4
+
+[gates.seo.lighthouse]
+seo_score = { min = 95, target = 100 }
+
+[gates.seo.meta_tags]
+title = { required = true, min_length = 30, max_length = 60 }
+description = { required = true, min_length = 120, max_length = 160 }
+og_title = { required = true }
+og_description = { required = true }
+og_type = { required = true }
+og_image = { recommended = true }
+canonical = { recommended = true }
+
+[gates.seo.structured_data]
+schema_org = { required = true, type = "BarOrPub" }
+json_ld = { required = true }
+validation = { required = true }
+
+[gates.seo.technical]
+sitemap = { required = true }
+robots_txt = { recommended = true }
+canonical_urls = { required = true }
+heading_structure = { required = true }
+image_alt_text = { required = true }
+mobile_friendly = { required = true }
+
+[gates.seo.czech_market]
+hreflang = { recommended = true, values = ["cs", "en"] }
+local_business_schema = { required = true }
+czech_language_tags = { required = true }
+
+[gates.seo.tools]
+primary = "lighthouse"
+secondary = "schema-validator"
+ci_integration = true
+
+# ─────────────────────────────────────────────
+# Gate 5: Link Integrity
+# ─────────────────────────────────────────────
+[gates.link_integrity]
+name = "Link Integrity"
+enabled = true
+blocking = true
+priority = 5
+
+[gates.link_integrity.checks]
+internal_links = { required = true, max_broken = 0 }
+anchor_links = { required = true, max_broken = 0 }
+external_links = { recommended = true, timeout_ms = 10000 }
+image_links = { required = true, max_broken = 0 }
+redirect_chains = { max_depth = 3 }
+
+[gates.link_integrity.tools]
+primary = "lychee"
+fallback = "zola-check"
+ci_integration = true
+
+# ─────────────────────────────────────────────
+# Gate 6: Security
+# ─────────────────────────────────────────────
+[gates.security]
+name = "Security"
+enabled = true
+blocking = false  # advisory for static sites
+priority = 6
+
+[gates.security.checks]
+https_enforcement = { required = true }
+csp_headers = { recommended = true }
+x_content_type_options = { recommended = true }
+x_frame_options = { recommended = true }
+referrer_policy = { recommended = true }
+sri_integrity = { recommended = true }
+no_sensitive_data = { required = true }
+no_inline_scripts = { recommended = false }  # Alpine.js requires inline
+
+[gates.security.scanning]
+dependency_audit = { enabled = false }  # no npm deps
+secret_detection = { enabled = true }
+vulnerability_scan = { enabled = false }  # static site
+
+[gates.security.tools]
+primary = "security-headers-check"
+ci_integration = true
+
+# ─────────────────────────────────────────────
+# Gate 7: Content Quality
+# ─────────────────────────────────────────────
+[gates.content_quality]
+name = "Content Quality"
+enabled = true
+blocking = false
+priority = 7
+
+[gates.content_quality.checks]
+front_matter_completeness = { required = true }
+heading_structure = { required = true }
+content_length = { min_words = 10 }
+czech_localization = { required = true }
+business_info_accuracy = { required = true }
+image_optimization = { recommended = true }
+
+[gates.content_quality.czech_specific]
+diacritics_correct = { required = true }
+currency_format = { required = true, format = "CZK" }
+phone_format = { required = true, format = "+420" }
+address_format = { required = true, format = "czech_standard" }
+business_hours = { required = true, format = "24h" }
+
+[gates.content_quality.tools]
+primary = "content-analyze"
+ci_integration = true
+
+# ─────────────────────────────────────────────
+# Gate 8: CSS Validation
+# ─────────────────────────────────────────────
+[gates.css_validation]
+name = "CSS Validation"
+enabled = true
+blocking = false
+priority = 8
+
+[gates.css_validation.checks]
+w3c_validation = { recommended = true }
+minification = { required = true }
+no_unused_properties = { recommended = false }  # utility-first CSS
+browser_compatibility = { recommended = true, targets = ["last 2 versions"] }
+
+[gates.css_validation.tools]
+primary = "w3c-css-validator"
+ci_integration = false
+
+# ─────────────────────────────────────────────
+# Gate Enforcement Policy
+# ─────────────────────────────────────────────
+[enforcement]
+
+[enforcement.development]
+mode = "advisory"  # no blocking in development
+report_format = "console"
+fail_on_error = false
+
+[enforcement.staging]
+mode = "moderate"
+report_format = "json"
+fail_on_error = true
+allowed_warnings = 10
+
+[enforcement.production]
+mode = "strict"
+report_format = "json"
+fail_on_error = true
+allowed_warnings = 5
+
+[enforcement.ci_cd]
+mode = "strict"
+report_format = "junit"
+fail_on_error = true
+allowed_warnings = 0
+artifact_generation = true
+pr_comments = false  # TBD
+
+# ─────────────────────────────────────────────
+# Reporting Configuration
+# ─────────────────────────────────────────────
+[reporting]
+formats = ["json", "html", "markdown"]
+output_directory = "reports/quality-gates"
+retention_days = 90
+trend_tracking = true
+baseline_comparison = true
+
+[reporting.sections]
+executive_summary = true
+gate_status = true
+detailed_findings = true
+recommendations = true
+historical_comparison = true
+compliance_matrix = true
+
+[reporting.notifications]
+console = true
+file = true
+github_pr = false
+email = false
+slack = false
+
+# ─────────────────────────────────────────────
+# Regression Detection
+# ─────────────────────────────────────────────
+[regression]
+enabled = true
+baseline_file = "reports/quality-baseline.json"
+threshold_percentage = 5  # max allowed decrease
+metrics_tracked = [
+  "performance_score",
+  "accessibility_score",
+  "seo_score",
+  "html_errors",
+  "broken_links",
+  "build_time",
+  "output_size"
+]
+auto_update_baseline = false  # manual baseline updates only
+
+# ─────────────────────────────────────────────
+# Mycelial Integration
+# ─────────────────────────────────────────────
+[mycelial]
+pattern_sharing = [
+  "quality_gate_configurations",
+  "threshold_optimizations",
+  "czech_localization_rules",
+  "static_site_quality_patterns"
+]
+cross_domain_learning = [
+  "quality_standards_evolution",
+  "gate_effectiveness_metrics",
+  "false_positive_reduction"
+]
+evolution_tracking = [
+  "gate_pass_rates",
+  "quality_improvement_trends",
+  "issue_detection_accuracy"
+]

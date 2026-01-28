@@ -1,278 +1,106 @@
-# Pivnice U Tygra - AIAD-Powered Project Instructions
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
-**Pivnice U Tygra** is a comprehensive static website for a Czech pub in Brno, powered by the AIAD (AI-Augmented Development) ecosystem. This project demonstrates full-scale AIAD integration with intelligent agents, automated workflows, comprehensive documentation, and mycelial cross-domain learning capabilities.
 
-**Business Context**: Modern pub website featuring live beer menu integration, responsive design, Czech localization, and comprehensive business information including private event booking and contact details.
+Static website for Pivnice U Tygra, a Czech pub in Brno. Built with Zola (Rust-based SSG), Alpine.js for interactivity, and Tailwind CSS via CDN. The site is a single-page application with live beer menu pulled from Google Sheets CSV export.
 
-## AIAD Ecosystem Integration
+Primary language is Czech (cs). All UI text, menu items, and business content are in Czech.
 
-### Core AIAD Components
-- **Version**: AIAD Standard Library v2.0.0
-- **Ecosystem ID**: u-tygra-pivnice-brno
-- **Domain**: Web Development (Hospitality/Restaurant)
-- **Mycelial Networks**: Connected to Prismatic, OSINT, Nabla Infinity ecosystems
+## Build & Development Commands
 
-### Intelligent Agent Ecosystem (12+ Agents)
-
-#### Content Management Agents
-- **content-validator**: Validates content structure, links, and Czech localization
-- **google-sheets-sync**: Manages live beer menu synchronization
-- **seo-optimizer**: SEO analysis and optimization for Czech market
-- **accessibility-checker**: WCAG 2.1 AA compliance validation
-
-#### Development Workflow Agents
-- **build-orchestrator**: Manages Zola build processes and optimization
-- **deployment-manager**: Handles multi-environment deployments
-- **quality-gate-sentinel**: Enforces comprehensive quality standards
-- **performance-monitor**: Tracks Core Web Vitals and site performance
-
-#### Documentation Agents
-- **docs-analyzer**: Documentation completeness and consistency analysis
-- **cross-reference-manager**: Manages internal linking and navigation
-- **glossary-maintainer**: Maintains Czech/English terminology consistency
-- **adr-assistant**: Assists with Architecture Decision Records
-
-### Command Infrastructure (15+ Commands)
-
-#### Content Operations
-- `make content-analyze` - Comprehensive content analysis
-- `make content-validate` - Link and consistency validation
-- `make content-sync` - Google Sheets synchronization
-- `make content-optimize` - SEO and performance optimization
-
-#### Build & Deploy Operations
-- `make build-dev` - Development build with live reload
-- `make build-prod` - Production build with optimization
-- `make deploy-staging` - Deploy to staging environment
-- `make deploy-prod` - Deploy to production with quality gates
-
-#### Quality & Maintenance Operations
-- `make quality-check` - Run all quality gates
-- `make docs-generate` - Auto-generate documentation
-- `make health-report` - System health analysis
-- `make backup-content` - Backup procedures
-
-## Technology Stack
-
-### Core Technologies
-- **SSG**: Zola (Rust-based static site generator)
-- **Template Engine**: Tera (Jinja2-like templating)
-- **JS Framework**: Alpine.js 3.14.3 (reactive UI)
-- **UI Components**: Flowbite 2.5.2 (Tailwind CSS component library)
-- **Styling**: Tailwind CSS 3.x via CDN + Custom CSS
-- **Fonts**: Google Fonts (Inter + Playfair Display)
-- **Analytics**: Google Analytics 4
-
-### Data Integration
-- **Live Data**: Google Sheets CSV export (real-time beer menu)
-- **Business Data**: Structured data in zola.toml
-- **Content**: Markdown with rich front matter
-- **Assets**: Co-located with content
-
-### AIAD Technology Integration
-- **Quality Gates**: HTML validation, accessibility, performance, SEO
-- **Documentation**: Modular architecture with cross-referencing
-- **Automation**: Make-based workflow with intelligent agents
-- **Mycelial Integration**: Cross-domain pattern propagation
-
-## Development Workflow
-
-### Standard Commands
 ```bash
-# Core Zola commands
-zola build          # Build static site to public/
-zola serve          # Dev server with hot reload (127.0.0.1:1111)
-zola check          # Validate links and content structure
+# Development server (port 1111, hot reload)
+zola serve
+# or
+make dev
 
-# AIAD-enhanced workflow
-make dev            # Start development with AIAD monitoring
-make build          # Production build with quality gates
-make deploy         # Intelligent deployment with rollback safety
-make test           # Comprehensive quality validation
-make docs           # Auto-generate/update documentation
+# Production build (outputs to public/)
+zola build
+# or
+make build-prod
+
+# Validate links and content structure
+zola check
+
+# Run all quality gates (content validation + link check + zola check)
+make quality-check
+# or
+make test
+
+# Clean build artifacts
+make clean
+
+# Full pipeline: clean + analyze + quality + build + health report
+make full-check
 ```
 
-### Quality Gates Enforcement
-All builds must pass:
-- **HTML Validation**: W3C compliance
-- **Accessibility**: WCAG 2.1 AA (95%+ score)
-- **Performance**: Core Web Vitals (90%+ score)
-- **SEO**: Schema.org compliance (95%+ score)
-- **Link Validation**: All internal/external links functional
-- **Security**: Content Security Policy compliance
+Zola must be installed (v0.22.1). No npm/node dependencies -- Tailwind, Alpine.js, and Flowbite are loaded via CDN.
 
-## Project Structure (AIAD-Enhanced)
+## Architecture
+
+### Single-Page App Pattern
+
+The site is a single Zola page (`content/_index.md`) rendered through `templates/index.html` (extends `templates/base.html`). All sections (hero, beer menu, food menu, private room, contact) are in the one template with Alpine.js handling navigation, scroll tracking, and data fetching.
+
+### Live Data Flow
 
 ```
-u-tygra/
-├── content/                    # Zola content (Markdown)
-│   └── _index.md              # Home page content
-├── templates/                  # Tera templates
-│   ├── base.html              # Base layout (101 lines)
-│   ├── index.html             # Main page (563 lines)
-│   └── shortcodes/            # Custom shortcodes
-│       ├── note.html          # Info boxes
-│       ├── warning.html       # Warning callouts
-│       ├── adr.html           # ADR formatting
-│       └── nav_breadcrumb.html # Navigation
-├── static/                     # Static assets
-│   ├── css/
-│   │   └── style.css          # Custom styles (141 lines)
-│   ├── js/
-│   │   └── app.js             # Alpine.js app (177 lines)
-│   └── img/                   # Images and media
-├── sass/                       # Sass source (optional)
-├── docs/                       # AIAD Documentation System
-│   ├── core/                  # Essential knowledge
-│   ├── guides/                # Task-oriented how-tos
-│   ├── reference/             # Lookups and specifications
-│   ├── operations/            # Deployment & maintenance
-│   ├── architecture/          # Design decisions (ADRs)
-│   └── _meta/                 # Documentation metadata
-├── .aiad/                      # AIAD Ecosystem
-│   ├── manifest.toml          # AIAD configuration
-│   ├── agents/                # Intelligent agents (12+)
-│   └── commands/              # Custom commands (15+)
-├── .claude/                    # Claude Code configuration
-│   ├── CLAUDE.md              # This file
-│   └── settings.local.json    # Permissions and context
-├── .github/                    # CI/CD Integration
-│   └── workflows/
-│       └── aiad-integration.yml
-├── Makefile                    # AIAD workflow automation
-├── zola.toml                   # Zola configuration
-└── README.md                   # Project overview
+Google Sheets (published CSV) --> Alpine.js fetch in app.js --> liveBeers[] + announcement
 ```
 
-## Data Integration & Business Context
+`static/js/app.js` contains the entire Alpine.js application including:
+- CSV parser for Google Sheets data
+- Brewery database (20+ breweries with URLs and icon mappings)
+- Beer style definitions (8 categories with Czech/English names)
+- Full food menu with prices in CZK
+- Business hours and beer trivia rotation
+- Intersection Observer for scroll-based nav highlighting
 
-### Google Sheets Integration
-- **Sheet ID**: 2PACX-1vSeZjP4HadboLuS8v4KVobNqsKtjaBpBJ8oCuPCC-OjfkCtCWA8N_asuxkedh7QSGhsrXU0JU_bV_Rn
-- **Sheet GID**: 1804527038
-- **Update Frequency**: Real-time via CSV export
-- **Data Validation**: Automated via google-sheets-sync agent
-- **Fallback**: Graceful error handling with loading states
+### Template Structure
 
-### Business Information
-- **Name**: Pivnice U Tygra
-- **Address**: Vrchlického sad 1893/3, Brno, 602 00 CZ
-- **Phone**: Bar: +420 776 140 840, Operations: +420 777 935 052
-- **Hours**: Daily 16:00–24:00 (flexible by guests)
-- **Company**: KONOVO s.r.o. (IČO: 17846927)
-- **Bank**: Fio, a.s. (2902412257/2010)
-- **Social**: Facebook @UTygraBrno
+- `templates/base.html` -- HTML shell, meta tags, Schema.org JSON-LD (BarOrPub), CDN imports, GA4 tracking, custom Tailwind theme config (tiger/brew color palettes)
+- `templates/index.html` -- All page sections with Alpine.js directives (x-data, x-show, x-for, etc.)
+- `templates/shortcodes/note.html`, `warning.html` -- Reusable callout components
 
-### Localization (Czech Focus)
-- **Primary Language**: Czech (cs)
-- **Secondary**: English (en)
-- **Cultural Adaptation**: Czech business hours, address format, phone format
-- **Currency**: Czech Koruna (CZK)
-- **Legal**: Czech business entity information display
+### Styling
 
-## Documentation System
+- Tailwind CSS 3.x via CDN with custom theme in `base.html` (tiger orange #f08c0f, brew brown #958757 palettes)
+- `static/css/style.css` -- Custom effects: glass morphism, hero gradients, beer card animations, shimmer loading skeleton, dark map filter, custom scrollbar
+- Google Fonts: Inter (300-900 weights)
 
-### Modular Architecture (Following Prismatic Pattern)
-The documentation follows a proven modular pattern for maintainable, AI-friendly documentation:
+### Configuration
 
-- **Atomic Files**: Single responsibility per document
-- **Rich Cross-referencing**: Bidirectional linking system
-- **Standardized Navigation**: Consistent breadcrumb and section navigation
-- **Template-driven**: Shortcodes for consistent formatting
-- **Version Control Friendly**: Granular changes, minimal merge conflicts
+`zola.toml` holds all business data (address, phones, company info, Google Sheets IDs, GA tracking ID) accessible in templates via `config.extra.*`.
 
-### Documentation Categories
-1. **Core**: Essential architectural and business knowledge
-2. **Guides**: Step-by-step task-oriented instructions
-3. **Reference**: Lookup materials and specifications
-4. **Operations**: Deployment, monitoring, maintenance procedures
-5. **Architecture**: Decision records and system design
-6. **Meta**: Documentation system maintenance and standards
+## CI/CD
 
-## Quality Assurance
+Two parallel pipelines deploy on push to main:
+- **GitHub Actions** (`.github/workflows/pages.yml`): Installs Zola v0.22.1, rewrites base_url for GitHub Pages, runs `zola check` + `zola build`, deploys to GitHub Pages
+- **GitLab CI** (`.gitlab-ci.yml`): Alpine container, downloads Zola v0.22.1, runs `zola check` + `zola build`, publishes `public/` artifact
 
-### Automated Quality Gates
-- **HTML Validation**: W3C Markup Validator integration
-- **Accessibility**: axe-core + WCAG 2.1 AA compliance
-- **Performance**: Lighthouse + Core Web Vitals monitoring
-- **SEO**: Schema.org + Open Graph validation
-- **Security**: Content Security Policy enforcement
-- **Links**: Internal/external link integrity checking
+Base URL in `zola.toml` targets GitLab Pages (`https://korczis.gitlab.io/u-tygra`). The GitHub Actions workflow rewrites it at build time.
 
-### Performance Targets
-- **Lighthouse Performance**: ≥90
-- **Lighthouse Accessibility**: ≥95
-- **Lighthouse SEO**: ≥95
-- **Core Web Vitals**: All metrics in "Good" range
-- **Build Time**: <30 seconds including quality gates
+## Key Files
 
-## Deployment & Operations
+| File | Purpose |
+|------|---------|
+| `zola.toml` | Zola config + all business data |
+| `templates/index.html` | Main page template (all sections) |
+| `templates/base.html` | HTML shell, CDN deps, Schema.org, Tailwind config |
+| `static/js/app.js` | Alpine.js app (beer data, menus, brewery DB) |
+| `static/css/style.css` | Custom CSS effects beyond Tailwind |
+| `content/_index.md` | Home page content (minimal -- template-driven) |
+| `Makefile` | Build automation (50+ targets, `make help` for list) |
+| `.aiad/manifest.toml` | AIAD ecosystem configuration |
 
-### Multi-Environment Support
-- **Development**: Local with live reload (`zola serve`)
-- **Staging**: Preview environment for validation
-- **Production**: Live website with full optimization
+## AIAD Ecosystem
 
-### Deployment Targets
-- **Primary**: GitHub Pages (automated via Actions)
-- **Alternative**: Netlify, Cloudflare Pages, AWS S3
-- **Preview**: Automatic preview deployments for PRs
+The project uses an AIAD (AI-Augmented Development) framework with:
+- Agent configs in `.aiad/agents/` (content-validator, build-orchestrator, google-sheets-sync, docs-analyzer, quality-gate-sentinel)
+- Executable commands in `.aiad/commands/`
+- Manifest in `.aiad/manifest.toml`
+- Documentation system in `docs/` following a modular pattern (core, guides, reference, operations, architecture)
 
-### Monitoring & Analytics
-- **Analytics**: Google Analytics 4 (G-FTXJKHH6R0)
-- **Performance**: Core Web Vitals tracking
-- **Uptime**: Automated monitoring
-- **Error Tracking**: Comprehensive error logging
-
-## Mycelial Intelligence Integration
-
-### Cross-Domain Connectivity
-- **Prismatic**: Primary AIAD ecosystem connection
-- **Pattern Sharing**: Bidirectional pattern propagation
-- **Collective Learning**: Cross-project intelligence development
-- **Evolution Tracking**: Continuous improvement through genetic operations
-
-### Pattern Export/Import
-- **Export**: Static site automation, Google Sheets integration, Czech localization
-- **Import**: Documentation standards, quality gates, CI/CD workflows
-- **Adaptation**: Intelligent pattern adaptation for Zola context
-
-## Security & Compliance
-
-### Security Measures
-- **Content Security Policy**: Strict CSP headers
-- **HTTPS**: Full HTTPS enforcement
-- **Dependency Scanning**: Automated vulnerability assessment
-- **Static Analysis**: Code quality and security validation
-
-### Privacy & Compliance
-- **GDPR**: Czech privacy law compliance
-- **Data Processing**: Minimal personal data collection
-- **Analytics**: Anonymized visitor tracking
-- **Cookies**: Minimal cookie usage
-
-## Developer Experience
-
-### IDE Integration
-- **VS Code**: Recommended with Zola extension
-- **Claude Code**: Full integration with AIAD ecosystem
-- **Live Reload**: Instant preview of changes
-- **IntelliSense**: Template and content completion
-
-### Debugging & Troubleshooting
-- **Build Logs**: Comprehensive build output
-- **Link Checker**: Automated link validation
-- **Performance**: Built-in performance analysis
-- **Error Pages**: Graceful error handling
-
-### Contributing Guidelines
-1. **Documentation First**: All changes require documentation updates
-2. **Quality Gates**: All commits must pass quality validation
-3. **Testing**: Comprehensive testing before deployment
-4. **AIAD Integration**: Leverage intelligent agents for development tasks
-
----
-
-**AIAD Classification**: SUPREME | **Authority**: EVOLUTIONARY | **Domain**: Hospitality + Web Development
-
-*This project demonstrates the full power of AIAD (AI-Augmented Development) applied to static site development, featuring intelligent automation, comprehensive documentation, and mycelial cross-domain learning capabilities.*
+Use `make aiad-status` to see ecosystem overview, `make aiad-agents` to list agents.
