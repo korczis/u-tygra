@@ -135,8 +135,21 @@ html {
 
 /* === Focus (a11y) === */
 *:focus-visible {
-  outline: 2px solid rgba(240, 140, 15, 0.5);
+  outline: 2px solid rgba(240, 140, 15, 0.7);
   outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(240, 140, 15, 0.2);
+  border-radius: 2px;
+}
+
+/* Enhanced focus for interactive elements */
+.beer-card:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid rgba(240, 140, 15, 0.8);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(240, 140, 15, 0.3);
+  transform: translateY(-1px);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 /* === SVG background patterns === */

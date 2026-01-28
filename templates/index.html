@@ -4,13 +4,13 @@
 <!-- ═══════════════════════════════════════════════════════ -->
 <!-- Navigation                                             -->
 <!-- ═══════════════════════════════════════════════════════ -->
-<nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+<nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" role="navigation" aria-label="Hlavní navigace"
      :class="scrolled ? 'bg-brew-950/95 backdrop-blur-xl shadow-2xl shadow-black/30' : 'bg-transparent'"
      @scroll.window="scrolled = (window.scrollY > 60)">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16 lg:h-20">
-      <a href="#home" class="flex items-center gap-3 group">
-        <img src="{{ get_url(path='img/logo.svg') }}" alt="U Tygra" class="w-8 h-8 opacity-90 group-hover:opacity-100 transition-opacity">
+      <a href="#home" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-tiger-400 focus:ring-offset-2 focus:ring-offset-brew-950 rounded-lg p-2" aria-label="Domů - Pivnice U Tygra">
+        <img src="{{ get_url(path='img/logo.svg') }}" alt="" class="w-8 h-8 opacity-90 group-hover:opacity-100 transition-opacity" role="presentation">
         <div class="leading-tight">
           <span class="text-base font-bold text-white tracking-wide">U Tygra</span>
           <span class="hidden sm:block text-[10px] text-brew-500 tracking-[0.2em] uppercase font-medium">Pivnice Brno</span>
@@ -100,11 +100,13 @@
     <!-- CTAs -->
     <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
       <a href="#na-cepu"
-         class="px-7 py-3 bg-tiger-500 hover:bg-tiger-600 text-white font-semibold text-sm rounded-lg transition-all duration-200 shadow-lg shadow-tiger-500/15 hover:shadow-tiger-500/30">
-        Na cepu
+         class="px-7 py-3 bg-tiger-500 hover:bg-tiger-600 text-white font-semibold text-sm rounded-lg transition-all duration-200 shadow-lg shadow-tiger-500/15 hover:shadow-tiger-500/30 focus:outline-none focus:ring-2 focus:ring-tiger-400 focus:ring-offset-2 focus:ring-offset-brew-950"
+         role="button" tabindex="0">
+        Na čepu
       </a>
       <a href="#kontakt"
-         class="px-7 py-3 text-brew-300 hover:text-white font-semibold text-sm rounded-lg transition-all duration-200 border border-brew-700 hover:border-brew-500">
+         class="px-7 py-3 text-brew-300 hover:text-white font-semibold text-sm rounded-lg transition-all duration-200 border border-brew-700 hover:border-brew-500 focus:outline-none focus:ring-2 focus:ring-brew-500 focus:ring-offset-2 focus:ring-offset-brew-950"
+         role="button" tabindex="0">
         Kontakt
       </a>
     </div>

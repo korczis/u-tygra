@@ -8,7 +8,22 @@ const SHEETS_CSV_URL =
   'https://docs.google.com/spreadsheets/d/e/2PACX-1vSeZjP4HadboLuS8v4KVobNqsKtjaBpBJ8oCuPCC-OjfkCtCWA8N_asuxkedh7QSGhsrXU0JU_bV_Rn/pub?gid=1804527038&single=true&output=csv';
 
 /**
- * Parse a single CSV line handling quoted fields
+ * Sanitize text to prevent XSS attacks
+ */
+function sanitizeText(text) {
+  if (!text || typeof text !== 'string') return '';
+
+  return text
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
+    .replace(/\//g, '&#x2F;')
+    .trim();
+}
+
+/**
+ * Parse a single CSV line handling quoted fields with XSS protection
  */
 function parseCSVLine(line) {
   const cells = [];
@@ -32,14 +47,14 @@ function parseCSVLine(line) {
       if (ch === '"') {
         inQuotes = true;
       } else if (ch === ',') {
-        cells.push(current.trim());
+        cells.push(sanitizeText(current));
         current = '';
       } else {
         current += ch;
       }
     }
   }
-  cells.push(current.trim());
+  cells.push(sanitizeText(current));
   return cells;
 }
 
