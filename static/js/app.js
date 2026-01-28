@@ -423,10 +423,10 @@ function app() {
       const header = document.createElement('div');
       header.className = 'kiosk-header';
       header.innerHTML = `
-        <h1 class="kiosk-title">Na Cepu</h1>
+        <h1 class="kiosk-title">Nástěnka</h1>
         <div class="kiosk-live">
           <span class="live-dot"></span>
-          <span>LIVE</span>
+          <span>ŽIVĚ Z ČEPU</span>
         </div>
       `;
       container.appendChild(header);
@@ -445,17 +445,22 @@ function app() {
       const grid = document.getElementById('kiosk-grid');
       if (!grid) return;
 
+      if (this.liveBeers.length === 0) {
+        grid.innerHTML = `<div class="kiosk-empty">Načítám nabídku...</div>`;
+        return;
+      }
+
       grid.innerHTML = this.liveBeers.map(beer => `
         <div class="kiosk-card">
           <div class="kiosk-card-top">
-            <h2 class="kiosk-beer-name">${beer.nazev || ''}</h2>
+            <h2 class="kiosk-beer-name">${beer.nazev || 'Bez názvu'}</h2>
             <span class="kiosk-price">${beer.cena ? beer.cena + ' Kč' : ''}</span>
           </div>
           <div class="kiosk-brewery">${beer.pivovar || ''}</div>
           <div class="kiosk-card-bottom">
             ${beer.styl ? `<span class="kiosk-style">${beer.styl}</span>` : ''}
-            ${beer.abv ? `<span class="kiosk-stats">${beer.abv}</span>` : ''}
-            ${beer.ibu ? `<span class="kiosk-stats">${beer.ibu} IBU</span>` : ''}
+            ${beer.abv ? `<span class="kiosk-stats">Alk: ${beer.abv}</span>` : ''}
+            ${beer.ibu ? `<span class="kiosk-stats">Hořkost: ${beer.ibu} IBU</span>` : ''}
           </div>
         </div>
       `).join('');
