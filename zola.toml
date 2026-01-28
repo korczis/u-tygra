@@ -1,7 +1,7 @@
 # Pivnice U Tygra - Zola Configuration
 # AIAD Standard Library v2.0.0 | Alpine.js + Flowbite
 
-base_url = "https://www.pivniceutygra.cz"
+base_url = "https://nguyen43.gitlab.io/u-tygra"
 title = "Pivnice U Tygra"
 description = "Budvar & řemeslná piva u Lužánek. Brno."
 default_language = "cs"

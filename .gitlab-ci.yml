@@ -1,39 +1,11 @@
 # Pivnice U Tygra - GitLab CI/CD Pipeline
-# Powered by AIAD Standard Library v2.0.0
-
-stages:
-  - quality
-  - build
-  - deploy
+# Optimized for GitLab Pages deployment
 
 variables:
   ZOLA_VERSION: "0.19.2"
-  PUBLIC_URL: "https://nguyen43.gitlab.io/u-tygra"
-  STAGING_URL: "https://staging-u-tygra.nguyen43.gitlab.io"
 
-# Quality Gates Phase
-quality-check:
-  stage: quality
-  image: ubuntu:22.04
-  before_script:
-    - apt-get update && apt-get install -y wget
-  script:
-    - echo "Running quality validation..."
-    - echo "✅ Content structure validation"
-    - echo "✅ Link integrity check"
-    - echo "✅ Image optimization check"
-    - find static/img -name "*.jpg" -o -name "*.png" -o -name "*.svg" | wc -l
-    - echo "✅ Configuration validation"
-    - test -f zola.toml
-    - test -f content/_index.md
-    - test -f templates/index.html
-    - echo "Quality gates passed"
-  rules:
-    - if: $CI_COMMIT_BRANCH
-
-# Build with Zola
-build:
-  stage: build
+# Build with Zola and deploy to GitLab Pages
+pages:
   image: alpine:3.19
   before_script:
     - apk add --no-cache wget tar
@@ -48,74 +20,10 @@ build:
     - zola build
     - echo "Build completed successfully"
     - ls -la public/
-  artifacts:
-    paths:
-      - public
-    expire_in: 1 hour
-  rules:
-    - if: $CI_COMMIT_BRANCH
-
-# Deploy to GitLab Pages (Production)
-pages:
-  stage: deploy
-  image: alpine:3.19
-  dependencies:
-    - build
-  script:
-    - echo "Deploying to GitLab Pages..."
-    - ls -la public/
-    - echo "Site will be available at: ${PUBLIC_URL}"
+    - echo "Site will be available at: https://nguyen43.gitlab.io/u-tygra"
   artifacts:
     paths:
       - public
     expire_in: 30 days
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
-
-# Deploy to Staging Environment
-staging:
-  stage: deploy
-  image: alpine:3.19
-  dependencies:
-    - build
-  script:
-    - echo "Deploying to staging environment..."
-    - echo "Staging URL: ${STAGING_URL}"
-    - echo "This is a staging deployment"
-  environment:
-    name: staging
-    url: ${STAGING_URL}
-  rules:
-    - if: $CI_COMMIT_BRANCH == "develop"
-
-# Performance Testing
-performance-test:
-  stage: deploy
-  image: alpine:3.19
-  dependencies:
-    - build
-  before_script:
-    - apk add --no-cache curl
-  script:
-    - echo "Running performance validation..."
-    - echo "✅ HTML minification check"
-    - grep -q "html{" public/index.html && echo "✅ CSS inlined" || echo "⚠️ CSS not inlined"
-    - echo "✅ Static asset optimization"
-    - echo "Performance validation completed"
-  rules:
-    - if: $CI_COMMIT_BRANCH == "main"
-
-# Deployment notification
-notify:
-  stage: deploy
-  image: alpine:3.19
-  dependencies:
-    - pages
-  script:
-    - echo "🎉 Deployment completed successfully!"
-    - echo "🔗 Live site: ${PUBLIC_URL}"
-    - echo "📊 Business: Pivnice U Tygra"
-    - echo "🏢 Location: Brno, Czech Republic"
-    - echo "⚡ Technology: Zola + AIAD Standard Library"
   rules:
     - if: $CI_COMMIT_BRANCH == "main"
