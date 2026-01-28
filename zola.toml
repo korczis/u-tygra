@@ -1,0 +1,70 @@
+# Pivnice U Tygra - Zola Configuration
+# AIAD Standard Library v2.0.0 | Alpine.js + Flowbite
+
+base_url = "https://www.pivniceutygra.cz"
+title = "Pivnice U Tygra"
+description = "Budvar & řemeslná piva u Lužánek. Brno."
+default_language = "cs"
+compile_sass = true
+build_search_index = false
+generate_feeds = false
+minify_html = true
+
+# Taxonomies for content organization
+taxonomies = [
+  {name = "tags", feed = false},
+  {name = "categories", feed = false}
+]
+
+# Link checking configuration
+[link_checker]
+internal_level = "error"
+external_level = "warn"
+
+[markdown]
+render_emoji = true
+external_links_target_blank = true
+external_links_no_follow = true
+external_links_no_referrer = true
+smart_punctuation = true
+
+[extra.markdown]
+# Enhanced markdown features
+footnote_backlinks = true
+strikethrough = true
+table = true
+autolink = true
+
+[search]
+# Documentation search configuration
+include_title = true
+include_description = true
+include_content = true
+include_path = false
+truncate_content_length = 200
+index_format = "elasticlunr_json"
+
+[extra]
+# Business info
+business_name = "Pivnice U Tygra"
+tagline = "Budvar & řemeslná piva u Lužánek"
+address = "Vrchlického sad 1893/3"
+city = "Brno"
+zip = "602 00"
+country = "CZ"
+phone_bar = "+420 776 140 840"
+phone_ops = "+420 777 935 052"
+company = "KONOVO s.r.o."
+ico = "17846927"
+bank = "Fio, a.s."
+account = "2902412257/2010"
+facebook = "UTygraBrno"
+ga_id = "G-FTXJKHH6R0"
+
+# Google Sheets integration
+sheets_id = "2PACX-1vSeZjP4HadboLuS8v4KVobNqsKtjaBpBJ8oCuPCC-OjfkCtCWA8N_asuxkedh7QSGhsrXU0JU_bV_Rn"
+sheets_gid = "1804527038"
+
+# Opening hours
+opening_hours = "16:00–24:00"
+opening_note = "denně, flexibilní dle hostů"

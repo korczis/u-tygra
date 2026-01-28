@@ -1,0 +1,500 @@
+#!/usr/bin/env bash
+# AIAD Command: content-analyze
+# Comprehensive content analysis for U Tygra project
+
+set -euo pipefail
+
+# AIAD Command Metadata
+COMMAND_NAME="content-analyze"
+COMMAND_VERSION="1.0.0"
+COMMAND_CATEGORY="content"
+COMMAND_DESCRIPTION="Comprehensive content analysis including structure, links, and Czech localization"
+AIAD_NAMESPACE="u-tygra"
+
+# Configuration
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
+REPORTS_DIR="${PROJECT_ROOT}/reports/content-analysis"
+TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
+REPORT_FILE="${REPORTS_DIR}/content-analysis-${TIMESTAMP}.json"
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Logging function
+log() {
+    echo -e "${BLUE}[$(date +'%Y-%m-%d %H:%M:%S')]${NC} $1"
+}
+
+error() {
+    echo -e "${RED}[ERROR]${NC} $1" >&2
+}
+
+warning() {
+    echo -e "${YELLOW}[WARNING]${NC} $1"
+}
+
+success() {
+    echo -e "${GREEN}[SUCCESS]${NC} $1"
+}
+
+# Help function
+show_help() {
+    cat << EOF
+AIAD Command: ${COMMAND_NAME} v${COMMAND_VERSION}
+
+DESCRIPTION:
+    ${COMMAND_DESCRIPTION}
+
+USAGE:
+    ${COMMAND_NAME} [OPTIONS]
+
+OPTIONS:
+    -h, --help          Show this help message
+    -v, --verbose       Enable verbose output
+    -f, --format FORMAT Output format (json, html, markdown, console)
+    -o, --output FILE   Output file path (default: ${REPORT_FILE})
+    --czech-only        Analyze only Czech content
+    --quick             Quick analysis (skip external link checking)
+    --fix               Automatically fix common issues
+
+EXAMPLES:
+    ${COMMAND_NAME}                    # Standard content analysis
+    ${COMMAND_NAME} --format html      # Generate HTML report
+    ${COMMAND_NAME} --czech-only       # Czech content only
+    ${COMMAND_NAME} --quick --fix      # Quick analysis with auto-fix
+
+AIAD INTEGRATION:
+    This command integrates with the following AIAD agents:
+    - content-validator: Content structure and link validation
+    - google-sheets-sync: Live data validation
+    - seo-optimizer: SEO analysis and recommendations
+
+EOF
+}
+
+# Parse command line arguments
+VERBOSE=false
+OUTPUT_FORMAT="json"
+OUTPUT_FILE=""
+CZECH_ONLY=false
+QUICK=false
+AUTO_FIX=false
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        -h|--help)
+            show_help
+            exit 0
+            ;;
+        -v|--verbose)
+            VERBOSE=true
+            shift
+            ;;
+        -f|--format)
+            OUTPUT_FORMAT="$2"
+            shift 2
+            ;;
+        -o|--output)
+            OUTPUT_FILE="$2"
+            shift 2
+            ;;
+        --czech-only)
+            CZECH_ONLY=true
+            shift
+            ;;
+        --quick)
+            QUICK=true
+            shift
+            ;;
+        --fix)
+            AUTO_FIX=true
+            shift
+            ;;
+        *)
+            error "Unknown option: $1"
+            show_help
+            exit 1
+            ;;
+    esac
+done
+
+# Set default output file if not specified
+if [[ -z "${OUTPUT_FILE}" ]]; then
+    case ${OUTPUT_FORMAT} in
+        html)
+            OUTPUT_FILE="${REPORTS_DIR}/content-analysis-${TIMESTAMP}.html"
+            ;;
+        markdown)
+            OUTPUT_FILE="${REPORTS_DIR}/content-analysis-${TIMESTAMP}.md"
+            ;;
+        console)
+            OUTPUT_FILE="/dev/stdout"
+            ;;
+        *)
+            OUTPUT_FILE="${REPORT_FILE}"
+            ;;
+    esac
+fi
+
+# Create reports directory
+mkdir -p "${REPORTS_DIR}"
+
+# Ensure we're in the project root
+cd "${PROJECT_ROOT}"
+
+log "Starting comprehensive content analysis..."
+log "Project: U Tygra - Pivnice"
+log "Analysis scope: $([ "${CZECH_ONLY}" = true ] && echo "Czech content only" || echo "All content")"
+log "Mode: $([ "${QUICK}" = true ] && echo "Quick analysis" || echo "Comprehensive analysis")"
+
+# Initialize analysis results
+declare -A analysis_results
+analysis_results[start_time]=$(date -Iseconds)
+analysis_results[total_files]=0
+analysis_results[content_errors]=0
+analysis_results[link_errors]=0
+analysis_results[czech_issues]=0
+analysis_results[seo_warnings]=0
+
+# 1. Content Structure Analysis
+log "📁 Analyzing content structure..."
+
+content_files=()
+if [[ "${CZECH_ONLY}" = true ]]; then
+    mapfile -t content_files < <(find content docs -name "*.md" -type f 2>/dev/null || true)
+else
+    mapfile -t content_files < <(find . -name "*.md" -not -path "./.git/*" -not -path "./public/*" -type f 2>/dev/null || true)
+fi
+
+analysis_results[total_files]=${#content_files[@]}
+log "Found ${#content_files[@]} content files"
+
+# 2. Front Matter Validation
+log "📋 Validating front matter..."
+
+front_matter_errors=0
+for file in "${content_files[@]}"; do
+    if [[ "${VERBOSE}" = true ]]; then
+        log "Checking front matter: ${file}"
+    fi
+
+    # Check if file has front matter
+    if ! head -n 1 "${file}" | grep -q "^+++\|^---"; then
+        warning "Missing front matter: ${file}"
+        ((front_matter_errors++))
+        continue
+    fi
+
+    # Extract and validate front matter
+    if head -n 1 "${file}" | grep -q "^+++"; then
+        # TOML front matter
+        front_matter=$(awk '/^+++/{flag=!flag;next}flag' "${file}")
+    else
+        # YAML front matter
+        front_matter=$(awk '/^---/{flag=!flag;next}flag' "${file}")
+    fi
+
+    # Check required fields
+    if [[ ! "${front_matter}" =~ title.*= ]] && [[ ! "${front_matter}" =~ title: ]]; then
+        warning "Missing title in front matter: ${file}"
+        ((front_matter_errors++))
+    fi
+
+    if [[ ! "${front_matter}" =~ description.*= ]] && [[ ! "${front_matter}" =~ description: ]]; then
+        warning "Missing description in front matter: ${file}"
+        ((front_matter_errors++))
+    fi
+done
+
+analysis_results[front_matter_errors]=${front_matter_errors}
+log "Front matter validation complete. Errors: ${front_matter_errors}"
+
+# 3. Internal Link Validation
+if [[ "${QUICK}" = false ]]; then
+    log "🔗 Validating internal links..."
+
+    link_errors=0
+    for file in "${content_files[@]}"; do
+        if [[ "${VERBOSE}" = true ]]; then
+            log "Checking links: ${file}"
+        fi
+
+        # Extract markdown links
+        while IFS= read -r link; do
+            if [[ -n "${link}" && ! "${link}" =~ ^https?:// && ! "${link}" =~ ^mailto: ]]; then
+                # Resolve relative link
+                link_dir=$(dirname "${file}")
+                link_path="${link_dir}/${link}"
+
+                # Normalize path
+                link_path=$(realpath --relative-to="${PROJECT_ROOT}" "${link_path}" 2>/dev/null || echo "${link_path}")
+
+                # Check if target exists
+                if [[ ! -f "${link_path}" && ! -f "${link_path}.md" ]]; then
+                    warning "Broken internal link: ${link} in ${file}"
+                    ((link_errors++))
+                fi
+            fi
+        done < <(grep -oE '\[([^]]*)\]\(([^)]*)\)' "${file}" | sed -E 's/\[([^]]*)\]\(([^)]*)\)/\2/' || true)
+    done
+
+    analysis_results[link_errors]=${link_errors}
+    log "Internal link validation complete. Errors: ${link_errors}"
+else
+    log "Skipping internal link validation (quick mode)"
+    analysis_results[link_errors]=0
+fi
+
+# 4. Czech Localization Analysis
+log "🇨🇿 Analyzing Czech localization..."
+
+czech_issues=0
+for file in "${content_files[@]}"; do
+    if [[ "${VERBOSE}" = true ]]; then
+        log "Checking Czech localization: ${file}"
+    fi
+
+    # Check for common Czech localization issues
+    content=$(cat "${file}")
+
+    # Check currency format
+    if [[ "${content}" =~ [0-9]+[[:space:]]*USD|[0-9]+[[:space:]]*EUR ]] && [[ ! "${content}" =~ CZK ]]; then
+        warning "Non-Czech currency found: ${file}"
+        ((czech_issues++))
+    fi
+
+    # Check time format
+    if [[ "${content}" =~ [0-9]{1,2}:[0-9]{2}[[:space:]]*AM|[0-9]{1,2}:[0-9]{2}[[:space:]]*PM ]]; then
+        warning "12-hour time format (use 24-hour for Czech): ${file}"
+        ((czech_issues++))
+    fi
+
+    # Check for missing Czech diacritics in business terms
+    business_terms=("pivnice" "pivovar" "řemeslný" "budvar")
+    for term in "${business_terms[@]}"; do
+        # Check if term appears without proper Czech diacritics
+        if grep -qi "${term}" "${file}" && ! grep -q "${term}" "${file}"; then
+            warning "Possible missing Czech diacritics for '${term}': ${file}"
+            ((czech_issues++))
+            break
+        fi
+    done
+done
+
+analysis_results[czech_issues]=${czech_issues}
+log "Czech localization analysis complete. Issues: ${czech_issues}"
+
+# 5. SEO Analysis
+log "🔍 Analyzing SEO metadata..."
+
+seo_warnings=0
+for file in "${content_files[@]}"; do
+    if [[ "${VERBOSE}" = true ]]; then
+        log "Checking SEO metadata: ${file}"
+    fi
+
+    # Extract front matter for SEO analysis
+    if head -n 1 "${file}" | grep -q "^+++"; then
+        title=$(awk '/^+++/{flag=!flag;next}flag' "${file}" | grep -E '^title' | head -n1 | cut -d'=' -f2- | tr -d '"' | xargs)
+        description=$(awk '/^+++/{flag=!flag;next}flag' "${file}" | grep -E '^description' | head -n1 | cut -d'=' -f2- | tr -d '"' | xargs)
+    else
+        title=$(awk '/^---/{flag=!flag;next}flag' "${file}" | grep -E '^title:' | head -n1 | cut -d':' -f2- | xargs)
+        description=$(awk '/^---/{flag=!flag;next}flag' "${file}" | grep -E '^description:' | head -n1 | cut -d':' -f2- | xargs)
+    fi
+
+    # Check title length
+    if [[ -n "${title}" ]]; then
+        title_length=${#title}
+        if [[ ${title_length} -lt 30 || ${title_length} -gt 60 ]]; then
+            warning "Title length not optimal (${title_length} chars, recommended 30-60): ${file}"
+            ((seo_warnings++))
+        fi
+    fi
+
+    # Check description length
+    if [[ -n "${description}" ]]; then
+        desc_length=${#description}
+        if [[ ${desc_length} -lt 120 || ${desc_length} -gt 160 ]]; then
+            warning "Description length not optimal (${desc_length} chars, recommended 120-160): ${file}"
+            ((seo_warnings++))
+        fi
+    fi
+done
+
+analysis_results[seo_warnings]=${seo_warnings}
+log "SEO analysis complete. Warnings: ${seo_warnings}"
+
+# 6. Content Quality Assessment
+log "📝 Assessing content quality..."
+
+# Word count and readability
+total_words=0
+for file in "${content_files[@]}"; do
+    # Count words excluding front matter
+    words=$(sed '/^+++/,/^+++/d; /^---/,/^---/d' "${file}" | wc -w)
+    total_words=$((total_words + words))
+done
+
+analysis_results[total_words]=${total_words}
+analysis_results[average_words_per_file]=$((total_words / ${#content_files[@]}))
+
+# 7. Auto-fix common issues (if requested)
+fixes_applied=0
+if [[ "${AUTO_FIX}" = true ]]; then
+    log "🔧 Applying automatic fixes..."
+
+    for file in "${content_files[@]}"; do
+        # Fix common whitespace issues
+        sed -i 's/[[:space:]]*$//' "${file}"  # Remove trailing whitespace
+
+        # Ensure files end with newline
+        if [[ $(tail -c1 "${file}" | wc -l) -eq 0 ]]; then
+            echo >> "${file}"
+            ((fixes_applied++))
+        fi
+    done
+
+    analysis_results[fixes_applied]=${fixes_applied}
+    log "Applied ${fixes_applied} automatic fixes"
+fi
+
+# 8. Generate analysis report
+analysis_results[end_time]=$(date -Iseconds)
+analysis_results[analysis_duration]="$(($(date +%s) - $(date -d "${analysis_results[start_time]}" +%s))) seconds"
+
+# Calculate overall score
+total_issues=$((analysis_results[content_errors] + analysis_results[link_errors] + analysis_results[czech_issues]))
+max_possible_issues=$((analysis_results[total_files] * 3))  # Rough estimation
+if [[ ${max_possible_issues} -gt 0 ]]; then
+    score=$(( (max_possible_issues - total_issues) * 100 / max_possible_issues ))
+else
+    score=100
+fi
+analysis_results[overall_score]=${score}
+
+# Output results based on format
+case ${OUTPUT_FORMAT} in
+    json)
+        # Generate JSON report
+        cat > "${OUTPUT_FILE}" << EOF
+{
+  "analysis_metadata": {
+    "command": "${COMMAND_NAME}",
+    "version": "${COMMAND_VERSION}",
+    "timestamp": "${analysis_results[start_time]}",
+    "duration": "${analysis_results[analysis_duration]}",
+    "project": "u-tygra",
+    "scope": "$([ "${CZECH_ONLY}" = true ] && echo "czech_only" || echo "all_content")",
+    "mode": "$([ "${QUICK}" = true ] && echo "quick" || echo "comprehensive")"
+  },
+  "summary": {
+    "overall_score": ${analysis_results[overall_score]},
+    "total_files": ${analysis_results[total_files]},
+    "total_words": ${analysis_results[total_words]},
+    "average_words_per_file": ${analysis_results[average_words_per_file]}
+  },
+  "issues": {
+    "front_matter_errors": ${analysis_results[front_matter_errors]},
+    "link_errors": ${analysis_results[link_errors]},
+    "czech_localization_issues": ${analysis_results[czech_issues]},
+    "seo_warnings": ${analysis_results[seo_warnings]}
+  },
+  "recommendations": [
+    $([ ${analysis_results[front_matter_errors]} -gt 0 ] && echo "\"Add missing front matter (title, description) to ${analysis_results[front_matter_errors]} files\",")
+    $([ ${analysis_results[link_errors]} -gt 0 ] && echo "\"Fix ${analysis_results[link_errors]} broken internal links\",")
+    $([ ${analysis_results[czech_issues]} -gt 0 ] && echo "\"Address ${analysis_results[czech_issues]} Czech localization issues\",")
+    $([ ${analysis_results[seo_warnings]} -gt 0 ] && echo "\"Optimize SEO metadata (${analysis_results[seo_warnings]} warnings)\",")
+    "Regular content analysis to maintain quality"
+  ]
+}
+EOF
+        ;;
+
+    html)
+        # Generate HTML report (simplified)
+        cat > "${OUTPUT_FILE}" << EOF
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Analysis Report - U Tygra</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; }
+        .score { font-size: 2rem; font-weight: bold; }
+        .good { color: #10b981; }
+        .warning { color: #f59e0b; }
+        .error { color: #ef4444; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 0.5rem; border: 1px solid #ccc; text-align: left; }
+        th { background-color: #f3f4f6; }
+    </style>
+</head>
+<body>
+    <h1>Content Analysis Report</h1>
+    <p>Generated: ${analysis_results[start_time]} | Duration: ${analysis_results[analysis_duration]}</p>
+
+    <div class="score $([ ${analysis_results[overall_score]} -ge 80 ] && echo "good" || echo "warning")">
+        Overall Score: ${analysis_results[overall_score]}%
+    </div>
+
+    <h2>Summary</h2>
+    <table>
+        <tr><th>Metric</th><th>Value</th></tr>
+        <tr><td>Total Files</td><td>${analysis_results[total_files]}</td></tr>
+        <tr><td>Total Words</td><td>${analysis_results[total_words]}</td></tr>
+        <tr><td>Average Words/File</td><td>${analysis_results[average_words_per_file]}</td></tr>
+    </table>
+
+    <h2>Issues Found</h2>
+    <table>
+        <tr><th>Issue Type</th><th>Count</th><th>Severity</th></tr>
+        <tr><td>Front Matter Errors</td><td>${analysis_results[front_matter_errors]}</td><td class="$([ ${analysis_results[front_matter_errors]} -gt 0 ] && echo "error" || echo "good")">$([ ${analysis_results[front_matter_errors]} -gt 0 ] && echo "High" || echo "None")</td></tr>
+        <tr><td>Link Errors</td><td>${analysis_results[link_errors]}</td><td class="$([ ${analysis_results[link_errors]} -gt 0 ] && echo "error" || echo "good")">$([ ${analysis_results[link_errors]} -gt 0 ] && echo "High" || echo "None")</td></tr>
+        <tr><td>Czech Localization</td><td>${analysis_results[czech_issues]}</td><td class="$([ ${analysis_results[czech_issues]} -gt 0 ] && echo "warning" || echo "good")">$([ ${analysis_results[czech_issues]} -gt 0 ] && echo "Medium" || echo "None")</td></tr>
+        <tr><td>SEO Warnings</td><td>${analysis_results[seo_warnings]}</td><td class="$([ ${analysis_results[seo_warnings]} -gt 0 ] && echo "warning" || echo "good")">$([ ${analysis_results[seo_warnings]} -gt 0 ] && echo "Medium" || echo "None")</td></tr>
+    </table>
+</body>
+</html>
+EOF
+        ;;
+
+    console)
+        # Console output
+        echo "========================================"
+        echo "U Tygra Content Analysis Report"
+        echo "========================================"
+        echo "Generated: ${analysis_results[start_time]}"
+        echo "Duration: ${analysis_results[analysis_duration]}"
+        echo ""
+        echo "Overall Score: ${analysis_results[overall_score]}%"
+        echo ""
+        echo "Summary:"
+        echo "  Files analyzed: ${analysis_results[total_files]}"
+        echo "  Total words: ${analysis_results[total_words]}"
+        echo "  Average words/file: ${analysis_results[average_words_per_file]}"
+        echo ""
+        echo "Issues found:"
+        echo "  Front matter errors: ${analysis_results[front_matter_errors]}"
+        echo "  Link errors: ${analysis_results[link_errors]}"
+        echo "  Czech localization issues: ${analysis_results[czech_issues]}"
+        echo "  SEO warnings: ${analysis_results[seo_warnings]}"
+        echo ""
+        ;;
+esac
+
+# Final status
+if [[ ${analysis_results[overall_score]} -ge 80 ]]; then
+    success "Content analysis completed successfully. Score: ${analysis_results[overall_score]}%"
+    exit 0
+elif [[ ${analysis_results[overall_score]} -ge 60 ]]; then
+    warning "Content analysis completed with warnings. Score: ${analysis_results[overall_score]}%"
+    exit 0
+else
+    error "Content analysis found significant issues. Score: ${analysis_results[overall_score]}%"
+    exit 1
+fi

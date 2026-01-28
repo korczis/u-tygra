@@ -1,0 +1,291 @@
+# Documentation Analyzer Agent
+# Analyzes documentation completeness and consistency
+
+[meta]
+name = "docs-analyzer"
+version = "1.0.0"
+category = "documentation"
+description = "Analyzes documentation completeness, consistency, and quality following Prismatic modular patterns"
+created = "2026-01-28"
+author = "AIAD Standard Library v2.0.0"
+
+[capabilities]
+documentation_analysis = true
+completeness_checking = true
+consistency_validation = true
+cross_reference_analysis = true
+navigation_validation = true
+quality_assessment = true
+
+[domain_expertise]
+primary = "documentation_systems"
+secondary = ["technical_writing", "information_architecture", "content_strategy"]
+patterns = ["prismatic_modular", "atomic_documentation", "cross_referencing"]
+standards = ["markdown", "zola", "technical_documentation"]
+
+[tool_access]
+read_files = ["docs/**/*.md", "content/**/*.md", "**/*.html", "**/*.toml"]
+write_files = ["reports/docs-analysis-*.json", "reports/docs-completeness-*.html"]
+bash_commands = ["find", "grep", "wc", "awk", "sed"]
+external_tools = ["markdownlint", "vale", "textlint", "link-checker"]
+
+[analysis_dimensions]
+
+[analysis_dimensions.completeness]
+section_coverage = true
+required_documents = [
+  "docs/_index.md",
+  "docs/core/_index.md",
+  "docs/guides/_index.md",
+  "docs/reference/_index.md",
+  "docs/operations/_index.md",
+  "docs/architecture/_index.md",
+  "docs/_meta/_index.md"
+]
+documentation_gaps = true
+missing_cross_references = true
+
+[analysis_dimensions.consistency]
+navigation_consistency = true
+heading_structure = true
+terminology_consistency = true
+format_consistency = true
+style_consistency = true
+
+[analysis_dimensions.quality]
+readability_analysis = true
+technical_accuracy = true
+currency_check = true
+user_experience = true
+accessibility_compliance = true
+
+[analysis_dimensions.structure]
+modular_architecture = true
+atomic_documents = true
+section_organization = true
+file_naming_conventions = true
+directory_structure = true
+
+[prismatic_pattern_compliance]
+
+[prismatic_pattern_compliance.navigation]
+nav_start_marker = "<!-- NAV_START -->"
+nav_end_marker = "<!-- NAV_END -->"
+breadcrumb_format = "[Documentation](../) > [Section](../) > Current"
+quick_links_section = true
+related_documents = true
+
+[prismatic_pattern_compliance.structure]
+single_responsibility = true  # one topic per document
+atomic_updates = true        # independently updatable
+rich_cross_referencing = true
+standardized_navigation = true
+version_control_friendly = true
+
+[prismatic_pattern_compliance.content]
+front_matter_completeness = true
+required_front_matter = ["title", "description"]
+optional_front_matter = ["weight", "template"]
+heading_hierarchy = true
+internal_linking = true
+
+[documentation_metrics]
+
+[documentation_metrics.coverage]
+total_documents = "count"
+documented_features = "percentage"
+api_documentation_coverage = "percentage"
+user_guide_coverage = "percentage"
+architectural_decision_coverage = "percentage"
+
+[documentation_metrics.quality]
+readability_score = "flesch_kincaid"
+technical_accuracy_score = "percentage"
+up_to_date_percentage = "percentage"
+broken_links_count = "count"
+orphaned_documents_count = "count"
+
+[documentation_metrics.consistency]
+navigation_consistency_score = "percentage"
+terminology_consistency_score = "percentage"
+format_consistency_score = "percentage"
+cross_reference_integrity = "percentage"
+
+[validation_rules]
+
+[validation_rules.navigation]
+nav_markers_present = true
+breadcrumb_format_correct = true
+quick_links_functional = true
+section_navigation_complete = true
+
+[validation_rules.cross_references]
+internal_links_valid = true
+external_links_accessible = false  # too slow for regular analysis
+anchor_links_valid = true
+image_references_valid = true
+
+[validation_rules.content_structure]
+heading_hierarchy_valid = true
+front_matter_complete = true
+required_sections_present = true
+maximum_document_length = 5000  # words
+
+[validation_rules.terminology]
+consistent_terminology = true
+glossary_references = true
+czech_english_consistency = true
+technical_terms_defined = true
+
+[quality_gates]
+
+[quality_gates.completeness]
+required_documents_present = 100  # %
+feature_documentation_coverage = 80  # %
+broken_links = 0
+orphaned_documents = 0
+
+[quality_gates.consistency]
+navigation_consistency = 95  # %
+terminology_consistency = 90  # %
+format_consistency = 95  # %
+cross_reference_integrity = 100  # %
+
+[quality_gates.quality]
+readability_score = 60  # Flesch-Kincaid
+up_to_date_percentage = 90  # %
+technical_accuracy = 95  # %
+
+[workflows]
+
+[workflows.comprehensive_analysis]
+description = "Complete documentation analysis"
+steps = [
+  "scan_documentation_structure",
+  "validate_navigation_patterns",
+  "check_cross_references",
+  "analyze_content_quality",
+  "validate_consistency",
+  "assess_completeness",
+  "generate_recommendations",
+  "create_improvement_plan"
+]
+frequency = "weekly"
+
+[workflows.quick_health_check]
+description = "Quick documentation health check"
+steps = [
+  "validate_navigation",
+  "check_broken_links",
+  "verify_required_documents",
+  "assess_recent_changes",
+  "generate_status_report"
+]
+frequency = "daily"
+
+[workflows.consistency_audit]
+description = "Documentation consistency audit"
+steps = [
+  "analyze_terminology_usage",
+  "check_format_consistency",
+  "validate_cross_references",
+  "assess_navigation_consistency",
+  "generate_consistency_report"
+]
+frequency = "monthly"
+
+[reporting]
+
+[reporting.formats]
+json = true
+html = true
+markdown = true
+csv = false
+
+[reporting.sections]
+executive_summary = true
+completeness_analysis = true
+consistency_assessment = true
+quality_metrics = true
+improvement_recommendations = true
+priority_actions = true
+
+[reporting.visualizations]
+coverage_charts = true
+consistency_heatmaps = true
+quality_trends = true
+cross_reference_graphs = true
+
+[improvement_recommendations]
+
+[improvement_recommendations.priority_levels]
+critical = "Missing required documents, broken navigation"
+high = "Incomplete cross-references, major consistency issues"
+medium = "Minor formatting issues, terminology inconsistencies"
+low = "Optimization opportunities, style improvements"
+
+[improvement_recommendations.categories]
+structural = "Document organization and hierarchy"
+content = "Content quality and completeness"
+navigation = "Cross-references and linking"
+consistency = "Format and terminology standardization"
+accessibility = "Documentation accessibility improvements"
+
+[integration]
+
+[integration.zola]
+content_analysis = true
+template_validation = true
+front_matter_checking = true
+shortcode_usage_analysis = true
+
+[integration.ci_cd]
+pull_request_analysis = true
+commit_documentation_checking = true
+deployment_documentation_validation = true
+
+[integration.aiad_ecosystem]
+cross_reference_coordination = true
+glossary_synchronization = true
+pattern_sharing = true
+
+[mycelial_integration]
+pattern_sharing = ["documentation_patterns", "analysis_techniques", "quality_standards"]
+cross_domain_learning = ["documentation_best_practices", "technical_writing_patterns"]
+evolution_tracking = ["documentation_quality_trends", "analysis_accuracy"]
+collective_intelligence = ["documentation_optimization", "knowledge_organization"]
+
+[performance]
+max_execution_time = "120s"
+memory_limit = "256MB"
+parallel_analysis = true
+caching_enabled = true
+incremental_analysis = true
+
+[error_handling]
+on_analysis_error = "skip_and_log"
+on_tool_failure = "fallback_to_basic_analysis"
+on_timeout = "partial_analysis"
+on_missing_files = "report_and_continue"
+
+[monitoring]
+
+[monitoring.metrics]
+analysis_completion_rate = "percentage"
+analysis_accuracy = "percentage"
+false_positive_rate = "percentage"
+coverage_improvement_rate = "percentage"
+
+[monitoring.alerts]
+critical_documentation_gaps = "immediate"
+major_consistency_issues = "daily"
+quality_degradation = "weekly"
+
+# Agent-specific configuration
+[docs_analyzer_specific]
+markdownlint_config = ".markdownlint.json"
+vale_config = ".vale.ini"
+readability_tool = "textstat"
+terminology_database = "docs/_meta/terminology.json"
+style_guide = "docs/_meta/style-guide.md"
+analysis_baseline = "reports/docs-baseline.json"

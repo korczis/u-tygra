@@ -1,0 +1,277 @@
+# Quality Gate Sentinel Agent
+# Enforces comprehensive quality standards and gates
+
+[meta]
+name = "quality-gate-sentinel"
+version = "1.0.0"
+category = "development_workflow"
+description = "Enforces comprehensive quality gates including HTML validation, accessibility, performance, SEO, and security"
+created = "2026-01-28"
+author = "AIAD Standard Library v2.0.0"
+
+[capabilities]
+quality_gate_enforcement = true
+multi_dimensional_validation = true
+blocking_deployment = true
+comprehensive_reporting = true
+regression_detection = true
+compliance_monitoring = true
+
+[domain_expertise]
+primary = "quality_assurance"
+secondary = ["web_standards", "accessibility", "performance", "seo", "security"]
+standards = ["wcag_2_1", "w3c", "core_web_vitals", "schema_org"]
+compliance = ["gdpr", "accessibility_act"]
+
+[tool_access]
+read_files = ["public/**/*", "logs/**/*", "reports/**/*"]
+write_files = ["reports/quality-gates-*.json", "logs/quality-*.log"]
+bash_commands = ["lighthouse", "axe", "pa11y", "html-validate"]
+external_tools = ["lighthouse-ci", "axe-core", "nu-html-checker", "w3c-css-validator"]
+
+[quality_gates]
+
+[quality_gates.html_validation]
+enabled = true
+blocking = true
+tool = "nu-html-checker"
+max_errors = 0
+max_warnings = 5
+ignore_warnings = ["consider-using-h1", "empty-heading"]
+
+[quality_gates.accessibility]
+enabled = true
+blocking = true
+standard = "wcag_2_1_aa"
+tool = "axe-core"
+min_score = 95
+max_violations = 0
+check_contrast = true
+check_keyboard_navigation = true
+check_screen_reader = true
+
+[quality_gates.performance]
+enabled = true
+blocking = true
+tool = "lighthouse"
+min_performance_score = 90
+max_first_contentful_paint = 2000  # ms
+max_largest_contentful_paint = 4000  # ms
+max_cumulative_layout_shift = 0.1
+max_total_blocking_time = 300  # ms
+
+[quality_gates.seo]
+enabled = true
+blocking = true
+tool = "lighthouse"
+min_seo_score = 95
+required_meta_tags = ["title", "description", "og:title", "og:description"]
+structured_data_validation = true
+canonical_url_check = true
+robots_txt_check = true
+sitemap_check = true
+
+[quality_gates.security]
+enabled = true
+blocking = true
+content_security_policy = true
+https_enforcement = true
+security_headers_check = true
+vulnerability_scan = false  # static site
+dependency_audit = false    # no node dependencies
+
+[quality_gates.content]
+enabled = true
+blocking = false
+link_checking = true
+image_alt_text = true
+heading_structure = true
+content_quality = true
+
+[quality_gates.css]
+enabled = true
+blocking = false
+w3c_validation = true
+unused_css_detection = false  # utility-first CSS
+css_minification_check = true
+
+[workflows]
+
+[workflows.comprehensive_check]
+description = "Run all quality gates in sequence"
+steps = [
+  "validate_html",
+  "check_accessibility",
+  "audit_performance",
+  "validate_seo",
+  "check_security",
+  "validate_content",
+  "validate_css",
+  "generate_report",
+  "determine_gate_status"
+]
+blocking_on_failure = true
+parallel_execution = false
+
+[workflows.quick_check]
+description = "Run non-blocking quality checks"
+steps = [
+  "validate_html_warnings",
+  "basic_accessibility_check",
+  "performance_smoke_test",
+  "content_structure_check",
+  "generate_summary_report"
+]
+blocking_on_failure = false
+parallel_execution = true
+
+[workflows.regression_check]
+description = "Compare quality metrics with previous build"
+steps = [
+  "load_baseline_metrics",
+  "run_current_checks",
+  "compare_metrics",
+  "detect_regressions",
+  "generate_regression_report",
+  "update_baseline"
+]
+blocking_on_failure = true
+
+[thresholds]
+
+[thresholds.performance]
+performance_score = 90
+accessibility_score = 95
+seo_score = 95
+pwa_score = 80
+first_contentful_paint = 2000  # ms
+largest_contentful_paint = 4000  # ms
+cumulative_layout_shift = 0.1
+total_blocking_time = 300  # ms
+
+[thresholds.accessibility]
+color_contrast_aa = 4.5
+color_contrast_aaa = 7.0
+keyboard_navigation = 100  # %
+screen_reader_compat = 100  # %
+focus_management = 100  # %
+
+[thresholds.seo]
+title_length = [30, 60]
+description_length = [120, 160]
+h1_count = 1
+meta_tags_completeness = 100  # %
+structured_data_validity = 100  # %
+
+[thresholds.security]
+security_score = 90
+csp_compliance = true
+https_percentage = 100
+security_headers = 100  # %
+
+[regression_detection]
+enabled = true
+baseline_file = "reports/quality-baseline.json"
+regression_threshold = 5  # % decrease
+metrics_tracked = [
+  "performance_score",
+  "accessibility_score",
+  "seo_score",
+  "first_contentful_paint",
+  "largest_contentful_paint"
+]
+
+[reporting]
+
+[reporting.formats]
+json = true
+html = true
+markdown = true
+junit = true  # for CI/CD
+sarif = false  # security findings
+
+[reporting.sections]
+executive_summary = true
+gate_status = true
+detailed_findings = true
+recommendations = true
+historical_trends = true
+compliance_status = true
+
+[reporting.distribution]
+console = true
+file = true
+email = false
+slack = false
+github_pr_comment = false
+
+[integration]
+
+[integration.ci_cd]
+github_actions = true
+failure_exit_codes = true
+artifact_generation = true
+pr_comments = false
+status_checks = true
+
+[integration.deployment]
+blocking_deployment = true
+rollback_triggers = true
+health_check_integration = true
+monitoring_integration = true
+
+[integration.monitoring]
+metrics_export = true
+alerts_generation = true
+dashboard_integration = false
+trend_analysis = true
+
+[mycelial_integration]
+pattern_sharing = ["quality_standards", "gate_configurations", "threshold_optimization"]
+cross_domain_learning = ["quality_patterns", "regression_detection"]
+evolution_tracking = ["gate_effectiveness", "false_positive_rates"]
+collective_intelligence = ["quality_improvements", "standard_evolution"]
+
+[performance]
+max_execution_time = "300s"  # 5 minutes for comprehensive checks
+memory_limit = "1GB"
+parallel_gates = 4
+timeout_per_gate = "60s"
+cache_results = true
+
+[error_handling]
+on_tool_failure = "skip_gate_with_warning"
+on_timeout = "fail_gate"
+on_network_error = "retry_3_times"
+on_invalid_config = "fail_fast"
+recovery_strategies = ["retry", "skip", "fallback"]
+
+[monitoring]
+
+[monitoring.metrics]
+gate_execution_time = "seconds"
+gate_success_rate = "percentage"
+false_positive_rate = "percentage"
+false_negative_rate = "percentage"
+coverage = "percentage"
+
+[monitoring.alerts]
+gate_failure = "immediate"
+performance_regression = "immediate"
+accessibility_regression = "immediate"
+tool_unavailability = "5_minutes"
+
+[security]
+report_sanitization = true
+sensitive_data_masking = true
+audit_logging = true
+access_control = true
+
+# Agent-specific configuration
+[quality_gate_sentinel_specific]
+lighthouse_config = "lighthouse.config.js"
+axe_config = "axe.config.js"
+html_validator_config = "nu-validator.config.json"
+baseline_update_frequency = "weekly"
+report_retention_days = 90
+parallel_execution_limit = 4

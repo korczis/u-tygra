@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <!-- Minimal geometric tiger head -->
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <!-- Head outline -->
+    <path d="M24 4C15 4 8 12 8 22c0 8 5 15 10 18h12c5-3 10-10 10-18C40 12 33 4 24 4z" fill="#f08c0f" opacity="0.12"/>
+    <!-- Ears -->
+    <path d="M12 8l-2-5 6 4" stroke="#f08c0f" stroke-width="2" fill="none"/>
+    <path d="M36 8l2-5-6 4" stroke="#f08c0f" stroke-width="2" fill="none"/>
+    <!-- Stripes -->
+    <path d="M18 12v6M24 10v8M30 12v6" stroke="#f08c0f" stroke-width="2.5" opacity="0.6"/>
+    <!-- Eyes -->
+    <circle cx="18" cy="22" r="2.5" fill="#f08c0f"/>
+    <circle cx="30" cy="22" r="2.5" fill="#f08c0f"/>
+    <!-- Nose -->
+    <path d="M22 28l2 2 2-2" stroke="#f08c0f" stroke-width="2" fill="none"/>
+    <!-- Whiskers -->
+    <path d="M6 24h8M34 24h8M7 28l7-1M34 27l7 1" stroke="#f08c0f" stroke-width="1.5" opacity="0.4"/>
+  </g>
+</svg>

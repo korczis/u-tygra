@@ -1,0 +1,212 @@
+# Google Sheets Sync Agent
+# Manages live beer menu synchronization and validation
+
+[meta]
+name = "google-sheets-sync"
+version = "1.0.0"
+category = "content_management"
+description = "Manages Google Sheets integration for live beer menu data with validation and error handling"
+created = "2026-01-28"
+author = "AIAD Standard Library v2.0.0"
+
+[capabilities]
+sheets_integration = true
+csv_parsing = true
+data_validation = true
+error_handling = true
+cache_management = true
+fallback_handling = true
+
+[domain_expertise]
+primary = "live_data_integration"
+secondary = ["beer_menu_management", "google_apis", "csv_processing", "data_validation"]
+business_context = "hospitality"
+data_formats = ["csv", "json", "google_sheets"]
+
+[tool_access]
+read_files = ["zola.toml", "static/js/app.js", "content/**/*.md"]
+write_files = ["cache/sheets-data-*.json", "logs/sheets-sync-*.log"]
+bash_commands = ["curl", "wget", "jq", "csvlint"]
+external_tools = ["google-sheets-api", "csv-validator", "data-quality-tools"]
+
+[google_sheets_config]
+sheet_id = "2PACX-1vSeZjP4HadboLuS8v4KVobNqsKtjaBpBJ8oCuPCC-OjfkCtCWA8N_asuxkedh7QSGhsrXU0JU_bV_Rn"
+sheet_gid = "1804527038"
+csv_export_url = "https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv&gid={sheet_gid}"
+update_frequency = "real_time"
+timeout = "10s"
+retry_attempts = 3
+
+[data_validation]
+
+[data_validation.beer_menu]
+required_columns = ["pivo", "pivovar", "styl", "procenta", "cena"]
+optional_columns = ["popis", "objem", "dostupnost"]
+max_beers = 12
+min_beers = 1
+price_range = [30, 300]  # CZK
+abv_range = [2.0, 12.0]  # %
+
+[data_validation.beer_entry]
+name_max_length = 50
+brewery_max_length = 30
+style_max_length = 25
+description_max_length = 200
+required_fields = ["name", "brewery", "price"]
+
+[data_validation.business_rules]
+announcement_max_length = 500
+special_characters_allowed = ["ř", "č", "š", "ž", "ý", "á", "í", "é", "ú", "ů", "ň", "ť", "ď"]
+currency = "CZK"
+decimal_separator = "."
+thousand_separator = ""
+
+[sync_workflows]
+
+[sync_workflows.real_time_sync]
+description = "Real-time beer menu synchronization"
+steps = [
+  "fetch_csv_data",
+  "validate_structure",
+  "parse_beer_entries",
+  "validate_business_rules",
+  "cache_validated_data",
+  "trigger_ui_update"
+]
+trigger = ["client_request", "scheduled_check"]
+frequency = "on_demand"
+
+[sync_workflows.scheduled_validation]
+description = "Scheduled data validation and health check"
+steps = [
+  "fetch_latest_data",
+  "compare_with_cache",
+  "validate_data_quality",
+  "check_availability",
+  "generate_health_report",
+  "alert_on_issues"
+]
+trigger = ["hourly", "manual"]
+frequency = "0 */1 * * *"  # Every hour
+
+[sync_workflows.fallback_management]
+description = "Fallback data management for service failures"
+steps = [
+  "detect_service_failure",
+  "activate_cached_data",
+  "display_fallback_message",
+  "monitor_service_recovery",
+  "restore_live_data",
+  "log_incident"
+]
+trigger = ["service_failure", "timeout", "validation_error"]
+
+[caching]
+cache_duration = "30m"
+cache_location = "cache/sheets-data"
+cache_format = "json"
+cache_compression = true
+max_cache_size = "10MB"
+cleanup_frequency = "daily"
+
+[error_handling]
+
+[error_handling.network_errors]
+timeout_action = "use_cache"
+connection_error = "use_cache"
+rate_limit = "exponential_backoff"
+ssl_error = "retry_with_fallback"
+
+[error_handling.data_errors]
+invalid_csv = "log_and_use_cache"
+missing_columns = "use_partial_data"
+invalid_data_types = "sanitize_and_continue"
+business_rule_violations = "flag_and_include"
+
+[error_handling.validation_errors]
+price_validation_error = "flag_entry"
+abv_validation_error = "flag_entry"
+name_validation_error = "sanitize_text"
+description_validation_error = "truncate_text"
+
+[fallback_strategies]
+primary = "cached_data"
+secondary = "static_fallback"
+tertiary = "empty_state_message"
+fallback_message = "Menu se načítá... Prosím zkuste to za chvíli."
+cache_expiry_fallback = "show_last_update_time"
+
+[monitoring]
+
+[monitoring.metrics]
+sync_frequency = "requests_per_hour"
+success_rate = "successful_syncs_percentage"
+response_time = "average_response_time_ms"
+data_quality = "validation_pass_rate"
+cache_hit_rate = "cache_usage_percentage"
+
+[monitoring.alerts]
+sync_failure_threshold = 3  # consecutive failures
+response_time_threshold = "5s"
+data_quality_threshold = 90  # percentage
+cache_miss_threshold = 80   # percentage
+
+[monitoring.health_checks]
+endpoint_availability = "5m"
+data_freshness = "15m"
+cache_health = "1h"
+validation_accuracy = "daily"
+
+[integration]
+
+[integration.frontend]
+update_mechanism = "websocket"  # or "polling"
+update_frequency = "real_time"
+loading_states = true
+error_states = true
+retry_mechanism = "exponential_backoff"
+
+[integration.backend]
+build_integration = true
+deploy_validation = true
+health_endpoint = "/api/health/sheets"
+metrics_endpoint = "/api/metrics/sheets"
+
+[integration.ci_cd]
+pre_deploy_validation = true
+post_deploy_verification = true
+rollback_on_failure = true
+monitoring_integration = true
+
+[mycelial_integration]
+pattern_sharing = ["sheets_integration", "csv_parsing", "data_validation"]
+cross_domain_learning = ["live_data_patterns", "hospitality_apis"]
+evolution_tracking = ["sync_reliability", "data_quality_improvements"]
+collective_intelligence = ["fallback_strategies", "error_handling_patterns"]
+
+[performance]
+max_execution_time = "30s"
+memory_limit = "128MB"
+concurrent_requests = 5
+connection_pool_size = 10
+request_timeout = "10s"
+
+[security]
+data_sanitization = true
+xss_protection = true
+rate_limiting = true
+ssl_verification = true
+data_encryption = false  # public data
+audit_logging = true
+
+# Agent-specific configuration
+[sheets_sync_specific]
+csv_parser = "custom_parser"  # handles quoted fields
+encoding = "utf-8"
+line_endings = "auto"
+quote_handling = "smart"
+escape_character = "\""
+null_values = ["", "null", "NULL", "-"]
+date_format = "DD.MM.YYYY"
+time_format = "HH:mm"
+czech_locale = "cs_CZ"

@@ -1,0 +1,255 @@
+# Build Orchestrator Agent
+# Manages Zola build processes and optimization
+
+[meta]
+name = "build-orchestrator"
+version = "1.0.0"
+category = "development_workflow"
+description = "Orchestrates Zola build processes with optimization, validation, and deployment preparation"
+created = "2026-01-28"
+author = "AIAD Standard Library v2.0.0"
+
+[capabilities]
+zola_build_management = true
+asset_optimization = true
+build_validation = true
+performance_optimization = true
+parallel_processing = true
+incremental_builds = true
+
+[domain_expertise]
+primary = "static_site_building"
+secondary = ["zola_framework", "asset_optimization", "build_pipelines", "performance_tuning"]
+technologies = ["zola", "rust", "sass", "html", "css", "javascript"]
+build_systems = ["zola", "make", "github_actions"]
+
+[tool_access]
+read_files = ["**/*.md", "**/*.html", "**/*.toml", "**/*.css", "**/*.js", "**/*.scss"]
+write_files = ["public/**/*", "logs/build-*.log", "reports/build-*.json"]
+bash_commands = ["zola", "make", "find", "du", "gzip", "brotli"]
+external_tools = ["html-minifier", "cssnano", "terser", "imagemin"]
+
+[build_configuration]
+
+[build_configuration.environments]
+development = { base_url = "http://localhost:1111", minify = false, drafts = true }
+staging = { base_url = "https://staging.pivniceutygra.cz", minify = true, drafts = false }
+production = { base_url = "https://www.pivniceutygra.cz", minify = true, drafts = false }
+
+[build_configuration.optimization]
+html_minification = true
+css_minification = true
+js_minification = false  # using CDN
+image_optimization = true
+gzip_compression = true
+brotli_compression = true
+
+[build_configuration.validation]
+html_validation = true
+link_checking = true
+accessibility_check = true
+performance_check = true
+seo_validation = true
+
+[build_workflows]
+
+[build_workflows.development_build]
+description = "Fast development build with live reload"
+steps = [
+  "validate_configuration",
+  "clean_previous_build",
+  "compile_sass",
+  "process_content",
+  "render_templates",
+  "copy_static_assets",
+  "validate_output",
+  "start_dev_server"
+]
+optimizations = false
+validation = "basic"
+target = "development"
+
+[build_workflows.production_build]
+description = "Optimized production build with full validation"
+steps = [
+  "validate_configuration",
+  "clean_previous_build",
+  "lint_content",
+  "compile_sass",
+  "optimize_assets",
+  "process_content",
+  "render_templates",
+  "minify_html",
+  "compress_assets",
+  "validate_output",
+  "run_quality_gates",
+  "generate_sitemap",
+  "prepare_deployment"
+]
+optimizations = true
+validation = "comprehensive"
+target = "production"
+
+[build_workflows.staging_build]
+description = "Staging build with production optimizations and extended testing"
+steps = [
+  "validate_configuration",
+  "clean_previous_build",
+  "compile_sass",
+  "optimize_assets",
+  "process_content",
+  "render_templates",
+  "minify_html",
+  "validate_output",
+  "run_quality_gates",
+  "performance_testing",
+  "accessibility_testing",
+  "prepare_staging_deployment"
+]
+optimizations = true
+validation = "extended"
+target = "staging"
+
+[optimization]
+
+[optimization.html]
+minification = true
+remove_comments = true
+collapse_whitespace = true
+remove_empty_attributes = true
+remove_redundant_attributes = true
+
+[optimization.css]
+minification = true
+autoprefixer = true
+remove_unused = false  # using utility-first CSS
+combine_files = false  # using CDN
+
+[optimization.assets]
+image_compression = true
+webp_conversion = true
+svg_optimization = true
+font_subsetting = false  # using Google Fonts
+
+[optimization.performance]
+resource_hints = true
+critical_css_inlining = false  # using CDN
+lazy_loading = true
+service_worker = false  # static content
+
+[validation]
+
+[validation.html]
+w3c_validator = true
+accessibility_validator = true
+semantic_validation = true
+seo_validation = true
+
+[validation.links]
+internal_links = true
+external_links = false  # too slow for build
+anchor_links = true
+image_links = true
+
+[validation.performance]
+lighthouse_audit = true
+core_web_vitals = true
+bundle_size_analysis = true
+load_time_analysis = true
+
+[quality_gates]
+html_errors = 0
+accessibility_score = 95
+performance_score = 90
+seo_score = 95
+lighthouse_pwa = 80
+build_size_limit = "50MB"
+build_time_limit = "30s"
+
+[monitoring]
+
+[monitoring.build_metrics]
+build_time = "seconds"
+build_size = "megabytes"
+file_count = "number"
+asset_count = "number"
+error_count = "number"
+
+[monitoring.performance_metrics]
+lighthouse_performance = "score"
+lighthouse_accessibility = "score"
+lighthouse_seo = "score"
+first_contentful_paint = "milliseconds"
+largest_contentful_paint = "milliseconds"
+cumulative_layout_shift = "score"
+
+[monitoring.alerts]
+build_failure = "immediate"
+quality_gate_failure = "immediate"
+performance_regression = "immediate"
+build_time_increase = "daily"
+
+[caching]
+enabled = true
+cache_directory = ".cache/build"
+incremental_builds = true
+dependency_tracking = true
+cache_invalidation = "smart"
+
+[error_handling]
+on_build_error = "fail_fast"
+on_validation_error = "report_and_continue"
+on_optimization_error = "skip_and_warn"
+on_timeout = "cancel_build"
+retry_attempts = 0  # fail fast for builds
+
+[integration]
+
+[integration.development]
+live_reload = true
+hot_module_replacement = false
+source_maps = true
+debug_mode = true
+
+[integration.ci_cd]
+github_actions = true
+build_artifacts = true
+test_reports = true
+deployment_preparation = true
+
+[integration.deployment]
+artifact_generation = true
+manifest_creation = true
+health_check_generation = true
+rollback_preparation = true
+
+[mycelial_integration]
+pattern_sharing = ["build_optimization", "zola_patterns", "static_site_performance"]
+cross_domain_learning = ["build_pipelines", "optimization_strategies"]
+evolution_tracking = ["build_performance", "optimization_effectiveness"]
+collective_intelligence = ["build_patterns", "performance_optimizations"]
+
+[performance]
+max_execution_time = "60s"
+memory_limit = "512MB"
+cpu_limit = "4_cores"
+parallel_jobs = 4
+io_optimization = true
+
+[security]
+output_sanitization = true
+path_validation = true
+file_permissions = "644"
+directory_permissions = "755"
+clean_sensitive_data = true
+
+# Agent-specific configuration
+[build_orchestrator_specific]
+zola_binary = "zola"
+zola_version = "latest"
+node_binary = "node"
+npm_binary = "npm"
+sass_implementation = "dart-sass"
+html_validator = "nu-html-checker"
+css_validator = "w3c-css-validator"
+image_optimizer = "imagemin"

@@ -1,0 +1,219 @@
+# AIAD Standard Library Integration
+# Project: Pivnice U Tygra - Czech Pub Website
+# Full AIAD Ecosystem with Mycelial Intelligence
+
+[meta]
+version = "2.0.0"
+project_type = "zola_static_site"
+domain = "web_development"
+ai_framework = "claude_code"
+last_updated = "2026-01-28T15:30:00Z"
+ecosystem_id = "u-tygra-pivnice-brno"
+
+[project]
+name = "u-tygra"
+title = "Pivnice U Tygra"
+description = "Budvar & řemeslná piva u Lužánek. Brno."
+version = "1.0.0"
+license = "MIT"
+repository = "https://github.com/konovo/u-tygra"
+website = "https://www.pivniceutygra.cz"
+maintainer = "KONOVO s.r.o."
+
+[platform]
+type = "nodejs"
+version = "20"
+build_system = "zola"
+package_manager = "npm"
+deployment_target = "static_hosting"
+
+[technology_stack]
+ssg = "zola"
+template_engine = "tera"
+css_preprocessor = "sass"
+
+[ui]
+framework = "alpine_js"
+version = "3.14.3"
+css_framework = "tailwind"
+css_version = "3.x"
+components = "flowbite"
+components_version = "2.5.2"
+fonts = ["inter", "playfair_display"]
+analytics = "google_analytics_4"
+
+[data]
+sources = ["google_sheets", "static_content", "business_metadata"]
+live_integration = true
+google_sheets_id = "2PACX-1vSeZjP4HadboLuS8v4KVobNqsKtjaBpBJ8oCuPCC-OjfkCtCWA8N_asuxkedh7QSGhsrXU0JU_bV_Rn"
+sheet_gid = "1804527038"
+update_frequency = "real_time"
+csv_endpoint_enabled = true
+
+[business]
+type = "hospitality"
+category = "pub_restaurant"
+location = "brno_czech_republic"
+languages = ["cs", "en"]
+target_audience = "beer_enthusiasts"
+capacity = "20_people"
+features = ["craft_beer", "food_menu", "private_events", "google_maps"]
+
+[agents]
+enabled = true
+auto_discovery = true
+command_integration = true
+directory = "agents"
+total_agents = 12
+categories = ["content_management", "development_workflow", "documentation", "quality_assurance"]
+
+[agents.content_management]
+content_validator = true
+google_sheets_sync = true
+seo_optimizer = true
+accessibility_checker = true
+
+[agents.development_workflow]
+build_orchestrator = true
+deployment_manager = true
+quality_gate_sentinel = true
+performance_monitor = true
+
+[agents.documentation]
+docs_analyzer = true
+cross_reference_manager = true
+glossary_maintainer = true
+adr_assistant = true
+
+[commands]
+enabled = true
+namespace = "u-tygra"
+shell_integration = true
+makefile_integration = true
+directory = "commands"
+total_commands = 15
+categories = ["content", "build_deploy", "quality_maintenance"]
+
+[commands.content]
+analyze = true
+validate = true
+sync = true
+optimize = true
+
+[commands.build_deploy]
+build_dev = true
+build_prod = true
+deploy_staging = true
+deploy_prod = true
+
+[commands.quality_maintenance]
+quality_check = true
+docs_generate = true
+health_report = true
+backup_content = true
+
+[quality_gates]
+html_validation = true
+accessibility = true
+performance = true
+seo = true
+link_checking = true
+security_scanning = true
+content_validation = true
+css_validation = true
+js_validation = true
+
+[quality_gates.standards]
+html_validator = "w3c"
+accessibility_standard = "wcag_2_1_aa"
+performance_budget = "core_web_vitals"
+seo_compliance = "schema_org"
+
+[quality_gates.thresholds]
+performance_score = 90
+accessibility_score = 95
+seo_score = 95
+lighthouse_pwa = 80
+
+[build]
+environment_support = ["development", "staging", "production"]
+optimization = true
+minification = true
+compression = true
+source_maps = false
+cache_busting = true
+
+[deployment]
+targets = ["github_pages", "netlify", "cloudflare_pages"]
+preview_deployments = true
+automated_testing = true
+rollback_capability = true
+
+[monitoring]
+analytics = true
+performance_monitoring = true
+error_tracking = true
+uptime_monitoring = true
+user_feedback = true
+
+[security]
+content_security_policy = true
+https_enforcement = true
+dependency_scanning = true
+vulnerability_assessment = true
+
+[mycelial]
+propagation_enabled = true
+cross_domain_sync = true
+pattern_sharing = true
+ecosystem_integration = ["prismatic", "osint_networks", "nabla_infinity"]
+learning_protocols = ["genetic_optimization", "pattern_evolution", "collective_intelligence"]
+
+[mycelial.networks]
+prismatic_connection = true
+pattern_library_access = true
+cross_project_learning = true
+emergence_tracking = true
+
+[mycelial.patterns]
+export_patterns = ["static_site_automation", "google_sheets_integration", "czech_localization"]
+import_patterns = ["documentation_standards", "quality_gates", "ci_cd_workflows"]
+adaptation_engine = true
+
+[documentation]
+system = "modular_architecture"
+structure = "prismatic_pattern"
+auto_generation = true
+cross_referencing = true
+glossary_management = true
+adr_support = true
+
+[documentation.sections]
+core = ["architecture", "tech_stack", "project_structure", "business_context"]
+guides = ["developer_experience", "content_management", "deployment", "troubleshooting"]
+reference = ["zola_config", "alpine_components", "css_framework", "glossary"]
+operations = ["build_deployment", "monitoring", "backup", "incident_response"]
+architecture = ["adr_records", "system_diagrams"]
+meta = ["maintenance", "cross_references", "naming_conventions"]
+
+[localization]
+default_language = "cs"
+supported_languages = ["cs", "en"]
+czech_specific = ["business_hours", "address_format", "phone_format", "currency"]
+cultural_adaptation = true
+
+[integrations]
+google_analytics = "G-FTXJKHH6R0"
+google_maps = true
+facebook = "UTygraBrno"
+email_integration = false
+newsletter = false
+booking_system = false
+
+[aiad_std_lib]
+version = "2.0.0"
+install_date = "2026-01-28"
+components = ["agents", "commands", "quality_gates", "documentation", "mycelial"]
+last_evolution = "2026-01-28T15:30:00Z"
+evolution_cycles = 1
+fitness_score = 98.7

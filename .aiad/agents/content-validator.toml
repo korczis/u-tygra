@@ -1,0 +1,157 @@
+# Content Validator Agent
+# Validates content structure, links, and Czech localization
+
+[meta]
+name = "content-validator"
+version = "1.0.0"
+category = "content_management"
+description = "Validates content structure, internal/external links, and Czech localization compliance"
+created = "2026-01-28"
+author = "AIAD Standard Library v2.0.0"
+
+[capabilities]
+content_validation = true
+link_checking = true
+localization_validation = true
+markdown_linting = true
+front_matter_validation = true
+seo_validation = true
+
+[domain_expertise]
+primary = "content_quality"
+secondary = ["czech_localization", "markdown_standards", "seo_optimization"]
+languages = ["cs", "en"]
+business_context = "hospitality"
+
+[tool_access]
+read_files = ["content/**/*.md", "docs/**/*.md", "templates/**/*.html"]
+write_files = ["reports/content-validation-*.json"]
+bash_commands = ["find", "grep", "wc", "file"]
+external_tools = ["html-validate", "markdownlint", "link-checker"]
+
+[validation_rules]
+
+[validation_rules.content_structure]
+required_front_matter = ["title", "description"]
+optional_front_matter = ["weight", "template", "taxonomies"]
+max_title_length = 60
+max_description_length = 160
+heading_hierarchy = true
+image_alt_text = true
+
+[validation_rules.czech_localization]
+currency_format = "CZK"
+date_format = "DD.MM.YYYY"
+time_format = "HH:mm"
+address_format = "czech_standard"
+phone_format = "+420_xxx_xxx_xxx"
+business_hours = "HH:mm–HH:mm"
+
+[validation_rules.links]
+internal_links_relative = true
+external_links_https = true
+anchor_links_valid = true
+image_links_accessible = true
+broken_links_error = true
+redirect_chains_warn = true
+
+[validation_rules.seo]
+meta_title_length = [30, 60]
+meta_description_length = [120, 160]
+h1_single_per_page = true
+heading_structure = true
+schema_org_markup = true
+canonical_urls = true
+
+[quality_gates]
+content_errors = 0
+broken_links = 0
+czech_localization_errors = 0
+seo_warnings = 5
+accessibility_errors = 0
+performance_impact = "minimal"
+
+[integration]
+zola_build = true
+git_hooks = ["pre-commit", "pre-push"]
+ci_cd = true
+reporting = "json"
+notifications = ["console", "file"]
+
+[workflows]
+
+[workflows.content_check]
+description = "Comprehensive content validation workflow"
+steps = [
+  "validate_front_matter",
+  "check_content_structure",
+  "validate_links",
+  "check_czech_localization",
+  "validate_seo_metadata",
+  "generate_report"
+]
+trigger = ["manual", "git_commit", "ci_cd"]
+
+[workflows.link_verification]
+description = "Internal and external link validation"
+steps = [
+  "scan_internal_links",
+  "verify_external_links",
+  "check_anchor_links",
+  "validate_image_links",
+  "report_broken_links"
+]
+trigger = ["daily", "pre_deploy"]
+
+[workflows.localization_check]
+description = "Czech localization compliance validation"
+steps = [
+  "validate_currency_format",
+  "check_date_time_format",
+  "verify_address_format",
+  "validate_phone_numbers",
+  "check_business_hours"
+]
+trigger = ["content_update", "business_info_change"]
+
+[reporting]
+formats = ["json", "html", "markdown"]
+output_directory = "reports/content-validation"
+retention_days = 30
+include_suggestions = true
+severity_levels = ["error", "warning", "info"]
+
+[mycelial_integration]
+pattern_sharing = ["content_validation_rules", "czech_localization_patterns"]
+cross_domain_learning = ["hospitality_content", "static_site_validation"]
+evolution_tracking = ["validation_accuracy", "false_positive_rate"]
+collective_intelligence = ["content_quality_patterns", "localization_best_practices"]
+
+[performance]
+max_execution_time = "60s"
+memory_limit = "256MB"
+parallel_processing = true
+caching = true
+incremental_validation = true
+
+[error_handling]
+on_validation_error = "report_and_continue"
+on_broken_links = "error"
+on_localization_error = "warning"
+on_timeout = "partial_report"
+retry_attempts = 3
+retry_delay = "5s"
+
+[monitoring]
+metrics = ["validation_time", "errors_found", "false_positives", "coverage"]
+alerts = ["critical_errors", "validation_failures", "performance_degradation"]
+health_checks = ["tool_availability", "file_accessibility", "network_connectivity"]
+
+# Agent-specific configuration
+[content_validator_specific]
+markdown_linter = "markdownlint"
+html_validator = "nu-html-checker"
+link_checker = "lychee"
+accessibility_checker = "axe-core"
+czech_dictionary = "hunspell-cs"
+business_terms = ["pivnice", "pivo", "řemeslný", "budvar"]
