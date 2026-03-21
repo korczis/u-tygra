@@ -412,6 +412,15 @@ class CSVWorkerManager {
           }
         }
       };
+      this.worker.onerror = (e) => {
+        console.warn('CSV Worker error, disabling:', e.message);
+        this.worker = null;
+        // Reject all pending callbacks so they fall through to fallback
+        for (const [id, cb] of this.pendingCallbacks) {
+          cb.reject(new Error('Worker crashed'));
+        }
+        this.pendingCallbacks.clear();
+      };
     } catch (err) {
       console.warn('CSV Worker not available, falling back to main thread');
       this.worker = null;
@@ -420,15 +429,25 @@ class CSVWorkerManager {
 
   async parseCSV(csvText) {
     if (!this.worker) {
-      // Fallback: parse on main thread (legacy browsers)
       return this.parseCSVFallback(csvText);
     }
 
     const id = ++this.messageId;
-    return new Promise((resolve, reject) => {
-      this.pendingCallbacks.set(id, { resolve, reject });
-      this.worker.postMessage({ id, type: 'parse-csv', data: csvText });
-    });
+    try {
+      return await Promise.race([
+        new Promise((resolve, reject) => {
+          this.pendingCallbacks.set(id, { resolve, reject });
+          this.worker.postMessage({ id, type: 'parse-csv', data: csvText });
+        }),
+        new Promise((_, reject) =>
+          setTimeout(() => reject(new Error('Worker timeout')), 3000)
+        )
+      ]);
+    } catch (e) {
+      console.warn('Worker parse failed, using fallback:', e.message);
+      this.pendingCallbacks.delete(id);
+      return this.parseCSVFallback(csvText);
+    }
   }
 
   parseCSVFallback(csvText) {
