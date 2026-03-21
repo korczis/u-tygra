@@ -389,44 +389,33 @@ tbody tr:nth-child(odd) .td-num {
   .glossary-card .gc-label { font-size: 22px; }
 }
 
-/* CNN-style ticker bar */
-.ticker-bar {
-  position: fixed;
-  bottom: 0;
-  left: 1.5vw;
-  right: 1.5vw;
-  height: 56px;
-  background: #1a1208;
+/* CNN-style ticker bar — uses same table-layout as beer table */
+#ticker-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
   border-top: 2px solid #3d2a0e;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  z-index: 50;
 }
 
-.ticker-label {
+#ticker-table td {
+  padding: 0;
+  height: 56px;
+  vertical-align: middle;
+}
+
+#ticker-table .ticker-label {
   background: #f08c0f;
   color: #0a0704;
   font-weight: 800;
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 2px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  white-space: nowrap;
-  flex-shrink: 0;
-  width: 8%;
-  min-width: 8%;
-  /* Overridden by JS to match # column exactly */
+  text-align: center;
 }
 
-.ticker-content {
-  flex: 1;
-  overflow: hidden;
+#ticker-table .ticker-content {
   position: relative;
-  height: 100%;
+  overflow: hidden;
 }
 
 .ticker-text {
@@ -446,14 +435,6 @@ tbody tr:nth-child(odd) .td-num {
   letter-spacing: 0.03em;
 }
 
-.ticker-text.ticker-fade-out {
-  opacity: 0;
-}
-
-.ticker-text.ticker-fade-in {
-  opacity: 1;
-}
-
 .ticker-wisdom {
   color: #f7c46d;
   font-style: italic;
@@ -462,8 +443,8 @@ tbody tr:nth-child(odd) .td-num {
 }
 
 @media (min-width: 1920px) {
-  .ticker-bar { height: 68px; }
-  .ticker-label { font-size: 18px; padding: 0 28px; }
+  #ticker-table td { height: 68px; }
+  #ticker-table .ticker-label { font-size: 18px; }
   .ticker-text { font-size: 26px; }
 }
 </style>
@@ -477,13 +458,19 @@ tbody tr:nth-child(odd) .td-num {
   <div id="beer-container"></div>
 </div>
 
-<!-- Ticker bar -->
-<div class="ticker-bar">
-  <div class="ticker-label">U Tygra</div>
-  <div class="ticker-content">
-    <div id="ticker-text" class="ticker-text"></div>
-  </div>
-</div>
+<!-- Ticker bar — same col widths as beer table for pixel-perfect alignment -->
+<table id="ticker-table">
+  <colgroup>
+    <col style="width:8%">
+    <col>
+  </colgroup>
+  <tr>
+    <td class="ticker-label">U Tygra</td>
+    <td class="ticker-content">
+      <div id="ticker-text" class="ticker-text"></div>
+    </td>
+  </tr>
+</table>
 
 <!-- Glossary overlay (dynamic mode only) -->
 <div id="glossary-overlay" class="glossary-overlay">
@@ -794,8 +781,8 @@ function fitToScreen(beerCount) {
   if (thead) usedHeight += thead.offsetHeight;
 
   // Use exact available height, no rounding down (prevents last row cutoff)
-  // Account for fixed ticker bar at bottom
-  var tickerHeight = 58; // 56px + 2px border
+  // Account for ticker table at bottom (hardcoded — offsetHeight unreliable at first call)
+  var tickerHeight = window.innerWidth >= 1920 ? 70 : 58;
   var availableHeight = window.innerHeight - usedHeight - tickerHeight - 4;
   if (beerCount > 0 && availableHeight > 0) {
     var rowHeight = availableHeight / beerCount;
@@ -1208,7 +1195,7 @@ function onGlossaryReady(cb) {
   }
 
   // Click ticker to trigger wisdom
-  var tickerBar = document.querySelector('.ticker-bar');
+  var tickerBar = document.getElementById('ticker-table');
   if (tickerBar) {
     tickerBar.style.cursor = 'pointer';
     tickerBar.onclick = function() { showWisdom(); };
