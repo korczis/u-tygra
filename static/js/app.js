@@ -559,7 +559,16 @@ function parseBeerCSV(csvText) {
     }
   }
 
-  return { announcement, beers };
+  // Deduplicate by brewery + name (Google Sheets may have duplicate rows)
+  const seen = new Set();
+  const unique = beers.filter(function(b) {
+    const key = (b.pivovar || '').toLowerCase() + '|' + (b.nazev || '').toLowerCase();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+
+  return { announcement, beers: unique };
 }
 
 /**
@@ -1256,21 +1265,21 @@ function app() {
       header.innerHTML = `
         <div class="kiosk-header-left">
           <h1 class="kiosk-title">Pivnice U Tygra</h1>
-          <div class="kiosk-live">
-            <span class="live-dot"></span>
+          <div class="kiosk-live" aria-live="polite">
+            <span class="live-dot" aria-hidden="true"></span>
             <span>ŽIVĚ Z ČEPU</span>
           </div>
           ${this.announcement ? `<div class="kiosk-announcement">${this.announcement}</div>` : ''}
         </div>
         <div class="kiosk-header-right">
-          <button id="kiosk-toggle-view" class="kiosk-view-toggle" title="Přepnout zobrazení">
-            <svg id="kiosk-icon-grid" class="kiosk-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <button id="kiosk-toggle-view" class="kiosk-view-toggle" title="Přepnout zobrazení" aria-label="Přepnout zobrazení mřížka/seznam" aria-pressed="false">
+            <svg id="kiosk-icon-grid" class="kiosk-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="3" y="3" width="7" height="7"></rect>
               <rect x="14" y="3" width="7" height="7"></rect>
               <rect x="3" y="14" width="7" height="7"></rect>
               <rect x="14" y="14" width="7" height="7"></rect>
             </svg>
-            <svg id="kiosk-icon-list" class="kiosk-icon" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg id="kiosk-icon-list" class="kiosk-icon" aria-hidden="true" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="3" y1="6" x2="21" y2="6"></line>
               <line x1="3" y1="12" x2="21" y2="12"></line>
               <line x1="3" y1="18" x2="21" y2="18"></line>

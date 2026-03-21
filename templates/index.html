@@ -152,7 +152,7 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════ -->
-<!-- Na Cepu - Nastenka                                    -->
+<!-- Na čepu - Nástěnka                                    -->
 <!-- ═══════════════════════════════════════════════════════ -->
 <section id="na-cepu" class="section-dark py-20 lg:py-28 foam-border">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -162,11 +162,11 @@
       <div>
         <div class="inline-flex items-center gap-2 mb-3">
           <span class="live-dot"></span>
-          <span class="text-green-400 text-xs font-bold tracking-[0.2em] uppercase">Live z cepu</span>
+          <span class="text-green-400 text-xs font-bold tracking-[0.2em] uppercase">Živě z čepu</span>
         </div>
-        <h2 class="text-4xl md:text-5xl font-bold text-white">Nastenka</h2>
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white">Nástěnka</h2>
         <p class="text-brew-400 mt-2 text-sm">
-          Klikni na <span class="text-tiger-400">pivovar</span> pro web, na <span class="text-tiger-300">styl</span> pro vysvetleni, na <a href="#glosar-ibu" class="text-tiger-400 hover:text-tiger-300 underline underline-offset-2">IBU</a>/<a href="#glosar-abv" class="text-tiger-400 hover:text-tiger-300 underline underline-offset-2">ABV</a> pro glosar.
+          Klikni na <span class="text-tiger-400">pivovar</span> pro web, na <span class="text-tiger-300">styl</span> pro vysvětlení, na <a href="#glosar-ibu" class="text-tiger-400 hover:text-tiger-300 underline underline-offset-2">IBU</a>/<a href="#glosar-abv" class="text-tiger-400 hover:text-tiger-300 underline underline-offset-2">ABV</a> pro glosář.
         </p>
       </div>
       <!-- View toggle -->
@@ -174,14 +174,14 @@
         <button @click="onBeerViewToggle('list')"
                 class="p-2 rounded transition-all"
                 :class="beerView === 'list' ? 'bg-tiger-500/20 text-tiger-400' : 'text-brew-500 hover:text-brew-300'"
-                aria-label="Seznam" title="Radkovy seznam">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+                aria-label="Seznam" title="Řádkový seznam">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
         </button>
         <button @click="onBeerViewToggle('grid')"
                 class="p-2 rounded transition-all"
                 :class="beerView === 'grid' ? 'bg-tiger-500/20 text-tiger-400' : 'text-brew-500 hover:text-brew-300'"
-                aria-label="Dlazdice" title="Dlazdicovy seznam">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg>
+                aria-label="Dlaždice" title="Dlaždice">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zm10 0a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/></svg>
         </button>
       </div>
     </div>
@@ -199,8 +199,8 @@
 
     <!-- Error -->
     <div x-show="beerError && !beerLoading" class="text-center py-12">
-      <h3 class="text-lg font-semibold text-white mb-2">Cepy prave nacitame...</h3>
-      <p class="text-brew-400 text-sm">Aktualni nabidku zjistite na
+      <h3 class="text-lg font-semibold text-white mb-2">Čepy právě načítáme...</h3>
+      <p class="text-brew-400 text-sm">Aktuální nabídku zjistíte na
         <a href="tel:{{ config.extra.phone_bar }}" class="text-tiger-400 hover:text-tiger-300 transition-colors font-medium">776 140 840</a>
       </p>
     </div>
@@ -210,21 +210,22 @@
          x-transition>
 
       <!-- Table header -->
-      <div class="hidden sm:grid sm:grid-cols-12 gap-2 px-4 py-2 text-[11px] text-brew-500 uppercase tracking-wider font-medium border-b border-brew-800/50 mb-1">
-        <div class="col-span-3">Nazev</div>
+      <div class="hidden sm:grid sm:grid-cols-12 gap-2 px-4 py-3 text-xs lg:text-sm text-brew-500 uppercase tracking-wider font-medium border-b border-brew-800/50 mb-1">
+        <div class="col-span-3">Název</div>
         <div class="col-span-3">Pivovar</div>
         <div class="col-span-2">Styl</div>
         <div class="col-span-1 text-center"><a href="#glosar-abv" class="hover:text-tiger-400 transition-colors">ALK</a></div>
         <div class="col-span-1 text-center"><a href="#glosar-ibu" class="hover:text-tiger-400 transition-colors">IBU</a></div>
-        <div class="col-span-2 text-right">Cena</div>
+        <div class="col-span-2 text-right">Cena (0,5/0,3)</div>
       </div>
 
       <!-- Rows -->
       <template x-for="(beer, idx) in liveBeers" :key="'list-' + idx">
         <div class="beer-card glass rounded-lg mb-1 px-4 py-3 sm:grid sm:grid-cols-12 sm:gap-2 sm:items-center"
-             @click="onBeerCardClick(beer)">
+             role="button" tabindex="0" @click="onBeerCardClick(beer)" @keydown.enter="onBeerCardClick(beer)"
+             :aria-label="(beer['nazev'] || '') + ' — ' + (beer['pivovar'] || '')"
           <div class="col-span-3 hidden sm:block">
-            <span class="text-white font-semibold text-sm" x-text="beer['nazev'] || ''"></span>
+            <span class="text-white font-semibold text-sm lg:text-base" x-text="beer['nazev'] || ''"></span>
           </div>
           <div class="col-span-3 hidden sm:block">
             <a x-show="breweryUrl(beer['pivovar'])"
@@ -297,7 +298,8 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
         <template x-for="(beer, idx) in liveBeers" :key="'grid-' + idx">
           <div class="beer-card glass rounded-xl p-5"
-               @click="onBeerCardClick(beer)">
+               role="button" tabindex="0" @click="onBeerCardClick(beer)" @keydown.enter="onBeerCardClick(beer)"
+               :aria-label="(beer['nazev'] || '') + ' — ' + (beer['pivovar'] || '')"
             <div class="flex items-start justify-between mb-2">
               <h3 class="text-base font-semibold text-white leading-tight flex-1 mr-2" x-text="beer['nazev'] || ''"></h3>
               <span x-show="beer['cena']" class="text-white font-bold text-sm shrink-0" x-text="beer['cena'] + ' Kc'"></span>
@@ -340,12 +342,12 @@
 
     <!-- Fallback -->
     <div x-show="!beerLoading && !beerError && liveBeers.length === 0" class="text-center py-8">
-      <p class="text-brew-400">Prave aktualizujeme nabidku. Zastavte se!</p>
+      <p class="text-brew-400">Právě aktualizujeme nabídku. Zastavte se!</p>
     </div>
 
     <div class="text-center mt-6">
       <p class="text-brew-600 text-xs">
-        Data se automaticky synchronizuji z nasi interni tabule. Nabidka se pravidelne obmenuje.
+        Data se automaticky synchronizují z naší interní tabule. Nabídka se pravidelně obměňuje.
       </p>
     </div>
 
@@ -396,6 +398,8 @@
         <template x-for="style in beerStyles" :key="style.id">
           <button @click="openStyle = openStyle === style.id ? null : style.id"
                   :id="'styl-' + style.id"
+                  :aria-expanded="(openStyle === style.id).toString()"
+                  :aria-controls="'styl-detail-' + style.id"
                   class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
                   :class="openStyle === style.id ? 'bg-tiger-500/20 text-tiger-300 ring-1 ring-tiger-500/30' : 'glass text-brew-300 hover:text-white hover:bg-white/5'">
             <span class="w-2 h-2 rounded-full" :style="`background: ${style.color}`"></span>
@@ -404,7 +408,7 @@
         </template>
       </div>
       <template x-for="style in beerStyles" :key="'d-' + style.id">
-        <div x-show="openStyle === style.id" x-transition class="glass rounded-lg px-5 py-4 mb-2">
+        <div x-show="openStyle === style.id" x-transition :id="'styl-detail-' + style.id" role="region" :aria-labelledby="'styl-' + style.id" class="glass rounded-lg px-5 py-4 mb-2">
           <div class="flex items-baseline gap-2 mb-2">
             <span class="text-white font-semibold" x-text="style.name"></span>
             <span class="text-brew-500 text-xs" x-text="style.nameEn"></span>

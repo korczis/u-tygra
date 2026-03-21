@@ -112,13 +112,13 @@
             <div class="relative aspect-square rounded-xl overflow-hidden group bg-brew-900">
               <img :src="photo.url" :alt="photo.alt || ''" class="w-full h-full object-cover">
               <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                <button @click="editPhoto(photo)" class="p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors">
-                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button @click="editPhoto(photo)" aria-label="Upravit fotku" class="p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors">
+                  <svg class="w-4 h-4 text-white" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                   </svg>
                 </button>
-                <button @click="deletePhoto(photo)" class="p-2 bg-red-500/30 hover:bg-red-500/50 rounded-lg transition-colors">
-                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button @click="deletePhoto(photo)" aria-label="Smazat fotku" class="p-2 bg-red-500/30 hover:bg-red-500/50 rounded-lg transition-colors">
+                  <svg class="w-4 h-4 text-white" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                   </svg>
                 </button>
@@ -152,23 +152,23 @@
             <h3 class="text-lg font-bold text-white mb-4" x-text="editingEvent ? 'Upravit akci' : 'Nova akce'"></h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm text-brew-400 mb-1">Nazev</label>
-                <input type="text" x-model="eventForm.title"
+                <label for="event-title" class="block text-sm text-brew-400 mb-1">Nazev</label>
+                <input type="text" id="event-title" x-model="eventForm.title"
                        class="w-full bg-brew-900 border border-brew-700 rounded-lg px-3 py-2 text-white text-sm focus:border-tiger-500 focus:ring-1 focus:ring-tiger-500 outline-none">
               </div>
               <div>
-                <label class="block text-sm text-brew-400 mb-1">Datum</label>
-                <input type="date" x-model="eventForm.date"
+                <label for="event-date" class="block text-sm text-brew-400 mb-1">Datum</label>
+                <input type="date" id="event-date" x-model="eventForm.date"
                        class="w-full bg-brew-900 border border-brew-700 rounded-lg px-3 py-2 text-white text-sm focus:border-tiger-500 focus:ring-1 focus:ring-tiger-500 outline-none">
               </div>
               <div>
-                <label class="block text-sm text-brew-400 mb-1">Cas</label>
-                <input type="time" x-model="eventForm.time"
+                <label for="event-time" class="block text-sm text-brew-400 mb-1">Cas</label>
+                <input type="time" id="event-time" x-model="eventForm.time"
                        class="w-full bg-brew-900 border border-brew-700 rounded-lg px-3 py-2 text-white text-sm focus:border-tiger-500 focus:ring-1 focus:ring-tiger-500 outline-none">
               </div>
               <div>
-                <label class="block text-sm text-brew-400 mb-1">Kategorie</label>
-                <select x-model="eventForm.category"
+                <label for="event-category" class="block text-sm text-brew-400 mb-1">Kategorie</label>
+                <select id="event-category" x-model="eventForm.category"
                         class="w-full bg-brew-900 border border-brew-700 rounded-lg px-3 py-2 text-white text-sm focus:border-tiger-500 focus:ring-1 focus:ring-tiger-500 outline-none">
                   <option value="hudba">Ziva hudba</option>
                   <option value="degustace">Degustace</option>
@@ -177,8 +177,8 @@
                 </select>
               </div>
               <div class="md:col-span-2">
-                <label class="block text-sm text-brew-400 mb-1">Popis</label>
-                <textarea x-model="eventForm.description" rows="3"
+                <label for="event-desc" class="block text-sm text-brew-400 mb-1">Popis</label>
+                <textarea id="event-desc" x-model="eventForm.description" rows="3"
                           class="w-full bg-brew-900 border border-brew-700 rounded-lg px-3 py-2 text-white text-sm focus:border-tiger-500 focus:ring-1 focus:ring-tiger-500 outline-none resize-none"></textarea>
               </div>
             </div>
@@ -206,12 +206,12 @@
                 <p class="text-brew-500 text-sm mt-1" x-text="event.description" x-show="event.description"></p>
               </div>
               <div class="flex gap-2">
-                <button @click="editEvent(event)" class="p-2 text-brew-400 hover:text-tiger-400 transition-colors">
+                <button @click="editEvent(event)" aria-label="Upravit akci" class="p-2 text-brew-400 hover:text-tiger-400 transition-colors">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                   </svg>
                 </button>
-                <button @click="deleteEvent(event)" class="p-2 text-brew-400 hover:text-red-400 transition-colors">
+                <button @click="deleteEvent(event)" aria-label="Smazat akci" class="p-2 text-brew-400 hover:text-red-400 transition-colors">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                   </svg>
@@ -242,32 +242,32 @@
             <h3 class="text-lg font-bold text-white mb-4" x-text="editingFood ? 'Upravit polozku' : 'Nova polozka'"></h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label class="block text-sm text-brew-400 mb-1">Nazev</label>
-                <input type="text" x-model="foodForm.name"
+                <label for="food-name" class="block text-sm text-brew-400 mb-1">Nazev</label>
+                <input type="text" id="food-name" x-model="foodForm.name"
                        class="w-full bg-brew-900 border border-brew-700 rounded-lg px-3 py-2 text-white text-sm focus:border-tiger-500 focus:ring-1 focus:ring-tiger-500 outline-none">
               </div>
               <div>
-                <label class="block text-sm text-brew-400 mb-1">Cena (Kc)</label>
-                <input type="number" x-model="foodForm.price"
+                <label for="food-price" class="block text-sm text-brew-400 mb-1">Cena (Kc)</label>
+                <input type="number" id="food-price" x-model="foodForm.price"
                        class="w-full bg-brew-900 border border-brew-700 rounded-lg px-3 py-2 text-white text-sm focus:border-tiger-500 focus:ring-1 focus:ring-tiger-500 outline-none">
               </div>
               <div>
-                <label class="block text-sm text-brew-400 mb-1">Gramaz</label>
-                <input type="text" x-model="foodForm.weight"
+                <label for="food-weight" class="block text-sm text-brew-400 mb-1">Gramaz</label>
+                <input type="text" id="food-weight" x-model="foodForm.weight"
                        class="w-full bg-brew-900 border border-brew-700 rounded-lg px-3 py-2 text-white text-sm focus:border-tiger-500 focus:ring-1 focus:ring-tiger-500 outline-none"
                        placeholder="napr. 150g">
               </div>
               <div>
-                <label class="block text-sm text-brew-400 mb-1">Kategorie</label>
-                <select x-model="foodForm.category"
+                <label for="food-category" class="block text-sm text-brew-400 mb-1">Kategorie</label>
+                <select id="food-category" x-model="foodForm.category"
                         class="w-full bg-brew-900 border border-brew-700 rounded-lg px-3 py-2 text-white text-sm focus:border-tiger-500 focus:ring-1 focus:ring-tiger-500 outline-none">
                   <option value="cold">Studene</option>
                   <option value="warm">Teple</option>
                 </select>
               </div>
               <div class="md:col-span-2">
-                <label class="block text-sm text-brew-400 mb-1">Popis</label>
-                <input type="text" x-model="foodForm.desc"
+                <label for="food-desc" class="block text-sm text-brew-400 mb-1">Popis</label>
+                <input type="text" id="food-desc" x-model="foodForm.desc"
                        class="w-full bg-brew-900 border border-brew-700 rounded-lg px-3 py-2 text-white text-sm focus:border-tiger-500 focus:ring-1 focus:ring-tiger-500 outline-none">
               </div>
             </div>
@@ -298,12 +298,12 @@
               <div class="flex items-center gap-4">
                 <span class="text-tiger-400 font-bold" x-text="item.price + ' Kc'"></span>
                 <div class="flex gap-1">
-                  <button @click="editFoodItem(item)" class="p-1.5 text-brew-400 hover:text-tiger-400 transition-colors">
+                  <button @click="editFoodItem(item)" aria-label="Upravit polozku" class="p-1.5 text-brew-400 hover:text-tiger-400 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                     </svg>
                   </button>
-                  <button @click="deleteFoodItem(item)" class="p-1.5 text-brew-400 hover:text-red-400 transition-colors">
+                  <button @click="deleteFoodItem(item)" aria-label="Smazat polozku" class="p-1.5 text-brew-400 hover:text-red-400 transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
                     </svg>
