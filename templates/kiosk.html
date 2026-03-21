@@ -307,14 +307,14 @@ tbody tr:nth-child(odd) .td-num {
 .glossary-overlay {
   position: fixed;
   inset: 0;
-  background: #0a0704;
+  background: linear-gradient(160deg, #0d0906 0%, #0a0704 50%, #080503 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 100;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 1.2s ease;
+  transition: opacity 1.5s ease;
 }
 
 .glossary-overlay.visible {
@@ -323,51 +323,53 @@ tbody tr:nth-child(odd) .td-num {
 }
 
 .glossary-card {
-  max-width: 70vw;
+  max-width: 65vw;
   text-align: center;
   padding: 6vh 4vw;
 }
 
 .glossary-card .gc-label {
-  font-size: 2vmin;
-  font-weight: 600;
-  color: #f08c0f;
+  font-size: 1.8vmin;
+  font-weight: 700;
+  color: #3d2a0e;
   text-transform: uppercase;
-  letter-spacing: 0.2em;
-  margin-bottom: 3vh;
+  letter-spacing: 0.3em;
+  margin-bottom: 4vh;
 }
 
 .glossary-card .gc-title {
-  font-size: 8vmin;
+  font-size: 9vmin;
   font-weight: 800;
   color: #fff;
-  line-height: 1.1;
-  margin-bottom: 1vh;
+  line-height: 1.05;
+  margin-bottom: 1.5vh;
+  letter-spacing: -0.02em;
 }
 
 .glossary-card .gc-en {
-  font-size: 3.5vmin;
+  font-size: 3vmin;
   font-weight: 400;
   color: #f08c0f;
-  margin-bottom: 4vh;
+  margin-bottom: 5vh;
   font-style: italic;
+  letter-spacing: 0.02em;
+}
+
+.glossary-card .gc-line {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #f08c0f, transparent);
+  margin: 0 auto 5vh;
 }
 
 .glossary-card .gc-desc {
-  font-size: 3.5vmin;
+  font-size: 3.2vmin;
   font-weight: 400;
-  color: #b9af89;
-  line-height: 1.6;
-  max-width: 60vw;
+  color: #958757;
+  line-height: 1.7;
+  max-width: 55vw;
   margin: 0 auto;
-}
-
-.glossary-card .gc-dot {
-  width: 6px;
-  height: 6px;
-  background: #f08c0f;
-  border-radius: 50%;
-  margin: 4vh auto;
+  letter-spacing: 0.01em;
 }
 </style>
 </head>
@@ -383,10 +385,10 @@ tbody tr:nth-child(odd) .td-num {
 <!-- Glossary overlay (dynamic mode only) -->
 <div id="glossary-overlay" class="glossary-overlay">
   <div class="glossary-card">
-    <div class="gc-label">Pivní glosář</div>
+    <div class="gc-label">Věděli jste?</div>
     <div id="gc-title" class="gc-title"></div>
     <div id="gc-en" class="gc-en"></div>
-    <div class="gc-dot"></div>
+    <div class="gc-line"></div>
     <div id="gc-desc" class="gc-desc"></div>
   </div>
 </div>
