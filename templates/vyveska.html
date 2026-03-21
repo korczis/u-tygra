@@ -171,10 +171,15 @@ tbody td {
   font-weight: 700;
   color: #fff;
   padding: 0 1.5vw;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 0; /* needed for text-overflow in table cell */
+  line-height: 1.15;
+}
+
+.td-name .name-line2 {
+  display: block;
+  font-size: 0.7em;
+  font-weight: 500;
+  color: rgba(255,255,255,0.6);
+  margin-top: 0.1em;
 }
 
 .td-brewery {
@@ -189,10 +194,7 @@ tbody td {
   font-size: 2.2vmin;
   color: rgba(255,255,255,0.35);
   padding: 0 1vw;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 0;
+  line-height: 1.2;
 }
 
 .td-abv {
@@ -250,7 +252,7 @@ tbody td {
   col.col-name { width: 38%; }
   col.col-brewery { width: 25%; }
   col.col-price { width: 25%; }
-  .td-name, .td-brewery { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .td-brewery { white-space: nowrap; }
   thead th { font-size: 2.5vw; padding: 1vh 0; }
   .announcement { font-size: 3.5vw; padding: 1vh 2vw; }
 }
@@ -476,7 +478,34 @@ function loadBeers() {
 
       tdName = document.createElement('td');
       tdName.className = 'td-name';
-      tdName.textContent = b.nazev || '';
+      var fullName = b.nazev || '';
+      // Split long names into 2 lines at the best word boundary
+      if (fullName.length > 14) {
+        var words = fullName.split(' ');
+        var line1 = '';
+        var line2 = '';
+        var mid = Math.ceil(words.length / 2);
+        for (var wi = 0; wi < words.length; wi++) {
+          if (wi < mid) {
+            line1 += (line1 ? ' ' : '') + words[wi];
+          } else {
+            line2 += (line2 ? ' ' : '') + words[wi];
+          }
+        }
+        if (line2) {
+          var span1 = document.createElement('span');
+          span1.textContent = line1;
+          var span2 = document.createElement('span');
+          span2.className = 'name-line2';
+          span2.textContent = line2;
+          tdName.appendChild(span1);
+          tdName.appendChild(span2);
+        } else {
+          tdName.textContent = fullName;
+        }
+      } else {
+        tdName.textContent = fullName;
+      }
       tr.appendChild(tdName);
 
       tdBrewery = document.createElement('td');
