@@ -504,30 +504,90 @@ class CSVWorkerManager {
   }
 }
 
-// Global CSV worker instance
+// Global CSV worker instance (used for subsequent refreshes)
 const csvWorker = new CSVWorkerManager();
 
 /**
- * Fetch and parse beer data from Google Sheets (optimized for INP)
+ * Parse CSV on main thread - reliable, no Worker dependency
+ * Mirrors logic from csv-worker.js parseCSVData()
+ */
+function parseBeerCSV(csvText) {
+  const lines = csvText.split('\n').filter(l => l.trim());
+  if (lines.length === 0) return { announcement: '', beers: [] };
+
+  const firstRow = parseCSVLine(lines[0]);
+  const announcement = [firstRow[2], firstRow[3], firstRow[4], firstRow[5]]
+    .filter(Boolean)
+    .join(' ');
+
+  let headerIdx = -1;
+  for (let i = 0; i < lines.length; i++) {
+    const lower = lines[i].toLowerCase();
+    if (lower.includes('pivo') || lower.includes('pivovar') || lower.includes('n\u00e1zev')) {
+      headerIdx = i;
+      break;
+    }
+  }
+
+  function normalizeKey(h) {
+    const k = h.toLowerCase().trim();
+    if (k.includes('pivovar')) return 'pivovar';
+    if (k.includes('n\u00e1zev') || k.includes('name')) return 'nazev';
+    if (k.includes('styl') || k.includes('style')) return 'styl';
+    if (k.includes('alk') || k === '%') return 'abv';
+    if (k.includes('ibu')) return 'ibu';
+    if (k.includes('cena') || k.includes('price')) return 'cena';
+    return k;
+  }
+
+  const beers = [];
+  if (headerIdx >= 0) {
+    const headers = parseCSVLine(lines[headerIdx]).map(normalizeKey);
+    for (let i = headerIdx + 1; i < lines.length && beers.length < 12; i++) {
+      const cells = parseCSVLine(lines[i]);
+      const breweryIdx = headers.indexOf('pivovar');
+      const nameIdx = headers.indexOf('nazev');
+      const brewery = breweryIdx >= 0 ? (cells[breweryIdx] || '').trim() : '';
+      const name = nameIdx >= 0 ? (cells[nameIdx] || '').trim() : '';
+      if (!brewery && !name) continue;
+
+      const beer = {};
+      headers.forEach((h, idx) => {
+        if (h) beer[h] = (cells[idx] || '').trim();
+      });
+      beers.push(beer);
+    }
+  }
+
+  return { announcement, beers };
+}
+
+/**
+ * Fetch and parse beer data from Google Sheets
+ * Primary: main-thread parse (reliable, like pivniceutygra.cz)
+ * Worker used only for subsequent refreshes if available
  */
 async function fetchBeerData() {
   try {
-    // Initialize worker on first use
-    await csvWorker.init();
-
-    // Fetch CSV data
     const response = await fetch(SHEETS_CSV_URL);
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    if (!response.ok) throw new Error('HTTP ' + response.status);
     const csvText = await response.text();
 
-    // Parse in Web Worker (off main thread)
-    const result = await csvWorker.parseCSV(csvText);
-    return result;
+    // Always parse on main thread for reliability
+    return parseBeerCSV(csvText);
   } catch (error) {
     console.error('Failed to fetch beer data:', error);
     return { announcement: '', beers: [] };
   }
 }
+
+// Eagerly preload beer data BEFORE Alpine.js initializes
+// This ensures data is ready when Alpine calls app().init()
+window.__BEER_DATA__ = null;
+fetch(SHEETS_CSV_URL)
+  .then(function(r) { return r.text(); })
+  .then(function(csv) { window.__BEER_DATA__ = parseBeerCSV(csv); })
+  .catch(function(e) { console.warn('Preload failed, will retry in init:', e); });
 
 /**
  * Main Alpine.js app component
@@ -1436,7 +1496,16 @@ function app() {
     async refreshBeerData() {
       try {
         const startTime = Date.now();
-        const data = await fetchBeerData();
+
+        // Use preloaded data on first load (already fetched before Alpine init)
+        let data;
+        if (window.__BEER_DATA__ && !this._dataLoaded) {
+          data = window.__BEER_DATA__;
+          this._dataLoaded = true;
+        } else {
+          data = await fetchBeerData();
+        }
+
         const loadTime = Date.now() - startTime;
 
         this.liveBeers = data.beers;
