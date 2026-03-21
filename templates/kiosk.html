@@ -370,11 +370,22 @@ tbody tr:nth-child(odd) .td-num {
   margin: 0 auto;
 }
 
+.glossary-card .gc-funfact {
+  font-size: 24px;
+  font-weight: 600;
+  color: #f08c0f;
+  line-height: 1.6;
+  max-width: 70%;
+  margin: 30px auto 0;
+  font-style: italic;
+}
+
 /* Scale up for large TV */
 @media (min-width: 1920px) {
   .glossary-card .gc-title { font-size: 96px; }
   .glossary-card .gc-en { font-size: 36px; }
   .glossary-card .gc-desc { font-size: 34px; }
+  .glossary-card .gc-funfact { font-size: 30px; }
   .glossary-card .gc-label { font-size: 22px; }
 }
 </style>
@@ -396,6 +407,7 @@ tbody tr:nth-child(odd) .td-num {
     <div id="gc-en" class="gc-en"></div>
     <div class="gc-line"></div>
     <div id="gc-desc" class="gc-desc"></div>
+    <div id="gc-funfact" class="gc-funfact"></div>
   </div>
 </div>
 
@@ -816,6 +828,7 @@ window.onresize = function() {
   var elTitle = document.getElementById('gc-title');
   var elEn = document.getElementById('gc-en');
   var elDesc = document.getElementById('gc-desc');
+  var elFunfact = document.getElementById('gc-funfact');
   var intervalMin = parseInt(params.get('interval'), 10) || 5;
   var durationSec = parseInt(params.get('duration'), 10) || 7;
   var INTERVAL = intervalMin * 60 * 1000;
@@ -851,15 +864,16 @@ window.onresize = function() {
     lastIdx = idx;
 
     var term = glossaryTerms[idx];
-    var displayText = term.funfact || term.desc;
     elTitle.textContent = term.title;
     elEn.textContent = term.en || '';
     elEn.style.display = term.en ? '' : 'none';
-    elDesc.textContent = displayText;
+    elDesc.textContent = term.desc;
+    elFunfact.textContent = term.funfact || '';
+    elFunfact.style.display = term.funfact ? '' : 'none';
 
-    // Calculate reading time: ~5 words/sec + 2s base, then 1.5x
-    var text = term.title + ' ' + (term.en || '') + ' ' + displayText;
-    var wordCount = text.split(/\s+/).length;
+    // Calculate reading time from all visible text
+    var allText = term.title + ' ' + (term.en || '') + ' ' + term.desc + ' ' + (term.funfact || '');
+    var wordCount = allText.split(/\s+/).length;
     var readingMs = Math.max(DISPLAY, (wordCount / 5) * 1000 + 2000);
     readingMs = Math.round(readingMs * 1.2);
 
