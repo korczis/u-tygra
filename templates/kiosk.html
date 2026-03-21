@@ -110,8 +110,9 @@ body {
 
 .table-wrap {
   flex: 1;
-  overflow: visible;
+  overflow: hidden;
   padding: 0 1.5vw;
+  min-height: 0;
 }
 
 table {
@@ -776,14 +777,9 @@ function fitToScreen(beerCount) {
   var thead = document.querySelector('thead');
   var tableWrap = document.querySelector('.table-wrap');
 
-  var usedHeight = 0;
-  if (announcement && announcement.style.display !== 'none') usedHeight += announcement.offsetHeight;
-  if (thead) usedHeight += thead.offsetHeight;
-
-  // Use exact available height, no rounding down (prevents last row cutoff)
-  // Account for ticker table at bottom (hardcoded — offsetHeight unreliable at first call)
-  var tickerHeight = window.innerWidth >= 1920 ? 70 : 58;
-  var availableHeight = window.innerHeight - usedHeight - tickerHeight - 4;
+  // Measure actual available height from table-wrap (flex:1 handles layout)
+  var availableHeight = tableWrap.clientHeight;
+  if (thead) availableHeight -= thead.offsetHeight;
   if (beerCount > 0 && availableHeight > 0) {
     var rowHeight = availableHeight / beerCount;
     var rows = document.querySelectorAll('tbody tr');
@@ -803,10 +799,8 @@ function fitToScreen(beerCount) {
       nums[i].style.maxWidth = rh + 'px';
     }
 
-    // Set table-wrap to exact remaining height
+    // Let flex layout handle table-wrap height — just ensure overflow hidden
     if (tableWrap) {
-      tableWrap.style.height = (availableHeight + thead.offsetHeight) + 'px';
-      tableWrap.style.maxHeight = tableWrap.style.height;
       tableWrap.style.overflow = 'hidden';
     }
 
