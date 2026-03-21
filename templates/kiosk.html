@@ -388,15 +388,101 @@ tbody tr:nth-child(odd) .td-num {
   .glossary-card .gc-funfact { font-size: 30px; }
   .glossary-card .gc-label { font-size: 22px; }
 }
+
+/* CNN-style ticker bar */
+.ticker-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: #1a1208;
+  border-top: 2px solid #3d2a0e;
+  display: flex;
+  align-items: center;
+  z-index: 50;
+  overflow: hidden;
+}
+
+.ticker-label {
+  background: #f08c0f;
+  color: #0a0704;
+  font-weight: 800;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  width: 8%;
+  min-width: 8%;
+  max-width: 8%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.ticker-content {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+}
+
+.ticker-text {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 calc(1.5vw + 1.5vw) 0 1.5vw;
+  font-size: 18px;
+  font-weight: 500;
+  color: #b9af89;
+  white-space: nowrap;
+  letter-spacing: 0.03em;
+}
+
+.ticker-text.ticker-fade-out {
+  opacity: 0;
+}
+
+.ticker-text.ticker-fade-in {
+  opacity: 1;
+}
+
+.ticker-wisdom {
+  color: #f08c0f;
+  font-style: italic;
+  font-weight: 300;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+@media (min-width: 1920px) {
+  .ticker-bar { height: 60px; }
+  .ticker-label { font-size: 16px; padding: 0 28px; }
+  .ticker-text { font-size: 22px; }
+}
 </style>
 </head>
 <body>
 
 <div id="announcement" class="announcement" style="display:none"></div>
 
-<div class="table-wrap">
+<div class="table-wrap" style="margin-bottom: 48px;">
   <div id="loading" class="loading">Načítám nabídku...</div>
   <div id="beer-container"></div>
+</div>
+
+<!-- CNN-style ticker bar -->
+<div class="ticker-bar">
+  <div class="ticker-label">U Tygra</div>
+  <div class="ticker-content">
+    <div id="ticker-text" class="ticker-text"></div>
+  </div>
 </div>
 
 <!-- Glossary overlay (dynamic mode only) -->
@@ -708,7 +794,9 @@ function fitToScreen(beerCount) {
   if (thead) usedHeight += thead.offsetHeight;
 
   // Use exact available height, no rounding down (prevents last row cutoff)
-  var availableHeight = window.innerHeight - usedHeight - 4; // 4px safety margin
+  // Account for ticker bar (48px, 60px on 1920px+)
+  var tickerHeight = window.innerWidth >= 1920 ? 60 : 48;
+  var availableHeight = window.innerHeight - usedHeight - tickerHeight - 4;
   if (beerCount > 0 && availableHeight > 0) {
     var rowHeight = availableHeight / beerCount;
     var rows = document.querySelectorAll('tbody tr');
@@ -815,6 +903,40 @@ window.onresize = function() {
   if (rows.length > 0) fitToScreen(rows.length);
 };
 
+// === Shared glossary data loader (DRY — used by overlay + ticker) ===
+var _glossaryCallbacks = [];
+var _glossaryData = null;
+
+function onGlossaryReady(cb) {
+  if (_glossaryData) { cb(_glossaryData); return; }
+  _glossaryCallbacks.push(cb);
+}
+
+(function() {
+  var basePath = window.location.pathname.replace(/\/kiosk\/?$/, '');
+  var url = basePath + '/glosar-data/';
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', url, true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState !== 4) return;
+    if (xhr.status !== 200) { console.warn('Glossary fetch failed:', xhr.status, url); return; }
+    try {
+      // Extract JSON — response may be wrapped in HTML by Zola minifier
+      var text = xhr.responseText;
+      var start = text.indexOf('[');
+      var end = text.lastIndexOf(']');
+      if (start === -1 || end === -1) { console.warn('Glossary: no JSON array found'); return; }
+      _glossaryData = JSON.parse(text.substring(start, end + 1));
+      console.log('Glossary loaded:', _glossaryData.length, 'terms');
+      for (var i = 0; i < _glossaryCallbacks.length; i++) {
+        _glossaryCallbacks[i](_glossaryData);
+      }
+      _glossaryCallbacks = [];
+    } catch (e) { console.warn('Glossary parse error:', e.message); }
+  };
+  xhr.send();
+})();
+
 // === Dynamic glossary overlay ===
 // On by default. Disable with ?dynamic=false
 // Params: ?interval=5 (minutes), ?duration=15 (seconds)
@@ -837,20 +959,13 @@ window.onresize = function() {
   var timer = null;
   var hideTimer = null;
 
-  // Load glossary data
-  var basePath = window.location.pathname.replace(/\/kiosk\/?$/, '');
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', basePath + '/glosar-data/', true);
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState !== 4 || xhr.status !== 200) return;
-    try {
-      glossaryTerms = JSON.parse(xhr.responseText);
-      if (glossaryTerms.length > 0) {
-        timer = setTimeout(showRandomTerm, INTERVAL);
-      }
-    } catch (e) { /* silent */ }
-  };
-  xhr.send();
+  // Use shared glossary loader
+  onGlossaryReady(function(terms) {
+    glossaryTerms = terms;
+    if (glossaryTerms.length > 0) {
+      timer = setTimeout(showRandomTerm, INTERVAL);
+    }
+  });
 
   function showTerm(idx) {
     if (glossaryTerms.length === 0) return;
@@ -980,6 +1095,135 @@ window.onresize = function() {
       console.log('kiosk.setInterval(3) — set interval to 3 min');
       console.log('kiosk.setDuration(20)— set display to 20s');
       return 'Kiosk dynamic mode';
+    }
+  };
+})();
+
+// === CNN-style ticker bar ===
+(function() {
+  var tickerEl = document.getElementById('ticker-text');
+  if (!tickerEl) return;
+
+  var S = '\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0';
+  var defaultText = 'KONOVO s.r.o.' + S + '\u2022' + S + 'I\u010cO: 17846927' + S + '\u2022' + S + 'Vrchlick\u00e9ho sad 1893/3, Brno' + S + '\u2022' + S + 'Denn\u011b 16:00\u201324:00' + S + '\u2022' + S + '776 140 840';
+  var wisdoms = [];
+  var wisdomIdx = 0;
+  var WISDOM_INTERVAL = 45000;
+  var WISDOM_DISPLAY = 8000;
+
+  tickerEl.textContent = defaultText;
+
+  // Use shared glossary loader (DRY — same data as overlay)
+  onGlossaryReady(function(terms) {
+    for (var i = 0; i < terms.length; i++) {
+      if (terms[i].funfact) {
+        wisdoms.push(terms[i].title + ': ' + terms[i].funfact);
+      }
+    }
+    // Shuffle
+    for (var j = wisdoms.length - 1; j > 0; j--) {
+      var k = Math.floor(Math.random() * (j + 1));
+      var tmp = wisdoms[j]; wisdoms[j] = wisdoms[k]; wisdoms[k] = tmp;
+    }
+    if (wisdoms.length > 0) {
+      setTimeout(showWisdom, WISDOM_INTERVAL);
+    }
+  });
+
+  function tickerFade(el, from, to, duration, cb) {
+    var start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / duration, 1);
+      el.style.opacity = String(from + (to - from) * p);
+      if (p < 1) { requestAnimationFrame(step); }
+      else { if (cb) cb(); }
+    }
+    requestAnimationFrame(step);
+  }
+
+  function marquee(el, text, cb) {
+    var container = el.parentNode;
+    var containerWidth = container.offsetWidth;
+
+    // Set text and make visible offscreen to measure
+    el.textContent = text;
+    el.className = 'ticker-text ticker-wisdom';
+    el.style.opacity = '1';
+    el.style.left = containerWidth + 'px';
+
+    // Force reflow to get correct scrollWidth
+    var textWidth = el.offsetWidth || el.scrollWidth;
+
+    var startX = containerWidth;
+    var endX = -textWidth - 50;
+    var distance = startX - endX;
+    var speed = 80;
+    var duration = (distance / speed) * 1000;
+    var start = null;
+
+    function step(ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / duration, 1);
+      var x = startX + (endX - startX) * p;
+      el.style.left = Math.round(x) + 'px';
+      if (p < 1) { requestAnimationFrame(step); }
+      else { if (cb) cb(); }
+    }
+    requestAnimationFrame(step);
+  }
+
+  function showWisdom() {
+    if (wisdoms.length === 0) return;
+    var text = wisdoms[wisdomIdx % wisdoms.length];
+    wisdomIdx++;
+
+    // 1. Fade out default text
+    tickerFade(tickerEl, 1, 0, 800, function() {
+      // 2. Marquee scroll wisdom text
+      marquee(tickerEl, text, function() {
+        // 3. Fade in default text
+        resetToDefault(function() {
+          setTimeout(showWisdom, WISDOM_INTERVAL);
+        });
+      });
+    });
+  }
+
+  function resetToDefault(cb) {
+    tickerEl.style.left = '';
+    tickerEl.textContent = defaultText;
+    tickerEl.className = 'ticker-text';
+    tickerEl.style.opacity = '0';
+    tickerFade(tickerEl, 0, 1, 800, cb);
+  }
+
+  function showWisdomText(text) {
+    tickerFade(tickerEl, 1, 0, 800, function() {
+      marquee(tickerEl, text, function() {
+        resetToDefault();
+      });
+    });
+  }
+
+  // Console API for ticker
+  window.ticker = {
+    showWisdom: function() { showWisdom(); return 'Triggering wisdom...'; },
+    scrollText: function(text) { showWisdomText(text || 'Test ticker text'); return 'Scrolling...'; },
+    setSpeed: function(px) { /* exposed for next iteration */ return 'Speed: ' + px + 'px/s'; },
+    setInterval: function(sec) { WISDOM_INTERVAL = sec * 1000; return 'Ticker interval: ' + sec + 's'; },
+    listWisdoms: function() {
+      for (var i = 0; i < Math.min(wisdoms.length, 20); i++) {
+        console.log(i + ': ' + wisdoms[i].substring(0, 80) + '...');
+      }
+      return wisdoms.length + ' wisdoms loaded';
+    },
+    help: function() {
+      console.log('ticker.showWisdom()         — trigger next wisdom now');
+      console.log('ticker.scrollText("text")   — scroll custom text');
+      console.log('ticker.setInterval(30)      — set interval in seconds');
+      console.log('ticker.listWisdoms()        — list loaded wisdoms');
+      return 'Ticker API';
     }
   };
 })();
