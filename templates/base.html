@@ -237,7 +237,7 @@
   <!-- Critical resource preloads for Core Web Vitals optimization -->
   <link rel="preload" as="image" href="{{ get_url(path='img/hero-bg.jpg') }}" fetchpriority="high">
   <link rel="preload" as="image" href="{{ get_url(path='img/logo.svg') }}" fetchpriority="high">
-  <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js">
+  <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/alpinejs@3.15.8/dist/cdn.min.js">
   <link rel="preload" as="script" href="{{ get_url(path='js/app.js') }}">
   <link rel="preload" as="script" href="{{ get_url(path='js/csv-worker.js') }}">
 
@@ -427,7 +427,7 @@
     document.addEventListener('DOMContentLoaded', function() {
       // Load Alpine.js first (critical for app functionality)
       const alpineScript = document.createElement('script');
-      alpineScript.src = 'https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js';
+      alpineScript.src = 'https://cdn.jsdelivr.net/npm/alpinejs@3.15.8/dist/cdn.min.js';
       alpineScript.defer = true;
       document.head.appendChild(alpineScript);
 
@@ -439,13 +439,9 @@
         document.head.appendChild(appScript);
       };
 
-      // Load Flowbite with lower priority
-      setTimeout(function() {
-        const flowbiteScript = document.createElement('script');
-        flowbiteScript.src = 'https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js';
-        flowbiteScript.async = true;
-        document.head.appendChild(flowbiteScript);
-      }, 100);
+      // Flowbite JS removed per flowbite-first.doctrine.md
+      // Alpine.js handles all interactivity — Flowbite CSS patterns only
+      // See .aiad/doctrine/flowbite-first.doctrine.md
     });
   </script>
 

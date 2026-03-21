@@ -21,11 +21,11 @@ website = "https://www.pivniceutygra.cz"
 maintainer = "KONOVO s.r.o."
 
 [platform]
-type = "nodejs"
-version = "20"
+type = "static_site"
 build_system = "zola"
-package_manager = "npm"
+build_version = "0.22.1"
 deployment_target = "static_hosting"
+package_manager = "none"  # All dependencies via CDN
 
 [technology_stack]
 ssg = "zola"
@@ -34,7 +34,7 @@ css_preprocessor = "sass"
 
 [ui]
 framework = "alpine_js"
-version = "3.14.3"
+version = "3.15.8"
 css_framework = "tailwind"
 css_version = "3.x"
 components = "flowbite"
@@ -214,10 +214,26 @@ email_integration = false
 newsletter = false
 booking_system = false
 
+[doctrine]
+enabled = true
+directory = "doctrine"
+total_doctrines = 7
+enforcement = "universal"
+policy_directory = "policies"
+
+[doctrine.registry]
+nmnd = { name = "No Mercy, No Doubts", priority = "CRITICAL", file = "no-mercy-no-doubts.doctrine.md" }
+nwb = { name = "No Way Back", priority = "CRITICAL", file = "no-way-back.doctrine.md" }
+gt = { name = "Golden Tap", priority = "CRITICAL", file = "golden-tap.doctrine.md" }
+kf = { name = "Kiosk Fortress", priority = "HIGH", file = "kiosk-fortress.doctrine.md" }
+cf = { name = "Czech First", priority = "HIGH", file = "czech-first.doctrine.md" }
+ff = { name = "Flowbite First", priority = "HIGH", file = "flowbite-first.doctrine.md" }
+as = { name = "Absorption Strategy", priority = "MEDIUM", file = "absorption-strategy.doctrine.md" }
+
 [aiad_std_lib]
-version = "2.0.0"
+version = "3.0.0"
 install_date = "2026-01-28"
-components = ["agents", "commands", "quality_gates", "documentation", "mycelial"]
-last_evolution = "2026-01-28T15:30:00Z"
-evolution_cycles = 1
+components = ["agents", "commands", "quality_gates", "documentation", "mycelial", "doctrine", "policies"]
+last_evolution = "2026-03-21T12:00:00Z"
+evolution_cycles = 2
 fitness_score = 98.7
