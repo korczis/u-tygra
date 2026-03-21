@@ -23,11 +23,20 @@
   .kiosk-page {
     position: fixed;
     inset: 0;
-    background: #0a0704;
+    background: linear-gradient(170deg, #0d0906 0%, #0a0704 40%, #080503 100%);
     display: flex;
     flex-direction: column;
     overflow: hidden;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    animation: kp-shift 120s ease-in-out infinite;
+  }
+
+  /* Anti-burn-in: subtle 2px shift */
+  @keyframes kp-shift {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(1px, 1px); }
+    50% { transform: translate(0, 2px); }
+    75% { transform: translate(-1px, 1px); }
   }
 
   /* Hide everything from base.html except our content */
@@ -38,7 +47,7 @@
     align-items: baseline;
     justify-content: space-between;
     padding: 2.5vh 3.5vw 2vh;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(240,140,15,0.12);
     flex-shrink: 0;
   }
 
@@ -86,14 +95,16 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* Announcement */
+  /* Announcement — warm highlight strip */
   .kiosk-page .kp-announcement {
     padding: 1.5vh 3.5vw;
     font-size: clamp(1rem, 1.8vw, 1.5rem);
     font-weight: 600;
     color: #f7c46d;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
+    background: rgba(240,140,15,0.04);
+    border-bottom: 1px solid rgba(240,140,15,0.08);
     flex-shrink: 0;
+    letter-spacing: 0.01em;
   }
 
   /* Table */
@@ -130,7 +141,12 @@
   }
 
   .kiosk-page tbody tr {
-    border-bottom: 1px solid rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: background 0.3s ease;
+  }
+
+  .kiosk-page tbody tr:nth-child(odd) {
+    background: rgba(255,255,255,0.015);
   }
 
   .kiosk-page tbody td {
@@ -148,7 +164,7 @@
     padding-right: 2vw;
   }
 
-  /* Column: Brewery */
+  /* Column: Brewery — tiger accent */
   .kiosk-page .kp-brewery {
     font-size: clamp(1rem, 1.8vw, 1.6rem);
     font-weight: 500;
@@ -157,11 +173,11 @@
     white-space: nowrap;
   }
 
-  /* Column: Style */
+  /* Column: Style — subtle */
   .kiosk-page .kp-style {
     font-size: clamp(0.85rem, 1.4vw, 1.3rem);
     font-weight: 400;
-    color: rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.3);
     padding-right: 2vw;
     white-space: nowrap;
   }
@@ -170,14 +186,14 @@
   .kiosk-page .kp-abv {
     font-size: clamp(0.9rem, 1.5vw, 1.4rem);
     font-weight: 500;
-    color: rgba(255,255,255,0.4);
+    color: rgba(255,255,255,0.35);
     font-variant-numeric: tabular-nums;
     padding-right: 2vw;
     white-space: nowrap;
     text-align: center;
   }
 
-  /* Column: Price — second most prominent */
+  /* Column: Price — high contrast, tiger tint */
   .kiosk-page .kp-price {
     font-size: clamp(1.4rem, 2.8vw, 2.6rem);
     font-weight: 800;
@@ -189,9 +205,9 @@
 
   .kiosk-page .kp-price-unit {
     font-weight: 400;
-    font-size: 0.6em;
-    color: rgba(255,255,255,0.3);
-    margin-left: 0.15em;
+    font-size: 0.55em;
+    color: rgba(240,140,15,0.4);
+    margin-left: 0.2em;
   }
 
   /* Footer */
@@ -200,7 +216,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 1.5vh 3.5vw;
-    border-top: 1px solid rgba(255,255,255,0.06);
+    border-top: 1px solid rgba(240,140,15,0.08);
     flex-shrink: 0;
   }
 
@@ -223,6 +239,12 @@
     font-size: clamp(1.2rem, 2vw, 1.8rem);
     color: rgba(255,255,255,0.15);
     font-weight: 500;
+    animation: kp-fade 1.5s ease-in-out infinite;
+  }
+
+  @keyframes kp-fade {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
   }
 
   /* Empty state */
@@ -370,7 +392,7 @@ function kioskApp() {
 
       // Clock
       this.updateClock();
-      setInterval(() => this.updateClock(), 30000);
+      setInterval(() => this.updateClock(), 60000);
 
       // Auto-refresh every 90s
       setInterval(() => this.refresh(), 90000);

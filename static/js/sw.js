@@ -173,6 +173,12 @@ async function networkFirst(request) {
       return cached;
     }
 
+    // Serve offline page for navigation requests
+    if (request.mode === 'navigate') {
+      const offlinePage = await caches.match(OFFLINE_FALLBACK.page);
+      if (offlinePage) return offlinePage;
+    }
+
     throw error;
   }
 }
@@ -191,7 +197,8 @@ async function staleWhileRevalidate(request) {
     return response;
   }).catch(error => {
     console.warn('Fetch failed in stale-while-revalidate:', error);
-    return cached;
+    if (cached) return cached;
+    throw error;
   });
 
   return cached || fetchPromise;
