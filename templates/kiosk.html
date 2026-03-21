@@ -822,6 +822,7 @@ window.onresize = function() {
   var DISPLAY = durationSec * 1000;
   var lastIdx = -1;
   var timer = null;
+  var hideTimer = null;
 
   // Load glossary data
   var basePath = window.location.pathname.replace(/\/kiosk\/?$/, '');
@@ -863,8 +864,9 @@ window.onresize = function() {
     readingMs = Math.round(readingMs * 1.2);
 
     if (timer) clearTimeout(timer);
+    if (hideTimer) clearTimeout(hideTimer);
     fadeIn(overlay, 800, function() {
-      setTimeout(function() {
+      hideTimer = setTimeout(function() {
         fadeOut(overlay, 800);
       }, readingMs);
     });
@@ -873,9 +875,38 @@ window.onresize = function() {
     return term.title + (term.en ? ' (' + term.en + ')' : '');
   }
 
+  function hideTerm() {
+    if (hideTimer) clearTimeout(hideTimer);
+    fadeOut(overlay, 400);
+    // Reset interval timer
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(showRandomTerm, INTERVAL);
+  }
+
+  function showNextTerm() {
+    var next = (lastIdx + 1) % glossaryTerms.length;
+    showTerm(next);
+  }
+
+  function showPrevTerm() {
+    var prev = lastIdx <= 0 ? glossaryTerms.length - 1 : lastIdx - 1;
+    showTerm(prev);
+  }
+
   function showRandomTerm() {
     showTerm();
   }
+
+  // Keyboard: Escape=close, ArrowRight=next, ArrowLeft=prev
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' || e.keyCode === 27) {
+      hideTerm();
+    } else if (e.key === 'ArrowRight' || e.keyCode === 39) {
+      showNextTerm();
+    } else if (e.key === 'ArrowLeft' || e.keyCode === 37) {
+      showPrevTerm();
+    }
+  });
 
   // Console API
   window.kiosk = {
