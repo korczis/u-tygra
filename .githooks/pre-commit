@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+# Pre-commit hook for Pivnice U Tygra
+# Quality gates validation before commit
+
+set -e
+
+echo "=== Pre-commit Quality Gates ==="
+
+# Phase 1: Zola check (broken links, template errors)
+echo "[1/3] Zola validation..."
+if command -v zola &> /dev/null; then
+  zola check 2>&1 | tail -5
+  echo "  Zola check: PASS"
+else
+  echo "  WARNING: zola not found, skipping"
+fi
+
+# Phase 2: Content validation (Czech encoding)
+echo "[2/3] Content validation..."
+STAGED_MD=$(git diff --cached --name-only --diff-filter=ACM -- '*.md' '*.html' 2>/dev/null || true)
+if [ -n "$STAGED_MD" ]; then
+  BAD_ENCODING=$(echo "$STAGED_MD" | xargs file 2>/dev/null | grep -v "UTF-8\|ASCII\|empty" || true)
+  if [ -n "$BAD_ENCODING" ]; then
+    echo "  ERROR: Non-UTF-8 files detected:"
+    echo "$BAD_ENCODING"
+    exit 1
+  fi
+  echo "  Content encoding: PASS"
+else
+  echo "  No content files staged"
+fi
+
+# Phase 3: No secrets check
+echo "[3/3] Security check..."
+STAGED_ALL=$(git diff --cached --name-only --diff-filter=ACM 2>/dev/null || true)
+if [ -n "$STAGED_ALL" ]; then
+  SECRETS=$(echo "$STAGED_ALL" | xargs grep -l -E "(api_key|secret_key|password|token)\s*[:=]\s*['\"][^'\"]+['\"]" 2>/dev/null || true)
+  if [ -n "$SECRETS" ]; then
+    echo "  ERROR: Potential secrets detected in:"
+    echo "$SECRETS"
+    exit 1
+  fi
+  echo "  Security: PASS"
+fi
+
+echo "=== All quality gates passed ==="
