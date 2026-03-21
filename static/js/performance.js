@@ -203,8 +203,10 @@ function monitorResourceLoading() {
       console.log('📈 Page Performance Metrics:');
       console.log(`   Total Load Time: ${(navigation.loadEventEnd - navigation.fetchStart).toFixed(2)}ms`);
       console.log(`   DOM Content Loaded: ${(navigation.domContentLoadedEventEnd - navigation.fetchStart).toFixed(2)}ms`);
-      console.log(`   First Paint: ${paintEntries.find(e => e.name === 'first-paint')?.startTime.toFixed(2)}ms`);
-      console.log(`   First Contentful Paint: ${paintEntries.find(e => e.name === 'first-contentful-paint')?.startTime.toFixed(2)}ms`);
+      var fp = paintEntries.find(function(e) { return e.name === 'first-paint'; });
+      var fcp = paintEntries.find(function(e) { return e.name === 'first-contentful-paint'; });
+      console.log('   First Paint: ' + (fp ? fp.startTime.toFixed(2) : 'N/A') + 'ms');
+      console.log('   First Contentful Paint: ' + (fcp ? fcp.startTime.toFixed(2) : 'N/A') + 'ms');
     }
 
     if (window.gtag) {
@@ -221,7 +223,7 @@ window.addEventListener('error', (event) => {
   console.error('JavaScript error:', event.error);
   if (window.gtag) {
     gtag('event', 'exception', {
-      description: event.error?.message || 'Unknown error',
+      description: (event.error && event.error.message) || 'Unknown error',
       fatal: false
     });
   }

@@ -435,12 +435,13 @@
   <!-- Performance monitoring (deferred, non-critical) -->
   <script src="{{ get_url(path='js/performance.js') }}" defer></script>
 
-  <!-- Charlie Squad: lazy-load only when GA is active (saves ~54 KB on initial load) -->
+  <!-- Charlie Squad: lazy-load only when GA is active -->
   <script>
     if (typeof gtag === 'function') {
+      var base = window.BASE_URL || '';
       ['charlie-dashboard','charlie-privacy','charlie-performance'].forEach(function(name) {
         var s = document.createElement('script');
-        s.src = '{{ get_url(path="js/") | safe }}' + name + '.js';
+        s.src = base + '/js/' + name + '.js';
         s.defer = true;
         document.body.appendChild(s);
       });

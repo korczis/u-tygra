@@ -1,13 +1,48 @@
 +++
 title = "Mladina"
-description = "Sladký roztok ze sladu a vody. Základ pro kvašení."
+description = "Sladký, chmelený roztok — polotovar, ze kterého kvašením vznikne pivo."
 [extra]
 en = "Wort"
 category = "vyroba"
-related = ["slad", "kvaseni"]
+related = ["slad", "kvaseni", "rmuty", "stupnovitost", "chmelovani"]
 +++
 
-1. **Rmutování** — slad + horká voda
-2. **Scezování** — oddělení tekutiny
-3. **Var** — vaření s chmelem (60–90 min)
-4. **Chlazení** — na teplotu pro kvašení
+**Mladina** (wort) je sladký roztok, který vzniká vylouhováním sladu ve vodě a následným varem s chmelem. Je to „polotovar" piva — po ochlazení a přidání kvasnic z ní kvašením vznikne pivo.
+
+## Jak mladina vzniká
+
+### 1. Šrotování
+Slad se mele na šrotovníku — ne příliš jemně (aby se dal scezovat), ne příliš hrubě (aby enzymy měly přístup ke škrobu).
+
+### 2. Rmutování (mashing)
+Mletý slad se smíchá s horkou vodou v rmutovací nádobě. Enzymy ve sladu (alfa- a beta-amyláza) štěpí škrob na zkvasitelné cukry. Různé teploty aktivují různé enzymy.
+
+### 3. Scezování (lautering)
+Sladká tekutina (mladina) se oddělí od sladových mlátin (spent grain). Mláta slouží jako přirozený filtr. Vyslazování horkou vodou (sparging) maximalizuje výtěžnost.
+
+### 4. Var (boiling)
+Mladina se vaří s chmelem po dobu 60–90 minut. Během varu:
+- Izomerují se alfa-kyseliny (hořkost)
+- Uvolňují se aromatické oleje (aróma)
+- Sterilizuje se mladina (zabíjí bakterie)
+- Koagulují se bílkoviny (čirost)
+- Odpařuje se nežádoucí DMS (dimethylsulfid)
+
+### 5. Whirlpool
+Po varu se mladina roztočí — odstředivá síla shromáždí chmelový a proteinový kal (trub) do středu nádoby.
+
+### 6. Chlazení
+Mladina se rychle ochladí na teplotu vhodnou pro kvašení (7–24 °C podle typu kvasnic). Používá se deskový výměník tepla.
+
+## Vlastnosti mladiny
+
+- **Stupňovitost** (°Plato): 10–18° pro většinu piv
+- **pH**: 5,0–5,5
+- **Barva**: Od světle žluté (Pilsner slad) po tmavě hnědou (pražené slady)
+- **Chuť**: Sladká, chmelená. Nepije se — je nefermentovaná.
+
+## Zajímavosti
+
+- V pivovarském žargonu se „první mladina" (first runnings) považuje za nejkvalitnější
+- Z mlátin po scezování se vyrábí krmivo pro dobytek nebo chleba
+- Var mladiny je energeticky nejnáročnější fáze vaření piva
