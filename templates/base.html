@@ -38,9 +38,9 @@
   <meta property="og:title" content="{% block og_title %}{{ config.title }} | {{ config.extra.tagline }}{% endblock %}">
   <meta property="og:description" content="{% block og_description %}{{ config.description }}{% endblock %}">
   <meta property="og:image" content="{% block og_image %}{{ get_url(path='img/gallery/interior-main.jpg') }}{% endblock %}">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Pivnice U Tygra - interiér s klenbovým stropem">
+  <meta property="og:image:width" content="{% block og_image_width %}1200{% endblock %}">
+  <meta property="og:image:height" content="{% block og_image_height %}630{% endblock %}">
+  <meta property="og:image:alt" content="{% block og_image_alt %}Pivnice U Tygra - interiér s klenbovým stropem{% endblock %}">
   <meta property="og:locale" content="cs_CZ">
   <meta property="og:site_name" content="{{ config.extra.business_name }}">
 
@@ -50,7 +50,7 @@
   <meta name="twitter:title" content="{% block twitter_title %}{{ config.title }} | {{ config.extra.tagline }}{% endblock %}">
   <meta name="twitter:description" content="{% block twitter_description %}{{ config.description }}{% endblock %}">
   <meta name="twitter:image" content="{% block twitter_image %}{{ get_url(path='img/gallery/interior-main.jpg') }}{% endblock %}">
-  <meta name="twitter:image:alt" content="Pivnice U Tygra - interiér s klenbovým stropem">
+  <meta name="twitter:image:alt" content="{% block twitter_image_alt %}Pivnice U Tygra - interiér s klenbovým stropem{% endblock %}">
 
   <!-- Apple/iOS - PWA Support -->
   <meta name="apple-mobile-web-app-capable" content="yes">

@@ -1,5 +1,21 @@
 {% extends "base.html" %}
 
+{% block title %}Pivnice U Tygra{% endblock %}
+{% block meta_title %}Pivnice U Tygra | Budvar & řemeslná piva u Lužánek{% endblock %}
+{% block meta_description %}Budvar a řemeslná piva v centru Brna u parku Lužánky. Živá nabídka na čepu, studená i teplá kuchyně, privátní salónek pro oslavy.{% endblock %}
+{% block canonical %}{{ config.base_url | safe }}{% endblock %}
+{% block og_type %}website{% endblock %}
+{% block og_url %}{{ config.base_url | safe }}{% endblock %}
+{% block og_title %}Pivnice U Tygra | Budvar & řemeslná piva u Lužánek, Brno{% endblock %}
+{% block og_description %}Budvar a řemeslná piva v centru Brna u parku Lužánky. Živá nabídka na čepu, studená i teplá kuchyně, privátní salónek pro oslavy.{% endblock %}
+{% block og_image %}{{ get_url(path='img/gallery/interior-main.jpg') }}{% endblock %}
+{% block og_image_alt %}Pivnice U Tygra - interiér s klenbovým stropem a čepem{% endblock %}
+{% block twitter_url %}{{ config.base_url | safe }}{% endblock %}
+{% block twitter_title %}Pivnice U Tygra | Budvar & řemeslná piva u Lužánek{% endblock %}
+{% block twitter_description %}Budvar a řemeslná piva v centru Brna u parku Lužánky. Živá nabídka na čepu, studená i teplá kuchyně, privátní salónek.{% endblock %}
+{% block twitter_image %}{{ get_url(path='img/gallery/interior-main.jpg') }}{% endblock %}
+{% block twitter_image_alt %}Pivnice U Tygra - interiér s klenbovým stropem a čepem{% endblock %}
+
 {% block navbar %}{% endblock %}
 
 {% block body %}

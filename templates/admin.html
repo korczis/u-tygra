@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 
+{% block title %}Administrace{% endblock %}
+{% block meta_title %}Admin | Pivnice U Tygra{% endblock %}
+{% block meta_description %}Administrační panel Pivnice U Tygra — správa nabídky, pivní tabule a obsahu.{% endblock %}
+{% block canonical %}{{ config.base_url | safe }}/admin/{% endblock %}
+{% block og_url %}{{ config.base_url | safe }}/admin/{% endblock %}
+{% block og_title %}Admin | Pivnice U Tygra{% endblock %}
+{% block og_description %}Administrační panel Pivnice U Tygra.{% endblock %}
+{% block twitter_url %}{{ config.base_url | safe }}/admin/{% endblock %}
+{% block twitter_title %}Admin | Pivnice U Tygra{% endblock %}
+{% block twitter_description %}Administrační panel Pivnice U Tygra.{% endblock %}
+
 {% block body_tag %}<body class="bg-brew-950 text-brew-100 font-body antialiased" x-cloak>{% endblock %}
 
 {% block body %}

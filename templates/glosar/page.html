@@ -2,11 +2,21 @@
 
 {% block body_tag %}<body class="bg-brew-950 text-brew-100 font-body antialiased">{% endblock %}
 {% block preloads %}{% endblock %}
-{% block title %}{{ page.title }}{% if page.extra.en is defined and page.extra.en %} {{ page.extra.en }}{% endif %} — Glosář{% endblock %}
-{% block meta_description %}{{ page.description | default(value=page.title ~ " — pivní termín z glosáře Pivnice U Tygra") }}{% endblock %}
-{% block og_title %}{{ page.title }}{% if page.extra.en is defined and page.extra.en %} {{ page.extra.en }}{% endif %} | Glosář | Pivnice U Tygra{% endblock %}
-{% block og_description %}{{ page.description | default(value="") }}{% endblock %}
+{% block title %}{{ page.title }}{% if page.extra.en is defined and page.extra.en %} ({{ page.extra.en }}){% endif %} — Glosář{% endblock %}
+{% block meta_title %}{{ page.title }}{% if page.extra.en is defined and page.extra.en %} ({{ page.extra.en }}){% endif %} | Glosář | Pivnice U Tygra{% endblock %}
+{% block meta_description %}{{ page.description | default(value=page.title ~ " — pivní termín z glosáře Pivnice U Tygra. Definice, kontext a souvislosti.") }}{% endblock %}
+{% block canonical %}{{ page.permalink }}{% endblock %}
 {% block og_type %}article{% endblock %}
+{% block og_url %}{{ page.permalink }}{% endblock %}
+{% block og_title %}{{ page.title }}{% if page.extra.en is defined and page.extra.en %} ({{ page.extra.en }}){% endif %} | Pivní glosář{% endblock %}
+{% block og_description %}{{ page.description | default(value=page.title ~ " — pivní termín z glosáře Pivnice U Tygra.") }}{% endblock %}
+{% block og_image %}{{ get_url(path='img/gallery/beer-taps.jpg') }}{% endblock %}
+{% block og_image_alt %}{{ page.title }} — pivní glosář Pivnice U Tygra{% endblock %}
+{% block twitter_url %}{{ page.permalink }}{% endblock %}
+{% block twitter_title %}{{ page.title }}{% if page.extra.en is defined and page.extra.en %} ({{ page.extra.en }}){% endif %} | Pivní glosář{% endblock %}
+{% block twitter_description %}{{ page.description | default(value=page.title ~ " — pivní termín z glosáře.") }}{% endblock %}
+{% block twitter_image %}{{ get_url(path='img/gallery/beer-taps.jpg') }}{% endblock %}
+{% block twitter_image_alt %}{{ page.title }} — pivní glosář{% endblock %}
 
 {% block body %}
 

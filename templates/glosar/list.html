@@ -3,9 +3,20 @@
 {% block body_tag %}<body class="bg-brew-950 text-brew-100 font-body antialiased" x-data="{ filter: 'all' }">{% endblock %}
 {% block preloads %}{% endblock %}
 {% block title %}Glosář pivních pojmů{% endblock %}
+{% block meta_title %}Glosář pivních pojmů | Pivnice U Tygra{% endblock %}
 {% block meta_description %}Kompletní glosář pivních pojmů — {{ section.pages | length }} termínů od ABV po Žatecký chmel. Vše co potřebujete vědět o pivu.{% endblock %}
+{% block canonical %}{{ get_url(path='glosar') }}{% endblock %}
+{% block og_type %}website{% endblock %}
+{% block og_url %}{{ get_url(path='glosar') }}{% endblock %}
 {% block og_title %}Glosář pivních pojmů | Pivnice U Tygra{% endblock %}
-{% block og_description %}Kompletní glosář pivních pojmů — {{ section.pages | length }} termínů. Od ABV po Žatecký chmel.{% endblock %}
+{% block og_description %}Kompletní glosář {{ section.pages | length }} pivních pojmů — od ABV po Žatecký chmel. Encyklopedie pro milovníky piva.{% endblock %}
+{% block og_image %}{{ get_url(path='img/gallery/beer-taps.jpg') }}{% endblock %}
+{% block og_image_alt %}Čepované pivo v Pivnici U Tygra{% endblock %}
+{% block twitter_url %}{{ get_url(path='glosar') }}{% endblock %}
+{% block twitter_title %}Glosář pivních pojmů | Pivnice U Tygra{% endblock %}
+{% block twitter_description %}{{ section.pages | length }} pivních pojmů — od ABV po Žatecký chmel. Kompletní pivní encyklopedie.{% endblock %}
+{% block twitter_image %}{{ get_url(path='img/gallery/beer-taps.jpg') }}{% endblock %}
+{% block twitter_image_alt %}Čepované pivo v Pivnici U Tygra{% endblock %}
 
 {% block body %}
 <main class="pt-24 pb-16 min-h-screen">

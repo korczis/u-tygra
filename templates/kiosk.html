@@ -1,5 +1,21 @@
 {% extends "base.html" %}
 
+{% block title %}Na čepu — živá nabídka{% endblock %}
+{% block meta_title %}Na čepu | Pivnice U Tygra{% endblock %}
+{% block meta_description %}Aktuální nabídka čepovaných piv v Pivnici U Tygra. Živě synchronizováno z čepu — craft, ležáky, speciály.{% endblock %}
+{% block canonical %}{{ config.base_url | safe }}/kiosk/{% endblock %}
+{% block og_type %}website{% endblock %}
+{% block og_url %}{{ config.base_url | safe }}/kiosk/{% endblock %}
+{% block og_title %}Na čepu — živá nabídka | Pivnice U Tygra{% endblock %}
+{% block og_description %}Aktuální nabídka čepovaných piv v Pivnici U Tygra. Živě synchronizováno z čepu.{% endblock %}
+{% block og_image %}{{ get_url(path='img/gallery/beer-taps.jpg') }}{% endblock %}
+{% block og_image_alt %}Pivní kohouty v Pivnici U Tygra{% endblock %}
+{% block twitter_url %}{{ config.base_url | safe }}/kiosk/{% endblock %}
+{% block twitter_title %}Na čepu — živá nabídka | Pivnice U Tygra{% endblock %}
+{% block twitter_description %}Aktuální nabídka čepovaných piv v Pivnici U Tygra. Živě synchronizováno z čepu.{% endblock %}
+{% block twitter_image %}{{ get_url(path='img/gallery/beer-taps.jpg') }}{% endblock %}
+{% block twitter_image_alt %}Pivní kohouty v Pivnici U Tygra{% endblock %}
+
 {% block head %}
 <style>
   /* Kiosk page — typography-first, zero decoration */
