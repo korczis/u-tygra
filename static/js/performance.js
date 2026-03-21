@@ -178,7 +178,6 @@ class CoreWebVitalsMonitor {
       console.log(`   CLS: ${this.clsValue.toFixed(4)} (Target: <${PERFORMANCE_BUDGETS.CLS})`);
       console.log(`📊 Overall Score: ${overallScore}/3 metrics passing budgets`);
     }
-    }
 
     if (window.gtag) {
       gtag('event', 'cwv_final_report', {
