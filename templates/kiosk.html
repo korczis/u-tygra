@@ -233,6 +233,21 @@
     color: rgba(255,255,255,0.15);
   }
 
+  /* Mobile (< 768px) — hide less important columns */
+  @media (max-width: 767px) {
+    .kiosk-page .kp-style,
+    .kiosk-page .kp-abv,
+    .kiosk-page thead th:nth-child(3),
+    .kiosk-page thead th:nth-child(4) { display: none; }
+    .kiosk-page .kp-name { font-size: clamp(1rem, 4vw, 1.3rem); }
+    .kiosk-page .kp-brewery { font-size: clamp(0.8rem, 3vw, 1rem); white-space: normal; }
+    .kiosk-page .kp-price { font-size: clamp(1rem, 4vw, 1.3rem); }
+    .kiosk-page .kp-header { padding: 2vh 4vw 1.5vh; }
+    .kiosk-page .kp-table { padding: 0 4vw; }
+    .kiosk-page .kp-footer { padding: 1.5vh 4vw; }
+    .kiosk-page .kp-announcement { padding: 1.5vh 4vw; }
+  }
+
   /* Large screen (32"+, 1920px+) */
   @media (min-width: 1920px) {
     .kiosk-page .kp-name { font-size: 2.8rem; }

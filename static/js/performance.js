@@ -89,7 +89,7 @@ class CoreWebVitalsMonitor {
         // Calculate current INP (98th percentile of all interactions)
         this.updateINP();
       }
-    }).observe({ entryTypes: ['event'], buffered: true });
+    }).observe({ type: 'event', buffered: true });
   }
 
   updateINP() {

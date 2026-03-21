@@ -51,7 +51,7 @@
       </div>
 
       <!-- Mobile toggle -->
-      <button class="md:hidden p-2.5 rounded-lg text-brew-300 hover:text-tiger-400 hover:bg-white/5 transition-all focus:ring-2 focus:ring-tiger-500 focus:outline-none"
+      <button class="md:hidden p-3 rounded-lg text-brew-300 hover:text-tiger-400 hover:bg-white/5 transition-all focus:ring-2 focus:ring-tiger-500 focus:outline-none"
               @click="mobileMenu = !mobileMenu" aria-label="Menu"
               :aria-expanded="mobileMenu.toString()" aria-controls="mobile-menu">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -131,8 +131,7 @@
     <!-- CTAs -->
     <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
       <a href="#na-cepu"
-         class="px-7 py-3 bg-tiger-500 hover:bg-tiger-600 text-white font-semibold text-sm rounded-lg transition-all duration-200 shadow-lg shadow-tiger-500/15 hover:shadow-tiger-500/30 focus:outline-none focus:ring-2 focus:ring-tiger-400 focus:ring-offset-2 focus:ring-offset-brew-950"
-">
+         class="px-7 py-3 bg-tiger-500 hover:bg-tiger-600 text-white font-semibold text-sm rounded-lg transition-all duration-200 shadow-lg shadow-tiger-500/15 hover:shadow-tiger-500/30 focus:outline-none focus:ring-2 focus:ring-tiger-400 focus:ring-offset-2 focus:ring-offset-brew-950">
         Na čepu
       </a>
       <a href="#kontakt"
@@ -182,7 +181,7 @@
           <span class="live-dot"></span>
           <span class="text-green-400 text-xs font-bold tracking-[0.2em] uppercase">Živě z čepu</span>
         </div>
-        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white">Nástěnka</h2>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white">Nástěnka</h2>
         <p class="text-brew-400 mt-2 text-sm">
           Klikni na <span class="text-tiger-400">pivovar</span> pro web, na <span class="text-tiger-300">styl</span> pro vysvětlení, na <a href="{{ get_url(path='glosar') }}#ibu" class="text-tiger-400 hover:text-tiger-300 underline underline-offset-2">IBU</a>/<a href="{{ get_url(path='glosar') }}#abv" class="text-tiger-400 hover:text-tiger-300 underline underline-offset-2">ABV</a> pro glosář.
         </p>
@@ -386,14 +385,14 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16">
       <span class="text-tiger-500 text-xs font-bold tracking-[0.3em] uppercase">Jídlo</span>
-      <h2 class="text-4xl md:text-5xl font-bold text-white mt-3 mb-5">K pivu i jen tak</h2>
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mt-3 mb-5">K pivu i jen tak</h2>
       <p class="text-brew-400 max-w-2xl mx-auto text-lg leading-relaxed">
         Studené i teplé pochutiny, které skvěle doplní vaše pivo. Jednoduchá, poctivá kuchyně.
       </p>
     </div>
 
     <!-- Food gallery -->
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 mb-12">
       <div class="relative aspect-square rounded-xl overflow-hidden group">
         <img src="{{ get_url(path='img/gallery/food-chlebicky-1.jpg') }}" alt="Chlebíčky" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
         <div class="absolute inset-0 bg-gradient-to-t from-brew-950/80 to-transparent"></div>
@@ -621,7 +620,7 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16">
       <span class="text-tiger-500 text-xs font-bold tracking-[0.3em] uppercase">Kontakt</span>
-      <h2 class="text-4xl md:text-5xl font-bold text-white mt-3 mb-5">Kde nás najdete</h2>
+      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mt-3 mb-5">Kde nás najdete</h2>
       <p class="text-brew-400 max-w-2xl mx-auto text-lg">
         Hned u parku Lužánky, pár kroků od zastávky Pionýrská.
       </p>
