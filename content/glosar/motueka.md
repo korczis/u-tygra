@@ -5,7 +5,7 @@ description = "Novozelandsky chmel s unikatnim limetkovym a tropickym aromatem."
 en = "Motueka"
 category = "chmely"
 related = ["riwaka", "nelson-sauvin", "wai-iti"]
-funfact = "Motueka byl puvodne znamy jako B Saaz a pochazi z krizeni ceskeho Zateckeho chmele s novozelandskymi odrůdami."
+funfact = "Motueka byl původně známý jako B Saaz a pochází z křížení českeho Zateckeho chmele s novozelandskymi odrůdami."
 +++
 
 **Motueka** je novozelandsky chmel, ktery nabizi unikatni kombinaci limetkoveho citrusu a tropickeho ovoce. Puvodne oznacovany jako B Saaz, vznikl krizenim ceskeho Zateckeho chmele. Vysledkem je odruda, ktera si zachovala jemnost evropskych chmelu, ale pridala vyrazny novosvetsky tropicky charakter.

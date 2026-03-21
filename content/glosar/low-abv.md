@@ -5,7 +5,7 @@ description = "Rostouci popularita piv s nizkym obsahem alkoholu a session piv p
 en = "Low-ABV Trend (Session Culture)"
 category = "kultura"
 related = ["session", "session-ipa", "nealkoholicke-pivo"]
-funfact = "V Britanii puvodne znamenalo session beer pivo, ktere muzete pit celou pub session (4--5 hodin) a stale odejit po svych."
+funfact = "V Británii původně znamenalo session beer pivo, které můžete pit celou pub session (4--5 hodin) a stále odejít po svých."
 +++
 
 **Low-ABV trend** oznacuje sílici poptavku po pivech s nizkym obsahem alkoholu (pod 4,5 % ABV) a nealkoholickych pivech, ktera nabizeji plny chuťový zazitek bez nadmerne intoxikace.

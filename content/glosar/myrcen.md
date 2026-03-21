@@ -5,7 +5,7 @@ description = "Hlavni esencialni olej v chmelu zodpovedny za bylinkove a pryskyr
 en = "Myrcene"
 category = "zaklady"
 related = ["chmel", "dry-hopping", "chmelovani"]
-funfact = "Myrcen tvori az 60 % vsech esencialnich oleju v nekterych americkych chmelovych odrudach."
+funfact = "Myrcen tvori až 60 % všech esencialnich oleju v některých americkych chmelovych odrudach."
 +++
 
 **Myrcen** je monoterpen a nejhojnejsi esencialni olej v chmelu. Dodava pivu bylinkove, pryskyricne a lehce korenite aroma. Je velmi tekavy, proto se pri dlouhem varu z velke casti odpari.

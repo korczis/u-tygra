@@ -5,7 +5,7 @@ description = "Ekologicky pristup k vareni piva s cilem minimalizovat odpad a vy
 en = "Zero Waste Brewing"
 category = "kultura"
 related = ["craft", "minipivovar"]
-funfact = "Z jedne varky piva vznika priblizne 20 kg mláta na hektolitr -- nektere pivovary z nej pecou chleb nebo vyrabeji musli tyclinky."
+funfact = "Z jedné varky piva vznika přibližně 20 kg mláta na hektolitr -- některé pivovary z nej pecou chleb nebo vyrábějí musli tyclinky."
 +++
 
 **Zero Waste pivovarnictvi** je filosofie a praxe minimalizace odpadu v celém vyrobnim procesu piva. Cílem je, aby zadny vedlejsi produkt nesel na skladku, ale nasels alternativni vyuzitni.

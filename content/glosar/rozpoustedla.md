@@ -5,7 +5,7 @@ description = "Off-flavor pripominajici aceton, redidlo nebo lak na nehty, zpuso
 en = "Solvent-Like Off-Flavors"
 category = "zaklady"
 related = ["estery", "fuze-alkoholy", "kvaseni"]
-funfact = "Ethylacetát ve stopovem mnozstvi voni po ovoci, ale ve vyssich koncentracich pripomina redidlo -- rozdil mezi vadou a prednosti je v davce."
+funfact = "Ethylacetát ve stopovém množství voní po ovoci, ale ve vyšších koncentracich připomíná ředidlo -- rozdíl mezi vadou a předností je v dávce."
 +++
 
 **Rozpoustedlovy charakter** v pivu oznacuje ostrou, stípavou chut a vuni pripominajici aceton, redidlo na barvy nebo lak na nehty. Hlavnimi viníky jsou nadmerne mnozstvi ethylacetatu a vyssich fuslovych alkoholu.

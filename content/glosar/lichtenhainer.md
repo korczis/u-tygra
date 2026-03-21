@@ -5,7 +5,7 @@ description = "Historicky nemecky styl kombinujici kyselost a uzeny charakter v 
 en = "Lichtenhainer"
 category = "styly"
 related = ["grodziskie", "gose", "rauchbier", "berliner-weisse"]
-funfact = "Lichtenhainer pochazi z stejnojmenne vesnice u Jeny v Durinsku -- v 19. stoleti patril mezi oblibene regionalni styly stredniho Nemecka."
+funfact = "Lichtenhainer pochází z stejnojmenné vesnice u Jeny v Durynsku -- v 19. století patril mezi oblíbené regionální styly středního Německa."
 +++
 
 **Lichtenhainer** -- takrka zapomenuty nemecky pivni styl z Durinska, ktery unikatne kombinuje kyselost s uzenym aromatem. Vari se z uzeneho jecneho a psenicneho sladu s laktobacilovou fermentaci. Je to lehke, nizkoalkoholicke pivo s osvezujicim a zaroven komplexnim profilem.

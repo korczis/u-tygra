@@ -5,7 +5,7 @@ description = "Umění kombinace piva s jídlem. Každý pivní styl má svůj i
 en = "Food Pairing"
 category = "kultura"
 related = ["abv", "teplota-servirovani"]
-funfact = "Parovani je klicovy krok — var sterilizuje mladinu a rozpousti chmelove kyseliny."
+funfact = "Parovani je klicovy krok — var sterilizuje mladinu a rozpousti chmelové kyseliny."
 +++
 
 **Párování piva s jídlem** (food pairing) je umění nacházení ideálních kombinací chutí mezi pivem a pokrmem.

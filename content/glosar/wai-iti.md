@@ -5,7 +5,7 @@ description = "Novozelandsky chmel s jemnym limetkovym a mandarinovym aromatem, 
 en = "Wai-iti"
 category = "chmely"
 related = ["motueka", "riwaka", "nelson-sauvin"]
-funfact = "Nazev Wai-iti pochazi z maorskeho jazyka a znamena mala voda -- odkazuje na potok v regionu Nelson."
+funfact = "Název Wai-iti pochází z maorskeho jazyka a znamena malá voda -- odkazuje na potok v regionu Nelson."
 +++
 
 **Wai-iti** je novozelandska chmelova odruda s jemnym, elegantnim citrusovym profilem. Nabizi kombinaci limetky a mandarinky s kvetinovymi podtony. Diky nizkemu obsahu alfa-kyselin je idealni pro aromaticke pouziti v lehcich pivnich stylech, kde nechcete premiru horkosti.

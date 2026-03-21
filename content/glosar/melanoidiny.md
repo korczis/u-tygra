@@ -5,7 +5,7 @@ description = "Slozite aromaticke slouceniny vznikajici Maillardovou reakci pri 
 en = "Melanoidins"
 category = "zaklady"
 related = ["maillardova-reakce", "karamelizace", "prazeny-slad", "slad"]
-funfact = "Melanoidiny jsou duvod, proc ma cerstva korka chleba tak lazivou vuni -- stejna chemie funguje i ve sladu."
+funfact = "Melanoidiny jsou důvod, proc ma čerstvá kůrka chleba tak lákavou vůni -- stejná chemie funguje i ve sladu."
 +++
 
 **Melanoidiny** jsou skupinou barevnych a aromatickych sloucenin, ktere vznikaji Maillardovou reakci mezi aminokyselinami a redukujicimi cukry. V pivovarnictvi se tvori predevsim pri prazdneni sladu a varu mladiny.

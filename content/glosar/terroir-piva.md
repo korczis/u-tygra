@@ -5,7 +5,7 @@ description = "Koncept mistniho puvodu surovin a jejich vlivu na charakter piva,
 en = "Beer Terroir"
 category = "kultura"
 related = ["chmel", "voda", "slad", "spontanni-kvaseni"]
-funfact = "Belgicke lambiky jsou prikladem dokonaleho terroir -- jejich charakter je neoddelihe spojen s mikroflórou udoli reky Senne."
+funfact = "Belgické lambiky jsou příkladem dokonaleho terroir -- jejich charakter je neoddělitelně spojen s mikroflórou údolí řeky Senne."
 +++
 
 **Terroir piva** je koncept prevzaty z vinarstvi, ktery zduraznuje vliv mistniho prostredi -- pudy, klimatu, vody a lokalnich surovin -- na vysledny charakter piva.

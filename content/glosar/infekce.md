@@ -5,7 +5,7 @@ description = "Kontaminace piva nezadoucimi mikroorganismy, ktera zpusobuje chut
 en = "Beer Infection / Contamination"
 category = "zaklady"
 related = ["sanitace", "ocet", "diacetyl", "off-flavors"]
-funfact = "Pivo je diky nizkemu pH, alkoholu a chmelovym kyselinam dosti nehostinne prostredi -- zadny znamy lidsky patogen v pivu prezit nemuze."
+funfact = "Pivo je díky nizkemu pH, alkoholu a chmelovym kyselinam dosti nehostinné prostředí -- žádný známý lidský patogen v pivu přežít nemůže."
 +++
 
 **Infekce piva** nastava pri kontaminaci nezadoucimi bakteriemi nebo divokymi kvasninkami, ktere produkuji off-flavory, nadmernou kyselost, zakal nebo problemy s karbonaci.

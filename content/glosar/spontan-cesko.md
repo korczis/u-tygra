@@ -5,7 +5,7 @@ description = "Ceske experimenty se spontannim a smisenym kvasenim inspirovane b
 en = "Spontaneous Fermentation in Czechia"
 category = "kultura"
 related = ["spontanni-kvaseni", "lambic", "brett", "coolship"]
-funfact = "V Cesku se spontanni kvaseni pouzivalo u tradicnich kysanych zelnych napojú jiz pred stovkami let -- aplikace na pivo je vsak moderna."
+funfact = "V Česku se spontánní kvašení používalo u tradicnich kysanych zelnych napojú již před stovkami let -- aplikace na pivo je vsak moderna."
 +++
 
 **Spontanni kvaseni v Cesku** je relativne novy fenomen, kdy ceske remeselne pivovary experimentuji s otevrenym chladnutim mladiny a kvasenim pomoci divokych kvasinek a bakterii z okolniho prostredi.

@@ -5,7 +5,7 @@ description = "Americky chmel s vyraznym mandarinovym a merunkovym aromatem."
 en = "Sultana"
 category = "chmely"
 related = ["citra", "el-dorado", "amarillo"]
-funfact = "Sultana je pojmenovana podle odrůdy rozinek a jeji aromaticky profil skutecne pripomina susene ovoce."
+funfact = "Sultana je pojmenovaná podle odrůdy rozinek a její aromatický profil skutečně připomíná sušené ovoce."
 +++
 
 **Sultana** je americka chmelova odruda, ktera nabizi syte citrusove aroma s dominantnimi tony mandarinky a merunky. Jeji nazev odkazuje na odrůdu rozinek, coz vystihuje jeji ovocny, lehce sladky charakter. Skvele se kombinuje s dalsimi americkymi chmely pro komplexni tropicke profily.

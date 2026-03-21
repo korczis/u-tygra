@@ -5,7 +5,7 @@ description = "Přeměna chmelových aromatických sloučenin působením kvasni
 en = "Hop Biotransformation"
 category = "vyroba"
 related = ["dry-hopping", "kvasnice", "neipa", "chmel"]
-funfact = "Biotransformace je hlavni duvod, proc NEIPA piva chmelovana behem aktivniho kvaseni maji tak intenzivni ovocne aroma."
+funfact = "Biotransformace je hlavní důvod, proc NEIPA piva chmelovana během aktivniho kvašení mají tak intenzivni ovocne aroma."
 +++
 
 **Biotransformace** je proces, při kterém kvasnice enzymaticky přeměňují chmelové terpenoidy a glykosidy na nové aromatické sloučeniny. Probíhá zejména při dry hoppingu během aktivního kvašení. Výsledkem jsou intenzivní ovocné a tropické tóny, které nelze dosáhnout samotným chmelem ani samotnými kvasnicemi.

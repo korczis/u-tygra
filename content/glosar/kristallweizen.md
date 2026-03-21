@@ -5,7 +5,7 @@ description = "Filtrovana verze bavorkeho psenicneho piva s cistym, krystalicky 
 en = "Kristallweizen"
 category = "styly"
 related = ["hefeweizen", "weizen", "psenice"]
-funfact = "Kristallweizen je jediny psenicny styl, ktery se filtruje -- tim ziskava svuj krystalicky ciry vzhled."
+funfact = "Kristallweizen je jediný pšeničný styl, který se filtruje -- tím získává svuj krystalicky čirý vzhled."
 +++
 
 **Kristallweizen** -- filtrovana varianta klasickeho hefeweizenu. Filtraci se odstrani kvasinkovy zakal, cimz pivo ziska krasne cistou, zlatavou barvu. Chuotvove profil zustava podobny, ale bez kvasinkoveho tela je pivo lehci a svezejsi.

@@ -5,7 +5,7 @@ description = "Český moderní chmel s citrusovým a ovocným arómatem. Most m
 en = ""
 category = "chmely"
 related = ["chmel", "zatecky"]
-funfact = "Kazbek je cesky chmel pojmenovany po kavkazske hore — ma citronovou chut."
+funfact = "Kazbek je česky chmel pojmenovaný po kavkazske hore — ma citronovou chut."
 +++
 
 **Kazbek** je český chmel vyšlechtěný v roce 2010 křížením **Žateckého (Saaz)** s divokým čínským [chmelem](@/glosar/chmel.md).

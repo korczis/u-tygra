@@ -5,7 +5,7 @@ description = "Sbirka a uchovavani cistych kvasinkovych kultur pro opakovane pou
 en = "Yeast Bank"
 category = "vyroba"
 related = ["kvasnice", "starter", "pitching-rate"]
-funfact = "Velke pivovary uchovavaji sve kmeny kvasinek v tekutem dusiku pri -196 °C, kde vydrzi desitky let."
+funfact = "Velke pivovary uchovávají sve kmeny kvasinek v tekutém dusíku pri -196 °C, kde vydrží desítky let."
 +++
 
 **Kvaskova banka** je system uchovavani cistych kvasinkovych kultur pro opakovane pouziti. Pivovary a domaci pivovarnicy si ukladaji sve oblibene kmeny kvasinek, aby je nemuseli pokazde kupovat znovu. Uchovavani probiha typicky ve sterilnich zkumavkach s agarem nebo ve fyziologickem roztoku v lednici ci mrazaku.

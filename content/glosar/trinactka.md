@@ -5,7 +5,7 @@ description = "Silnější český ležák se stupňovitostí 13 stupňů Plato.
 en = "Thirteen-degree Beer"
 category = "zaklady"
 related = ["stupnovitost", "dvanactka", "ctyrnactka", "specialni-pivo"]
-funfact = "Trinactka je oblibena u pivovaru, ktere chteji nabidnout neco navic oproti bezne dvanactce, aniz by sli do kategorie specialnich piv."
+funfact = "Trinactka je oblíbená u pivovarů, které chtějí nabídnout něco navic oproti běžné dvanactce, aniž by šli do kategorie speciálnich piv."
 +++
 
 **Třináctka** je silnější ležák s extraktem původní mladiny 13 stupňů Plato a obsahem alkoholu přibližně 5,5 % obj. Nabízí výraznější sladový základ a plnější tělo než klasická dvanáctka. V české pivní kultuře představuje mezistupeň mezi standardním ležákem a speciálním pivem.

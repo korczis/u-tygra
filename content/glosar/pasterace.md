@@ -5,7 +5,7 @@ description = "Tepelné ošetření piva pro prodloužení trvanlivosti. Vliv na
 en = "Pasteurization"
 category = "vyroba"
 related = ["filtrace"]
-funfact = "Louis Pasteur objevil princip pasterace v roce 1864 prave na pivu, ne na mlece."
+funfact = "Louis Pasteur objevil princip pasterace v roce 1864 právě na pivu, ne na mlece."
 +++
 
 **Pasterace** je tepelné ošetření piva (60–72 °C po dobu 15–30 sekund), které zabíjí mikroorganismy a zabraňuje dalšímu [kvašení](@/glosar/kvaseni.md). Pojmenována po Louis Pasteurovi (1822–1895).

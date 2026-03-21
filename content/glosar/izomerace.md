@@ -5,7 +5,7 @@ description = "Chemicky proces premeny alfa kyselin na horke iso-alfa kyseliny b
 en = "Isomerization"
 category = "zaklady"
 related = ["alfa-kyseliny", "chmel", "ibu", "vareni"]
-funfact = "Pri beznem varu se izomeruje jen 30--40 % alfa kyselin -- zbytek zustane nevyuzit."
+funfact = "Pri beznem varu se izomeruje jen 30--40 % alfa kyselin -- zbytek zůstane nevyužit."
 +++
 
 **Izomerace** je klicovy chemicky proces, pri kterem se nerozpustne alfa kyseliny z chmelu premeniji na rozpustne iso-alfa kyseliny. K teto premene dochazi pusobenim tepla behem varu mladiny.

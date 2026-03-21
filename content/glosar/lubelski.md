@@ -5,7 +5,7 @@ description = "Polsky aromaticky chmel s levandulovym a korenistym profilem, tra
 en = "Lubelski"
 category = "chmely"
 related = ["zatecky", "styrian-goldings", "premiant"]
-funfact = "Lubelski je pojmenovany podle mesta Lublin ve vychodnim Polsku a patri mezi nejstarsi polske chmelove odrůdy."
+funfact = "Lubelski je pojmenovaný podle města Lublin ve východním Polsku a patří mezi nejstarší polské chmelové odrůdy."
 +++
 
 **Lubelski** (take znamy jako Lublin) je tradicni polska chmelova odruda s jemnym, elegantnim aromatickym profilem. Pripomina cesky Zatecky chmel svou jemnosti, ale pridava unikatni levandulove a koreniste tony. Je jednim z nejdulezitejsich polskych chmelu a pouziva se predevsim v polskych a stredoevropskych lagerech.

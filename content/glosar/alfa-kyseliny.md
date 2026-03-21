@@ -5,7 +5,7 @@ description = "Hlavni horkotvorne slouceniny v chmelu, klicove pro horkost piva.
 en = "Alpha Acids"
 category = "zaklady"
 related = ["chmel", "humulon", "izomerace", "ibu"]
-funfact = "Alfa kyseliny samotne nejsou horke -- horke se stanou az po izomeraci behem varu mladiny."
+funfact = "Alfa kyseliny samotné nejsou hořké -- hořké se stanou až po izomerací během varu mladiny."
 +++
 
 **Alfa kyseliny** jsou skupinou pryskyricnych sloucenin obsazenych v chmelovych hlavickach. Jsou hlavnim zdrojem horkosti v pivu. Mezi nejvyznamnejsi patri humulon, kohumulon a adhumulon.

@@ -5,7 +5,7 @@ description = "Cesky aromaticky chmel s korenistym a kvetinovym charakterem, obl
 en = "Premiant"
 category = "chmely"
 related = ["zatecky", "sladek", "kazbek"]
-funfact = "Premiant byl vyslechteny v Zatci jako vysoko-vynosova alternativa k Zateckemu poloranemu cervenaku."
+funfact = "Premiant byl vyšlechtěný v Zatci jako vysoko-vynosova alternativa k Zateckemu poloranemu cervenaku."
 +++
 
 **Premiant** je ceska chmelova odruda vyslechtena v Chmelarskem ustavu v Zatci. Vznikl jako vysoko-vynosova odrůda, ktera si zachovava typicky cesky chmelovy charakter -- korenisty a kvetinovy profil s jemnou hofkosti. Pouziva se predevsim v ceskych svetlych lezacich a vycepnich pivech.

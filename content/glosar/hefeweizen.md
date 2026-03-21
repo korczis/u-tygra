@@ -5,7 +5,7 @@ description = "Bavorske svrchne kvasene psenicne pivo s typickou kvasinkovou zak
 en = "Hefeweizen"
 category = "styly"
 related = ["weizen", "dunkelweizen", "kristallweizen", "psenice"]
-funfact = "Hefeweizen je v Bavorsku traditcni snidanove pivo -- nekteri Bavori ho piji uz k rannimu jidlu."
+funfact = "Hefeweizen je v Bavorsku tradiční snídaňové pivo -- někteří Bavoři ho pijí uz k rannímu jídlu."
 +++
 
 **Hefeweizen** -- bavorsky psenicny styl s minimalne 50 % psenicneho sladu. Charakteristicke aroma bananu a hrebicku pochazi z kvasinkovych esteru a fenolu. Pivo je zamerne neprefiltrovanene a podava se ve vysoke sklenici typu weizen.

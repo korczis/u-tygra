@@ -5,7 +5,7 @@ description = "Alkoholicky perlivy napoj na bazi fermentovaneho cukru s ovocnou 
 en = "Hard Seltzer"
 category = "kultura"
 related = ["low-abv", "nealkoholicke-pivo", "radler"]
-funfact = "V roce 2019 prodeje hard seltzeru v USA prekonaly prodeje vsech craftovych piv dohromady."
+funfact = "V roce 2019 prodeje hard seltzeru v USA překonaly prodeje všech craftových piv dohromady."
 +++
 
 **Hard Seltzer** je alkoholicky napoj vyrabeny kvasenim cukroveho roztoku (cukrova trstina, obilne cukry) s naslednym pridanim ovocnych aromatickych latek a karbonace. Typicky obsahuje 4--6 % alkoholu.

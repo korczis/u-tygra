@@ -5,7 +5,7 @@ description = "Silny tmavý stout s pridavkem cukrarenskych ingredienci jako cok
 en = "Pastry Stout"
 category = "kultura"
 related = ["imperial-stout", "stout", "cokolada-v-pivu", "vanilka"]
-funfact = "Nektere extremni pastry stouty obsahuji vice cukru na litr nez Coca-Cola."
+funfact = "Některé extremni pastry stouty obsahují více cukru na litr než Coca-Cola."
 +++
 
 **Pastry Stout** je podstyl imperialniho stoutu, ktery klade duraz na sladke, dezertni chutove profily. Pivovary pridavaji kakaove boby, vanilkove lusky, karamel, kokos, arašídove maslo, javory sirup a dalsi ingredience inspirovane cukrarskymi vyrobky.

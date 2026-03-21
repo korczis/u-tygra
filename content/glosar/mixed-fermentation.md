@@ -5,7 +5,7 @@ description = "Kvašení piva kombinací kulturních kvasnic, divokých kvasinek
 en = "Mixed Fermentation"
 category = "vyroba"
 related = ["brett", "spontanni-kvaseni", "lambic", "sour"]
-funfact = "V jednom litru tradičního belgického lambiku může být aktivních až 200 různých kmenů mikroorganismů — každý přispívá k výsledné chuťové komplexitě."
+funfact = "V jednom litrů tradičního belgického lambiku může být aktivních až 200 různých kmenů mikroorganismů — každý přispívá k výsledné chuťové komplexitě."
 +++
 
 **Smíšená fermentace** je proces kvašení, při kterém se na přeměně cukrů podílejí kromě klasických pivovarských kvasnic ([Saccharomyces](@/glosar/kvasnice.md)) také divoké kvasinky ([Brettanomyces](@/glosar/brett.md)) a bakterie (Lactobacillus, Pediococcus, Acetobacter). Výsledkem jsou komplexní, kyselá piva s funkym, ovocným a vinným charakterem.

@@ -5,7 +5,7 @@ description = "Polyfenolicke latky zpusobujici svíravost a astringenci v pivu."
 en = "Tannins"
 category = "zaklady"
 related = ["slad", "chmel", "scezovani", "vareni"]
-funfact = "Taniny v pivu pochazi ze stejne skupiny latek jako taniny v cervenen vine -- proto muze pretazene pivo chutnat svírave."
+funfact = "Taniny v pivu pochází ze stejne skupiny latek jako taniny v cervenen víně -- proto může pretazene pivo chutnat svírave."
 +++
 
 **Taniny** (trisloviny) jsou polyfenolicke slouceniny obsazene v obalech jecnych zrn a ve chmelových listech a stoncich. V mensim mnozstvi prispivaji k telu a stabilite piva, ve vetsim zpusobuji neprijemnou svíravost a astringenci.

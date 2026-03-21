@@ -5,7 +5,7 @@ description = "Mexicky fermentovany napoj z ananasovych slupek s korenovou cuti.
 en = "Tepache"
 category = "styly"
 related = ["chicha", "pulque", "ovoce-v-pivu"]
-funfact = "Tepache je oblibeny mexicky poulicni napoj -- v Mexico City ho prodavaji pouliccni prodejci v plastovych sacccich s chilim a limettou."
+funfact = "Tepache je oblíbený mexicky poulicni nápoj -- v Mexico City ho prodavaji pouliccni prodejci v plastovych sacccich s chilim a limettou."
 +++
 
 **Tepache** -- tradicni mexicky fermentovany napoj pripravovany z ananasovych slupek, hnedeeho cukru a korenni (obvykle skorice a hrebicku). Fermentace trva jen nekolik dni a vysledkem je prirozene sumivvy, osvezujici napoj s nizkym obsahem alkoholu. V Mexiku je popularni jako letni osvezeni.

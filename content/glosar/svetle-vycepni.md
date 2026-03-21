@@ -5,7 +5,7 @@ description = "České pivo se stupňovitostí 8–10°, lehké a osvěžující
 en = "Czech Light Draught"
 category = "styly"
 related = ["lager", "plzen", "stupnovitost"]
-funfact = "Ceska desitka je nejprodavanejsi kategorie piva v Cesku."
+funfact = "Česka desitka je nejprodávanější kategorie piva v Česku."
 +++
 
 **Světlé výčepní** je nejlehčí kategorie českého piva (8–10° Plato). Tradičně nazývané „desítka".

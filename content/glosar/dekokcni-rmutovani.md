@@ -5,7 +5,7 @@ description = "Tradiční česká a německá metoda rmutování, při které se
 en = "Decoction Mashing"
 category = "vyroba"
 related = ["rmuty", "mladina"]
-funfact = "Budvar a Pilsner Urquell stale pouzivaji tradicni trojitou dekokci."
+funfact = "Budvar a Pilsner Urquell stále používají tradiční trojitou dekokci."
 +++
 
 **Dekokční [rmutování](@/glosar/rmuty.md)** je tradiční metoda, při které se část rmutů odebere, svaří a vrátí zpět do hlavní nádoby, čímž se zvýší teplota celku.

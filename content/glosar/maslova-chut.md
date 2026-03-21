@@ -5,7 +5,7 @@ description = "Off-flavor zpusobeny diacetylm, pripominajici maslo nebo popkorn.
 en = "Buttery Flavor (Diacetyl)"
 category = "zaklady"
 related = ["diacetyl", "kvaseni", "kvasnice"]
-funfact = "Diacetyl je tataz latka, ktera se pridava do mikrovlnneho popcornu pro maslovou vuni."
+funfact = "Diacetyl je tatáž látka, která se přidává do mikrovlnného popcornu pro máslovou vůni."
 +++
 
 **Maslova chut** v pivu je zpusobena primaratne diacetylm (2,3-butandion), vedlejsim produktem kvaseni. Pripomina maslo, margarin, karamelky nebo popkorn.

@@ -5,7 +5,7 @@ description = "Silnější verze anglického bitteru s intenzivnější sladovos
 en = "Extra Special Bitter (ESB)"
 category = "styly"
 related = ["english-bitter", "pale-ale", "ale"]
-funfact = "Název ESB byl původně ochrannou známkou londýnského pivovaru Fuller's — jejich Fuller's ESB je považován za definující příklad tohoto stylu."
+funfact = "Název ESB byl původně ochrannou známkou londýnského pivovarů Fuller's — jejich Fuller's ESB je považován za definující příklad tohoto stylu."
 +++
 
 **Extra Special Bitter** — nejsilnější kategorie anglických bitterů s plnějším tělem a vyšším obsahem alkoholu. Nabízí bohatší sladový profil s výraznějším chmelovým charakterem než standardní bitter. Stále si zachovává pitelnost typickou pro britské pub ales.

@@ -5,7 +5,7 @@ description = "Americky dual-purpose chmel s kvetinovym, tmave ovocnym a korenis
 en = "Loral"
 category = "chmely"
 related = ["cascade", "centennial", "fuggle"]
-funfact = "Loral byl puvodne znamy pod oznacenim HBC 291 a je potomkem slavneho Glacier chmele."
+funfact = "Loral byl původně známý pod oznacenim HBC 291 a je potomkem slavneho Glacier chmele."
 +++
 
 **Loral** je americka chmelova odruda oznacovana jako dual-purpose -- vhodna jak pro hofceni, tak pro aromatizaci. Nabizi neobvyklou kombinaci kvetinoveho, tmave ovocneho a koreniteho profilu, ktery pripomina spiSe evropske noble chmely nez typicke americke odrůdy. Je potomkem chmele Glacier a zdedil po nem cast jeho jemnosti.

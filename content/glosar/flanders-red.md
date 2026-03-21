@@ -5,7 +5,7 @@ description = "Belgicky cerveny kyselak zrajici v dubovych sudech, prezdivany bu
 en = "Flanders Red Ale"
 category = "styly"
 related = ["oud-bruin", "sour", "sudove-zrani"]
-funfact = "Flanders Red zraje v dubovych sudech az dva roky -- behem te doby bakterie Lactobacillus a Acetobacter vytvori jeho typicky kyselkaty profil."
+funfact = "Flanders Red zraje v dubovych sudech až dva roky -- během te doby bakterie Lactobacillus a Acetobacter vytvori jeho typicky kyselkaty profil."
 +++
 
 **Flanders Red Ale** -- belgicky styl kyseleeho piva s dlouhym zranim v dubovych sudech. Cervena barva pochazi z karameloveho a specialnich sladu. Komplexni chut kombinuje ovocnou kyselost (visne, cervene rybiz) s octovymi tony a sladovym zakladem.

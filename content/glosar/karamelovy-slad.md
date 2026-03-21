@@ -5,7 +5,7 @@ description = "Speciální slad zpracovaný tak, aby dodal pivu karamelovou slad
 en = "Crystal / Caramel Malt"
 category = "suroviny"
 related = ["slad", "ebc"]
-funfact = "Karamelovy slad se vyrabi tak, ze se cukry karamelizuji primo uvnitr zrna."
+funfact = "Karamelovy slad se vyrábí tak, ze se cukry karamelizují primo uvnitř zrna."
 +++
 
 **Karamelový [slad](@/glosar/slad.md)** (crystal malt) se zpracovává při vyšší teplotě — škroby se přemění na cukry přímo v zrnu, které pak karamelizují.

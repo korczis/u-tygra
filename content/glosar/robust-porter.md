@@ -5,7 +5,7 @@ description = "Silnejsi a intenzivnejsi verze porteru s vyraznym przenym a cokol
 en = "Robust Porter"
 category = "styly"
 related = ["porter", "smoked-porter", "stout"]
-funfact = "Robust porter stoji na pomezi porteru a stoutu -- historicky bylo rozliseni mezi temito styly casto neostree."
+funfact = "Robust porter stoji na pomezi porteru a stoutu -- historicky bylo rozliseni mezi temito styly často neostree."
 +++
 
 **Robust Porter** -- silnejsi varianta porteru s agresivnejsim prazenym sladovym profilem. Vyrazneji vyuziva cokoladovy a cerny slad, coz mu dava intenzivnejsi barvu a komplexnejsi chutovy profil nez zakladni porter. Hofkost je vysssi a telo plnejsi.

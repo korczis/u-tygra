@@ -5,7 +5,7 @@ description = "Slazeny belgicky lambik s pridanym cukrem, historicky popularni b
 en = "Faro"
 category = "styly"
 related = ["lambic", "gueuze", "spontanni-kvaseni"]
-funfact = "Faro bylo v 19. stoleti nejpopularnejsi pivo v Bruselu -- pridany cukr zmirnooval kyselost lambiku a cinil ho pristupnejsim."
+funfact = "Faro bylo v 19. století nejpopularnejsi pivo v Bruselu -- přidaný cukr zmírňoval kyselost lambiku a činil ho přístupnějším."
 +++
 
 **Faro** -- historicky belgicky pivni styl vzniklly pridanim kandysoveho cukru nebo karamelu do lambiku. Slazeni zmirrnuje typickou kyselost spontanne kvaseneho piva a pridava karamelove tony. V minulosti slo o velmi popularni styl, dnes ho vari jen nekolik belgiccckych pivovaru.

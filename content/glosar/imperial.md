@@ -5,7 +5,7 @@ description = "Označení pro silnější verzi pivního stylu. Imperial Stout 8
 en = ""
 category = "styly"
 related = ["abv", "stout"]
-funfact = "Oznaceni Imperial pochazi od ruske carevny Kateriny Veliké, ktera milovala silna piva."
+funfact = "Oznaceni Imperial pochází od ruske carevny Kateriny Veliké, která milovala silná piva."
 +++
 
 **Imperial** označuje silnější, intenzivnější a komplexnější verzi standardního pivního stylu.

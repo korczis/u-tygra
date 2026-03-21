@@ -897,14 +897,46 @@ window.onresize = function() {
     timer = setTimeout(showRandomTerm, INTERVAL);
   }
 
+  function showTermInstant(idx) {
+    // No fade — instant swap for arrow key navigation
+    if (glossaryTerms.length === 0) return;
+    idx = Math.max(0, Math.min(idx, glossaryTerms.length - 1));
+    lastIdx = idx;
+
+    var term = glossaryTerms[idx];
+    elTitle.textContent = term.title;
+    elEn.textContent = term.en || '';
+    elEn.style.display = term.en ? '' : 'none';
+    elDesc.textContent = term.desc;
+    elFunfact.textContent = term.funfact || '';
+    elFunfact.style.display = term.funfact ? '' : 'none';
+
+    // Show instantly
+    overlay.style.display = 'block';
+    overlay.style.opacity = '1';
+
+    // Recalculate hide timer
+    var allText = term.title + ' ' + (term.en || '') + ' ' + term.desc + ' ' + (term.funfact || '');
+    var wordCount = allText.split(/\s+/).length;
+    var readingMs = Math.max(DISPLAY, (wordCount / 5) * 1000 + 2000);
+    readingMs = Math.round(readingMs * 1.2);
+
+    if (hideTimer) clearTimeout(hideTimer);
+    hideTimer = setTimeout(function() {
+      fadeOut(overlay, 800);
+    }, readingMs);
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(showRandomTerm, INTERVAL);
+  }
+
   function showNextTerm() {
     var next = (lastIdx + 1) % glossaryTerms.length;
-    showTerm(next);
+    showTermInstant(next);
   }
 
   function showPrevTerm() {
     var prev = lastIdx <= 0 ? glossaryTerms.length - 1 : lastIdx - 1;
-    showTerm(prev);
+    showTermInstant(prev);
   }
 
   function showRandomTerm() {

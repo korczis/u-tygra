@@ -5,7 +5,7 @@ description = "Spodni kvasici kvasinka pouzivana pro vyrobu lageru, klicova pro 
 en = "Saccharomyces pastorianus"
 category = "vyroba"
 related = ["spodni-kvaseni", "lager", "saccharomyces-cerevisiae"]
-funfact = "Saccharomyces pastorianus je hybridem S. cerevisiae a S. eubayanus -- divokou kvasinkou objevenou v patagonskych lesich."
+funfact = "Saccharomyces pastorianus je hybridem S. cerevisiae a S. eubayanus -- divokou kvasinkou objevenou v patagonských lesích."
 +++
 
 **Saccharomyces pastorianus** je druh kvasinky zodpovedny za spodni kvaseni lageru. Pracuje pri nizsich teplotach (7--13 °C) a produkuje cisty, neutralni profil bez vyraznych esteru. Je zakladem ceske a nemecke pivni tradice. Vznikla prirozenim krizenim S. cerevisiae a divoke kvasinky S. eubayanus.

@@ -5,7 +5,7 @@ description = "Bakterie produkujici kyselinu mlecnou, klicova pro vyrobu kyselyc
 en = "Lactobacillus"
 category = "vyroba"
 related = ["kettle-sour", "gose", "berliner-weisse", "pediococcus"]
-funfact = "Lactobacillus je stejna bakterie, ktera se pouziva pri vyrobe jogurtu, kyseleho zeli a dalsich fermentovanych potravin."
+funfact = "Lactobacillus je stejná bakterie, která se používá pri výrobe jogurtu, kyseleho zeli a dalsich fermentovanych potravin."
 +++
 
 **Lactobacillus** je rod bakterii produkujicich kyselinu mlecnou, ktera dodava pivum prijemnou, cistou kyselost. V pivovarnictvi se pouziva predevsim pri vyrobe kyselych piv -- gose, berliner weisse a kettle sour. Na rozdil od octovych bakterii produkuje jemnejsi, kulateji kyselost bez neprijemnych tonu.

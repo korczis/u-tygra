@@ -5,7 +5,7 @@ description = "Plyn CO₂ zodpovědný za karbonaci piva — jeho perlivost, pě
 en = "Carbon Dioxide / CO₂"
 category = "zaklady"
 related = ["kvaseni", "pena", "lahvove-kvaseni", "telo-piva"]
-funfact = "V jednom půllitru českého ležáku je rozpuštěno přibližně 2,5 litru oxidu uhličitého — pětkrát více plynu, než je objem samotného piva."
+funfact = "V jednom půllitru českého ležáku je rozpuštěno přibližně 2,5 litrů oxidu uhličitého — pětkrát více plynu, než je objem samotného piva."
 +++
 
 **Oxid uhličitý** (CO₂) je plyn, který dává pivu jeho charakteristickou perlivost a napomáhá tvorbě [pěny](@/glosar/pena.md). Vzniká přirozeně při [kvašení](@/glosar/kvaseni.md) jako vedlejší produkt metabolismu kvasnic, nebo se do piva dodává uměle (karbonace).

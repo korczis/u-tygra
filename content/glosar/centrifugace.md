@@ -5,7 +5,7 @@ description = "Mechanické oddělení kvasnic a nečistot z piva pomocí odstře
 en = "Centrifugation"
 category = "vyroba"
 related = ["filtrace", "fining", "cold-crash"]
-funfact = "Moderní pivovarská centrifuga dokáže zpracovat až 600 hektolitrů piva za hodinu — celý denní výstav středního pivovaru za necelé dvě hodiny."
+funfact = "Moderní pivovarská centrifuga dokáže zpracovat až 600 hektolitrů piva za hodinu — celý denní výstav středního pivovarů za necelé dvě hodiny."
 +++
 
 **Centrifugace** je metoda mechanického čiření piva, při které se odstředivá síla využívá k oddělení pevných částic (kvasnice, trub, chmelové zbytky) od kapaliny. Na rozdíl od [filtrace](@/glosar/filtrace.md) nepoužívá filtrační médium a nezadržuje chmelové oleje ani bílkoviny zodpovědné za tělo piva.

@@ -5,7 +5,7 @@ description = "Pivo chmelené pouze jednou odrůdou chmele pro čisté představ
 en = "Single Hop Ale"
 category = "styly"
 related = ["smash", "pale-ale", "dry-hopping"]
-funfact = "Single Hop piva jsou ideální pro poznani charakteru konkretního chmele."
+funfact = "Single Hop piva jsou ideální pro poznání charakteru konkrétního chmele."
 +++
 
 **Single Hop Ale** je pivo, kde se používá pouze jeden druh chmele — na hořčení i aroma. Rozdíl oproti SMASH: může používat více sladů.

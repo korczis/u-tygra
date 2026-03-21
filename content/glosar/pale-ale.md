@@ -5,7 +5,7 @@ description = "Svrchně kvašené pivo se střední hořkostí a výrazným chme
 en = "Pale Ale"
 category = "styly"
 related = ["ale", "craft", "neipa"]
-funfact = "Pale Ale vznikl v 18. stoleti diky svetlejsimu sladu z koksovych peci."
+funfact = "Pale Ale vznikl v 18. století díky světlejsimu sladu z koksovych peci."
 +++
 
 **Pale Ale** je základ moderního craft pivovarnictví. Vznikl v Anglii v 18. století díky světlejšímu [sladu](@/glosar/slad.md).

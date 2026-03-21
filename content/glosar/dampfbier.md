@@ -5,7 +5,7 @@ description = "Bavorsky parni pivni styl kvaseny svrchnimi kvasnicemi pri lagero
 en = "Dampfbier"
 category = "styly"
 related = ["california-common", "kellerbier", "weizen"]
-funfact = "Nazev Dampfbier (parni pivo) pochazi od pary, ktera unikala pri bourlive fermentaci v otevrenych kadiich."
+funfact = "Název Dampfbier (parni pivo) pochází od pary, která unikala pri bourlive fermentací v otevrenych kadiich."
 +++
 
 **Dampfbier** -- vzacny bavorsky pivni styl vareny svrchnimi kvasnicemi, coz je v lagerove Bavorii neobvykle. Nazev odkazuje na paru unikajici behem aktivni fermentace. Pouziva jecmeneny slad (na rozdil od psenicneho weizenu) a vysledkem je ovocne, esterove pivo s jemnou sladkosti.

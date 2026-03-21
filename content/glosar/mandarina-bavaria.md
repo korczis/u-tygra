@@ -5,7 +5,7 @@ description = "Nemecky chmel s vyraznym mandarinovym aromatem, moderni odrůda z
 en = "Mandarina Bavaria"
 category = "chmely"
 related = ["huell-melon", "saphir", "hallertau"]
-funfact = "Mandarina Bavaria je krizeni Cascade a Hallertau Blanc, coz ji dava unikatni spojeni americke ovocnosti a nemecke elegance."
+funfact = "Mandarina Bavaria je křížení Cascade a Hallertau Blanc, coz ji dava unikátní spojeni americké ovocnosti a německé elegance."
 +++
 
 **Mandarina Bavaria** je nemecka chmelova odruda s vyraznym mandarinovym charakterem, ktera vznikla krizenim americkych a nemeckych odrůd. Patri do nove generace nemeckych aromatickych chmelu, ktere nabizeji ovocnejsi profily nez tradicni noble chmely. Jeji mandarinkove aroma je ciSte a intenzivni.

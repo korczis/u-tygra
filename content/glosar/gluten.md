@@ -5,7 +5,7 @@ description = "Lepkove bilkoviny z obilnin, ktere mohou zpusobovat problemy lide
 en = "Gluten in Beer"
 category = "zaklady"
 related = ["jecmen", "psenice", "bezlepkove-pivo", "slad"]
-funfact = "Bezny svetly lezak obsahuje 1--4 g lepku na litr, coz je pro celiatiky nebezpecne mnozstvi."
+funfact = "Bezny světlý lezak obsahuje 1--4 g lepku na litr, coz je pro celiatiky nebezpecne množství."
 +++
 
 **Gluten** (lepek) je komplex bilkovin obsazenych v jecmenu, psenici a zitu -- tedy ve vsech hlavnich obilninach pouzivanych v pivovarnictvi. Pro lidi s celiakii nebo glutenovou senzitivitou muze byt konzumace bezneho piva zdravotne rizikova.

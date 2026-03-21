@@ -5,7 +5,7 @@ description = "Jantarový bavorský ležák tradičně vařený v březnu pro Ok
 en = "Märzen"
 category = "styly"
 related = ["bock", "lager", "oktoberfest"]
-funfact = "Marzen se historicky varil v breznu, protoze v lete se nesmélo varit kvuli pozarum."
+funfact = "Marzen se historicky varil v breznu, protože v lete se nesmélo varit kvůli pozarum."
 +++
 
 **Märzen** (*März* = březen) se historicky vařil v březnu — posledním měsíci, kdy se smělo vařit pivo před letními vedry. Zrálo v jeskyních až do podzimu.

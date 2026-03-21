@@ -5,7 +5,7 @@ description = "Sirna sloucenina zpusobujici chut a vuni po varene kukurici, cast
 en = "Dimethyl Sulfide (DMS)"
 category = "zaklady"
 related = ["vareni", "slad", "off-flavors"]
-funfact = "DMS ma prahovovou koncentraci vnimani kolem 30 ppb -- lidsky nos je na nej mimoradne citlivy."
+funfact = "DMS ma prahovou koncentraci vnímání kolem 30 ppb -- lidský nos je na nej mimořádně citlivý."
 +++
 
 **Dimethyl sulfid** (DMS) je organicka sirna sloucenina, ktera v pivu pri vyssich koncentracich zpusobuje nezadouci chut a vuni pripominajici varenou kukurici, zelne vyvar nebo konzerve zeleniny.

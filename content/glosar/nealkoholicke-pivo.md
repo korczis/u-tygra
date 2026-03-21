@@ -5,7 +5,7 @@ description = "Pivo s obsahem alkoholu do 0,5 %, vyráběné různými technolog
 en = "Non-Alcoholic Beer"
 category = "styly"
 related = ["lager", "kvaseni", "filtrace"]
-funfact = "Cesko je jednim z nejvecsich trhu nealkoholickych piv v Evrope."
+funfact = "Česko je jedním z nejvecsich trhu nealkoholickych piv v Evrope."
 +++
 
 **Nealkoholické pivo** (NA pivo) obsahuje méně než 0,5 % ABV. Moderní technologie umožňují zachovat plnou chuť.

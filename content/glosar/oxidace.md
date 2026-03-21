@@ -5,7 +5,7 @@ description = "Chemická degradace piva kontaktem s kyslíkem, vedoucí ke karto
 en = "Beer Oxidation"
 category = "zaklady"
 related = ["trvanlivost", "off-flavors", "zrani", "sudove-zrani"]
-funfact = "Pouhých 0,1 ml kyslíku v lahvi (méně než jedna kapka) dokáže výrazně zkrátit trvanlivost piva a změnit jeho chuť."
+funfact = "Pouhých 0,1 ml kyslíku v lahví (méně než jedna kapka) dokáže výrazně zkrátit trvanlivost piva a změnit jeho chuť."
 +++
 
 **Oxidace** je chemická reakce piva s kyslíkem, která postupně mění jeho chuťový a aromatický profil. U většiny stylů je oxidace nežádoucí — pivo ztrácí svěžest a nabývá papírových, kartonových nebo sherry tónů.

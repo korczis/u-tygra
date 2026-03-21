@@ -5,7 +5,7 @@ description = "Pivo točené z tlakového sudu přes výčepní zařízení. Nej
 en = "On tap / Draft"
 category = "servirovani"
 related = ["pena", "hladinka", "snyt"]
-funfact = "Spravne vycisteny cep meni chut piva vic nez znacka."
+funfact = "Správně vycisteny cep mění chut piva vic než znacka."
 +++
 
 **Čepované pivo** (on tap, draft) je pivo servírované z tlakového sudu (KEG) přes výčepní systém. V českém pivovarnickém kontextu je čepované pivo považováno za **nejlepší formu** servírování.

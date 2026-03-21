@@ -5,7 +5,7 @@ description = "Hlavni alfa kyselina v chmelu, zakladni zdroj horkosti piva."
 en = "Humulone"
 category = "zaklady"
 related = ["alfa-kyseliny", "chmel", "izomerace", "ibu"]
-funfact = "Humulon byl popsan jiz v roce 1821, ale jeho strukturu chemici rozlustili az o vice nez sto let pozdeji."
+funfact = "Humulon byl popsán již v roce 1821, ale jeho strukturu chemici rozluštili až o více než sto let pozdeji."
 +++
 
 **Humulon** je nejvyznamnejsi alfa kyselina obsazena v lupulinu chmelovych hlavicek. Po izomeraci behem varu se premeni na iso-humulon, ktery je hlavnim nositelem horkosti v pivu.

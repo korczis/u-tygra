@@ -5,7 +5,7 @@ description = "Tradicni anglicky hnedy ale se sladovym, karameloveym a oriskovym
 en = "English Brown Ale"
 category = "styly"
 related = ["brown-ale", "mild-ale", "english-bitter"]
-funfact = "Existuji dva hlavni podtypy -- severni verze z Newcastlu je sussi a lehci, zatimco jizhni londynska je sladsi a plnejsi."
+funfact = "Existuji dva hlavní podtypy -- severní verze z Newcastlu je sušší a lehčí, zatimco jizhni londýnská je sladší a plnější."
 +++
 
 **English Brown Ale** -- klasicky anglicky styl s durazem na sladovou slozzitost. Karamelove, oriskove a lehce cokoladove tony dominuji nad chmelovou hofkosti. Je to pristupne, snadno pitelne pivo s mirnym obsahem alkoholu, idealni jako doprovod k britske kuchyni.

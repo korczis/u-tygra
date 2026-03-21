@@ -5,7 +5,7 @@ description = "Chutova vada zpusobena oxidaci, pripominajici mokry karton nebo p
 en = "Papery Flavor (Trans-2-Nonenal)"
 category = "zaklady"
 related = ["oxidace", "zrani", "trvanlivost"]
-funfact = "Trans-2-nonenal je detekovatelny lidskym jazykem jiz pri koncentraci 0,1 ppb -- je to jedna z nejcitliveji vnimanych off-flavor latek."
+funfact = "Trans-2-nonenal je detekovatelný lidskym jazykem již pri koncentraci 0,1 ppb -- je to jedna z nejcitlivěji vnímaných off-flavor latek."
 +++
 
 **Papirova chut** je typickym projevem oxidacniho starnuti piva. Hlavni pricinou je sloucenina trans-2-nonenal (T2N), ktera vznika oxidaci nenasycenych mastnych kyselin.

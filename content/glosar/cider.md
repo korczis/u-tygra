@@ -5,7 +5,7 @@ description = "Kvašený alkoholický nápoj z jablečného moštu, příbuzný 
 en = "Cider"
 category = "styly"
 related = ["kvaseni", "kvasnice", "pivo"]
-funfact = "Ve středověké Anglii byl cider běžnější než pivo — farmy platily dělníkům část mzdy v cideru, takzvaný ‚truck system', což bylo zakázáno teprve v roce 1887."
+funfact = "Ve středověké Anglii byl cider běžnější než pivo — farmy platily dělníkům část mzdy v cideru, takzvaný ‚truck systém', což bylo zakázáno teprve v roce 1887."
 +++
 
 **Cidre** (anglicky cider) je alkoholický nápoj vyráběný kvašením jablečného moštu. Ačkoli není pivem, sdílí s ním principy fermentace a často se prodává vedle piva v hospodách i obchodech.

@@ -5,7 +5,7 @@ description = "Pivo vyrobene bez lepku nebo s enzymaticky odstranenim lepkem, vh
 en = "Gluten-Free Beer"
 category = "zaklady"
 related = ["gluten", "jecmen", "psenice"]
-funfact = "Nejstarsi znamy bezlepkovy pivni recept pochazi z Japonska, kde se pivo vari z ryze jiz stovky let."
+funfact = "Nejstarší známý bezlepkovy pivní recept pochází z Japonska, kde se pivo vari z ryze již stovky let."
 +++
 
 **Bezlepkove pivo** je urceno pro lidi s celiakii nebo glutenovou intoleranci. Obsah lepku musi byt pod 20 mg/kg (ppm), aby mohlo nest oznaceni bezlepkove podle evropske legislativy.

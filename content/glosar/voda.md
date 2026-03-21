@@ -5,7 +5,7 @@ description = "Tvoří 90–95 % piva. Minerální složení vody zásadně ovli
 en = "Water"
 category = "suroviny"
 related = ["chmel", "slad"]
-funfact = "Pivo je z 90-95 procent voda — kvalita vody urcuje charakter piva."
+funfact = "Pivo je z 90-95 procent voda — kvalita vody určuje charakter piva."
 +++
 
 **Voda** tvoří 90–95 % objemu piva a její chemické složení má zásadní vliv na výsledný charakter. Historicky to byl hlavní důvod, proč se určité pivní styly vyvinuly právě v konkrétních regionech.

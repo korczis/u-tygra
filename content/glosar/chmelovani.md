@@ -5,7 +5,7 @@ description = "Přidávání chmele do mladiny v různých fázích vaření a p
 en = "Hopping"
 category = "vyroba"
 related = ["chmel", "dry-hopping", "ibu"]
-funfact = "Existuje 6 ruznych metod chmelovani — od mash hoppingu po dry hopping."
+funfact = "Existuje 6 různých metod chmelování — od mash hoppingu po dry hopping."
 +++
 
 **Chmelování** je umění přidávání [chmele](@/glosar/chmel.md) v přesný čas pro požadovaný efekt — hořkost, chuť nebo aróma. Čas přidání zásadně mění, co chmel pivu dodá.

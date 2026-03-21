@@ -5,7 +5,7 @@ description = "Ostry kysel prichut v pivu zpusobeny octovou kyselinou z bakteria
 en = "Acetic Acid / Vinegar Flavor"
 category = "zaklady"
 related = ["infekce", "sour", "spontanni-kvaseni"]
-funfact = "Octove bakterie Acetobacter potrebuji kyslík -- proto spontanne kysana piva v sudech zraji v lahvich bez pristupu vzduchu."
+funfact = "Octove bakterie Acetobacter potřebují kyslík -- proto spontanne kysana piva v sudech zraji v lahvích bez pristupu vzduchu."
 +++
 
 **Octova prichut** je ostra, agresivne kysela chut v pivu zpusobena prilis vysokou koncentraci kyseliny octove. Jejim zdrojem jsou bakterie rodu Acetobacter, ktere premenuji ethanol na kyselinu octovou v pritomnosti kysliku.

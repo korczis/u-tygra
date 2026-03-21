@@ -5,7 +5,7 @@ description = "Lehky a osvezujici anglicky ale, moderni odpoved na dominanci lag
 en = "English Golden Ale"
 category = "styly"
 related = ["blonde-ale", "pale-ale", "english-bitter"]
-funfact = "English Golden Ale vznikl v 90. letech jako pokus britskych pivovaru prilaakat zpet pijaky, kteri preesli na lagery."
+funfact = "English Golden Ale vznikl v 90. letech jako pokus britských pivovarů přilákat zpet pijáky, kteří přešli na lagery."
 +++
 
 **English Golden Ale** -- moderni britsky styl vytvoreny jako svrchne kvasena alternativa k lagerum. Svetla barva, nizke telo a osvezujici charakter ho cinni pristupnym i pro pijaky zvykle na lezaky. Pouziva svetle slady a anglicke chmely pro jemny, kvetinovy profil.

@@ -5,7 +5,7 @@ description = "Flandersky hnedy kyselak se sladovym zakladem a jemnejsi kyselost
 en = "Oud Bruin"
 category = "styly"
 related = ["flanders-red", "sour", "brown-ale", "sudove-zrani"]
-funfact = "Oud Bruin se casto vyrabi miseenim mladeho a stareho piva -- mlady podil prida sladkost, ktera vyrovnava kyselost stareho."
+funfact = "Oud Bruin se často vyrábí mísením mladeho a starého piva -- mlady podil prida sladkost, která vyrovnava kyselost starého."
 +++
 
 **Oud Bruin** (flandersky hnedy) -- belgicky kyselyy pivni styl s vyraznejsim sladovym zakladem nez prribuzny Flanders Red. Zraje v nerezovych tancich i dubovych sudech a jeho kyselost je mirnejsi a jemnejsi. Chut pripomina tmave ovoce, karamel a cokoladu s jemnym kyselkavym pozadim.

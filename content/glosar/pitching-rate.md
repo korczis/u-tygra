@@ -5,7 +5,7 @@ description = "Mnozstvi kvasinek zaockovanych do mladiny, klicovy parametr pro k
 en = "Pitching Rate"
 category = "vyroba"
 related = ["kvasnice", "starter", "hlavni-kvaseni", "off-flavors"]
-funfact = "Pro standardni lager se doporucuje priblizne 1,5 milionu bunek na mililitr na stupen Plato -- to je asi 200 miliard bunek pro 20 litru."
+funfact = "Pro standardni lager se doporucuje přibližně 1,5 milionů buněk na mililitr na stupeň Plato -- to je asi 200 miliard buněk pro 20 litrů."
 +++
 
 **Pitching rate** je oznaceni pro mnozstvi kvasinek pridanych do mladiny na zacatku fermentace. Spravny pitching rate je jednim z nejdulezitejsich faktoru pro zdravou fermentaci. Prilis malo kvasinek vede k pomalemu rozbehu, stresu a produkci off-flavors, prilis mnoho muze potlacit zadouci esterove profily.

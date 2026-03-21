@@ -5,7 +5,7 @@ description = "Grafický design a informační obsah pivní etikety jako umělec
 en = "Beer Label Art"
 category = "kultura"
 related = ["craft", "minipivovar", "pivo"]
-funfact = "Nejstarší dochovaná pivní etiketa pochází z roku 1843 z pivovaru Bass Brewery — jejich červený trojúhelník byl vůbec první registrovanou ochrannou známkou ve Velké Británii."
+funfact = "Nejstarší dochovaná pivní etiketa pochází z roku 1843 z pivovarů Bass Brewery — jejich červený trojúhelník byl vůbec první registrovanou ochrannou známkou ve Velké Británii."
 +++
 
 **Pivní etiketa** je papírový nebo plastový štítek na lahvi či plechovce, který plní dvojí funkci — informační (zákonné údaje) a marketingovou (vizuální identita, příběh piva). V éře [craft](@/glosar/craft.md) pivovarů se etiketa stala plnohodnotným uměleckým médiem.

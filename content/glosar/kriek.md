@@ -5,7 +5,7 @@ description = "Belgicke tresnove lambikove pivo s intenzivni ovocnou chuti a kys
 en = "Kriek"
 category = "styly"
 related = ["lambic", "gueuze", "framboise", "ovoce-v-pivu"]
-funfact = "Nazev kriek pochazi z nizozemskeho slova pro visne -- tradicne se pouzivaji kyselee visne odrrudy Schaarbeek."
+funfact = "Název kriek pochází z nizozemskeho slova pro visne -- tradičně se používají kyselé visne odrůdy Schaarbeek."
 +++
 
 **Kriek** -- belgicky ovocny lambik, do ktereho se pridavaji cele tresne (typicky kyselee visne) pro druhotnou fermentaci. Ovoce dodava pivu intenzivni cervenou barvu, tresnove aroma a dalsi vrstvu komplexity k zakladni kyselosti lambiku. Tradicni verze jsou suche, zatimco komercni mohou byt slazene.

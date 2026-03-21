@@ -5,7 +5,7 @@ description = "Pivo zrající v dřevěných sudech po whisky, bourbounu, víně
 en = "Barrel Aged"
 category = "vyroba"
 related = ["sudove-zrani", "stout", "barley-wine", "imperial"]
-funfact = "Bourbon barely jsou pouzity pouze jednou — pivovary je kupuji od lihovaru."
+funfact = "Bourbon barely jsou použitý pouze jednou — pivovary je kupují od lihovarů."
 +++
 
 **Barrel Aged** (BA) piva zrají v použitých dřevěných sudech, které dodávají komplexní chuťové vrstvy.

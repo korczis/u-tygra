@@ -5,7 +5,7 @@ description = "Prolínání pivni kultury s výtvarným uměním, designem etike
 en = "Beer and Art"
 category = "kultura"
 related = ["craft", "ceska-pivni-kultura", "pivni-festival"]
-funfact = "Nekteri sberatele pivnich etiket (labologové) maji sbirky presahujici 100 000 kusu z celého sveta."
+funfact = "Někteří sberatele pivních etiket (labologové) mají sbírky přesahující 100 000 kusů z celého světa."
 +++
 
 **Pivo a umeni** oznacuje prolínání pivní kultury s výtvarným uměním, grafickym designem a sirsi kulturní produkcí. Etikata piva se stala plnohodnotnym umeleckym médiem.

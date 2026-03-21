@@ -5,7 +5,7 @@ description = "Americka verze hnedeho ale s vyraznejsim chmelenim a citrusovymi 
 en = "American Brown Ale"
 category = "styly"
 related = ["brown-ale", "english-brown-ale", "apa"]
-funfact = "American Brown Ale vznikl v 80. letech jako soucast americke remeslne pivni revoluce -- pivovar Pete's Wicked Ale byl jednim z pruukkopniku."
+funfact = "American Brown Ale vznikl v 80. letech jako soucast americké remeslne pivní revoluce -- pivovar Pete's Wicked Ale byl jedním z pruukkopniku."
 +++
 
 **American Brown Ale** -- americka interpretace anglickeho hnedeho ale. Zachovava sladovy karamelovy zaklad, ale pridava vyraznejsi americke chmeleni s citrusovymi a borrovicovymi tony. Vysledkem je vyvazene pivo s vetsi chmelovou slozitosti nez jeho anglicky predchudce.

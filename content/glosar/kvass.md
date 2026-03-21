@@ -5,7 +5,7 @@ description = "Tradicni slovansky fermentovany napoj z chleba s minimalmim obsah
 en = "Kvass"
 category = "styly"
 related = ["kombucha", "session"]
-funfact = "Kvas je tak hluboce zakorenen ve slovanske kulture, ze ve stredoveku slouzil jako zakladni napoj pro vsechny vrstvy spolecnosti."
+funfact = "Kvas je tak hluboce zakořeněn ve slovanske kultuře, ze ve středověku sloužil jako základní nápoj pro všechny vrstvy společnosti."
 +++
 
 **Kvas** -- tradicni slovansky kvaseny napoj pripravovany z cerneho nebo rzneho chleba. Ma maly obsah alkoholu a prislusnou sladkost s chlebovym charakterem. V Rusku, na Ukrajine i v dalsich slovanskych zemich je oblibeny jako osvezzujici letni napoj.

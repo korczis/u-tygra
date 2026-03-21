@@ -5,7 +5,7 @@ description = "Americka verze psenicneho piva, cistejsi a chmelovejsi nez nemeck
 en = "American Wheat Ale"
 category = "styly"
 related = ["hefeweizen", "weizen", "psenice", "pale-ale"]
-funfact = "Na rozdil od nemeckeho hefeweizenu pouziva American Wheat neutralni americke kvasnice -- proto chybi typicke bananove a hrebickove aroma."
+funfact = "Na rozdíl od nemeckeho hefeweizenu používá American Wheat neutrální americké kvasnice -- proto chybí typické banánové a hřebíčkové aroma."
 +++
 
 **American Wheat Ale** -- americka interpretace psenicneho piva. Pouziva amerricke kvasnice, ktere neprodukuji esterove a fenolove tony typicke pro nemecke hefeweizeny. Vysledkem je ciste, lehke pivo s jemnym psenicnym charakterem a castto mirnym americkym chmelenim.

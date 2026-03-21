@@ -5,7 +5,7 @@ description = "Belgicke malinove lambikove pivo s vyraznym ovocnym aromatem."
 en = "Framboise"
 category = "styly"
 related = ["lambic", "gueuze", "kriek", "ovoce-v-pivu"]
-funfact = "Na jeden hektolitr framboise je potreba az 300 kg cerstyvch malin -- proto je tradicni verze pomerne vzacna a draha."
+funfact = "Na jeden hektolitr framboise je potřeba až 300 kg čerstvých malin -- proto je tradiční verze pomerne vzácná a draha."
 +++
 
 **Framboise** -- belgicky ovocny lambik s pridanymi malinami. Maliny se pridavaji do zrajiciho lambiku a jejich cukry projdou druhotnou fermentaci. Vysledkem je pivo s kraasnnou ruzovou barvou, intenzivnim malinovym aromatem a harmonii mezi ovocnou sladkosti a lambikovou kyselosti.

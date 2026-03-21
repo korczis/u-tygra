@@ -5,7 +5,7 @@ description = "Jihoamericky tradicni fermentovany napoj z kukurice s tisiciletou
 en = "Chicha"
 category = "styly"
 related = ["kukurice", "spontanni-kvaseni"]
-funfact = "Tradicni chicha se pripravovala zvannim kukurice -- sliny obsahuji enzymy, ktere premeni skrob na zkvasitelne cukry."
+funfact = "Tradicni chicha se pripravovala žvýkáním kukurice -- sliny obsahují enzymy, které přemění škrob na zkvasitelné cukry."
 +++
 
 **Chicha** -- starobyly jihoamericky fermentovany napoj vareny predevsim z kukurice. Jeho koreny sahaji k civilizacim Inku a dalssim predhispanskim kulturaam. Tradicni metoda pripravy zahrnuje zvykani kukuricnych zrn, i kdyz modernii verze pouzivaji sladovani.

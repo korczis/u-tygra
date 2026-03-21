@@ -5,7 +5,7 @@ description = "Sumerové zanechali nejstarší písemné záznamy o vaření piv
 en = "Sumerian Brewing"
 category = "kultura"
 related = ["historie-piva", "stredoveke-pivovarnictvi", "zeny-a-pivo"]
-funfact = "Hymnus na bohyni Ninkasi z roku 1800 pr. n. l. je zaroven nejstarsim dolozenym receptem na pivo na svete."
+funfact = "Hymnus na bohyni Ninkasi z roku 1800 pr. n. l. je zároveň nejstarším dolozenym receptem na pivo na světě."
 +++
 
 **Sumerové a pivo** — Sumerové v Mezopotámii jsou považováni za průkopníky pivovarnictví. Jejich klínopisné tabulky z 3. tisíciletí př. n. l. dokumentují výrobu minimálně osmi druhů piva z ječmene a pšenice. Pivo mělo v sumerské společnosti zvláštní postavení -- bylo součástí náboženských rituálů, sloužilo jako platidlo a jeho patronkou byla bohyně Ninkasi.

@@ -5,7 +5,7 @@ description = "Off-flavor s medicinalnim ci fenolickym charakterem, zpusobeny ch
 en = "Medicinal Flavor (Chlorophenol)"
 category = "zaklady"
 related = ["fenoly", "sanitace", "voda"]
-funfact = "K vytvoreni neprijemne lekove chuti staci pouhych 10 ppb chlorfenolu -- to je jako kapka v 10 000 litrech piva."
+funfact = "K vytvoření nepříjemné lékové chuti stačí pouhých 10 ppb chlorfenolu -- to je jako kapka v 10 000 litrech piva."
 +++
 
 **Lekova chut** oznacuje off-flavor pripominajici lekarne, naplastat nebo dezinfekcni prostredky. Hlavni pricinou jsou chlorfenoly, ktere vznikaji reakci fenolickych latek s chlorem nebo chloraminy ve vode.

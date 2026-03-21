@@ -5,7 +5,7 @@ description = "Trendy a technologie, ktere budou formovat pivovarnictvi v nadcha
 en = "Future of Beer"
 category = "kultura"
 related = ["craft", "zero-waste-brewing", "low-abv", "terroir-piva"]
-funfact = "Nektere startupy jiz experimentuji s precizni fermentaci -- vyrobou pivnich proteinu a chuti bez tradiciho vareni."
+funfact = "Některé startupy již experimentují s precizní fermentací -- výrobou pivních proteinu a chuti bez tradičního vaření."
 +++
 
 **Budoucnost piva** zahrnuje technologicke inovace, zmeny spotrebitelskeho chovani a ekologicke vyzvy, ktere pivovarnicky prumysl cekaji v horizontu 10--30 let.

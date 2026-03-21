@@ -5,7 +5,7 @@ description = "Ultra suchá IPA s šampaňským charakterem, nulovou zbytkovou s
 en = "Brut IPA"
 category = "styly"
 related = ["ipa", "dry-hopping"]
-funfact = "Brut IPA pouziva enzym amyloglukosidazu z potravinarskeho prumyslu."
+funfact = "Brut IPA používá enzym amyloglukosidazu z potravinarskeho průmyslu."
 +++
 
 **Brut IPA** (2017, Social Kitchen & Brewery, San Francisco) používá enzym amyloglukosidázu k rozštěpení všech zbylých cukrů — výsledkem je ultra suchý, vysoce karbonovaný profil.

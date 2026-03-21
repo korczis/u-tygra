@@ -5,7 +5,7 @@ description = "Druha skupina horkych sloucenin v chmelu, pusobici predevsim pri 
 en = "Beta Acids"
 category = "zaklady"
 related = ["chmel", "alfa-kyseliny", "zrani"]
-funfact = "Beta kyseliny se behem varu neizomeruji, ale oxiduji pri skladovani a prispivaji k horkosti stareho piva."
+funfact = "Beta kyseliny se během varu neizomerují, ale oxidují pri skladování a přispívají k hořkosti starého piva."
 +++
 
 **Beta kyseliny** (lupulony) jsou druhou hlavni skupinou pryskyricnych latek v chmelu. Na rozdil od alfa kyselin se behem varu mladiny prakticky neizomeruji, a proto primo nepridavaji horkost cerstvemu pivu.

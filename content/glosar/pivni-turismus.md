@@ -5,7 +5,7 @@ description = "Cestovani motivovane navstevou pivovaru, pivnich festivalu a degu
 en = "Beer Tourism"
 category = "kultura"
 related = ["minipivovar", "pivni-festival", "ceska-pivni-kultura", "pub-crawl"]
-funfact = "Cesko ma nejvyssi pocet pivovaru na obyvatele v Evrope -- pres 600 aktivnich pivovaru na 10 milionu lidi."
+funfact = "Česko ma nejvyšší počet pivovarů na obyvatele v Evrope -- pres 600 aktivních pivovarů na 10 milionů lidí."
 +++
 
 **Pivni turismus** je forma gastronomickeho cestovani, pri kterem je hlavnim motivem navsteva pivovaru, pivnich destinaci, festivalu a ochutnávka mistních pivu.

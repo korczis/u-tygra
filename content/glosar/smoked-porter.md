@@ -5,7 +5,7 @@ description = "Tmave pivo s vyraznym uzenym charakterem, kombinujici porter a ra
 en = "Smoked Porter"
 category = "styly"
 related = ["porter", "rauchbier", "robust-porter"]
-funfact = "Historicky mela vetsina porteru uzeny charakter -- pred vynalezem neprimeeho hvozdu se vsechny slady susily nad otevrenym ohnem."
+funfact = "Historicky mela většina porteru uzeny charakter -- před vynálezem nepřímého hvozdu se všechny slady sušily nad otevrenym ohněm."
 +++
 
 **Smoked Porter** -- tmave pivo spojujici sladovy profil porteru s uzenym aromatem z uzeneho sladu. Uzeny slad (nejcasteji bukovy nebo dubovy) prida pivu dimovou dimenzi, ktera se misi s cokoladovymi a kavovymi tony zakladniho porteru. Intenzita uzeniny se lisi od jemne po dominantni.

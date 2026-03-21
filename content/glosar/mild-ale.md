@@ -5,7 +5,7 @@ description = "Tradicni anglicke nizkoalkoholicke pivo se sladovym charakterem, 
 en = "Mild Ale"
 category = "styly"
 related = ["english-brown-ale", "english-bitter", "session"]
-funfact = "V prvni polovine 20. stoleti byl mild nejprodavanejsim pivnim stylem v Britanii -- dnes je to ohrozeny styl, ktery vari jen malo pivovaru."
+funfact = "V první polovine 20. století byl mild nejprodavanejsim pivním stylem v Británii -- dnes je to ohrozeny styl, který vari jen malo pivovarů."
 +++
 
 **Mild Ale** -- historicky anglicky pivni styl s nizkym obsahem alkoholu a jemnym sladovym profilem. Puvoodne oznacceni mild znaccilo cerstve (nestarree) pivo na rozdil od staleho (old/stock) ale. Dnes existuje ve svetle i tmave variante, pricemz tmava je beznejsi.

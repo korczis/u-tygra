@@ -5,7 +5,7 @@ description = "India Pale Lager — intenzivní chmelení v kombinaci s čistoto
 en = "India Pale Lager"
 category = "styly"
 related = ["ipa", "lager", "spodni-kvaseni"]
-funfact = "IPL kombinuje chmelove aroma IPA s cistotou lager kvasnic."
+funfact = "IPL kombinuje chmelové aroma IPA s cistotou lager kvasnic."
 +++
 
 **IPL** kombinuje agresivní chmelení IPA s čistým, hladkým profilem ležáku. Spodní kvašení odstraní kvasnicové estery a nechá chmel vyniknout.

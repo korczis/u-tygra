@@ -5,7 +5,7 @@ description = "Hlavní nádoba pivovaru, ve které se vaří mladina s chmelem."
 en = "Brew Kettle"
 category = "vyroba"
 related = ["mladina", "chmelovani", "whirlpool", "vareni"]
-funfact = "Historicke medene varni kotle byly tak cenne, ze pivovary je v dobach valek ukryvaly pred rekvizicemi armady."
+funfact = "Historické měděné varní kotle byly tak cenné, ze pivovary je v dobách válek ukrývaly před rekvizicemi armády."
 +++
 
 **Varní kotel** — Varní kotel je nádoba, ve které se vaří sladová mladina s chmelem. Během vaření dochází k isomerizaci alfa-kyselin z chmele, sterilizaci mladiny, odpařování nežádoucích těkavých látek a koagulaci bílkovin. Moderní varní kotle jsou vyrobeny z nerezové oceli a mohou být vytápěny přímým ohněm, parou nebo elektřinou.

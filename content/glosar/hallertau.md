@@ -5,7 +5,7 @@ description = "Nejstarší a nejrozšířenější německý chmelový kultivar 
 en = "Hallertau Hop"
 category = "chmely"
 related = ["chmel", "zatecky"]
-funfact = "Hallertau je nejvetsi chmelarska oblast na svete — pokryva 80 % nemecke produkce."
+funfact = "Hallertau je největší chmelařská oblast na světě — pokrývá 80 % německé produkce."
 +++
 
 **Hallertau** (Hallertauer Mittelfrüh) pochází z regionu Hallertau v Bavorsku — největší [chmel](@/glosar/chmel.md)ařské oblasti na světě.

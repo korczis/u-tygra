@@ -5,7 +5,7 @@ description = "Správná teplota piva zásadně ovlivňuje chuťový zážitek. 
 en = "Serving temperature"
 category = "servirovani"
 related = ["cep"]
-funfact = "Kazdy stupen navíc odhalí nové chutové nuance — proto se silna piva piji teplejsi."
+funfact = "Kazdy stupeň navíc odhalí nové chuťové nuance — proto se silná piva pijí teplejší."
 +++
 
 Správná teplota servírování je jedním z nejdůležitějších faktorů pro chuťový zážitek z piva. **Příliš studené** pivo ztrácí aróma a chuť. **Příliš teplé** je nepříjemné a nadměrně se pění.

@@ -5,7 +5,7 @@ description = "Australsky chmel s vyraznym ananasovym a borovicovym charakterem,
 en = "Vic Secret"
 category = "chmely"
 related = ["galaxy", "mosaic", "neipa"]
-funfact = "Vic Secret byl vyslechteny ve statu Victoria v Australii a jeho nazev je slovni hrickou na Victoria's Secret."
+funfact = "Vic Secret byl vyšlechtěný ve statu Victoria v Australii a jeho název je slovní hříčkou na Victoria's Secret."
 +++
 
 **Vic Secret** je australska chmelova odruda znama svym intenzivnim tropickym profilem s dominantnimi tony ananasu a borovice. Byl vyslechteny organizaci Hop Products Australia a rychle si ziskal oblibu mezi pivovarniki po celem svete. Vynika v modernich americkych IPA a NEIPA stylech.

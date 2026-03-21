@@ -5,7 +5,7 @@ description = "Nemecky noble-type chmel s jemnym mandarinovym a kvetinovym aroma
 en = "Saphir"
 category = "chmely"
 related = ["hallertau", "tettnanger", "mandarina-bavaria"]
-funfact = "Saphir byl vyslechteny jako nahrada za Hallertau Mittelfruh, ale jeho mandarinkovy charakter mu dal vlastni identitu."
+funfact = "Saphir byl vyšlechtěný jako náhrada za Hallertau Mittelfruh, ale jeho mandarinkový charakter mu dal vlastní identitu."
 +++
 
 **Saphir** je nemecka chmelova odruda z kategorie noble-type chmelu, ktera nabizi jemny mandarinkovy a kvetinovy charakter. Puvodne byla zamyslena jako nahrada za Hallertau Mittelfruh, ale jeji vlastni aromaticky profil ji odlisil. Kombinuje tradicni nemeckou jemnost s modernejsim citrusovym vyrazem.

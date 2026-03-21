@@ -5,7 +5,7 @@ description = "Akce zaměřená na ochutnávku piv od více pivovarů na jednom 
 en = "Beer Festival"
 category = "kultura"
 related = ["ceska-pivni-kultura", "craft", "degustace", "oktoberfest"]
-funfact = "Největší pivní festival na světě — mnichovský Oktoberfest — navštíví každoročně přes 6 milionů lidí, kteří vypijí kolem 7,7 milionu litrů piva za 16 dní."
+funfact = "Největší pivní festival na světě — mnichovský Oktoberfest — navštíví každoročně přes 6 milionů lidí, kteří vypijí kolem 7,7 milionů litrů piva za 16 dní."
 +++
 
 **Pivní festival** je akce, kde se na jednom místě sejde řada pivovarů a návštěvníci mohou ochutnávat jejich piva. Festivaly se liší rozsahem — od komorních lokálních setkání s 10 pivovary po obrovské mezinárodní akce s tisíci návštěvníky. V Česku je pivních festivalů desítky ročně.
