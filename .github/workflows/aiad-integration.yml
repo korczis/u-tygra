@@ -285,6 +285,7 @@ jobs:
       - seo-validation
       - accessibility-check
       - link-integrity
+      - e2e-tests
     if: always()
     steps:
       - name: Quality gate evaluation
@@ -297,6 +298,7 @@ jobs:
           RESULT_SEO: ${{ needs.seo-validation.result }}
           RESULT_A11Y: ${{ needs.accessibility-check.result }}
           RESULT_LINKS: ${{ needs.link-integrity.result }}
+          RESULT_E2E: ${{ needs.e2e-tests.result }}
         run: |
           echo "======================================"
           echo "  U Tygra - Quality Gate Report"
@@ -312,17 +314,18 @@ jobs:
           echo "  SEO Validation:     ${RESULT_SEO}"
           echo "  Accessibility:      ${RESULT_A11Y}"
           echo "  Link Integrity:     ${RESULT_LINKS}"
+          echo "  E2E Tests:          ${RESULT_E2E}"
           echo ""
 
           FAILED=0
-          for result in "${RESULT_CONTENT}" "${RESULT_BUILD}" "${RESULT_HTML}" "${RESULT_SEO}" "${RESULT_A11Y}" "${RESULT_LINKS}"; do
+          for result in "${RESULT_CONTENT}" "${RESULT_BUILD}" "${RESULT_HTML}" "${RESULT_SEO}" "${RESULT_A11Y}" "${RESULT_LINKS}" "${RESULT_E2E}"; do
             if [ "$result" = "failure" ]; then
               FAILED=$((FAILED + 1))
             fi
           done
 
           if [ $FAILED -eq 0 ]; then
-            echo "Overall: PASSED"
+            echo "Overall: PASSED (7/7 gates)"
           else
             echo "::error::${FAILED} quality gate(s) failed"
           fi

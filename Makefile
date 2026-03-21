@@ -129,6 +129,13 @@ deploy: deploy-prod ## Deploy to production (default)
 
 test: quality-check ## Run all tests and quality checks
 
+test-e2e: ## Run Playwright E2E tests
+	@echo "$(BLUE)Running Playwright E2E tests...$(NC)"
+	@npx playwright test --reporter=list
+	@echo "$(GREEN)✓$(NC) All E2E tests passed"
+
+test-all: quality-check test-e2e ## Run quality checks + E2E tests
+
 quality-check: ## Run all quality gates
 	@echo "$(BLUE)Running comprehensive quality gates...$(NC)"
 	@$(MAKE) _ensure-dirs

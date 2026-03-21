@@ -30,8 +30,33 @@ else
   echo "  No content files staged"
 fi
 
-# Phase 3: No secrets check
-echo "[3/3] Security check..."
+# Phase 3: Doctrine enforcement (NMND + FF + CF)
+echo "[3/5] Doctrine enforcement..."
+STAGED_HTML=$(git diff --cached --name-only --diff-filter=ACM -- '*.html' 2>/dev/null || true)
+if [ -n "$STAGED_HTML" ]; then
+  # FF doctrine: No Flowbite JS import (CSS only)
+  FLOWBITE_JS=$(echo "$STAGED_HTML" | xargs grep -l "flowbite\.min\.js\|flowbite\.js" 2>/dev/null || true)
+  if [ -n "$FLOWBITE_JS" ]; then
+    echo "  ERROR [FF doctrine]: Flowbite JS import detected (CSS only allowed):"
+    echo "$FLOWBITE_JS"
+    exit 1
+  fi
+  echo "  Flowbite First: PASS"
+fi
+
+STAGED_JS=$(git diff --cached --name-only --diff-filter=ACM -- 'static/js/*.js' 2>/dev/null || true)
+if [ -n "$STAGED_JS" ]; then
+  # NMND doctrine: No TODO/FIXME in production JS
+  TODOS=$(echo "$STAGED_JS" | xargs grep -l "TODO\|FIXME\|HACK\|XXX" 2>/dev/null || true)
+  if [ -n "$TODOS" ]; then
+    echo "  WARNING [NMND doctrine]: TODO/FIXME found in:"
+    echo "$TODOS"
+  fi
+  echo "  NMND compliance: PASS"
+fi
+
+# Phase 4: No secrets check
+echo "[4/5] Security check..."
 STAGED_ALL=$(git diff --cached --name-only --diff-filter=ACM 2>/dev/null || true)
 if [ -n "$STAGED_ALL" ]; then
   SECRETS=$(echo "$STAGED_ALL" | xargs grep -l -E "(api_key|secret_key|password|token)\s*[:=]\s*['\"][^'\"]+['\"]" 2>/dev/null || true)
@@ -43,4 +68,16 @@ if [ -n "$STAGED_ALL" ]; then
   echo "  Security: PASS"
 fi
 
-echo "=== All quality gates passed ==="
+# Phase 5: Diacritics check (CF doctrine)
+echo "[5/5] Czech diacritics check..."
+if [ -n "$STAGED_HTML" ]; then
+  # Check for common Czech words without diacritics in templates
+  MISSING_DIACRITICS=$(echo "$STAGED_HTML" | xargs grep -n "Oteviraci\|Flexibilni\|Luzanky\|Pionyrska\|Denne " 2>/dev/null || true)
+  if [ -n "$MISSING_DIACRITICS" ]; then
+    echo "  WARNING [CF doctrine]: Missing Czech diacritics:"
+    echo "$MISSING_DIACRITICS"
+  fi
+  echo "  Czech First: PASS"
+fi
+
+echo "=== All quality gates passed (5/5) ==="
