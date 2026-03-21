@@ -443,6 +443,14 @@ tbody tr:nth-child(odd) .td-num {
   font-family: Georgia, 'Times New Roman', serif;
 }
 
+.ticker-promo {
+  color: #ffd700;
+  font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 0.04em;
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
+}
+
 @media (min-width: 1920px) {
   #ticker-table td { height: 68px; }
   #ticker-table .ticker-label { font-size: 18px; }
@@ -486,6 +494,7 @@ tbody tr:nth-child(odd) .td-num {
 </div>
 
 
+<script src="{{ get_url(path='js/promos.js') | safe }}"></script>
 <script>
 // ES5-only kiosk for old Smart TV browsers (JVC, Samsung, LG)
 // No const/let, no arrow functions, no template literals, no async/await
@@ -1114,13 +1123,13 @@ function onGlossaryReady(cb) {
     requestAnimationFrame(step);
   }
 
-  function marquee(el, text, cb) {
+  function marquee(el, text, cb, cssClass) {
     var container = el.parentNode;
     var containerWidth = container.offsetWidth;
 
     // Set text and make visible offscreen to measure
     el.textContent = text;
-    el.className = 'ticker-text ticker-wisdom';
+    el.className = 'ticker-text ' + (cssClass || 'ticker-wisdom');
     el.style.opacity = '1';
     el.style.width = 'auto';
     el.style.right = 'auto';
@@ -1178,31 +1187,27 @@ function onGlossaryReady(cb) {
     tickerFade(tickerEl, 0, 1, 1500, cb);
   }
 
-  function showWisdomText(text) {
+  function showWisdomText(text, cssClass) {
     tickerFade(tickerEl, 1, 0, 1500, function() {
       marquee(tickerEl, text, function() {
-        resetToDefault();
-      });
+        setTimeout(function() {
+          resetToDefault();
+        }, 500);
+      }, cssClass);
     });
   }
 
   // === Self-promo: at :00, :15, :30, :45 or click on label ===
-  var promos = [
-    'Vyrobil korczis@gmail.com \u2022 linkedin.com/in/korcaktomas \u2022 Full-stack architect, pivni nadsenec a digitalni inovetor',
-    'korczis@gmail.com \u2022 linkedin.com/in/korcaktomas \u2022 Od kodu k cepu \u2014 technologie v sluzbach remeslneho piva',
-    'Tomas Korcak \u2022 korczis@gmail.com \u2022 Architekt systemu, co nikdy nespi \u2014 vcetne pivni tabule',
-    'linkedin.com/in/korcaktomas \u2022 korczis@gmail.com \u2022 Kdo postavi web pivnici? Ten, kdo ji taky navstevuje.',
-    'korczis@gmail.com \u2022 linkedin.com/in/korcaktomas \u2022 401 pivnich pojmu, 6 piv na cepu, 1 frajer za kodem',
-    'S laskou vyrobil Tomas Korcak \u2022 korczis@gmail.com \u2022 Digitalni pivo z Brna do sveta',
-    'korczis@gmail.com \u2022 linkedin.com/in/korcaktomas \u2022 Zola + Alpine.js + Claude = tato tabule',
-    'Tomas Korcak \u2022 korczis@gmail.com \u2022 Pivo je dobre, ale kod je lepsi. Nebo naopak?',
+  // Promos loaded from external promos.js (KIOSK_PROMOS array)
+  var promos = (typeof KIOSK_PROMOS !== 'undefined') ? KIOSK_PROMOS : [
+    'korczis@gmail.com \u2022 linkedin.com/in/korcaktomas \u2022 S laskou vyrobil Tomas Korcak'
   ];
   var promoIdx = 0;
 
   function showPromo() {
     var text = promos[promoIdx % promos.length];
     promoIdx++;
-    showWisdomText(text);
+    showWisdomText(text, 'ticker-promo');
   }
 
   // Schedule at :00, :15, :30, :45
