@@ -337,12 +337,12 @@ const charlie = new CharlieAnalytics();
 function sanitizeText(text) {
   if (!text || typeof text !== 'string') return '';
 
+  // Only escape HTML-dangerous characters. Alpine x-text uses textContent
+  // (not innerHTML) so XSS is already prevented. Don't escape / or '
+  // as they display literally via textContent.
   return text
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#x27;')
-    .replace(/\//g, '&#x2F;')
     .trim();
 }
 
