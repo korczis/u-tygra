@@ -70,18 +70,18 @@
   {
     "@context": "https://schema.org",
     "@type": "BarOrPub",
-    "@id": "{{ config.base_url }}/#bar",
+    "@id": "{{ config.base_url | safe }}/#bar",
     "name": "{{ config.extra.business_name }}",
     "description": "{{ config.extra.tagline }}. Budvar a řemeslná piva v centru Brna u parku Lužánky. Studená i teplá kuchyně, privátní salónek pro oslavy.",
-    "url": "{{ config.base_url }}",
+    "url": "{{ config.base_url | safe }}",
     "telephone": "{{ config.extra.phone_bar }}",
     "image": [
-      "{{ get_url(path='img/gallery/interior-main.jpg') }}",
-      "{{ get_url(path='img/gallery/beer-taps.jpg') }}",
-      "{{ get_url(path='img/gallery/salonek-2.jpg') }}",
-      "{{ get_url(path='img/gallery/food-chlebicky-1.jpg') }}"
+      "{{ get_url(path='img/gallery/interior-main.jpg') | safe }}",
+      "{{ get_url(path='img/gallery/beer-taps.jpg') | safe }}",
+      "{{ get_url(path='img/gallery/salonek-2.jpg') | safe }}",
+      "{{ get_url(path='img/gallery/food-chlebicky-1.jpg') | safe }}"
     ],
-    "logo": "{{ get_url(path='img/logo.svg') }}",
+    "logo": "{{ get_url(path='img/logo.svg') | safe }}",
     "priceRange": "$$",
     "servesCuisine": ["Czech", "Beer", "Traditional"],
     "address": {
@@ -139,10 +139,10 @@
   {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": "{{ config.base_url }}/#organization",
+    "@id": "{{ config.base_url | safe }}/#organization",
     "name": "{{ config.extra.company }}",
-    "url": "{{ config.base_url }}",
-    "logo": "{{ get_url(path='img/logo.svg') }}",
+    "url": "{{ config.base_url | safe }}",
+    "logo": "{{ get_url(path='img/logo.svg') | safe }}",
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": "{{ config.extra.phone_bar }}",
@@ -157,12 +157,12 @@
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": "{{ config.base_url }}/#website",
-    "url": "{{ config.base_url }}",
+    "@id": "{{ config.base_url | safe }}/#website",
+    "url": "{{ config.base_url | safe }}",
     "name": "{{ config.extra.business_name }}",
     "description": "{{ config.description }}",
     "publisher": {
-      "@id": "{{ config.base_url }}/#organization"
+      "@id": "{{ config.base_url | safe }}/#organization"
     },
     "inLanguage": "cs-CZ"
   }
@@ -178,31 +178,31 @@
         "@type": "ListItem",
         "position": 1,
         "name": "Domů",
-        "item": "{{ config.base_url }}"
+        "item": "{{ config.base_url | safe }}"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": "Na čepu",
-        "item": "{{ config.base_url }}#na-cepu"
+        "item": "{{ config.base_url | safe }}#na-cepu"
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": "Jídlo",
-        "item": "{{ config.base_url }}#jidlo"
+        "item": "{{ config.base_url | safe }}#jidlo"
       },
       {
         "@type": "ListItem",
         "position": 4,
         "name": "Salónek",
-        "item": "{{ config.base_url }}#salonek"
+        "item": "{{ config.base_url | safe }}#salonek"
       },
       {
         "@type": "ListItem",
         "position": 5,
         "name": "Kontakt",
-        "item": "{{ config.base_url }}#kontakt"
+        "item": "{{ config.base_url | safe }}#kontakt"
       }
     ]
   }

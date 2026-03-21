@@ -32,6 +32,7 @@ jobs:
       - name: Update base URL for GitHub Pages
         run: |
           sed -i 's|base_url = "https://korczis.gitlab.io/u-tygra"|base_url = "https://korczis.github.io/u-tygra"|g' zola.toml
+          sed -i 's|korczis.gitlab.io/u-tygra|korczis.github.io/u-tygra|g' static/robots.txt
 
       - name: Build with Zola
         run: |
