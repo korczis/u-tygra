@@ -961,16 +961,20 @@ function app() {
       await this.refreshBeerData();
 
       // Kiosk mode setup - create dedicated fullscreen UI
+      // See .aiad/doctrine/kiosk-fortress.doctrine.md
       if (this.kioskMode) {
         document.body.classList.add('kiosk-mode');
         document.documentElement.classList.add('kiosk-mode');
         this.createKioskUI();
+        this.initKioskFortress();
         charlie.trackPWAEngagement('kiosk_mode_activated');
-        // Auto-refresh data every 2 minutes in kiosk mode
+        // Auto-refresh data every 90 seconds in kiosk mode (GT doctrine: 120s max staleness)
+        this._lastDataRefresh = Date.now();
         setInterval(async () => {
           await this.refreshBeerData();
+          this._lastDataRefresh = Date.now();
           this.updateKioskUI();
-        }, 120000);
+        }, 90000);
         return; // Skip normal initialization in kiosk mode
       }
 
@@ -1094,6 +1098,32 @@ function app() {
       content.id = 'kiosk-content';
       container.appendChild(content);
 
+      // Footer with clock and staleness (static content only, no user input)
+      const footer = document.createElement('div');
+      footer.className = 'kiosk-footer';
+
+      const footerLeft = document.createElement('div');
+      footerLeft.className = 'kiosk-footer-left';
+      footerLeft.textContent = 'Pivnice U Tygra \u2022 Brno';
+
+      const footerCenter = document.createElement('div');
+      footerCenter.className = 'kiosk-footer-center';
+      footerCenter.id = 'kiosk-staleness';
+      footerCenter.textContent = 'Aktu\u00e1ln\u00ed';
+
+      const footerRight = document.createElement('div');
+      footerRight.className = 'kiosk-footer-right';
+      const clock = document.createElement('span');
+      clock.className = 'kiosk-clock';
+      clock.id = 'kiosk-clock';
+      clock.textContent = new Date().toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' });
+      footerRight.appendChild(clock);
+
+      footer.appendChild(footerLeft);
+      footer.appendChild(footerCenter);
+      footer.appendChild(footerRight);
+      container.appendChild(footer);
+
       document.body.appendChild(container);
 
       // Add event listener for toggle
@@ -1165,6 +1195,114 @@ function app() {
           `).join('')}
         </div>
       `;
+    },
+
+    /**
+     * Kiosk Fortress - Security, self-healing, and display optimization
+     * Per .aiad/doctrine/kiosk-fortress.doctrine.md
+     */
+    initKioskFortress() {
+      // 1. Interaction lockdown
+      document.addEventListener('contextmenu', e => e.preventDefault());
+      document.addEventListener('selectstart', e => e.preventDefault());
+      document.addEventListener('dragstart', e => e.preventDefault());
+      document.addEventListener('keydown', e => {
+        // Allow F5 for staff manual refresh only
+        if (e.key !== 'F5') e.preventDefault();
+      });
+      document.addEventListener('touchstart', e => {
+        if (e.touches.length > 1) e.preventDefault();
+      }, { passive: false });
+
+      // 2. Wake Lock API - prevent display sleep
+      this._requestWakeLock();
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') this._requestWakeLock();
+      });
+
+      // 3. Anti-burn-in pixel shift (2px every 5 minutes)
+      setInterval(() => {
+        const shiftX = Math.sin(Date.now() / 300000) * 2;
+        const shiftY = Math.cos(Date.now() / 300000) * 2;
+        const container = document.getElementById('kiosk-container');
+        if (container) container.style.transform = `translate(${shiftX}px, ${shiftY}px)`;
+      }, 60000);
+
+      // 4. Clock update every minute
+      this._updateKioskClock();
+      setInterval(() => this._updateKioskClock(), 60000);
+
+      // 5. Staleness indicator update
+      setInterval(() => this._updateStalenessIndicator(), 30000);
+
+      // 6. Memory watchdog - reload if heap exceeds 200MB
+      if (performance.memory) {
+        setInterval(() => {
+          if (performance.memory.usedJSHeapSize > 200 * 1024 * 1024) {
+            location.reload();
+          }
+        }, 60000);
+      }
+
+      // 7. Full page reload every 6 hours for memory hygiene
+      setTimeout(() => location.reload(), 6 * 60 * 60 * 1000);
+
+      // 8. Global error boundary - log and continue
+      window.addEventListener('error', (e) => {
+        console.error('Kiosk error caught:', e.message);
+      });
+      window.addEventListener('unhandledrejection', (e) => {
+        console.error('Kiosk promise rejection:', e.reason);
+        e.preventDefault();
+      });
+
+      // 9. Network monitoring with visual feedback
+      window.addEventListener('online', () => this._updateStalenessIndicator());
+      window.addEventListener('offline', () => this._updateStalenessIndicator());
+    },
+
+    async _requestWakeLock() {
+      try {
+        if ('wakeLock' in navigator) {
+          this._wakeLock = await navigator.wakeLock.request('screen');
+          this._wakeLock.addEventListener('release', () => {
+            setTimeout(() => this._requestWakeLock(), 1000);
+          });
+        }
+      } catch (e) {
+        // Wake Lock not supported or permission denied
+      }
+    },
+
+    _updateKioskClock() {
+      const el = document.getElementById('kiosk-clock');
+      if (el) {
+        const now = new Date();
+        el.textContent = now.toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' });
+      }
+    },
+
+    _updateStalenessIndicator() {
+      const el = document.getElementById('kiosk-staleness');
+      if (!el) return;
+
+      if (!navigator.onLine) {
+        el.textContent = 'Offline';
+        el.className = 'kiosk-staleness offline';
+        return;
+      }
+
+      const age = Date.now() - (this._lastDataRefresh || Date.now());
+      const ageSec = Math.floor(age / 1000);
+
+      if (ageSec < 120) {
+        el.textContent = 'Aktualni';
+        el.className = 'kiosk-staleness';
+      } else {
+        const ageMin = Math.floor(ageSec / 60);
+        el.textContent = `Pred ${ageMin} min`;
+        el.className = 'kiosk-staleness stale';
+      }
     },
 
     async refreshBeerData() {

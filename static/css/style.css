@@ -473,14 +473,62 @@ body.kiosk-mode .foam-border::before {
 }
 
 /* Footer */
-#kiosk-container::after {
-  content: 'Pivnice U Tygra • Brno';
-  position: fixed;
-  bottom: 1vh;
-  right: 2vw;
+#kiosk-container .kiosk-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1.5vh;
+  border-top: 1px solid rgba(240, 140, 15, 0.15);
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
+#kiosk-container .kiosk-footer-left {
+  font-size: clamp(0.9rem, 1.5vw, 1.25rem);
+  color: #b8a882;
+  font-weight: 600;
+}
+
+#kiosk-container .kiosk-footer-center {
+  font-size: clamp(0.8rem, 1.25vw, 1rem);
+  color: rgba(149, 135, 87, 0.6);
+}
+
+#kiosk-container .kiosk-footer-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+#kiosk-container .kiosk-clock {
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 700;
+  color: #f0e6d0;
+  font-variant-numeric: tabular-nums;
+}
+
+#kiosk-container .kiosk-staleness {
   font-size: clamp(0.7rem, 1vw, 0.9rem);
-  color: rgba(149, 135, 87, 0.4);
-  pointer-events: none;
+  color: rgba(149, 135, 87, 0.5);
+}
+
+#kiosk-container .kiosk-staleness.stale {
+  color: #f59e0b;
+}
+
+#kiosk-container .kiosk-staleness.offline {
+  color: #f87171;
+}
+
+/* Kiosk interaction lockdown */
+body.kiosk-mode {
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  cursor: none !important;
+}
+
+body.kiosk-mode * {
+  cursor: none !important;
 }
 
 /* ═══════ LARGE SCREEN / TV OPTIMIZATION (32"+, 1920px+) ═══════ */
