@@ -1102,11 +1102,9 @@ function onGlossaryReady(cb) {
 
   // Data pools
   var wisdoms = [];
-  var wisdomIdx = 0;
   var promos = (typeof KIOSK_PROMOS !== 'undefined') ? KIOSK_PROMOS : [
     'korczis@gmail.com \u2022 linkedin.com/in/korcaktomas \u2022 S laskou vyrobil Tomas Korcak'
   ];
-  var promoIdx = 0;
 
   // Init: show default text
   el.textContent = defaultText;
@@ -1198,9 +1196,8 @@ function onGlossaryReady(cb) {
 
   function triggerWisdom() {
     if (wisdoms.length === 0) { scheduleNextWisdom(); return; }
-    var text = wisdoms[wisdomIdx % wisdoms.length];
-    wisdomIdx++;
-    scrollMessage(text, 'ticker-wisdom', scheduleNextWisdom);
+    var idx = Math.floor(Math.random() * wisdoms.length);
+    scrollMessage(wisdoms[idx], 'ticker-wisdom', scheduleNextWisdom);
   }
 
   // Load wisdoms from glossary
@@ -1218,9 +1215,8 @@ function onGlossaryReady(cb) {
 
   // === Promo scheduling: at :00, :15, :30, :45 ===
   function triggerPromo() {
-    var text = promos[promoIdx % promos.length];
-    promoIdx++;
-    scrollMessage(text, 'ticker-promo');
+    var idx = Math.floor(Math.random() * promos.length);
+    scrollMessage(promos[idx], 'ticker-promo');
   }
 
   function schedulePromo() {
