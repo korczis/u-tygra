@@ -107,10 +107,8 @@ body {
 
 .table-wrap {
   flex: 1;
-  overflow: hidden;
+  overflow: visible;
   padding: 0 1.5vw;
-  display: flex;
-  flex-direction: column;
 }
 
 table {
@@ -531,18 +529,29 @@ function fitToScreen(beerCount) {
   // Calculate available height for table body
   var announcement = document.getElementById('announcement');
   var thead = document.querySelector('thead');
+  var tableWrap = document.querySelector('.table-wrap');
 
   var usedHeight = 0;
   if (announcement && announcement.style.display !== 'none') usedHeight += announcement.offsetHeight;
   if (thead) usedHeight += thead.offsetHeight;
 
-  var availableHeight = window.innerHeight - usedHeight;
+  // Use exact available height, no rounding down (prevents last row cutoff)
+  var availableHeight = window.innerHeight - usedHeight - 4; // 4px safety margin
   if (beerCount > 0 && availableHeight > 0) {
-    var rowHeight = Math.floor(availableHeight / beerCount);
+    var rowHeight = availableHeight / beerCount;
     var rows = document.querySelectorAll('tbody tr');
     var i;
     for (i = 0; i < rows.length; i++) {
-      rows[i].style.height = rowHeight + 'px';
+      rows[i].style.height = Math.floor(rowHeight) + 'px';
+      rows[i].style.maxHeight = Math.floor(rowHeight) + 'px';
+      rows[i].style.overflow = 'hidden';
+    }
+
+    // Set table-wrap to exact remaining height
+    if (tableWrap) {
+      tableWrap.style.height = (availableHeight + thead.offsetHeight) + 'px';
+      tableWrap.style.maxHeight = tableWrap.style.height;
+      tableWrap.style.overflow = 'hidden';
     }
 
     // Scale ALL font sizes based on row height
