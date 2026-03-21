@@ -15,7 +15,7 @@
   <title>{% block title %}{{ config.title }}{% endblock %} | {{ config.extra.tagline }}</title>
   <meta name="title" content="{% block meta_title %}{{ config.title }} | {{ config.extra.tagline }}{% endblock %}">
   <meta name="description" content="{% block meta_description %}{{ config.description }}{% endblock %}">
-  <meta name="keywords" content="pivnice, pivo, Brno, Budvar, řemeslná piva, hospoda, Lužánky, craft beer, bar, pub, česká kuchyně, chlebíčky, salonek, oslavy">
+  <meta name="keywords" content="pivnice, pivo, Brno, Budvar, řemeslná piva, hospoda, Lužánky, craft beer, bar, pub, česká kuchyně, chlebíčky, salónek, oslavy">
   <meta name="author" content="{{ config.extra.business_name }}">
   <meta name="robots" content="index, follow">
   <meta name="googlebot" content="index, follow">
@@ -72,7 +72,7 @@
     "@type": "BarOrPub",
     "@id": "{{ config.base_url }}/#bar",
     "name": "{{ config.extra.business_name }}",
-    "description": "{{ config.extra.tagline }}. Budvar a řemeslná piva v centru Brna u parku Lužánky. Studená i teplá kuchyně, privátní salonek pro oslavy.",
+    "description": "{{ config.extra.tagline }}. Budvar a řemeslná piva v centru Brna u parku Lužánky. Studená i teplá kuchyně, privátní salónek pro oslavy.",
     "url": "{{ config.base_url }}",
     "telephone": "{{ config.extra.phone_bar }}",
     "image": [
@@ -111,7 +111,7 @@
     },
     "acceptsReservations": "True",
     "amenityFeature": [
-      {"@type": "LocationFeatureSpecification", "name": "Privátní salonek", "value": true},
+      {"@type": "LocationFeatureSpecification", "name": "Privátní salónek", "value": true},
       {"@type": "LocationFeatureSpecification", "name": "Projektor", "value": true},
       {"@type": "LocationFeatureSpecification", "name": "Klimatizace", "value": true},
       {"@type": "LocationFeatureSpecification", "name": "Venkovní zahrádka", "value": true}
@@ -195,7 +195,7 @@
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "Salonek",
+        "name": "Salónek",
         "item": "{{ config.base_url }}#salonek"
       },
       {

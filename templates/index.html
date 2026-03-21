@@ -479,16 +479,16 @@
     <!-- Salonek gallery -->
     <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-10">
       <div class="relative aspect-[4/3] rounded-lg overflow-hidden group">
-        <img src="{{ get_url(path='img/gallery/salonek-2.jpg') }}" alt="Salonek - hlavní prostor" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+        <img src="{{ get_url(path='img/gallery/salonek-2.jpg') }}" alt="Salónek - hlavní prostor" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
       </div>
       <div class="relative aspect-[4/3] rounded-lg overflow-hidden group">
-        <img src="{{ get_url(path='img/gallery/salonek-fireplace.jpg') }}" alt="Salonek - krb a projektor" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+        <img src="{{ get_url(path='img/gallery/salonek-fireplace.jpg') }}" alt="Salónek - krb a projektor" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
       </div>
       <div class="relative aspect-[4/3] rounded-lg overflow-hidden group">
-        <img src="{{ get_url(path='img/gallery/salonek-4.jpg') }}" alt="Salonek - cihlové zdi" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+        <img src="{{ get_url(path='img/gallery/salonek-4.jpg') }}" alt="Salónek - cihlové zdi" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
       </div>
       <div class="relative aspect-[4/3] rounded-lg overflow-hidden group">
-        <img src="{{ get_url(path='img/gallery/salonek-3.jpg') }}" alt="Salonek - sezení" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
+        <img src="{{ get_url(path='img/gallery/salonek-3.jpg') }}" alt="Salónek - sezení" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy">
       </div>
     </div>
 
@@ -750,9 +750,9 @@
         <h4 class="text-white font-semibold mb-4 text-sm">Provozovatel</h4>
         <div class="space-y-1.5 text-sm text-brew-400">
           <p>{{ config.extra.company }}</p>
-          <p>ICO: {{ config.extra.ico }}</p>
+          <p>IČO: {{ config.extra.ico }}</p>
           <p>{{ config.extra.bank }}</p>
-          <p>Ucet: {{ config.extra.account }}</p>
+          <p>Účet: {{ config.extra.account }}</p>
         </div>
       </div>
     </div>
@@ -762,7 +762,7 @@
         &copy; <span x-text="new Date().getFullYear()"></span> {{ config.extra.business_name }}
       </p>
       <div class="flex items-center gap-3 text-brew-800 text-xs">
-        <a href="{{ get_url(path='ochrana-udaju') }}" class="hover:text-tiger-400 transition-colors">Ochrana udaju</a>
+        <a href="{{ get_url(path='ochrana-udaju') }}" class="hover:text-tiger-400 transition-colors">Ochrana údajů</a>
         <span class="w-1 h-1 rounded-full bg-brew-800"></span>
         <span>Zola</span>
         <span class="w-1 h-1 rounded-full bg-brew-800"></span>

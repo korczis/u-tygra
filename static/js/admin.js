@@ -29,12 +29,12 @@ function adminApp() {
     uploading: false,
     photoCategoryFilter: 'all',
     photoCategories: [
-      { id: 'all', label: 'Vse' },
-      { id: 'interior', label: 'Interior' },
+      { id: 'all', label: 'Vše' },
+      { id: 'interior', label: 'Interiér' },
       { id: 'beer', label: 'Pivo' },
-      { id: 'food', label: 'Jidlo' },
+      { id: 'food', label: 'Jídlo' },
       { id: 'events', label: 'Akce' },
-      { id: 'salonek', label: 'Salonek' },
+      { id: 'salonek', label: 'Salónek' },
     ],
 
     // Events
