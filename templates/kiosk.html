@@ -1186,18 +1186,64 @@ function onGlossaryReady(cb) {
     });
   }
 
-  // Click ticker to trigger wisdom
-  var tickerBar = document.getElementById('ticker-table');
-  if (tickerBar) {
-    tickerBar.style.cursor = 'pointer';
-    tickerBar.onclick = function() { showWisdom(); };
+  // === Self-promo: at :00, :15, :30, :45 or click on label ===
+  var promos = [
+    'Vyrobil korczis@gmail.com \u2022 linkedin.com/in/korcaktomas \u2022 Full-stack architect, pivni nadsenec a digitalni inovetor',
+    'korczis@gmail.com \u2022 linkedin.com/in/korcaktomas \u2022 Od kodu k cepu \u2014 technologie v sluzbach remeslneho piva',
+    'Tomas Korcak \u2022 korczis@gmail.com \u2022 Architekt systemu, co nikdy nespi \u2014 vcetne pivni tabule',
+    'linkedin.com/in/korcaktomas \u2022 korczis@gmail.com \u2022 Kdo postavi web pivnici? Ten, kdo ji taky navstevuje.',
+    'korczis@gmail.com \u2022 linkedin.com/in/korcaktomas \u2022 401 pivnich pojmu, 6 piv na cepu, 1 frajer za kodem',
+    'S laskou vyrobil Tomas Korcak \u2022 korczis@gmail.com \u2022 Digitalni pivo z Brna do sveta',
+    'korczis@gmail.com \u2022 linkedin.com/in/korcaktomas \u2022 Zola + Alpine.js + Claude = tato tabule',
+    'Tomas Korcak \u2022 korczis@gmail.com \u2022 Pivo je dobre, ale kod je lepsi. Nebo naopak?',
+  ];
+  var promoIdx = 0;
+
+  function showPromo() {
+    var text = promos[promoIdx % promos.length];
+    promoIdx++;
+    showWisdomText(text);
+  }
+
+  // Schedule at :00, :15, :30, :45
+  function schedulePromo() {
+    var now = new Date();
+    var min = now.getMinutes();
+    var sec = now.getSeconds();
+    // Next quarter: 0, 15, 30, 45
+    var nextQuarter = (Math.floor(min / 15) + 1) * 15;
+    var msUntil = ((nextQuarter - min) * 60 - sec) * 1000;
+    if (msUntil <= 0) msUntil += 15 * 60 * 1000;
+    setTimeout(function() {
+      showPromo();
+      // Repeat every 15 min
+      setInterval(showPromo, 15 * 60 * 1000);
+    }, msUntil);
+  }
+  schedulePromo();
+
+  // Click label to trigger promo
+  var tickerLabel = document.querySelector('.ticker-label');
+  if (tickerLabel) {
+    tickerLabel.style.cursor = 'pointer';
+    tickerLabel.onclick = function(e) {
+      e.stopPropagation();
+      showPromo();
+    };
+  }
+
+  // Click content to trigger wisdom
+  var tickerContent = document.querySelector('.ticker-content');
+  if (tickerContent) {
+    tickerContent.style.cursor = 'pointer';
+    tickerContent.onclick = function() { showWisdom(); };
   }
 
   // Console API for ticker
   window.ticker = {
     showWisdom: function() { showWisdom(); return 'Triggering wisdom...'; },
+    showPromo: function() { showPromo(); return 'Triggering promo...'; },
     scrollText: function(text) { showWisdomText(text || 'Test ticker text'); return 'Scrolling...'; },
-    setSpeed: function(px) { /* exposed for next iteration */ return 'Speed: ' + px + 'px/s'; },
     setInterval: function(sec) { WISDOM_INTERVAL = sec * 1000; return 'Ticker interval: ' + sec + 's'; },
     listWisdoms: function() {
       for (var i = 0; i < Math.min(wisdoms.length, 20); i++) {
@@ -1205,11 +1251,19 @@ function onGlossaryReady(cb) {
       }
       return wisdoms.length + ' wisdoms loaded';
     },
+    listPromos: function() {
+      for (var i = 0; i < promos.length; i++) {
+        console.log(i + ': ' + promos[i]);
+      }
+      return promos.length + ' promos';
+    },
     help: function() {
-      console.log('ticker.showWisdom()         — trigger next wisdom now');
-      console.log('ticker.scrollText("text")   — scroll custom text');
-      console.log('ticker.setInterval(30)      — set interval in seconds');
-      console.log('ticker.listWisdoms()        — list loaded wisdoms');
+      console.log('ticker.showWisdom()         \u2014 trigger wisdom now');
+      console.log('ticker.showPromo()          \u2014 trigger self-promo now');
+      console.log('ticker.scrollText("text")   \u2014 scroll custom text');
+      console.log('ticker.setInterval(30)      \u2014 set wisdom interval (sec)');
+      console.log('ticker.listWisdoms()        \u2014 list wisdoms');
+      console.log('ticker.listPromos()         \u2014 list promos');
       return 'Ticker API';
     }
   };
