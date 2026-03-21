@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
   <!-- Security Headers -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.tailwindcss.com cdn.jsdelivr.net www.googletagmanager.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdn.tailwindcss.com cdn.jsdelivr.net; font-src 'self' fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' docs.google.com *.googleusercontent.com *.google-analytics.com www.google.com www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self';">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.tailwindcss.com cdn.jsdelivr.net www.googletagmanager.com; style-src 'self' 'unsafe-inline' fonts.googleapis.com cdn.tailwindcss.com cdn.jsdelivr.net; font-src 'self' fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' docs.google.com *.googleusercontent.com region1.google-analytics.com www.google-analytics.com www.google.com www.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self';">
   <!-- X-Frame-Options removed: only works as HTTP header, not meta tag -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
@@ -239,7 +239,6 @@
   <link rel="preload" as="image" href="{{ get_url(path='img/logo.svg') }}" fetchpriority="high">
   <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/alpinejs@3.15.8/dist/cdn.min.js">
   <link rel="preload" as="script" href="{{ get_url(path='js/app.js') }}">
-  <link rel="preload" as="script" href="{{ get_url(path='js/csv-worker.js') }}">
 
   <!-- Prefetch likely user interactions -->
   <link rel="prefetch" href="{{ get_url(path='img/gallery/interior-main.jpg') }}">
@@ -410,8 +409,8 @@
   <!-- Performance monitoring (non-blocking) -->
   <script src="{{ get_url(path='js/performance.js') }}" async></script>
 
-  <!-- Performance testing (can be disabled by removing this script) -->
-  <script src="{{ get_url(path='js/performance-test.js') }}" async></script>
+  <!-- Performance testing (ES module with export) -->
+  <script type="module" src="{{ get_url(path='js/performance-test.js') }}"></script>
 
   <!-- Charlie Squad Analytics Dashboard (load after main app) -->
   <script src="{{ get_url(path='js/charlie-dashboard.js') }}" defer></script>
