@@ -329,47 +329,49 @@ tbody tr:nth-child(odd) .td-num {
 }
 
 .glossary-card .gc-label {
-  font-size: 1.8vmin;
-  font-weight: 700;
+  font-size: 1.6vmin;
+  font-weight: 600;
   color: #3d2a0e;
   text-transform: uppercase;
-  letter-spacing: 0.3em;
-  margin-bottom: 4vh;
+  letter-spacing: 0.4em;
+  margin-bottom: 5vh;
 }
 
 .glossary-card .gc-title {
-  font-size: 9vmin;
+  font-size: 10vmin;
   font-weight: 800;
   color: #fff;
-  line-height: 1.05;
-  margin-bottom: 1.5vh;
-  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 2vh;
+  letter-spacing: -0.03em;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .glossary-card .gc-en {
-  font-size: 3vmin;
-  font-weight: 400;
+  font-size: 2.8vmin;
+  font-weight: 300;
   color: #f08c0f;
-  margin-bottom: 5vh;
+  margin-bottom: 0;
   font-style: italic;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
+  opacity: 0.8;
 }
 
 .glossary-card .gc-line {
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #f08c0f, transparent);
-  margin: 0 auto 5vh;
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #f08c0f 30%, #f08c0f 70%, transparent);
+  margin: 5vh auto;
 }
 
 .glossary-card .gc-desc {
-  font-size: 3.2vmin;
-  font-weight: 400;
-  color: #958757;
-  line-height: 1.7;
-  max-width: 55vw;
+  font-size: 3vmin;
+  font-weight: 300;
+  color: #b9af89;
+  line-height: 1.8;
+  max-width: 50vw;
   margin: 0 auto;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.015em;
 }
 </style>
 </head>
@@ -755,20 +757,25 @@ window.onresize = function() {
   if (rows.length > 0) fitToScreen(rows.length);
 };
 
-// === Dynamic mode: ?dynamic=true ===
-// Shows a random glossary term every 5 minutes with crossfade
+// === Dynamic glossary overlay ===
+// On by default. Disable with ?dynamic=false
+// Params: ?interval=5 (minutes), ?duration=15 (seconds)
+// Console: kiosk.showTerm(), kiosk.showTerm(3), kiosk.nextTerm()
 (function() {
   var params = new URLSearchParams(window.location.search);
-  if (params.get('dynamic') !== 'true') return;
+  if (params.get('dynamic') === 'false') return;
 
   var glossaryTerms = [];
   var overlay = document.getElementById('glossary-overlay');
   var elTitle = document.getElementById('gc-title');
   var elEn = document.getElementById('gc-en');
   var elDesc = document.getElementById('gc-desc');
-  var INTERVAL = (parseInt(params.get('interval'), 10) || 5) * 60 * 1000;
-  var DISPLAY = (parseInt(params.get('duration'), 10) || 12) * 1000;
+  var intervalMin = parseInt(params.get('interval'), 10) || 5;
+  var durationSec = parseInt(params.get('duration'), 10) || 15;
+  var INTERVAL = intervalMin * 60 * 1000;
+  var DISPLAY = durationSec * 1000;
   var lastIdx = -1;
+  var timer = null;
 
   // Load glossary data
   var basePath = window.location.pathname.replace(/\/kiosk\/?$/, '');
@@ -779,22 +786,21 @@ window.onresize = function() {
     try {
       glossaryTerms = JSON.parse(xhr.responseText);
       if (glossaryTerms.length > 0) {
-        setTimeout(showRandomTerm, INTERVAL);
+        timer = setTimeout(showRandomTerm, INTERVAL);
       }
-    } catch (e) {
-      // silently ignore
-    }
+    } catch (e) { /* silent */ }
   };
   xhr.send();
 
-  function showRandomTerm() {
+  function showTerm(idx) {
     if (glossaryTerms.length === 0) return;
-
-    // Pick random term (avoid repeating)
-    var idx = lastIdx;
-    while (idx === lastIdx && glossaryTerms.length > 1) {
-      idx = Math.floor(Math.random() * glossaryTerms.length);
+    if (typeof idx !== 'number') {
+      idx = lastIdx;
+      while (idx === lastIdx && glossaryTerms.length > 1) {
+        idx = Math.floor(Math.random() * glossaryTerms.length);
+      }
     }
+    idx = Math.max(0, Math.min(idx, glossaryTerms.length - 1));
     lastIdx = idx;
 
     var term = glossaryTerms[idx];
@@ -803,17 +809,49 @@ window.onresize = function() {
     elEn.style.display = term.en ? '' : 'none';
     elDesc.textContent = term.desc;
 
-    // Fade in
     overlay.classList.add('visible');
 
-    // Fade out after DISPLAY ms
+    if (timer) clearTimeout(timer);
     setTimeout(function() {
       overlay.classList.remove('visible');
     }, DISPLAY);
+    timer = setTimeout(showRandomTerm, INTERVAL);
 
-    // Schedule next
-    setTimeout(showRandomTerm, INTERVAL);
+    return term.title + (term.en ? ' (' + term.en + ')' : '');
   }
+
+  function showRandomTerm() {
+    showTerm();
+  }
+
+  // Console API
+  window.kiosk = {
+    showTerm: function(idx) { return showTerm(idx); },
+    nextTerm: function() { return showTerm(); },
+    listTerms: function() {
+      glossaryTerms.forEach(function(t, i) {
+        console.log(i + ': ' + t.title + (t.en ? ' (' + t.en + ')' : ''));
+      });
+      return glossaryTerms.length + ' terms';
+    },
+    setInterval: function(min) {
+      INTERVAL = min * 60 * 1000;
+      return 'Interval: ' + min + ' min';
+    },
+    setDuration: function(sec) {
+      DISPLAY = sec * 1000;
+      return 'Duration: ' + sec + 's';
+    },
+    help: function() {
+      console.log('kiosk.showTerm()     — show random term now');
+      console.log('kiosk.showTerm(5)    — show term #5');
+      console.log('kiosk.nextTerm()     — alias for showTerm()');
+      console.log('kiosk.listTerms()    — list all terms');
+      console.log('kiosk.setInterval(3) — set interval to 3 min');
+      console.log('kiosk.setDuration(20)— set display to 20s');
+      return 'Kiosk dynamic mode';
+    }
+  };
 })();
 </script>
 
