@@ -353,52 +353,11 @@
       </p>
     </div>
 
-    <!-- Pivni styly - compact tag cloud -->
-    <div class="mt-14" x-data="{ openStyle: null }">
-      <h3 class="text-sm font-semibold text-brew-300 mb-4 flex items-center gap-3 uppercase tracking-wider">
-        <span class="w-6 h-px bg-tiger-500/50"></span>
-        Pivní styly
-      </h3>
-      <div class="flex flex-wrap gap-2 mb-3">
-        <template x-for="style in beerStyles" :key="style.id">
-          <button @click="openStyle = openStyle === style.id ? null : style.id"
-                  :id="'styl-' + style.id"
-                  :aria-expanded="openStyle === style.id"
-                  :aria-controls="'styl-detail-' + style.id"
-                  class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
-                  :class="openStyle === style.id ? 'bg-tiger-500/20 text-tiger-300 ring-1 ring-tiger-500/30' : 'glass text-brew-300 hover:text-white hover:bg-white/5'">
-            <span class="w-2 h-2 rounded-full" :style="`background: ${style.color}`"></span>
-            <span x-text="style.name"></span>
-          </button>
-        </template>
-      </div>
-      <template x-for="style in beerStyles" :key="'d-' + style.id">
-        <div x-show="openStyle === style.id" x-transition :id="'styl-detail-' + style.id" role="region" :aria-labelledby="'styl-' + style.id" class="glass rounded-lg px-5 py-4 mb-2">
-          <div class="flex items-baseline gap-2 mb-2">
-            <span class="text-white font-semibold" x-text="style.name"></span>
-            <span class="text-brew-500 text-xs" x-text="style.nameEn"></span>
-          </div>
-          <p class="text-brew-300 text-sm leading-relaxed mb-3" x-text="style.desc"></p>
-          <div class="flex flex-wrap gap-4 text-xs text-brew-500">
-            <span><a href="{{ get_url(path='glosar') }}#abv" class="hover:text-tiger-400 transition-colors">ABV</a>: <span class="text-brew-300" x-text="style.abv"></span></span>
-            <span><a href="{{ get_url(path='glosar') }}#ibu" class="hover:text-tiger-400 transition-colors">IBU</a>: <span class="text-brew-300" x-text="style.ibu"></span></span>
-            <span><a href="{{ get_url(path='glosar') }}#ebc" class="hover:text-tiger-400 transition-colors">EBC</a>: <span class="text-brew-300" x-text="style.ebc"></span></span>
-            <span>Barva: <span class="text-brew-300" x-text="style.barva"></span></span>
-          </div>
-          <div class="mt-2 flex flex-wrap gap-4 text-xs text-brew-500" x-show="style.temp">
-            <span>Teplota: <span class="text-brew-300" x-text="style.temp"></span></span>
-            <span>Sklenice: <span class="text-brew-300" x-text="style.glass"></span></span>
-          </div>
-          <div class="mt-1.5 text-xs text-brew-500" x-show="style.pairing">
-            K jídlu: <span class="text-brew-300" x-text="style.pairing"></span>
-          </div>
-          <div class="mt-2 flex flex-wrap gap-1.5">
-            <template x-for="ex in style.examples" :key="ex">
-              <span class="text-xs px-2 py-0.5 rounded bg-brew-800/50 text-brew-400" x-text="ex"></span>
-            </template>
-          </div>
-        </div>
-      </template>
+    <!-- Link to glossary -->
+    <div class="mt-8 text-center">
+      <a href="{{ get_url(path='glosar') }}" class="inline-flex items-center gap-2 px-5 py-2.5 glass rounded-lg text-brew-300 hover:text-tiger-400 text-sm font-medium transition-all hover:bg-white/5">
+        Pivní styly a glosář &rarr;
+      </a>
     </div>
 
   </div>
