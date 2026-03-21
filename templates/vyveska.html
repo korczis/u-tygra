@@ -4,7 +4,66 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Na čepu — Pivnice U Tygra</title>
+<meta name="description" content="Aktuální nabídka čepovaných piv v Pivnici U Tygra, Brno. Živě synchronizováno z čepu — craft, ležáky, speciály.">
+<meta name="author" content="Pivnice U Tygra">
 <meta name="robots" content="noindex">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ page.permalink }}">
+<meta property="og:title" content="Na čepu — Pivnice U Tygra">
+<meta property="og:description" content="Aktuální nabídka čepovaných piv. Budvar, řemeslná piva a speciály — živě z čepu v Brně u Lužánek.">
+<meta property="og:image" content="{{ get_url(path='img/gallery/beer-taps.jpg') }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Pivní kohouty v Pivnici U Tygra">
+<meta property="og:locale" content="cs_CZ">
+<meta property="og:site_name" content="Pivnice U Tygra">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="{{ page.permalink }}">
+<meta name="twitter:title" content="Na čepu — Pivnice U Tygra">
+<meta name="twitter:description" content="Aktuální nabídka čepovaných piv. Budvar, řemeslná piva a speciály — živě z čepu.">
+<meta name="twitter:image" content="{{ get_url(path='img/gallery/beer-taps.jpg') }}">
+<meta name="twitter:image:alt" content="Pivní kohouty v Pivnici U Tygra">
+
+<!-- Apple/PWA -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Na čepu">
+<meta name="theme-color" content="#0a0704">
+<link rel="icon" type="image/svg+xml" href="{{ get_url(path='img/logo.svg') }}">
+<link rel="apple-touch-icon" href="{{ get_url(path='img/apple-touch-icon.png') }}">
+
+<!-- Schema.org -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Menu",
+  "name": "Nápojový lístek — Na čepu",
+  "description": "Aktuální nabídka čepovaných piv v Pivnici U Tygra",
+  "inLanguage": "cs",
+  "url": "{{ page.permalink }}",
+  "hasMenuSection": {
+    "@type": "MenuSection",
+    "name": "Čepovaná piva",
+    "description": "Živě aktualizovaná nabídka z čepu"
+  },
+  "mainEntityOfPage": {
+    "@type": "BarOrPub",
+    "name": "Pivnice U Tygra",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{{ config.extra.address }}",
+      "addressLocality": "{{ config.extra.city }}",
+      "postalCode": "{{ config.extra.zip }}",
+      "addressCountry": "CZ"
+    },
+    "telephone": "{{ config.extra.phone_bar }}"
+  }
+}
+</script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
