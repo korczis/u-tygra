@@ -1,0 +1,408 @@
+{% extends "base.html" %}
+
+{% block head %}
+<style>
+  /* Kiosk page — typography-first, zero decoration */
+  .kiosk-page {
+    position: fixed;
+    inset: 0;
+    background: #0a0704;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Hide everything from base.html except our content */
+  .kiosk-page ~ *:not(script):not(noscript) { display: none !important; }
+
+  .kiosk-page .kp-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 2.5vh 3.5vw 2vh;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    flex-shrink: 0;
+  }
+
+  .kiosk-page .kp-brand {
+    font-size: clamp(1.5rem, 3vw, 2.5rem);
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+
+  .kiosk-page .kp-status {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .kiosk-page .kp-live {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: clamp(0.75rem, 1.2vw, 1rem);
+    font-weight: 600;
+    color: #22c55e;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .kp-live-dot {
+    width: 8px;
+    height: 8px;
+    background: #22c55e;
+    border-radius: 50%;
+    animation: kp-pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes kp-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .kiosk-page .kp-clock {
+    font-size: clamp(1rem, 1.8vw, 1.5rem);
+    font-weight: 700;
+    color: rgba(255,255,255,0.5);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Announcement */
+  .kiosk-page .kp-announcement {
+    padding: 1.5vh 3.5vw;
+    font-size: clamp(1rem, 1.8vw, 1.5rem);
+    font-weight: 600;
+    color: #f7c46d;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    flex-shrink: 0;
+  }
+
+  /* Table */
+  .kiosk-page .kp-table {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 3.5vw;
+    scrollbar-width: none;
+  }
+  .kiosk-page .kp-table::-webkit-scrollbar { display: none; }
+
+  .kiosk-page table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .kiosk-page thead th {
+    position: sticky;
+    top: 0;
+    background: #0a0704;
+    padding: 2vh 0 1.5vh;
+    font-size: clamp(0.65rem, 1vw, 0.85rem);
+    font-weight: 600;
+    color: rgba(255,255,255,0.25);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    z-index: 1;
+  }
+
+  .kiosk-page thead th:last-child {
+    text-align: right;
+  }
+
+  .kiosk-page tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+
+  .kiosk-page tbody td {
+    padding: 2.2vh 0;
+    vertical-align: baseline;
+  }
+
+  /* Column: Beer name — largest, most prominent */
+  .kiosk-page .kp-name {
+    font-size: clamp(1.4rem, 2.8vw, 2.6rem);
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    padding-right: 2vw;
+  }
+
+  /* Column: Brewery */
+  .kiosk-page .kp-brewery {
+    font-size: clamp(1rem, 1.8vw, 1.6rem);
+    font-weight: 500;
+    color: #f08c0f;
+    padding-right: 2vw;
+    white-space: nowrap;
+  }
+
+  /* Column: Style */
+  .kiosk-page .kp-style {
+    font-size: clamp(0.85rem, 1.4vw, 1.3rem);
+    font-weight: 400;
+    color: rgba(255,255,255,0.35);
+    padding-right: 2vw;
+    white-space: nowrap;
+  }
+
+  /* Column: ABV */
+  .kiosk-page .kp-abv {
+    font-size: clamp(0.9rem, 1.5vw, 1.4rem);
+    font-weight: 500;
+    color: rgba(255,255,255,0.4);
+    font-variant-numeric: tabular-nums;
+    padding-right: 2vw;
+    white-space: nowrap;
+    text-align: center;
+  }
+
+  /* Column: Price — second most prominent */
+  .kiosk-page .kp-price {
+    font-size: clamp(1.4rem, 2.8vw, 2.6rem);
+    font-weight: 800;
+    color: #fff;
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .kiosk-page .kp-price-unit {
+    font-weight: 400;
+    font-size: 0.6em;
+    color: rgba(255,255,255,0.3);
+    margin-left: 0.15em;
+  }
+
+  /* Footer */
+  .kiosk-page .kp-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5vh 3.5vw;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    flex-shrink: 0;
+  }
+
+  .kiosk-page .kp-footer-text {
+    font-size: clamp(0.7rem, 1vw, 0.9rem);
+    color: rgba(255,255,255,0.2);
+    font-weight: 500;
+  }
+
+  .kp-staleness-fresh { color: rgba(34,197,94,0.5); }
+  .kp-staleness-stale { color: #f59e0b; }
+  .kp-staleness-offline { color: #ef4444; }
+
+  /* Loading skeleton */
+  .kp-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    color: rgba(255,255,255,0.15);
+    font-weight: 500;
+  }
+
+  /* Empty state */
+  .kp-empty {
+    text-align: center;
+    padding: 8vh 0;
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    color: rgba(255,255,255,0.15);
+  }
+
+  /* Large screen (32"+, 1920px+) */
+  @media (min-width: 1920px) {
+    .kiosk-page .kp-name { font-size: 2.8rem; }
+    .kiosk-page .kp-price { font-size: 2.8rem; }
+    .kiosk-page .kp-brewery { font-size: 1.7rem; }
+    .kiosk-page .kp-style { font-size: 1.4rem; }
+    .kiosk-page .kp-abv { font-size: 1.5rem; }
+    .kiosk-page thead th { font-size: 0.9rem; }
+    .kiosk-page tbody td { padding: 2.8vh 0; }
+  }
+
+  /* 4K (3840px+) */
+  @media (min-width: 3840px) {
+    .kiosk-page .kp-name { font-size: 3.5rem; }
+    .kiosk-page .kp-price { font-size: 3.5rem; }
+    .kiosk-page .kp-brewery { font-size: 2.2rem; }
+    .kiosk-page .kp-style { font-size: 1.8rem; }
+    .kiosk-page .kp-abv { font-size: 1.8rem; }
+    .kiosk-page thead th { font-size: 1.1rem; }
+    .kiosk-page tbody td { padding: 3.2vh 0; }
+  }
+
+  /* Kiosk lockdown */
+  .kiosk-page, .kiosk-page * {
+    user-select: none;
+    -webkit-user-select: none;
+    cursor: none;
+  }
+</style>
+{% endblock %}
+
+{% block body_tag %}<body class="bg-brew-950" x-data="kioskApp()" x-cloak>{% endblock %}
+
+{% block body %}
+<div class="kiosk-page">
+  <!-- Header -->
+  <div class="kp-header">
+    <div class="kp-brand">Na čepu</div>
+    <div class="kp-status">
+      <div class="kp-live">
+        <span class="kp-live-dot"></span>
+        <span x-text="liveBeers.length + ' piv'"></span>
+      </div>
+      <div class="kp-clock" x-text="clock"></div>
+    </div>
+  </div>
+
+  <!-- Announcement -->
+  <div class="kp-announcement" x-show="announcement" x-text="announcement" x-cloak></div>
+
+  <!-- Loading -->
+  <div class="kp-loading" x-show="loading">Na\u010d\u00edt\u00e1m...</div>
+
+  <!-- Table -->
+  <div class="kp-table" x-show="!loading">
+    <template x-if="liveBeers.length > 0">
+      <table>
+        <thead>
+          <tr>
+            <th>Pivo</th>
+            <th>Pivovar</th>
+            <th>Styl</th>
+            <th style="text-align:center">Alk</th>
+            <th>Cena</th>
+          </tr>
+        </thead>
+        <tbody>
+          <template x-for="(beer, i) in liveBeers" :key="i">
+            <tr>
+              <td class="kp-name" x-text="beer.nazev || ''"></td>
+              <td class="kp-brewery" x-text="beer.pivovar || ''"></td>
+              <td class="kp-style" x-text="beer.styl || ''"></td>
+              <td class="kp-abv" x-text="beer.abv || ''"></td>
+              <td class="kp-price">
+                <span x-text="beer.cena || ''"></span><span class="kp-price-unit" x-show="beer.cena">K\u010d</span>
+              </td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </template>
+    <div class="kp-empty" x-show="!loading && liveBeers.length === 0">
+      \u017d\u00e1dn\u00e1 piva na \u010depu
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="kp-footer">
+    <span class="kp-footer-text">Pivnice U Tygra &middot; Brno</span>
+    <span class="kp-footer-text" :class="stalenessClass" x-text="stalenessText"></span>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function kioskApp() {
+  return {
+    liveBeers: [],
+    announcement: '',
+    loading: true,
+    clock: '',
+    lastRefresh: null,
+    stalenessText: '',
+    stalenessClass: 'kp-staleness-fresh',
+
+    async init() {
+      // Use preloaded data if available
+      if (window.__BEER_DATA__) {
+        this.liveBeers = window.__BEER_DATA__.beers;
+        this.announcement = window.__BEER_DATA__.announcement;
+        this.lastRefresh = Date.now();
+        this.loading = false;
+      } else {
+        await this.refresh();
+      }
+
+      // Clock
+      this.updateClock();
+      setInterval(() => this.updateClock(), 30000);
+
+      // Auto-refresh every 90s
+      setInterval(() => this.refresh(), 90000);
+
+      // Staleness check every 30s
+      setInterval(() => this.updateStaleness(), 30000);
+
+      // Wake Lock
+      this.requestWakeLock();
+
+      // Block interactions
+      document.addEventListener('contextmenu', e => e.preventDefault());
+
+      // Hard reload every 6 hours
+      setTimeout(() => location.reload(), 6 * 60 * 60 * 1000);
+    },
+
+    async refresh() {
+      try {
+        const data = await fetchBeerData();
+        this.liveBeers = data.beers;
+        this.announcement = data.announcement;
+        this.lastRefresh = Date.now();
+        this.loading = false;
+        this.updateStaleness();
+      } catch (e) {
+        this.updateStaleness();
+      }
+    },
+
+    updateClock() {
+      const now = new Date();
+      this.clock = now.toLocaleTimeString('cs-CZ', { hour: '2-digit', minute: '2-digit' });
+    },
+
+    updateStaleness() {
+      if (!this.lastRefresh) {
+        this.stalenessText = 'Offline';
+        this.stalenessClass = 'kp-staleness-offline';
+        return;
+      }
+      const age = Math.round((Date.now() - this.lastRefresh) / 1000);
+      if (age < 120) {
+        this.stalenessText = 'Aktu\u00e1ln\u00ed';
+        this.stalenessClass = 'kp-staleness-fresh';
+      } else if (age < 300) {
+        this.stalenessText = 'P\u0159ed ' + Math.round(age / 60) + ' min';
+        this.stalenessClass = 'kp-staleness-stale';
+      } else {
+        this.stalenessText = 'Data mohou b\u00fdt zastaral\u00e1';
+        this.stalenessClass = 'kp-staleness-offline';
+      }
+    },
+
+    async requestWakeLock() {
+      try {
+        if ('wakeLock' in navigator) {
+          let lock = await navigator.wakeLock.request('screen');
+          document.addEventListener('visibilitychange', async () => {
+            if (document.visibilityState === 'visible') {
+              lock = await navigator.wakeLock.request('screen');
+            }
+          });
+        }
+      } catch (e) { /* not supported */ }
+    }
+  };
+}
+</script>
+{% endblock %}
