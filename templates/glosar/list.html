@@ -19,11 +19,11 @@
     </div>
 
     <!-- Category filter -->
-    <div class="flex flex-wrap justify-center gap-2 mb-10">
-      <button @click="filter = 'all'" :class="filter === 'all' ? 'bg-tiger-500/20 text-tiger-400 ring-1 ring-tiger-500/30' : 'glass text-brew-300 hover:text-white'" class="px-4 py-1.5 rounded-lg text-sm font-medium transition-all">Vše</button>
+    <div class="flex flex-wrap justify-center gap-2 mb-10" role="group" aria-label="Filtr kategorií">
+      <button @click="filter = 'all'" :aria-pressed="(filter === 'all').toString()" :class="filter === 'all' ? 'bg-tiger-500/20 text-tiger-400 ring-1 ring-tiger-500/30' : 'glass text-brew-300 hover:text-white'" class="px-4 py-1.5 rounded-lg text-sm font-medium transition-all">Vše</button>
       {% set categories = ["zaklady", "suroviny", "vyroba", "servirovani", "styly", "chmely", "kultura"] %}
       {% for cat in categories %}
-      <button @click="filter = '{{ cat }}'" :class="filter === '{{ cat }}' ? 'bg-tiger-500/20 text-tiger-400 ring-1 ring-tiger-500/30' : 'glass text-brew-300 hover:text-white'" class="px-4 py-1.5 rounded-lg text-sm font-medium transition-all capitalize">
+      <button @click="filter = '{{ cat }}'" :aria-pressed="(filter === '{{ cat }}').toString()" :class="filter === '{{ cat }}' ? 'bg-tiger-500/20 text-tiger-400 ring-1 ring-tiger-500/30' : 'glass text-brew-300 hover:text-white'" class="px-4 py-1.5 rounded-lg text-sm font-medium transition-all capitalize">
         {% if cat == "zaklady" %}Základy{% elif cat == "suroviny" %}Suroviny{% elif cat == "vyroba" %}Výroba{% elif cat == "servirovani" %}Servírování{% elif cat == "styly" %}Styly{% elif cat == "chmely" %}Chmely{% elif cat == "kultura" %}Kultura{% endif %}
       </button>
       {% endfor %}

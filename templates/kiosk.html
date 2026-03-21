@@ -252,27 +252,28 @@
 {% block body %}
 <div class="kiosk-page">
   <!-- Header -->
-  <div class="kp-header">
-    <div class="kp-brand">Na čepu</div>
+  <header class="kp-header">
+    <h1 class="kp-brand">Na čepu</h1>
     <div class="kp-status">
-      <div class="kp-live">
-        <span class="kp-live-dot"></span>
+      <div class="kp-live" aria-live="polite">
+        <span class="kp-live-dot" aria-hidden="true"></span>
         <span x-text="liveBeers.length + ' piv'"></span>
       </div>
-      <div class="kp-clock" x-text="clock"></div>
+      <div class="kp-clock" x-text="clock" aria-hidden="true"></div>
     </div>
-  </div>
+  </header>
 
   <!-- Announcement -->
-  <div class="kp-announcement" x-show="announcement" x-text="announcement" x-cloak></div>
+  <div class="kp-announcement" x-show="announcement" x-text="announcement" x-cloak role="status"></div>
 
   <!-- Loading -->
-  <div class="kp-loading" x-show="loading">Na\u010d\u00edt\u00e1m...</div>
+  <div class="kp-loading" x-show="loading" role="status">Načítám...</div>
 
   <!-- Table -->
-  <div class="kp-table" x-show="!loading">
+  <main id="main-content" class="kp-table" x-show="!loading">
     <template x-if="liveBeers.length > 0">
       <table>
+        <caption class="sr-only">Aktuální nabídka piv na čepu</caption>
         <thead>
           <tr>
             <th>Pivo</th>
@@ -290,7 +291,7 @@
               <td class="kp-style" x-text="beer.styl || ''"></td>
               <td class="kp-abv" x-text="beer.abv || ''"></td>
               <td class="kp-price">
-                <span x-text="beer.cena || ''"></span><span class="kp-price-unit" x-show="beer.cena">K\u010d</span>
+                <span x-text="beer.cena || ''"></span><span class="kp-price-unit" x-show="beer.cena">Kč</span>
               </td>
             </tr>
           </template>
@@ -298,15 +299,15 @@
       </table>
     </template>
     <div class="kp-empty" x-show="!loading && liveBeers.length === 0">
-      \u017d\u00e1dn\u00e1 piva na \u010depu
+      Žádná piva na čepu
     </div>
-  </div>
+  </main>
 
   <!-- Footer -->
-  <div class="kp-footer">
+  <footer class="kp-footer">
     <span class="kp-footer-text">Pivnice U Tygra &middot; Brno</span>
     <span class="kp-footer-text" :class="stalenessClass" x-text="stalenessText"></span>
-  </div>
+  </footer>
 </div>
 {% endblock %}
 

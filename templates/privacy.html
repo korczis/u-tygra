@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block body_tag %}<body class="bg-brew-950 text-brew-100 font-body antialiased">{% endblock %}
+
 {% block body %}
 <div class="min-h-screen bg-brew-950 text-brew-100">
   <!-- Header -->
@@ -7,10 +9,10 @@
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center h-16">
         <a href="{{ config.base_url }}" class="flex items-center gap-3 text-brew-400 hover:text-tiger-400 transition-colors">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
           </svg>
-          <span class="text-sm font-medium">Zpet na hlavni stranku</span>
+          <span class="text-sm font-medium">Zpět na hlavní stránku</span>
         </a>
       </div>
     </div>
@@ -18,63 +20,63 @@
 
   <!-- Content -->
   <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h1 class="text-3xl md:text-4xl font-bold text-white mb-8">Zasady ochrany osobnich udaju</h1>
+    <h1 class="text-3xl md:text-4xl font-bold text-white mb-8">Zásady ochrany osobních údajů</h1>
 
     <div class="space-y-8 text-brew-300 leading-relaxed">
-      <!-- 1. Spravce -->
+      <!-- 1. Správce -->
       <section>
-        <h2 class="text-xl font-semibold text-white mb-3">1. Spravce osobnich udaju</h2>
+        <h2 class="text-xl font-semibold text-white mb-3">1. Správce osobních údajů</h2>
         <div class="glass rounded-xl p-5 space-y-2 text-sm">
           <p><strong class="text-white">{{ config.extra.company }}</strong></p>
-          <p>ICO: {{ config.extra.ico }}</p>
-          <p>Sidlo: {{ config.extra.address }}, {{ config.extra.zip }} {{ config.extra.city }}</p>
+          <p>IČO: {{ config.extra.ico }}</p>
+          <p>Sídlo: {{ config.extra.address }}, {{ config.extra.zip }} {{ config.extra.city }}</p>
           <p>Telefon: {{ config.extra.phone_ops }}</p>
           <p>E-mail: info@utygra.cz</p>
         </div>
       </section>
 
-      <!-- 2. Ucely zpracovani -->
+      <!-- 2. Účely zpracování -->
       <section>
-        <h2 class="text-xl font-semibold text-white mb-3">2. Ucely zpracovani</h2>
-        <p class="mb-3">Osobni udaje zpracovavame pro nasledujici ucely:</p>
+        <h2 class="text-xl font-semibold text-white mb-3">2. Účely zpracování</h2>
+        <p class="mb-3">Osobní údaje zpracováváme pro následující účely:</p>
         <ul class="list-disc list-inside space-y-2 text-sm">
-          <li><strong class="text-tiger-400">Analyticke cookies (Google Analytics 4)</strong> — anonymni statistiky navstevnosti, oblibena piva a jidla, doba stravena na webu. Pouze se souhlasem.</li>
-          <li><strong class="text-tiger-400">Nezbytne cookies</strong> — zakladni fungovani webu (navigace, ukladani preferenci). Pravni zaklad: opravneny zajem.</li>
-          <li><strong class="text-tiger-400">Google Maps</strong> — zobrazeni mapy v kontaktni sekci. Spravce: Google Ireland Limited.</li>
+          <li><strong class="text-tiger-400">Analytické cookies (Google Analytics 4)</strong> — anonymní statistiky návštěvnosti, oblíbená piva a jídla, doba strávená na webu. Pouze se souhlasem.</li>
+          <li><strong class="text-tiger-400">Nezbytné cookies</strong> — základní fungování webu (navigace, ukládání preferencí). Právní základ: oprávněný zájem.</li>
+          <li><strong class="text-tiger-400">Google Maps</strong> — zobrazení mapy v kontaktní sekci. Správce: Google Ireland Limited.</li>
         </ul>
       </section>
 
-      <!-- 3. Pravni zaklad -->
+      <!-- 3. Právní základ -->
       <section>
-        <h2 class="text-xl font-semibold text-white mb-3">3. Pravni zaklad zpracovani</h2>
+        <h2 class="text-xl font-semibold text-white mb-3">3. Právní základ zpracování</h2>
         <ul class="list-disc list-inside space-y-2 text-sm">
-          <li><strong class="text-white">Souhlas (cl. 6 odst. 1 pism. a) GDPR)</strong> — analyticke cookies, pouze pokud udelite souhlas pres banner na webu.</li>
-          <li><strong class="text-white">Opravneny zajem (cl. 6 odst. 1 pism. f) GDPR)</strong> — nezbytne cookies pro zakladni fungovani webu.</li>
+          <li><strong class="text-white">Souhlas (čl. 6 odst. 1 písm. a) GDPR)</strong> — analytické cookies, pouze pokud udělíte souhlas přes banner na webu.</li>
+          <li><strong class="text-white">Oprávněný zájem (čl. 6 odst. 1 písm. f) GDPR)</strong> — nezbytné cookies pro základní fungování webu.</li>
         </ul>
       </section>
 
-      <!-- 4. Doba uchovavani -->
+      <!-- 4. Doba uchovávání -->
       <section>
-        <h2 class="text-xl font-semibold text-white mb-3">4. Doba uchovavani udaju</h2>
+        <h2 class="text-xl font-semibold text-white mb-3">4. Doba uchovávání údajů</h2>
         <div class="glass rounded-xl p-5 text-sm">
           <table class="w-full">
             <thead>
               <tr class="border-b border-brew-800/40">
-                <th class="text-left py-2 text-brew-400">Typ udaju</th>
-                <th class="text-left py-2 text-brew-400">Doba uchovavani</th>
+                <th class="text-left py-2 text-brew-400">Typ údajů</th>
+                <th class="text-left py-2 text-brew-400">Doba uchovávání</th>
               </tr>
             </thead>
             <tbody>
               <tr class="border-b border-brew-800/20">
-                <td class="py-2">Analyticke cookies</td>
+                <td class="py-2">Analytické cookies</td>
                 <td class="py-2">2 roky</td>
               </tr>
               <tr class="border-b border-brew-800/20">
                 <td class="py-2">Souhlas s cookies</td>
-                <td class="py-2">1 rok (pak nutne obnoveni)</td>
+                <td class="py-2">1 rok (pak nutné obnovení)</td>
               </tr>
               <tr>
-                <td class="py-2">Nezbytne cookies</td>
+                <td class="py-2">Nezbytné cookies</td>
                 <td class="py-2">Po dobu relace</td>
               </tr>
             </tbody>
@@ -82,41 +84,41 @@
         </div>
       </section>
 
-      <!-- 5. Prava subjektu -->
+      <!-- 5. Práva subjektů -->
       <section>
-        <h2 class="text-xl font-semibold text-white mb-3">5. Vase prava</h2>
-        <p class="mb-3 text-sm">Dle GDPR mate nasledujici prava:</p>
+        <h2 class="text-xl font-semibold text-white mb-3">5. Vaše práva</h2>
+        <p class="mb-3 text-sm">Dle GDPR máte následující práva:</p>
         <ul class="list-disc list-inside space-y-2 text-sm">
-          <li><strong class="text-white">Pravo na pristup</strong> — zjistit, jake udaje o vas zpracovavame</li>
-          <li><strong class="text-white">Pravo na opravu</strong> — opravit nepresne udaje</li>
-          <li><strong class="text-white">Pravo na vymaz</strong> — pozadat o smazani vasich udaju</li>
-          <li><strong class="text-white">Pravo na prenositelnost</strong> — ziskat sve udaje ve strukturovanem formatu</li>
-          <li><strong class="text-white">Pravo na odvolani souhlasu</strong> — kdykoliv muzete odvolat souhlas s analytickymi cookies kliknutim na "Zasady ochrany osobnich udaju" v pate webu</li>
-          <li><strong class="text-white">Pravo podat stiznost</strong> — u Uradu pro ochranu osobnich udaju (uoou.cz)</li>
+          <li><strong class="text-white">Právo na přístup</strong> — zjistit, jaké údaje o vás zpracováváme</li>
+          <li><strong class="text-white">Právo na opravu</strong> — opravit nepřesné údaje</li>
+          <li><strong class="text-white">Právo na výmaz</strong> — požádat o smazání vašich údajů</li>
+          <li><strong class="text-white">Právo na přenositelnost</strong> — získat své údaje ve strukturovaném formátu</li>
+          <li><strong class="text-white">Právo na odvolání souhlasu</strong> — kdykoliv můžete odvolat souhlas s analytickými cookies kliknutím na „Zásady ochrany osobních údajů" v patě webu</li>
+          <li><strong class="text-white">Právo podat stížnost</strong> — u Úřadu pro ochranu osobních údajů (uoou.cz)</li>
         </ul>
       </section>
 
-      <!-- 6. Predavani udaju -->
+      <!-- 6. Předávání údajů -->
       <section>
-        <h2 class="text-xl font-semibold text-white mb-3">6. Predavani udaju tretim stranam</h2>
-        <p class="text-sm mb-3">Udaje mohou byt predany nasledujicim subjektum:</p>
+        <h2 class="text-xl font-semibold text-white mb-3">6. Předávání údajů třetím stranám</h2>
+        <p class="text-sm mb-3">Údaje mohou být předány následujícím subjektům:</p>
         <ul class="list-disc list-inside space-y-2 text-sm">
-          <li><strong class="text-white">Google Ireland Limited</strong> — Google Analytics 4, Google Maps (smluvne zajisteni dle GDPR, standardni smluvni dolozky)</li>
+          <li><strong class="text-white">Google Ireland Limited</strong> — Google Analytics 4, Google Maps (smluvně zajištěno dle GDPR, standardní smluvní doložky)</li>
         </ul>
-        <p class="text-sm mt-3 text-brew-500">Udaje mohou byt predavany do treti zeme (USA) na zaklade rozhodnuti Evropske komise o odpovidajici urovni ochrany (EU-US Data Privacy Framework).</p>
+        <p class="text-sm mt-3 text-brew-500">Údaje mohou být předávány do třetí země (USA) na základě rozhodnutí Evropské komise o odpovídající úrovni ochrany (EU-US Data Privacy Framework).</p>
       </section>
 
-      <!-- 7. Zabezpeceni -->
+      <!-- 7. Zabezpečení -->
       <section>
-        <h2 class="text-xl font-semibold text-white mb-3">7. Zabezpeceni</h2>
-        <p class="text-sm">Web je provozovan na statickem hostingu (GitHub Pages / GitLab Pages) s HTTPS sifrovani. Nezpracovavame zadne citlive osobni udaje. Neuchavame hesla, platebni udaje ani zdravotni informace.</p>
+        <h2 class="text-xl font-semibold text-white mb-3">7. Zabezpečení</h2>
+        <p class="text-sm">Web je provozován na statickém hostingu (GitHub Pages / GitLab Pages) s HTTPS šifrováním. Nezpracováváme žádné citlivé osobní údaje. Neuchováváme hesla, platební údaje ani zdravotní informace.</p>
       </section>
 
       <!-- 8. Kontakt -->
       <section>
         <h2 class="text-xl font-semibold text-white mb-3">8. Kontakt</h2>
         <div class="glass rounded-xl p-5 text-sm space-y-2">
-          <p>Pro uplatneni vasich prav nebo dotazy ohledne zpracovani osobnich udaju nas kontaktujte:</p>
+          <p>Pro uplatnění vašich práv nebo dotazy ohledně zpracování osobních údajů nás kontaktujte:</p>
           <p><strong class="text-white">{{ config.extra.company }}</strong></p>
           <p>{{ config.extra.address }}, {{ config.extra.zip }} {{ config.extra.city }}</p>
           <p>Telefon: {{ config.extra.phone_ops }}</p>
@@ -126,7 +128,7 @@
 
       <!-- Datum -->
       <div class="pt-8 border-t border-brew-800/30 text-sm text-brew-600">
-        <p>Posledni aktualizace: 21. brezna 2026</p>
+        <p>Poslední aktualizace: 21. března 2026</p>
         <p>Verze: 1.0</p>
       </div>
     </div>
