@@ -771,7 +771,7 @@ window.onresize = function() {
   var elEn = document.getElementById('gc-en');
   var elDesc = document.getElementById('gc-desc');
   var intervalMin = parseInt(params.get('interval'), 10) || 5;
-  var durationSec = parseInt(params.get('duration'), 10) || 15;
+  var durationSec = parseInt(params.get('duration'), 10) || 7;
   var INTERVAL = intervalMin * 60 * 1000;
   var DISPLAY = durationSec * 1000;
   var lastIdx = -1;
@@ -809,10 +809,10 @@ window.onresize = function() {
     elEn.style.display = term.en ? '' : 'none';
     elDesc.textContent = term.desc;
 
-    // Calculate reading time: ~3 words/sec for slow reader + base time
+    // Calculate reading time: ~5 words/sec + 2s base
     var text = term.title + ' ' + (term.en || '') + ' ' + term.desc;
     var wordCount = text.split(/\s+/).length;
-    var readingMs = Math.max(DISPLAY, (wordCount / 3) * 1000 + 3000);
+    var readingMs = Math.max(DISPLAY, (wordCount / 5) * 1000 + 2000);
 
     overlay.classList.add('visible');
 
