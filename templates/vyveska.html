@@ -57,7 +57,16 @@ body {
 table {
   width: 100%;
   border-collapse: collapse;
+  table-layout: fixed;
 }
+
+/* Column widths: # 4% | Pivo 28% | Pivovar 20% | Styl 18% | Alk 10% | Cena 20% */
+col.col-num { width: 4%; }
+col.col-name { width: 28%; }
+col.col-brewery { width: 20%; }
+col.col-style { width: 18%; }
+col.col-abv { width: 10%; }
+col.col-price { width: 20%; }
 
 thead th {
   text-align: left;
@@ -317,6 +326,17 @@ function loadBeers() {
 
     var table = document.createElement('table');
     table.id = 'beer-table';
+
+    // Column widths for even distribution
+    var colgroup = document.createElement('colgroup');
+    var colClasses = ['col-num', 'col-name', 'col-brewery', 'col-style', 'col-abv', 'col-price'];
+    var ci2;
+    for (ci2 = 0; ci2 < colClasses.length; ci2++) {
+      var col = document.createElement('col');
+      col.className = colClasses[ci2];
+      colgroup.appendChild(col);
+    }
+    table.appendChild(colgroup);
 
     var thead = document.createElement('thead');
     var headerRow = document.createElement('tr');
