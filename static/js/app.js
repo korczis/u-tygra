@@ -662,98 +662,206 @@ function app() {
 
     // "Did you know?" facts
     didYouKnow: [
-      'Cesko ma nejvyssi spotrebu piva na osobu na svete — pres 140 litru rocne.',
-      'IBU (International Bitterness Units) meri horkost piva. Lezak ma typicky 20-40 IBU.',
-      'Plzensky typ piva (Pilsner) vznikl v roce 1842 a zmenil svet pivovarnistvi.',
-      'Teplota servirovania ovlivnuje chut — lager 4-7°C, ale 8-12°C, stout 12-14°C.',
-      'Pena na pivu neni jen estetika — chroni pred oxidaci a udrzi aroma.',
-      'Kvasnice typu Ale kvasí nahore (top-fermenting), Lager dole (bottom-fermenting).',
-      'Nejstarsi pivovar na svete je Weihenstephan v Bavorsku, založeny v roce 1040.',
+      '\u010cesko m\u00e1 nejvy\u0161\u0161\u00ed spot\u0159ebu piva na osobu na sv\u011bt\u011b \u2014 p\u0159es 140 litr\u016f ro\u010dn\u011b.',
+      'IBU (International Bitterness Units) m\u011b\u0159\u00ed ho\u0159kost piva. Le\u017e\u00e1k m\u00e1 typicky 20\u201340 IBU.',
+      'Plze\u0148sk\u00fd typ piva (Pilsner) vznikl v roce 1842 a zm\u011bnil sv\u011bt pivovarnistv\u00ed.',
+      'Teplota serv\u00edrov\u00e1n\u00ed ovliv\u0148uje chu\u0165 \u2014 lager 4\u20137\u00b0C, ale 8\u201312\u00b0C, stout 12\u201314\u00b0C.',
+      'P\u011bna na pivu nen\u00ed jen estetika \u2014 chr\u00e1n\u00ed p\u0159ed oxidac\u00ed a udr\u017e\u00ed aroma.',
+      'Kvasnice typu Ale kvas\u00ed naho\u0159e (top-fermenting), Lager dole (bottom-fermenting).',
+      'Nejstar\u0161\u00ed pivovar na sv\u011bt\u011b je Weihenstephan v Bavorsku, zalo\u017een\u00fd v roce 1040.',
+      'V \u010cesku se va\u0159\u00ed pivo nep\u0159etr\u017eit\u011b od 993 n. l. \u2014 B\u0159evnovsk\u00fd kl\u00e1\u0161ter.',
+      'Chmel \u017dateck\u00fd (Saaz) je pova\u017eov\u00e1n za nejlep\u0161\u00ed aromatick\u00fd chmel na sv\u011bt\u011b.',
+      '\u010cesk\u00e1 pivn\u00ed pe\u010de\u0165 chr\u00e1n\u00ed ozna\u010den\u00ed \u201e\u010desk\u00e9 pivo\u201c od roku 2008 v EU.',
+      'Stupn\u011b Plato m\u011b\u0159\u00ed hustotu mladiny \u2014 12\u00b0 znamen\u00e1 12 % extraktu p\u0159ed kva\u0161en\u00edm.',
+      'Pr\u016fm\u011brn\u00fd \u010cech vypije 6 piv t\u00fddn\u011b. Ned\u011ble je nejm\u00e9n\u011b pivn\u00ed den.',
+      'Pivo obsahuje v\u00edce ne\u017e 800 slou\u010denin ovliv\u0148uj\u00edc\u00edch chu\u0165 a v\u016fni.',
+      'Dry hopping \u2014 p\u0159id\u00e1n\u00ed chmele za studena \u2014 d\u00e1v\u00e1 aroma bez ho\u0159kosti.',
     ],
 
-    // Beer style categories
+    // Beer style encyclopedia (Encyklopedie pivn\u00edch styl\u016f)
     beerStyles: [
       {
-        id: 'svetlylezak', name: 'Svetly lezak', nameEn: '(Pale Lager)',
+        id: 'svetlylezak', name: 'Sv\u011btl\u00fd le\u017e\u00e1k', nameEn: '(Czech Pale Lager)',
         color: '#f7c46d',
-        desc: 'Nejrozsirenejsi cesky pivni styl. Spodne kvaseny, svetly, s vyraznou chmelovou horci a cistou sladovou chuti. Zakladni kamen ceske pivni tradice.',
-        abv: '4.0–5.5 %', ibu: '25–45', barva: 'Zlata',
-        examples: ['Pilsner Urquell', 'Budvar', 'Staropramen']
+        desc: 'Nejroz\u0161\u00ed\u0159en\u011bj\u0161\u00ed \u010desk\u00fd pivn\u00ed styl. Spodn\u011b kva\u0161en\u00fd, sv\u011btl\u00fd, s v\u00fdraznou chmelovou ho\u0159c\u00ed a \u010distou sladovou chut\u00ed. Z\u00e1kladn\u00ed k\u00e1men \u010desk\u00e9 pivn\u00ed tradice. Zr\u00e1n\u00ed minim\u00e1ln\u011b 4\u20136 t\u00fddn\u016f za n\u00edzk\u00fdch teplot.',
+        abv: '4.0\u20135.5 %', ibu: '25\u201345', barva: 'Zlat\u00e1', ebc: '6\u201312',
+        examples: ['Pilsner Urquell', 'Budvar', 'Staropramen'],
+        pairing: 'Sv\u00ed\u010dkov\u00e1, sma\u017een\u00fd s\u00fdr, kuřec\u00ed \u0159\u00edzek',
+        temp: '6\u20138 \u00b0C', glass: 'T\u016fzka / P\u016fllitrov\u00e1 sk\u016fra'
       },
       {
-        id: 'tmavylezak', name: 'Tmavy lezak', nameEn: '(Dark Lager)',
+        id: 'tmavylezak', name: 'Tmav\u00fd le\u017e\u00e1k', nameEn: '(Czech Dark Lager)',
         color: '#6b3a2a',
-        desc: 'Spodne kvasene tmavy pivo s karamelovou az prazkovou chuti. Nizsi horkost, plnejsi telo. Casto piti jako dezertni pivo.',
-        abv: '3.5–5.5 %', ibu: '18–30', barva: 'Tmave hneda az cerna',
-        examples: ['Kozel Cerny', 'Krusovice Cerne', 'U Fleku']
+        desc: 'Spodn\u011b kva\u0161en\u00e9 tmav\u00e9 pivo s karamelovou a\u017e pra\u017ekovou chut\u00ed. Ni\u017e\u0161\u00ed ho\u0159kost, pln\u011bj\u0161\u00ed t\u011blo. \u010casto pit\u00e9 jako dezertn\u00ed pivo. Barvu d\u00e1vaj\u00ed pra\u017een\u00e9 a karamelizovan\u00e9 slady.',
+        abv: '3.5\u20135.5 %', ibu: '18\u201330', barva: 'Tmav\u011b hn\u011bd\u00e1 a\u017e \u010dern\u00e1', ebc: '30\u201360',
+        examples: ['Kozel \u010cern\u00fd', 'Kru\u0161ovice \u010cern\u00e9', 'U Flek\u016f'],
+        pairing: 'Du\u0161en\u00e9 maso, pe\u010den\u00e1 kachna, \u010dokol\u00e1dov\u00fd dort',
+        temp: '8\u201310 \u00b0C', glass: 'T\u016fzka / Goblet'
+      },
+      {
+        id: 'desitka', name: 'V\u00fd\u010depn\u00ed (des\u00edtka)', nameEn: '(Czech Lager 10\u00b0)',
+        color: '#e8d48b',
+        desc: 'Lehk\u00e9 pivko na ka\u017ed\u00fd den. 10\u00b0 Plato, ni\u017e\u0161\u00ed obsah alkoholu. Osv\u011b\u017euj\u00edc\u00ed, pitelné, ide\u00e1ln\u00ed k del\u0161\u00edmu posezen\u00ed. Z\u00e1klad \u010desk\u00e9 hospodsk\u00e9 kultury.',
+        abv: '3.5\u20134.5 %', ibu: '20\u201335', barva: 'Sv\u011btle zlat\u00e1', ebc: '5\u20139',
+        examples: ['Gambrinus 10\u00b0', 'Staropramen 10\u00b0', 'Budvar 10\u00b0'],
+        pairing: 'Utopenec, tla\u010denka, topinky s \u010desnekem',
+        temp: '5\u20137 \u00b0C', glass: 'T\u016fzka / Kriegl'
       },
       {
         id: 'ipa', name: 'IPA', nameEn: '(India Pale Ale)',
         color: '#e17209',
-        desc: 'Svrchne kvaseny styl s vyraznym chmelovym aromam a horkosti. Puvod v Anglii, dnes popularni ve vsech variantach — American IPA, NEIPA, Session IPA.',
-        abv: '5.5–7.5 %', ibu: '40–70', barva: 'Zlata az medova',
-        examples: ['Matuska Raptor', 'Clock IPA', 'Falkon IPA']
+        desc: 'Svrchně kva\u0161en\u00fd styl s v\u00fdrazn\u00fdm chmelov\u00fdm ar\u00f3matem a ho\u0159kost\u00ed. P\u016fvod v Anglii 18. stolet\u00ed. Dnes v mnoha variant\u00e1ch: American IPA (citrusov\u00e9 chmely), West Coast (such\u00e1, ho\u0159k\u00e1), Session IPA (leh\u010d\u00ed verze).',
+        abv: '5.5\u20137.5 %', ibu: '40\u201370', barva: 'Zlat\u00e1 a\u017e m\u011bdov\u00e1', ebc: '8\u201318',
+        examples: ['Matu\u0161ka Raptor', 'Clock IPA', 'Falkon IPA'],
+        pairing: 'Pikantn\u00ed j\u00eddla, burger, curry, nakl\u00e1dan\u00e9 s\u00fdry',
+        temp: '8\u201312 \u00b0C', glass: 'IPA sklenice / Tulip'
       },
       {
-        id: 'psenicne', name: 'Psenicne pivo', nameEn: '(Wheat Beer)',
+        id: 'neipa', name: 'NEIPA', nameEn: '(New England IPA)',
+        color: '#f5c060',
+        desc: 'Zakalené, \u0161\u0165avaté IPA s n\u00edzkou ho\u0159kost\u00ed a intenz\u00edvn\u00edm ovocn\u00fdm ar\u00f3matem (mango, marakuja, broskev). Soft, hedvábné t\u011blo d\u00edky ovesn\u00fdm vlo\u010dk\u00e1m a p\u0161eni\u010dn\u00e9mu sladu. Dry hopping za studena.',
+        abv: '5.0\u20138.0 %', ibu: '20\u201350', barva: 'Zakalená zlat\u00e1 a\u017e oran\u017eov\u00e1', ebc: '6\u201314',
+        examples: ['Falk\u00f3n Hazy', 'Sibeeria Juicy', 'Clock Haze'],
+        pairing: 'Su\u0161i, ceviche, lehk\u00e9 sal\u00e1ty, ovocn\u00e9 dezerty',
+        temp: '6\u201310 \u00b0C', glass: 'IPA sklenice / Tulip'
+      },
+      {
+        id: 'psenicne', name: 'P\u0161eni\u010dn\u00e9 pivo', nameEn: '(Wheat Beer / Weizen)',
         color: '#fad9a5',
-        desc: 'Svrchne kvaseny styl s vysokym podilem psenicneho sladu. Typicke bananova a hrebickova chut. Lehke, osvezujici, idealni na leto.',
-        abv: '4.5–5.5 %', ibu: '8–15', barva: 'Svetle zlata, zakalene',
-        examples: ['Maisel Weisse', 'Hoegaarden', 'Primator Weizen']
+        desc: 'Svrchn\u011b kva\u0161en\u00fd styl s vysok\u00fdm pod\u00edlem p\u0161eni\u010dn\u00e9ho sladu (50\u201370 %). Typick\u00e1 ban\u00e1nov\u00e1 a h\u0159eb\u00ed\u010dkov\u00e1 chu\u0165 od speci\u00e1ln\u00edch kvasnic. Lehk\u00e9, osv\u011b\u017euj\u00edc\u00ed. Varianty: Hefeweizen (zakalené), Kristallweizen (\u010dir\u00e9), Dunkelweizen (tmav\u00e9).',
+        abv: '4.5\u20135.5 %', ibu: '8\u201315', barva: 'Sv\u011btle zlat\u00e1, zakalená', ebc: '4\u201312',
+        examples: ['Maisel Weisse', 'Hoegaarden', 'Prim\u00e1tor Weizen'],
+        pairing: 'Sal\u00e1ty, ryby, lehk\u00e1 letn\u00ed j\u00eddla, b\u00edl\u00fd sýr',
+        temp: '6\u20138 \u00b0C', glass: 'Vysok\u00e1 p\u0161eni\u010dn\u00e1 sklenice (Weizen)'
       },
       {
         id: 'stout', name: 'Stout', nameEn: '(Stout / Porter)',
         color: '#1a0f06',
-        desc: 'Tmavy, plny styl s prichutemi prazenych sladu — cokolada, kava, caramel. Od sucheho irského stoutu az po sladky imperial stout.',
-        abv: '4.0–12.0 %', ibu: '25–50', barva: 'Cerna',
-        examples: ['Guinness', 'Matuska Black IPA', 'Raven Stout']
+        desc: 'Tmav\u00fd, pln\u00fd styl s p\u0159\u00edchutěmi pra\u017een\u00fdch slad\u016f \u2014 \u010dokol\u00e1da, k\u00e1va, karamel. Dry Stout (irsk\u00fd, such\u00fd), Sweet Stout (mlé\u010dn\u00fd), Oatmeal Stout (ovesn\u00fd), Imperial Stout (siln\u00fd 8\u201312 %). Porter je historick\u00fd p\u0159edch\u016fdce stoutu.',
+        abv: '4.0\u201312.0 %', ibu: '25\u201350', barva: '\u010cern\u00e1', ebc: '60\u201380+',
+        examples: ['Guinness', 'Matu\u0161ka Black IPA', 'Raven Stout'],
+        pairing: '\u010cokol\u00e1dov\u00fd dort, \u0161krob\u00e1kov\u00fd pud., ústřice, grilované maso',
+        temp: '10\u201314 \u00b0C', glass: 'Pint / Tulip / Snifter'
       },
       {
-        id: 'ale', name: 'Pale Ale', nameEn: '(Pale Ale)',
+        id: 'ale', name: 'Pale Ale', nameEn: '(Pale Ale / APA)',
         color: '#c67a30',
-        desc: 'Svrchne kvaseny styl s vyvazenou chmelovou horkosti a ovocnymi tony. Zaklad mnoha modernich remeselnych stylu.',
-        abv: '4.5–6.0 %', ibu: '30–50', barva: 'Medova az jantarova',
-        examples: ['Sierra Nevada PA', 'Dva Kohouti Pale Ale', 'Clock Pale Ale']
+        desc: 'Svrchn\u011b kva\u0161en\u00fd styl s vyv\u00e1\u017eenou chmelovou ho\u0159kost\u00ed a ovocn\u00fdmi t\u00f3ny. Z\u00e1klad mnoha modern\u00edch \u0159emesln\u00fdch styl\u016f. APA (American PA) pou\u017e\u00edv\u00e1 americké chmely s citrusov\u00fdm a borovicov\u00fdm ar\u00f3matem. English PA je jemn\u011bj\u0161\u00ed, v\u00edce sladov\u00e1.',
+        abv: '4.5\u20136.0 %', ibu: '30\u201350', barva: 'M\u011bdov\u00e1 a\u017e jantarov\u00e1', ebc: '8\u201320',
+        examples: ['Sierra Nevada PA', 'Dva Kohouti Pale Ale', 'Clock Pale Ale'],
+        pairing: 'Burger, pizza, grilovan\u00e9 ku\u0159e, cheddar',
+        temp: '8\u201312 \u00b0C', glass: 'Pint / Nonic'
       },
       {
-        id: 'sour', name: 'Kyselak', nameEn: '(Sour / Wild Ale)',
+        id: 'sour', name: 'Kyselák', nameEn: '(Sour / Wild Ale)',
         color: '#d4536a',
-        desc: 'Piva s vyraznou kyselosti vznikajici spontannim kvasenim nebo pridanim ovoce. Od lehkych Berliner Weisse az po komplexni Lambiky.',
-        abv: '3.0–8.0 %', ibu: '3–15', barva: 'Ruzna',
-        examples: ['Lindemans', 'Rodenbach', 'Sibeeria Sour']
+        desc: 'Piva s v\u00fdraznou kyselost\u00ed. Berliner Weisse (leh\u010d\u00ed, \u010dasto s ovocem), Gose (se sol\u00ed a koriandrem), Lambik (spont\u00e1nn\u00ed kva\u0161en\u00ed, Belgie), Flanders Red (\u010derven\u00fd, octn\u00fd). Modern\u00ed variace pou\u017e\u00edvaj\u00ed ovoce \u2014 vi\u0161n\u011b, maliny, marakuja.',
+        abv: '3.0\u20138.0 %', ibu: '3\u201315', barva: 'R\u016fzná', ebc: '4\u201330',
+        examples: ['Lindemans', 'Rodenbach', 'Sibeeria Sour'],
+        pairing: 'Chevr, sal\u00e1ty, moř. plody, ovocn\u00e9 dezerty',
+        temp: '6\u201310 \u00b0C', glass: 'Tulip / Flétna'
       },
       {
-        id: 'nefiltr', name: 'Nefiltrovanane', nameEn: '(Unfiltered)',
+        id: 'nefiltr', name: 'Nefiltrované', nameEn: '(Unfiltered / Kellerbier)',
         color: '#c9a858',
-        desc: 'Pivo bez konecne filtrace si zachovava vice chuti, aromatu a kvasinkovych esencí. Zakaleny vzhled, plnejsi chut.',
-        abv: '4.0–6.0 %', ibu: '20–40', barva: 'Zakalena zlata',
-        examples: ['Bernard Nefiltrovany', 'Chotebor Nefiltrovany', 'Rychtár Natur']
+        desc: 'Pivo bez finální filtrace si zachov\u00e1v\u00e1 v\u00edce chut\u00ed, arom\u00e1t\u016f a kvasnicov\u00fdch esenc\u00ed. Zakalený vzhled, pln\u011bj\u0161\u00ed chu\u0165. N\u011bmeck\u00e1 tradice Kellerbier/Zwickel. V \u010cesku obl\u00edben\u00e9 jako \u201ekvasnicov\u00e9\u201c.',
+        abv: '4.0\u20136.0 %', ibu: '20\u201340', barva: 'Zakalená zlat\u00e1', ebc: '6\u201315',
+        examples: ['Bernard Nefiltr.', 'Choť\u011bboř Nefiltr.', 'Rycht\u00e1\u0159 Natur'],
+        pairing: 'Tradi\u010dn\u00ed \u010desk\u00e1 kuchyn\u011b, pe\u010den\u00e1 kolena',
+        temp: '6\u20138 \u00b0C', glass: 'T\u016fzka / Kriegl'
       },
       {
-        id: 'specialni', name: 'Specialni', nameEn: '(Specialty)',
+        id: 'polotmave', name: 'Polotmavé', nameEn: '(Amber Lager / Vienna)',
+        color: '#a56b3a',
+        desc: 'M\u011b\u010f mezi sv\u011btl\u00fdm a tmav\u00fdm le\u017e\u00e1kem. Jantarov\u00e1 barva, v\u00fdrazn\u011bj\u0161\u00ed sladov\u00e1 chu\u0165 s karamelovou nádechem. V\u00eddňský styl (Vienna Lager) nebo \u010desk\u00fd jantarov\u00fd le\u017e\u00e1k.',
+        abv: '4.5\u20135.5 %', ibu: '20\u201335', barva: 'Jantarov\u00e1 a\u017e m\u011b\u010f', ebc: '15\u201330',
+        examples: ['Sv\u00edj\u00e1nsk\u00fd Kní\u017ee', 'Bernard Jant\u00e1r', 'Rohozec Polotmavý'],
+        pairing: 'Gu\u013a\u00e1\u0161, pe\u010den\u00e1 žebírka, uzen\u00e9 maso',
+        temp: '7\u20139 \u00b0C', glass: 'T\u016fzka / Goblet'
+      },
+      {
+        id: 'lager', name: 'Svět. le\u017e\u00e1k (inter.)', nameEn: '(International Lager)',
+        color: '#f0e68c',
+        desc: 'Lehk\u00fd, čist\u00fd, neutr\u00e1ln\u00ed lager dominujíc\u00ed svět. produkci. M\u00e9ně chmelový a sladov\u00fd ne\u017e \u010desk\u00fd le\u017e\u00e1k. Pitelný, osv\u011b\u017eujíc\u00ed. Typick\u00fd pro velk\u00e9 komerčn\u00ed pivovary.',
+        abv: '4.0\u20135.0 %', ibu: '10\u201320', barva: 'Blede zlat\u00e1', ebc: '3\u20136',
+        examples: ['Heineken', 'Corona', 'Stella Artois'],
+        pairing: 'Lehká j\u00eddla, ryby, sal\u00e1ty, sushi',
+        temp: '4\u20136 \u00b0C', glass: 'Standardn\u00ed sklenice'
+      },
+      {
+        id: 'belgicke', name: 'Belgick\u00e9 styly', nameEn: '(Belgian Ales)',
+        color: '#d4a44c',
+        desc: 'Bohat\u00e1 tradice svrch. kv. styl\u016f: Dubbel (tmav\u00e9, sladov\u00e9), Tripel (sv\u011btl\u00e9, siln\u00e9), Witbier (p\u0161eni\u010dn\u00e9 s pomeran\u010dovou k\u016frou), Saison (farm\u00e1\u0159sk\u00e9, ko\u0159en\u011bné). Kvasnice dod\u00e1vaj\u00ed ovocn\u00e9 a ko\u0159en\u011bn\u00e9 t\u00f3ny.',
+        abv: '5.0\u201312.0 %', ibu: '15\u201345', barva: 'Zlat\u00e1 a\u017e tmav\u011b hn\u011bd\u00e1', ebc: '5\u201350',
+        examples: ['Chimay', 'Westmalle', 'Duvel'],
+        pairing: 'Měkk\u00e9 s\u00fdry, mu\u0161le, \u010dokol\u00e1da',
+        temp: '8\u201314 \u00b0C', glass: 'Chalice / Goblet'
+      },
+      {
+        id: 'specialni', name: 'Speci\u00e1ln\u00ed', nameEn: '(Specialty)',
         color: '#8b6cc5',
-        desc: 'Experimentalni a sezonni piva — s pridavkem ovoce, koeni, kvasinkovych kultur, sudove zrani, medove, bylinkova a dalsi.',
-        abv: '4.0–14.0 %', ibu: '5–60', barva: 'Ruzna',
-        examples: ['Medove pivo', 'Cherry Kriek', 'Barrel Aged Stout']
+        desc: 'Experiment\u00e1ln\u00ed a sez\u00f3nn\u00ed piva: s př\u00eddavkem ovoce (vi\u0161ně, maliny), ko\u0159en\u00ed (skořice, vanilka), sudov\u011b zr\u00e1n\u00ed (bourbon, whisky barely), medov\u00e1, bylinkov\u00e1. Milkshake IPA, Pastry Stout a dal\u0161\u00ed modern\u00ed trendy.',
+        abv: '4.0\u201314.0 %', ibu: '5\u201360', barva: 'R\u016fzn\u00e1', ebc: 'R\u016fzn\u00e1',
+        examples: ['Medov\u00e9 pivo', 'Cherry Kriek', 'Barrel Aged Stout'],
+        pairing: 'Dle konkr\u00e9tn\u00edho stylu a př\u00edsad',
+        temp: '8\u201314 \u00b0C', glass: 'Dle stylu / Snifter'
       },
     ],
 
-    // Glossary of beer terms
+    // Glos\u00e1\u0159 pivn\u00edch pojm\u016f (Beer Glossary)
     glossary: [
-      { term: 'ABV', en: '(Alcohol by Volume)', desc: 'Obsah alkoholu v procentech objemu. Bezny lezak ma 4-5 %, silnejsi styly az 12+ %.' },
-      { term: 'IBU', en: '(International Bitterness Units)', desc: 'Mezinarodni jednotka horkosti. Cim vyssi cislo, tim vyssi horkost. Lezak: 25-45, IPA: 40-70+.' },
-      { term: 'Stupnovitost', en: '(Original Gravity)', desc: 'Obsah extraktu v mladine pred kvasenim. 10° = desitka, 12° = dvanactka. Vyssi stupen = silnejsi pivo.' },
-      { term: 'Chmel', en: '(Hops)', desc: 'Rostlina dodavajici pivu horkost, aroma a konzervacni vlastnosti. Cesky Saaz (Zatec) je svetove prosluly.' },
-      { term: 'Slad', en: '(Malt)', desc: 'Nakliceny a ususzeny jecmen (nebo pszenice). Zaklad chuti a barvy piva. Prazene slady daji tmave pivo.' },
-      { term: 'Kvaseni', en: '(Fermentation)', desc: 'Proces, pri kterem kvasnice pretvarei cukry na alkohol a CO2. Svrchni (ale) nebo spodni (lager).' },
-      { term: 'Mladina', en: '(Wort)', desc: 'Sladky roztok ziskany vylouhovanim sladu ve vode. Zaklad pro kvaseni, ktere z nej udela pivo.' },
-      { term: 'Plzen', en: '(Pilsner style)', desc: 'Pivni styl pojmenovany po meste Plzen. Svetly spodne kvaseny lezak s vyraznym chmelem. Svetovy standard.' },
-      { term: 'Cep / Na cepu', en: '(On tap / Draft)', desc: 'Pivo tocene z tlakoveho sudu pres vycepni zarizeni. Cerstve a spravne nacarovane — to nejlepsi podani.' },
-      { term: 'NEIPA', en: '(New England IPA)', desc: 'Moderni styl IPA s zakalenm vzhledem, nizsí horkosti a intenzivnim ovocnym aromem (tropicke ovoce).' },
-      { term: 'Session', en: '', desc: 'Oznaceni pro piva s nizsim obsahem alkoholu (do 4.5 %), urcena pro delsi posezeni bez tezke hlavy.' },
-      { term: 'Svrchni kvaseni', en: '(Top-fermentation)', desc: 'Kvaseni pri vyšší teplote (15-24°C). Kvasnice pracuji na povrchu. Typicke pro Ale, Wheat, Stout.' },
-      { term: 'Spodni kvaseni', en: '(Bottom-fermentation)', desc: 'Kvaseni pri nizsich teplotach (7-13°C). Kvasnice klesaji ke dnu. Typicke pro Lager, Plzen.' },
-      { term: 'EBC', en: '(European Brewery Convention)', desc: 'Stupnice barvy piva. Cislo 4-6 = svetle zlata, 20-30 = jantarova, 60+ = cerna.' },
+      // Z\u00e1kladn\u00ed pojmy
+      { term: 'ABV', en: '(Alcohol by Volume)', desc: 'Obsah alkoholu v procentech objemu. B\u011b\u017en\u00fd le\u017e\u00e1k m\u00e1 4\u20135 %, IPA 5,5\u20137,5 %, Imperial Stout a\u017e 12+ %.' },
+      { term: 'IBU', en: '(International Bitterness Units)', desc: 'Mezin\u00e1rodn\u00ed jednotka ho\u0159kosti. \u010c\u00edm vy\u0161\u0161\u00ed \u010d\u00edslo, t\u00edm v\u011bt\u0161\u00ed ho\u0159kost. Le\u017e\u00e1k: 25\u201345, IPA: 40\u201370+, Sour: 3\u201315.' },
+      { term: 'EBC', en: '(European Brewery Convention)', desc: 'Stupnice barvy piva. 4\u20136 = sv\u011btle zlat\u00e1, 15\u201320 = jantarov\u00e1, 30\u201360 = tmav\u00e1, 60+ = \u010dern\u00e1.' },
+      { term: 'Stup\u0148ovitost', en: '(Original Gravity / \u00b0Plato)', desc: 'Obsah extraktu v mladin\u011b p\u0159ed kva\u0161en\u00edm. 10\u00b0 = des\u00edtka, 12\u00b0 = dvan\u00e1ctka. Vy\u0161\u0161\u00ed stupe\u0148 = siln\u011bj\u0161\u00ed pivo.' },
+
+      // Suroviny
+      { term: 'Chmel', en: '(Hops)', desc: 'Rostlina dod\u00e1vaj\u00edc\u00ed pivu ho\u0159kost, ar\u00f3ma a konzerva\u010dn\u00ed vlastnosti. \u010cesk\u00fd Saaz (\u017dateck\u00fd) je sv\u011btov\u011b prosl\u00fdlý aromatick\u00fd chmel.' },
+      { term: 'Slad', en: '(Malt)', desc: 'Nakl\u00ed\u010den\u00fd a usu\u0161en\u00fd je\u010dmen (nebo p\u0161enice). Z\u00e1klad chuti a barvy piva. Pra\u017een\u00e9 slady d\u00e1vaj\u00ed tmav\u00e9 pivo, karamely p\u0159id\u00e1vaj\u00ed sladkost.' },
+      { term: 'Kvasnice', en: '(Yeast)', desc: 'Jednobu\u0148e\u010dn\u00e9 houby p\u0159em\u011b\u0148uj\u00edc\u00ed cukry na alkohol a CO\u2082. Ale kvasnice (Saccharomyces cerevisiae) pracuj\u00ed naho\u0159e, Lager (S. pastorianus) dole.' },
+      { term: 'Voda', en: '(Water)', desc: 'Tvo\u0159\u00ed 90\u201395 % piva. Slou\u017een\u00ed vody (tvrdost, miner\u00e1ly) z\u00e1sadn\u011b ovliv\u0148uje v\u00fdslednou chu\u0165. Plze\u0148sk\u00e1 m\u011bkk\u00e1 voda = z\u00e1klad Pilsneru.' },
+
+      // V\u00fdroba
+      { term: 'Kva\u0161en\u00ed', en: '(Fermentation)', desc: 'Proces, p\u0159i kter\u00e9m kvasnice p\u0159etv\u00e1\u0159ej\u00ed cukry na alkohol a CO\u2082. Svrchní (ale, 15\u201324 \u00b0C) nebo spodní (lager, 7\u201313 \u00b0C).' },
+      { term: 'Mladina', en: '(Wort)', desc: 'Sladk\u00fd roztok z\u00edskan\u00fd vylouhov\u00e1n\u00edm sladu ve vod\u011b. P\u0159ed kva\u0161en\u00edm se va\u0159\u00ed s chmelem. Z\u00e1klad ka\u017ed\u00e9ho piva.' },
+      { term: 'Rmuty', en: '(Mashing)', desc: 'Proces m\u00edch\u00e1n\u00ed mlet\u00e9ho sladu s vodou p\u0159i r\u016fzn\u00fdch teplot\u00e1ch. Enzymy \u0161t\u011bp\u00ed \u0161krob na zkvasiteln\u00e9 cukry.' },
+      { term: 'Chmelov\u00e1\u0159en\u00ed', en: '(Hopping)', desc: 'P\u0159id\u00e1v\u00e1n\u00ed chmele do mladiny. Prvn\u00ed d\u00e1vka = ho\u0159kost, posledn\u00ed = aróma. Dry hopping = za studena, jen aróma.' },
+      { term: 'Dry Hopping', en: '', desc: 'P\u0159id\u00e1n\u00ed chmele za studena po kva\u0161en\u00ed. D\u00e1v\u00e1 intenz\u00edvn\u00ed chmelov\u00e9 ar\u00f3ma bez zvy\u0161ov\u00e1n\u00ed ho\u0159kosti. Typick\u00e9 pro IPA a NEIPA.' },
+      { term: 'Zr\u00e1n\u00ed', en: '(Lagering / Conditioning)', desc: 'Dozr\u00e1v\u00e1n\u00ed piva za n\u00edzk\u00fdch teplot (0\u20134 \u00b0C). \u010cesk\u00fd le\u017e\u00e1k zr\u00e1l tradi\u010dn\u011b 6\u201312 t\u00fddn\u016f v le\u017e\u00e1ck\u00fdch sklepech.' },
+      { term: 'Sudov\u00e9 zr\u00e1n\u00ed', en: '(Barrel Aging)', desc: 'Zr\u00e1n\u00ed piva v d\u0159ev\u011bn\u00fdch sudech (bourbon, whisky, v\u00edno). P\u0159id\u00e1v\u00e1 vanilkov\u00e9, ko\u0159en\u011bn\u00e9 a d\u0159evit\u00e9 t\u00f3ny.' },
+      { term: 'Filtrace', en: '(Filtering)', desc: 'Odstra\u0148ov\u00e1n\u00ed kvasnic a z\u00e1kal\u016f. Filtrovan\u00e9 pivo je pr\u016fhledn\u00e9, nefiltrovan\u00e9 si zachov\u00e1v\u00e1 v\u00edce chut\u00ed.' },
+      { term: 'Pasterace', en: '(Pasteurization)', desc: 'Tepeln\u00e9 o\u0161et\u0159en\u00ed pro del\u0161\u00ed trvanlivost. Nepasterovan\u00e9 pivo m\u00e1 \u017eiv\u011bj\u0161\u00ed chu\u0165, ale krat\u0161\u00ed expiraci.' },
+
+      // Serv\u00edrov\u00e1n\u00ed
+      { term: '\u010cep / Na \u010depu', en: '(On tap / Draft)', desc: 'Pivo to\u010den\u00e9 z tlakov\u00e9ho sudu p\u0159es v\u00fd\u010depn\u00ed za\u0159\u00edzen\u00ed. \u010cerstv\u00e9 a spr\u00e1vn\u011b na\u010d\u00e1\u0159ovan\u00e9 \u2014 to nejlep\u0161\u00ed pod\u00e1n\u00ed.' },
+      { term: '\u0160nyt', en: '', desc: 'Mal\u00e9 pivo (0,15\u20130,2 l) na ochutnan\u00ed. Ide\u00e1ln\u00ed na ochutn\u00e1n\u00ed nov\u00e9ho stylu nebo pro \u0159idi\u010de.' },
+      { term: 'Hladinkov\u00fd / Mlíko / \u0160nyt', en: '(Pour styles)', desc: 'T\u0159i zp\u016fsoby na\u010d\u00e1\u0159ov\u00e1n\u00ed: Hladinka (2 cm p\u011bny), Ml\u00edko (cel\u00e9 z p\u011bny, sladk\u00e9), \u0160nyt (mal\u00e9 ochutnan\u00ed).' },
+      { term: 'P\u011bna', en: '(Head / Foam)', desc: 'Ochrann\u00e1 vrstva na pivu. Chr\u00e1n\u00ed p\u0159ed oxidac\u00ed, udr\u017e\u00ed aróma. Ide\u00e1ln\u011b 2\u20133 cm u \u010desk\u00e9ho le\u017e\u00e1ku.' },
+      { term: 'Teplota serv.', en: '(Serving temp)', desc: 'Lager: 4\u20138 \u00b0C, Ale: 8\u201312 \u00b0C, Stout/Barley Wine: 12\u201316 \u00b0C. P\u0159\u00edli\u0161 studen\u00e9 pivo ztr\u00e1c\u00ed chu\u0165.' },
+
+      // Stylov\u00e9 pojmy
+      { term: 'Plze\u0148', en: '(Pilsner style)', desc: 'Pivn\u00ed styl pojmenovan\u00fd po m\u011bst\u011b Plze\u0148. Sv\u011btl\u00fd spodn\u011b kva\u0161en\u00fd le\u017e\u00e1k s v\u00fdrazn\u00fdm chmelem. Sv\u011btov\u00fd standard od 1842.' },
+      { term: 'NEIPA', en: '(New England IPA)', desc: 'Modern\u00ed styl IPA se zakalenn\u00fdm vzhledem, n\u00ed\u017e\u0161\u00ed ho\u0159kost\u00ed a intenz\u00edvn\u00edm ovocn\u00fdm ar\u00f3mem (tropick\u00e9 ovoce). M\u011bkk\u00e9 t\u011blo d\u00edky ovsu.' },
+      { term: 'Session', en: '', desc: 'Ozna\u010den\u00ed pro piva s ni\u017e\u0161\u00edm obsahem alkoholu (do 4,5 %), ur\u010den\u00e1 pro del\u0161\u00ed posezen\u00ed bez t\u011b\u017ek\u00e9 hlavy.' },
+      { term: 'Imperial', en: '', desc: 'Ozna\u010den\u00ed pro siln\u011bj\u0161\u00ed verzi stylu. Imperial Stout (8\u201312 %), Imperial IPA / DIPA (7\u201310 %). V\u00edce sladu, chmele, chut\u00ed.' },
+      { term: 'Craft / \u0158emesln\u00e9', en: '(Craft Beer)', desc: 'Pivo z mal\u00e9ho nez\u00e1visl\u00e9ho pivovaru s d\u016frazem na kvalitu, kreativitu a tradi\u010dn\u00ed postupy. V \u010cR boom od 2010.' },
+
+      // Kva\u0161en\u00ed a technologie
+      { term: 'Svrchní kva\u0161ení', en: '(Top-fermentation)', desc: 'Kva\u0161en\u00ed p\u0159i vy\u0161\u0161\u00ed teplot\u011b (15\u201324 \u00b0C). Kvasnice pracuj\u00ed na povrchu. Typick\u00e9 pro Ale, Wheat, Stout.' },
+      { term: 'Spodn\u00ed kva\u0161en\u00ed', en: '(Bottom-fermentation)', desc: 'Kva\u0161en\u00ed p\u0159i ni\u017e\u0161\u00edch teplot\u00e1ch (7\u201313 \u00b0C). Kvasnice klesaj\u00ed ke dnu. Typick\u00e9 pro Lager, Pilsner.' },
+      { term: 'Spont\u00e1nn\u00ed kva\u0161en\u00ed', en: '(Wild Fermentation)', desc: 'Kva\u0161en\u00ed divok\u00fdmi kvasnicemi z ovzdu\u0161\u00ed. Z\u00e1klad Lambik\u016f a n\u011bkter\u00fdch Sour piv. Nepředvídatelné, komplexn\u00ed.' },
+
+      // Chmelov\u00e9 odr\u016fdy
+      { term: '\u017dateck\u00fd (Saaz)', en: '', desc: 'Nejslavn\u011bj\u0161\u00ed \u010desk\u00fd chmel. Jemn\u00e9, ko\u0159en\u011bn\u00e9, bylinkov\u00e9 ar\u00f3ma. Z\u00e1klad Pilsneru a \u010desk\u00fdch le\u017e\u00e1k\u016f.' },
+      { term: 'Citra', en: '', desc: 'Americk\u00fd chmel s intenz\u00edvn\u00edm citrusov\u00fdm a tropick\u00fdm ar\u00f3matem (grep, li\u010di, mango). Hvězda modern\u00edch IPA.' },
+      { term: 'Mosaic', en: '', desc: 'Americk\u00fd chmel s komplexn\u00edm profilem: borůvky, tropick\u00e9 ovoce, kvě\u0165iny. Popul\u00e1rn\u00ed v NEIPA a APA.' },
+      { term: 'Cascade', en: '', desc: 'Pr\u016fkopnick\u00fd americk\u00fd chmel (1972). Grapefruitov\u00e9, kvě\u0165inov\u00e9 ar\u00f3ma. Z\u00e1klad Sierra Nevada Pale Ale.' },
+      { term: 'Kazbek', en: '', desc: '\u010cesk\u00fd modern\u00ed chmel s citrusov\u00fdm a ovocn\u00fdm ar\u00f3matem (citr\u00f3n, limeta). Obl\u00edben\u00fd v \u010desk\u00fdch \u0159emesln\u00fdch pivovarech.' },
+
+      // P\u00e1rov\u00e1n\u00ed a kultura
+      { term: 'P\u00e1rov\u00e1n\u00ed', en: '(Food Pairing)', desc: 'Kombin\u00e1ce piva s j\u00eddlem. Le\u017e\u00e1k + \u0159\u00edzek, IPA + burger, Stout + \u010dokol\u00e1da, Wheat + sal\u00e1t, Sour + s\u00fdr.' },
+      { term: 'Pivn\u00ed l\u00e1zn\u011b', en: '(Beer Spa)', desc: '\u010cesk\u00e1 specialita \u2014 koupel v piv\u011b s chmelou a kvasnicemi. Relax pro t\u011blo i du\u0161i. Popul\u00e1rn\u00ed turistick\u00e1 atrakce.' },
     ],
 
     // Food menu

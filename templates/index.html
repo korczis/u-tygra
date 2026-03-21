@@ -411,7 +411,15 @@
           <div class="flex flex-wrap gap-4 text-xs text-brew-500">
             <span><a href="#glosar-abv" class="hover:text-tiger-400 transition-colors">ABV</a>: <span class="text-brew-300" x-text="style.abv"></span></span>
             <span><a href="#glosar-ibu" class="hover:text-tiger-400 transition-colors">IBU</a>: <span class="text-brew-300" x-text="style.ibu"></span></span>
+            <span><a href="#glosar-ebc" class="hover:text-tiger-400 transition-colors">EBC</a>: <span class="text-brew-300" x-text="style.ebc"></span></span>
             <span>Barva: <span class="text-brew-300" x-text="style.barva"></span></span>
+          </div>
+          <div class="mt-2 flex flex-wrap gap-4 text-xs text-brew-500" x-show="style.temp">
+            <span>Teplota: <span class="text-brew-300" x-text="style.temp"></span></span>
+            <span>Sklenice: <span class="text-brew-300" x-text="style.glass"></span></span>
+          </div>
+          <div class="mt-1.5 text-xs text-brew-500" x-show="style.pairing">
+            K j\u00eddlu: <span class="text-brew-300" x-text="style.pairing"></span>
           </div>
           <div class="mt-2 flex flex-wrap gap-1.5">
             <template x-for="ex in style.examples" :key="ex">
@@ -422,14 +430,19 @@
       </template>
     </div>
 
-    <!-- Glosar -->
-    <div class="mt-10">
+    <!-- Glos\u00e1\u0159 -->
+    <div class="mt-10" x-data="{ glossarySearch: '' }">
       <h3 class="text-sm font-semibold text-brew-300 mb-4 flex items-center gap-3 uppercase tracking-wider">
         <span class="w-6 h-px bg-tiger-500/50"></span>
-        Glosar
+        Glos\u00e1\u0159 pivn\u00edch pojm\u016f
+        <span class="text-brew-600 text-[10px] normal-case tracking-normal font-normal" x-text="'(' + glossary.length + ' pojm\u016f)'"></span>
       </h3>
+      <div class="mb-4">
+        <input type="text" x-model="glossarySearch" placeholder="Hledat v glos\u00e1\u0159i\u2026"
+               class="w-full sm:w-64 px-3 py-1.5 rounded-lg bg-white/5 border border-brew-700/30 text-brew-200 text-sm placeholder-brew-600 focus:outline-none focus:border-tiger-500/50 focus:ring-1 focus:ring-tiger-500/20">
+      </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-1">
-        <template x-for="term in glossary" :key="term.term">
+        <template x-for="term in glossary.filter(t => !glossarySearch || t.term.toLowerCase().includes(glossarySearch.toLowerCase()) || t.desc.toLowerCase().includes(glossarySearch.toLowerCase()))" :key="term.term">
           <div class="py-2 border-b border-brew-800/20" :id="'glosar-' + term.term.toLowerCase().replace(/[^a-z0-9]/g, '')">
             <div class="flex items-baseline gap-1.5">
               <span class="text-tiger-400 font-bold text-sm" x-text="term.term"></span>
