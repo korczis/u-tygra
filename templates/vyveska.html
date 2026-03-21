@@ -38,42 +38,6 @@ body {
 
 ::-webkit-scrollbar { display: none; }
 
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 2vh 3vw;
-  border-bottom: 1px solid rgba(240,140,15,0.15);
-}
-
-.brand {
-  font-size: 5vmin;
-  font-weight: 800;
-  color: #fff;
-}
-
-.live {
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-  color: #22c55e;
-  font-size: 2.5vmin;
-  font-weight: 600;
-}
-
-.live-dot {
-  width: 10px;
-  height: 10px;
-  background: #22c55e;
-  border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-
 .announcement {
   padding: 1.5vh 3vw;
   color: #f7c46d;
@@ -187,19 +151,10 @@ tbody td {
   .td-style { font-size: 1.6rem; }
   .td-abv { font-size: 1.8rem; }
   thead th { font-size: 1rem; }
-  .brand { font-size: 2.5rem; }
 }
 </style>
 </head>
 <body>
-
-<div class="header">
-  <h1 class="brand">Na čepu</h1>
-  <div class="live">
-    <span class="live-dot"></span>
-    <span>Živě</span>
-  </div>
-</div>
 
 <div id="announcement" class="announcement" style="display:none"></div>
 
@@ -427,12 +382,10 @@ function loadBeers() {
 
 function fitToScreen(beerCount) {
   // Calculate available height for table body
-  var header = document.querySelector('.header');
   var announcement = document.getElementById('announcement');
   var thead = document.querySelector('thead');
 
   var usedHeight = 0;
-  if (header) usedHeight += header.offsetHeight;
   if (announcement && announcement.style.display !== 'none') usedHeight += announcement.offsetHeight;
   if (thead) usedHeight += thead.offsetHeight;
 
