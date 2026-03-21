@@ -76,9 +76,10 @@ window.FIREBASE_CONFIG = {
         <h2 class="text-2xl font-bold text-white mb-2">Administrace</h2>
         <p class="text-brew-400 mb-8">Přihlaste se pro správu obsahu pivnice.</p>
         <button @click="signIn()" class="w-full px-6 py-3 bg-tiger-500 hover:bg-tiger-600 text-white font-semibold rounded-xl transition-colors text-lg">
-          Přihlásit přes Google
+          Přihlásit se
         </button>
-        <p class="text-brew-600 text-xs mt-4">Přístup pouze pro autorizované uživatele.</p>
+        <p class="text-brew-600 text-xs mt-4" x-show="!firebaseConnected">Lokální režim — data uložena v prohlížeči.</p>
+        <p class="text-brew-600 text-xs mt-4" x-show="firebaseConnected">Firebase připojeno — data synchronizována.</p>
       </div>
     </div>
   </template>
