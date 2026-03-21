@@ -5,6 +5,7 @@ description = "Moderní mnichovský slavnostní ležák, světlejší nástupce 
 en = "Festbier"
 category = "styly"
 related = ["marzen", "helles", "oktoberfest"]
+funfact = "Moderni Oktoberfest pivo je svetlejsi nez tradicni Marzen — zmena prisla v 90. letech."
 +++
 
 **Festbier** je moderní „Oktoberfest-pivo" — od 90. let nahradil tmavší Märzen jako oficiální styl mnichovského Oktoberfestu.

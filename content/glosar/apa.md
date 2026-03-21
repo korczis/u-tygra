@@ -5,6 +5,7 @@ description = "Americké svrchně kvašené pivo s výrazným citrusovým a trop
 en = "American Pale Ale"
 category = "styly"
 related = ["pale-ale", "ipa", "ale", "craft"]
+funfact = "Sierra Nevada Pale Ale z roku 1980 odstartoval americkou craft revoluci."
 +++
 
 **APA** (American Pale Ale) je americká varianta Pale Ale s důrazem na americké chmelové kultivary (Cascade, Citra, Mosaic).

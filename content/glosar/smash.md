@@ -5,6 +5,7 @@ description = "Single Malt and Single Hop — pivo z jednoho sladu a jednoho chm
 en = "Single Malt and Single Hop"
 category = "styly"
 related = ["pale-ale", "single-hop-ale", "craft"]
+funfact = "SMASH znamena Single Malt and Single Hop — minimalisticky pristup k vareni."
 +++
 
 **SMASH** (Single Malt and Single Hop) je minimalistický přístup k vaření piva — pouze jeden druh sladu a jeden chmel.

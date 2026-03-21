@@ -5,6 +5,7 @@ description = "Americký aromatický chmel s výrazným pomerančovým a květin
 en = "Amarillo Hop"
 category = "chmely"
 related = ["chmel", "cascade", "citra"]
+funfact = "Amarillo chmel byl objeven nahodne v zahrade Virgila Gamache ve Washingtonu."
 +++
 
 **Amarillo** je americký [chmel](@/glosar/chmel.md)ový kultivar s výrazně citrusovým charakterem. Název pochází ze španělského *amarillo* = žlutý.

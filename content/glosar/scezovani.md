@@ -5,6 +5,7 @@ description = "Oddělení sladké mladiny od mláta (vylouženého sladu) po rmu
 en = "Lautering"
 category = "vyroba"
 related = ["mladina", "rmuty", "slad"]
+funfact = "Mlatovy kolac pri scezovani funguje jako prirozeny filtr."
 +++
 
 **Scezování** (*lautering*) je klíčový krok vaření piva — oddělení tekuté [mladiny](@/glosar/mladina.md) bohaté na cukry od pevného mláta.

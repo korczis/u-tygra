@@ -5,6 +5,7 @@ description = "Americký chmel přezdívaný 'Super Cascade' pro svůj citrusov�
 en = "Centennial Hop"
 category = "chmely"
 related = ["chmel", "cascade"]
+funfact = "Centennial se prezdiva Super Cascade pro svuj intenzivnejsi citrusovy profil."
 +++
 
 **Centennial** (1990) je vyváženým [chmelem](@/glosar/chmel.md) pro hořčení i aroma. Přezdívá se mu *Super [Cascade](@/glosar/cascade.md)* díky podobnému, ale intenzivnějšímu profilu.

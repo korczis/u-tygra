@@ -5,6 +5,7 @@ description = "Tmavá IPA kombinující intenzivní chmelení s praženými slad
 en = "Black IPA / Cascadian Dark Ale"
 category = "styly"
 related = ["ipa", "stout", "prazeny-slad"]
+funfact = "Black IPA se take nazyva Cascadian Dark Ale — po Kaskadovych horach."
 +++
 
 **Black IPA** (Cascadian Dark Ale) kombinuje dva zdánlivě protichůdné světy — tmavý pražený slad a agresivní chmelení.

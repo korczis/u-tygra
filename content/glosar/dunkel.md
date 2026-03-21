@@ -5,6 +5,7 @@ description = "Mnichovský tmavý ležák s karamelovou, chlebovou chutí a hlad
 en = "Dunkel"
 category = "styly"
 related = ["lager", "helles", "bock"]
+funfact = "Dunkel je starsi nez Helles — byl to puvodni mnichovsky pivni styl."
 +++
 
 **Dunkel** (*dunkel* = tmavý) je původní mnichovský pivní styl — starší než Helles. Tmavá barva pochází z mnichovského [sladu](@/glosar/slad.md).

@@ -5,6 +5,7 @@ description = "Moderní metoda rmutování ohřevem celého objemu rmutů bez va
 en = "Infusion Mashing"
 category = "vyroba"
 related = ["rmuty", "mladina", "dekokcni-rmutovani"]
+funfact = "Vetšina craft pivovaru pouziva infuzni metodu — je jednodussi a rychlejsi."
 +++
 
 **Infuzní [rmutování](@/glosar/rmuty.md)** je jednodušší alternativa dekokce — celý objem rmutů se ohřívá přímo nebo přidáním horké vody.

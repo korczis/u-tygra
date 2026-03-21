@@ -5,6 +5,7 @@ description = "Americký chmel s intenzivním borovicovým a grapefruitovým aro
 en = "Chinook Hop"
 category = "chmely"
 related = ["chmel", "cascade", "simcoe"]
+funfact = "Chinook chmel pojmenovali po indianskem kmeni z Pacifickeho severozapadu."
 +++
 
 **Chinook** (1985) je dual-purpose [chmel](@/glosar/chmel.md) — výborný pro hořčení i aroma. Pojmenován po indiánském kmeni z Pacifického severozápadu.

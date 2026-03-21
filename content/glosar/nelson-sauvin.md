@@ -5,6 +5,7 @@ description = "Novozélandský chmel s unikátním vinným, hroznovým aroma př
 en = "Nelson Sauvin Hop"
 category = "chmely"
 related = ["chmel", "citra", "mosaic"]
+funfact = "Nelson Sauvin dostal jmeno po vine Sauvignon Blanc — pripomina bile hrozny."
 +++
 
 **Nelson Sauvin** pochází z novozélandského regionu Nelson. Název odkazuje na odrůdu vína Sauvignon Blanc, kterou svým aroma připomíná.

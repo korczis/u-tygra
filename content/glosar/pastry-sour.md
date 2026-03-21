@@ -5,6 +5,7 @@ description = "Moderní kyselé pivo s přídavkem ovoce, vanilky, laktózy — 
 en = "Pastry Sour"
 category = "styly"
 related = ["sour", "berliner-weisse", "gose"]
+funfact = "Pastry Sour casto obsahuje vic ovoce nez samotneho pivního mladku."
 +++
 
 **Pastry Sour** je moderní podstyl kyselých piv, kde se přidávají „dezertové" ingredience pro plný, sladko-kyselý profil.

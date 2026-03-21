@@ -5,6 +5,7 @@ description = "Sladký, chmelený roztok — polotovar, ze kterého kvašením v
 en = "Wort"
 category = "vyroba"
 related = ["slad", "kvaseni", "rmuty", "stupnovitost", "chmelovani"]
+funfact = "Mladina je sladky roztok pred kvasenim — chutna jako sladovy caj."
 +++
 
 **Mladina** (wort) je sladký roztok, který vzniká vylouhováním [sladu](@/glosar/slad.md) ve vodě a následným varem s [chmelem](@/glosar/chmel.md). Je to „polotovar" piva — po ochlazení a přidání [kvasnic](@/glosar/kvasnice.md) z ní [kvašení](@/glosar/kvaseni.md)m vznikne pivo.

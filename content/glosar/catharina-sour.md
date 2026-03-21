@@ -5,6 +5,7 @@ description = "Brazilský ovocný sour styl z města Florianópolis, lehký a os
 en = "Catharina Sour"
 category = "styly"
 related = ["sour", "berliner-weisse", "gose"]
+funfact = "Catharina Sour dostal jmeno po ostrove Santa Catarina v Brazilii."
 +++
 
 **Catharina Sour** je brazilský pivní styl uznaný BJCP v roce 2018. Pochází z města Florianópolis (ostrov Santa Catarina).

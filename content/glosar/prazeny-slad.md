@@ -5,6 +5,7 @@ description = "Slad pražený při vysokých teplotách pro tmavou barvu a chuť
 en = "Roasted Malt"
 category = "suroviny"
 related = ["slad", "porter", "stout"]
+funfact = "Staci 3-10 procent prazeneho sladu pro dramatickou zmenu barvy i chuti piva."
 +++
 
 **Pražený [slad](@/glosar/slad.md)** se praží při teplotách 200–230 °C a dodává pivu tmavou barvu a intenzivní chuťový profil.

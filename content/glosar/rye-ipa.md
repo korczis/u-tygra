@@ -5,6 +5,7 @@ description = "IPA s přídavkem žitného sladu dodávajícím kořenitost a su
 en = "Rye IPA"
 category = "styly"
 related = ["ipa", "slad"]
+funfact = "Zitny slad dodava pivu korenity, peprovy charakter a sussi dozvuk."
 +++
 
 **Rye IPA** přidává žitný slad (10–30 %) k IPA receptu. Žito dodává kořenitý, pepřový charakter a sušší dozvuk.

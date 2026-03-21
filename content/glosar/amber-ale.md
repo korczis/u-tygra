@@ -5,6 +5,7 @@ description = "Jantarové svrchně kvašené pivo s vyváženým karamelově-chm
 en = "Amber Ale"
 category = "styly"
 related = ["ale", "pale-ale", "red-ale"]
+funfact = "Amber Ale je v USA nejpopularnejsi pivni styl po IPA."
 +++
 
 **Amber Ale** je vyvážený styl s důrazem na karamelový slad a středně intenzivní chmelení.

@@ -5,6 +5,7 @@ description = "Lehčí verze IPA s nízkým alkoholem ale plným chmelovým arom
 en = "Session IPA"
 category = "styly"
 related = ["ipa", "session", "pale-ale"]
+funfact = "Nazev session pochazi z britske tradice celodenního piti lehcich piv."
 +++
 
 **Session IPA** nabízí chmelový charakter IPA při nižším obsahu alkoholu — ideální pro delší posezení.

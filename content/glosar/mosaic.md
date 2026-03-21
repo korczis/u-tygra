@@ -5,6 +5,7 @@ description = "Americký chmel s komplexním profilem: borůvky, tropické ovoce
 en = ""
 category = "chmely"
 related = ["chmel", "citra", "dry-hopping"]
+funfact = "Mosaic chmel je potomek Simcoe — zdedil jeho komplexnost ale pridal borovky."
 +++
 
 **Mosaic** je americká odrůda (2012) s mimořádně komplexním aromatickým profilem. Pojmenována „Mosaic" (mozaika) právě pro svou mnohostrannost.

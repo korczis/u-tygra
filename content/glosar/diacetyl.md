@@ -5,6 +5,7 @@ description = "Nežádoucí chuťová vada piva s máslovým, karamelkovým arom
 en = "Diacetyl"
 category = "zaklady"
 related = ["kvaseni", "kvasnice"]
+funfact = "Diacetyl je presne ta chemikalie, ktera dava popcornu maslovou chut."
 +++
 
 **Diacetyl** je vedlejší produkt [kvašení](@/glosar/kvaseni.md) s chutí a vůní po **másle nebo karamelu**. V většině pivních stylů je považován za vadu.

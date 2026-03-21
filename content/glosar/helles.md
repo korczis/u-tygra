@@ -5,6 +5,7 @@ description = "Mnichovský světlý ležák s jemnou sladovostí a nízkou hořk
 en = "Helles"
 category = "styly"
 related = ["lager", "plzen", "spodni-kvaseni"]
+funfact = "Helles vzniklo v Mnichove v roce 1894 jako bavorska odpoved na cesky Pilsner."
 +++
 
 **Helles** (*helles* = světlé) vznikl v Mnichově jako odpověď na úspěch českého [pilsner](@/glosar/plzen.md)u. Na rozdíl od pilsneru je méně hořké a více [slad](@/glosar/slad.md)ové.

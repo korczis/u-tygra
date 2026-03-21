@@ -5,6 +5,7 @@ description = "Klíčový proces pivovarnictví — kvasnice přeměňují cukry
 en = "Fermentation"
 category = "vyroba"
 related = ["kvasnice", "mladina", "svrchni-kvaseni", "spodni-kvaseni"]
+funfact = "Kvasnice promeniji cukr na alkohol a CO2 — za den zvladnou miliardy deleni."
 +++
 
 **Kvašení** (fermentace) je biochemický proces, při kterém [kvasnice](@/glosar/kvasnice.md) přeměňují jednoduché cukry (glukózu, maltózu) z [mladiny](@/glosar/mladina.md) na etanol (alkohol) a oxid uhličitý (CO₂).

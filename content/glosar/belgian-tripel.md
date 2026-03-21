@@ -5,6 +5,7 @@ description = "Silné belgické pivo s komplexním kvasnicovým profilem, kořen
 en = "Belgian Tripel"
 category = "styly"
 related = ["ale", "svrchni-kvaseni", "saison"]
+funfact = "Westmalle Tripel z roku 1956 definoval cely styl."
 +++
 
 **Tripel** je silný belgický styl — název odkazuje na trojitou dávku sladu. Přes vysoký alkohol je překvapivě lehký a pitný.

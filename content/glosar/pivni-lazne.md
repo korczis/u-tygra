@@ -5,6 +5,7 @@ description = "Česká turistická specialita — koupel ve směsi piva, chmele 
 en = "Beer Spa"
 category = "kultura"
 related = ["chmel", "kvasnice"]
+funfact = "V Cesku je pres 20 pivnich lazni — je to cesky vynalaz."
 +++
 
 **Pivní lázně** jsou česká turistická a wellness specialita — koupel ve směsi teplého piva, [chmele](@/glosar/chmel.md), [kvasnic](@/glosar/kvasnice.md) a bylin v dřevěné kádi.

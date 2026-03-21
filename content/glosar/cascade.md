@@ -5,6 +5,7 @@ description = "Průkopnický americký chmel (1972). Grapefruit a květiny — z
 en = ""
 category = "chmely"
 related = ["chmel", "citra"]
+funfact = "Cascade z roku 1972 je nejrozsirenijsi americky chmel — zakladni kamen IPA."
 +++
 
 **Cascade** je americká [chmel](@/glosar/chmel.md)ová odrůda z roku 1972 — první chmel, který definoval „americký" chmelový charakter. Bez Cascade by americká craft beer revoluce nevypadala tak, jak vypadá dnes.

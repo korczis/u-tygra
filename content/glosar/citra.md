@@ -5,6 +5,7 @@ description = "Americký chmel s intenzivním citrusovým a tropickým arómatem
 en = ""
 category = "chmely"
 related = ["chmel", "mosaic", "dry-hopping"]
+funfact = "Citra je nejpouzivanejsi chmel v americkem craft pivovarnictvi."
 +++
 
 **Citra** je americká [chmel](@/glosar/chmel.md)ová odrůda vyvinutá firmou **Hop Breeding Company** a uvolněná v roce 2007. Stala se jedním z nejpopulárnějších chmelů v craft pivovarnictví.

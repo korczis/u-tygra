@@ -5,6 +5,7 @@ description = "Silná, masivně chmelená IPA s vysokým obsahem alkoholu a inte
 en = "Double / Imperial IPA"
 category = "styly"
 related = ["ipa", "imperial", "west-coast-ipa"]
+funfact = "Pliny the Elder od Russian River je povazovano za nejlepsi DIPA na svete."
 +++
 
 **Double IPA** (DIPA, Imperial IPA) zdvojnásobuje chmelovou i sladovou dávku oproti klasické IPA.

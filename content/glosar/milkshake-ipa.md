@@ -5,6 +5,7 @@ description = "Zakalená IPA s laktózou a ovocem pro krémový, dezertový char
 en = "Milkshake IPA"
 category = "styly"
 related = ["neipa", "ipa", "pastry-sour"]
+funfact = "Milkshake IPA popularizoval pivovar Tired Hands v roce 2015."
 +++
 
 **Milkshake IPA** kombinuje NEIPA základ s laktózou (mléčným cukrem), vanilkou a ovocným pyré.

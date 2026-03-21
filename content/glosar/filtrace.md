@@ -5,6 +5,7 @@ description = "Proces odstraňování kvasnic a zákalů z piva. Filtrované vs.
 en = "Filtering"
 category = "vyroba"
 related = ["zrani", "pasterace"]
+funfact = "Neiltrovana piva obsahuji vice vitaminu B a antioxidantu nez filtrovana."
 +++
 
 **Filtrace** je proces odstraňování [kvasnic](@/glosar/kvasnice.md), bílkovinných zákalů a dalších částic z piva. Rozhodnutí filtrovat nebo nefiltrovat zásadně ovlivňuje charakter piva.

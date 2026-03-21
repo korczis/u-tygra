@@ -5,6 +5,7 @@ description = "Pivo s výraznou červenou barvou z karamelových sladů a vyvá�
 en = "Red Ale / Irish Red"
 category = "styly"
 related = ["amber-ale", "ale", "karamelovy-slad"]
+funfact = "Irish Red Ale ma cervenou barvu z maleho mnozstvi prazeneho jecmene."
 +++
 
 **Red Ale** (Irish Red Ale) se vyznačuje rubínově červenou barvou a vyváženým, mírně sladovým profilem.

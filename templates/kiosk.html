@@ -850,16 +850,17 @@ window.onresize = function() {
     lastIdx = idx;
 
     var term = glossaryTerms[idx];
+    var displayText = term.funfact || term.desc;
     elTitle.textContent = term.title;
     elEn.textContent = term.en || '';
     elEn.style.display = term.en ? '' : 'none';
-    elDesc.textContent = term.desc;
+    elDesc.textContent = displayText;
 
     // Calculate reading time: ~5 words/sec + 2s base, then 1.5x
-    var text = term.title + ' ' + (term.en || '') + ' ' + term.desc;
+    var text = term.title + ' ' + (term.en || '') + ' ' + displayText;
     var wordCount = text.split(/\s+/).length;
     var readingMs = Math.max(DISPLAY, (wordCount / 5) * 1000 + 2000);
-    readingMs = Math.round(readingMs * 1.5);
+    readingMs = Math.round(readingMs * 1.2);
 
     if (timer) clearTimeout(timer);
     fadeIn(overlay, 800, function() {
