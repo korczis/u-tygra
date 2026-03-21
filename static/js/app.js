@@ -463,7 +463,7 @@ class CSVWorkerManager {
     let headerIdx = -1;
     for (let i = 0; i < lines.length; i++) {
       const lower = lines[i].toLowerCase();
-      if (lower.includes('pivo') || lower.includes('pivovar') || lower.includes('n\u00e1zev')) {
+      if (lower.includes('pivo') || lower.includes('pivovar') || lower.includes('název')) {
         headerIdx = i;
         break;
       }
@@ -472,7 +472,7 @@ class CSVWorkerManager {
     function normalizeKey(h) {
       const k = h.toLowerCase().trim();
       if (k.includes('pivovar')) return 'pivovar';
-      if (k.includes('n\u00e1zev') || k.includes('name')) return 'nazev';
+      if (k.includes('název') || k.includes('name')) return 'nazev';
       if (k.includes('styl') || k.includes('style')) return 'styl';
       if (k.includes('alk') || k === '%') return 'abv';
       if (k.includes('ibu')) return 'ibu';
@@ -523,7 +523,7 @@ function parseBeerCSV(csvText) {
   let headerIdx = -1;
   for (let i = 0; i < lines.length; i++) {
     const lower = lines[i].toLowerCase();
-    if (lower.includes('pivo') || lower.includes('pivovar') || lower.includes('n\u00e1zev')) {
+    if (lower.includes('pivo') || lower.includes('pivovar') || lower.includes('název')) {
       headerIdx = i;
       break;
     }
@@ -532,7 +532,7 @@ function parseBeerCSV(csvText) {
   function normalizeKey(h) {
     const k = h.toLowerCase().trim();
     if (k.includes('pivovar')) return 'pivovar';
-    if (k.includes('n\u00e1zev') || k.includes('name')) return 'nazev';
+    if (k.includes('název') || k.includes('name')) return 'nazev';
     if (k.includes('styl') || k.includes('style')) return 'styl';
     if (k.includes('alk') || k === '%') return 'abv';
     if (k.includes('ibu')) return 'ibu';
@@ -629,12 +629,12 @@ function app() {
 
     // Navigation with section metadata for OG tags
     navItems: [
-      { id: 'home', href: '#home', label: 'Dom\u016f', title: 'Pivnice U Tygra', desc: 'Budvar & \u0159emesln\u00e1 piva u Lu\u017e\u00e1nek. Brno.' },
-      { id: 'na-cepu', href: '#na-cepu', label: 'Na \u010depu', title: 'Na \u010depu \u2013 Pivnice U Tygra', desc: '\u017div\u00e1 nab\u00eddka \u010depovan\u00fdch piv. Budvar, \u0159emesln\u00e1 piva a speci\u00e1ly.' },
-      { id: 'jidlo', href: '#jidlo', label: 'J\u00eddlo', title: 'J\u00eddlo \u2013 Pivnice U Tygra', desc: 'Tradi\u010dn\u00ed \u010desk\u00e9 pochutiny. Chlebíčky, utopen\u00e9, tla\u010denka a dal\u0161\u00ed.' },
-      { id: 'salonek', href: '#salonek', label: 'Sal\u00f3nek', title: 'Sal\u00f3nek \u2013 Pivnice U Tygra', desc: 'Soukrom\u00fd sal\u00f3nek pro oslavy a firemn\u00ed akce. Kapacita 20 osob.' },
-      { id: 'galerie', href: '#galerie', label: 'Galerie', title: 'Galerie \u2013 Pivnice U Tygra', desc: 'Atmosf\u00e9ra Pivnice U Tygra. Interi\u00e9r, bar, zahr\u00e1dka.' },
-      { id: 'kontakt', href: '#kontakt', label: 'Kontakt', title: 'Kontakt \u2013 Pivnice U Tygra', desc: 'Vrchlick\u00e9ho sad 1893/3, Brno. Otev\u0159eno denn\u011b 16:00\u201324:00.' },
+      { id: 'home', href: '#home', label: 'Domů', title: 'Pivnice U Tygra', desc: 'Budvar & řemeslná piva u Lužánek. Brno.' },
+      { id: 'na-cepu', href: '#na-cepu', label: 'Na čepu', title: 'Na čepu – Pivnice U Tygra', desc: 'Živá nabídka čepovaných piv. Budvar, řemeslná piva a speciály.' },
+      { id: 'jidlo', href: '#jidlo', label: 'Jídlo', title: 'Jídlo – Pivnice U Tygra', desc: 'Tradiční české pochutiny. Chlebíčky, utopené, tlačenka a další.' },
+      { id: 'salonek', href: '#salonek', label: 'Salónek', title: 'Salónek – Pivnice U Tygra', desc: 'Soukromý salónek pro oslavy a firemní akce. Kapacita 20 osob.' },
+      { id: 'galerie', href: '#galerie', label: 'Galerie', title: 'Galerie – Pivnice U Tygra', desc: 'Atmosféra Pivnice U Tygra. Interiér, bar, zahrádka.' },
+      { id: 'kontakt', href: '#kontakt', label: 'Kontakt', title: 'Kontakt – Pivnice U Tygra', desc: 'Vrchlického sad 1893/3, Brno. Otevřeno denně 16:00–24:00.' },
     ],
 
     // Known brewery URLs
@@ -744,240 +744,240 @@ function app() {
     slugify(str) {
       if (!str) return '';
       return str.toLowerCase()
-        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .normalize('NFD').replace(/[̀-ͯ]/g, '')
         .replace(/[^a-z0-9]+/g, '')
         .replace(/^-+|-+$/g, '');
     },
 
     // "Did you know?" facts
     didYouKnow: [
-      '\u010cesko m\u00e1 nejvy\u0161\u0161\u00ed spot\u0159ebu piva na osobu na sv\u011bt\u011b \u2014 p\u0159es 140 litr\u016f ro\u010dn\u011b.',
-      'IBU (International Bitterness Units) m\u011b\u0159\u00ed ho\u0159kost piva. Le\u017e\u00e1k m\u00e1 typicky 20\u201340 IBU.',
-      'Plze\u0148sk\u00fd typ piva (Pilsner) vznikl v roce 1842 a zm\u011bnil sv\u011bt pivovarnistv\u00ed.',
-      'Teplota serv\u00edrov\u00e1n\u00ed ovliv\u0148uje chu\u0165 \u2014 lager 4\u20137\u00b0C, ale 8\u201312\u00b0C, stout 12\u201314\u00b0C.',
-      'P\u011bna na pivu nen\u00ed jen estetika \u2014 chr\u00e1n\u00ed p\u0159ed oxidac\u00ed a udr\u017e\u00ed aroma.',
-      'Kvasnice typu Ale kvas\u00ed naho\u0159e (top-fermenting), Lager dole (bottom-fermenting).',
-      'Nejstar\u0161\u00ed pivovar na sv\u011bt\u011b je Weihenstephan v Bavorsku, zalo\u017een\u00fd v roce 1040.',
-      'V \u010cesku se va\u0159\u00ed pivo nep\u0159etr\u017eit\u011b od 993 n. l. \u2014 B\u0159evnovsk\u00fd kl\u00e1\u0161ter.',
-      'Chmel \u017dateck\u00fd (Saaz) je pova\u017eov\u00e1n za nejlep\u0161\u00ed aromatick\u00fd chmel na sv\u011bt\u011b.',
-      '\u010cesk\u00e1 pivn\u00ed pe\u010de\u0165 chr\u00e1n\u00ed ozna\u010den\u00ed \u201e\u010desk\u00e9 pivo\u201c od roku 2008 v EU.',
-      'Stupn\u011b Plato m\u011b\u0159\u00ed hustotu mladiny \u2014 12\u00b0 znamen\u00e1 12 % extraktu p\u0159ed kva\u0161en\u00edm.',
-      'Pr\u016fm\u011brn\u00fd \u010cech vypije 6 piv t\u00fddn\u011b. Ned\u011ble je nejm\u00e9n\u011b pivn\u00ed den.',
-      'Pivo obsahuje v\u00edce ne\u017e 800 slou\u010denin ovliv\u0148uj\u00edc\u00edch chu\u0165 a v\u016fni.',
-      'Dry hopping \u2014 p\u0159id\u00e1n\u00ed chmele za studena \u2014 d\u00e1v\u00e1 aroma bez ho\u0159kosti.',
+      'Česko má nejvyšší spotřebu piva na osobu na světě — přes 140 litrů ročně.',
+      'IBU (International Bitterness Units) měří hořkost piva. Ležák má typicky 20–40 IBU.',
+      'Plzeňský typ piva (Pilsner) vznikl v roce 1842 a změnil svět pivovarniství.',
+      'Teplota servírování ovlivňuje chuť — lager 4–7°C, ale 8–12°C, stout 12–14°C.',
+      'Pěna na pivu není jen estetika — chrání před oxidací a udrží aroma.',
+      'Kvasnice typu Ale kvasí nahoře (top-fermenting), Lager dole (bottom-fermenting).',
+      'Nejstarší pivovar na světě je Weihenstephan v Bavorsku, založený v roce 1040.',
+      'V Česku se vaří pivo nepřetržitě od 993 n. l. — Břevnovský klášter.',
+      'Chmel Žatecký (Saaz) je považován za nejlepší aromatický chmel na světě.',
+      'Česká pivní pečeť chrání označení „české pivo“ od roku 2008 v EU.',
+      'Stupně Plato měří hustotu mladiny — 12° znamená 12 % extraktu před kvašením.',
+      'Průměrný Čech vypije 6 piv týdně. Neděle je nejméně pivní den.',
+      'Pivo obsahuje více než 800 sloučenin ovlivňujících chuť a vůni.',
+      'Dry hopping — přidání chmele za studena — dává aroma bez hořkosti.',
     ],
 
-    // Beer style encyclopedia (Encyklopedie pivn\u00edch styl\u016f)
+    // Beer style encyclopedia (Encyklopedie pivních stylů)
     beerStyles: [
       {
-        id: 'svetlylezak', name: 'Sv\u011btl\u00fd le\u017e\u00e1k', nameEn: '(Czech Pale Lager)',
+        id: 'svetlylezak', name: 'Světlý ležák', nameEn: '(Czech Pale Lager)',
         color: '#f7c46d',
-        desc: 'Nejroz\u0161\u00ed\u0159en\u011bj\u0161\u00ed \u010desk\u00fd pivn\u00ed styl. Spodn\u011b kva\u0161en\u00fd, sv\u011btl\u00fd, s v\u00fdraznou chmelovou ho\u0159c\u00ed a \u010distou sladovou chut\u00ed. Z\u00e1kladn\u00ed k\u00e1men \u010desk\u00e9 pivn\u00ed tradice. Zr\u00e1n\u00ed minim\u00e1ln\u011b 4\u20136 t\u00fddn\u016f za n\u00edzk\u00fdch teplot.',
-        abv: '4.0\u20135.5 %', ibu: '25\u201345', barva: 'Zlat\u00e1', ebc: '6\u201312',
+        desc: 'Nejrozšířenější český pivní styl. Spodně kvašený, světlý, s výraznou chmelovou hořcí a čistou sladovou chutí. Základní kámen české pivní tradice. Zrání minimálně 4–6 týdnů za nízkých teplot.',
+        abv: '4.0–5.5 %', ibu: '25–45', barva: 'Zlatá', ebc: '6–12',
         examples: ['Pilsner Urquell', 'Budvar', 'Staropramen'],
-        pairing: 'Sv\u00ed\u010dkov\u00e1, sma\u017een\u00fd s\u00fdr, kuřec\u00ed \u0159\u00edzek',
-        temp: '6\u20138 \u00b0C', glass: 'T\u016fzka / P\u016fllitrov\u00e1 sk\u016fra'
+        pairing: 'Svíčková, smažený sýr, kuřecí řízek',
+        temp: '6–8 °C', glass: 'Tůzka / Půllitrová skůra'
       },
       {
-        id: 'tmavylezak', name: 'Tmav\u00fd le\u017e\u00e1k', nameEn: '(Czech Dark Lager)',
+        id: 'tmavylezak', name: 'Tmavý ležák', nameEn: '(Czech Dark Lager)',
         color: '#6b3a2a',
-        desc: 'Spodn\u011b kva\u0161en\u00e9 tmav\u00e9 pivo s karamelovou a\u017e pra\u017ekovou chut\u00ed. Ni\u017e\u0161\u00ed ho\u0159kost, pln\u011bj\u0161\u00ed t\u011blo. \u010casto pit\u00e9 jako dezertn\u00ed pivo. Barvu d\u00e1vaj\u00ed pra\u017een\u00e9 a karamelizovan\u00e9 slady.',
-        abv: '3.5\u20135.5 %', ibu: '18\u201330', barva: 'Tmav\u011b hn\u011bd\u00e1 a\u017e \u010dern\u00e1', ebc: '30\u201360',
-        examples: ['Kozel \u010cern\u00fd', 'Kru\u0161ovice \u010cern\u00e9', 'U Flek\u016f'],
-        pairing: 'Du\u0161en\u00e9 maso, pe\u010den\u00e1 kachna, \u010dokol\u00e1dov\u00fd dort',
-        temp: '8\u201310 \u00b0C', glass: 'T\u016fzka / Goblet'
+        desc: 'Spodně kvašené tmavé pivo s karamelovou až pražkovou chutí. Nižší hořkost, plnější tělo. Často pité jako dezertní pivo. Barvu dávají pražené a karamelizované slady.',
+        abv: '3.5–5.5 %', ibu: '18–30', barva: 'Tmavě hnědá až černá', ebc: '30–60',
+        examples: ['Kozel Černý', 'Krušovice Černé', 'U Fleků'],
+        pairing: 'Dušené maso, pečená kachna, čokoládový dort',
+        temp: '8–10 °C', glass: 'Tůzka / Goblet'
       },
       {
-        id: 'desitka', name: 'V\u00fd\u010depn\u00ed (des\u00edtka)', nameEn: '(Czech Lager 10\u00b0)',
+        id: 'desitka', name: 'Výčepní (desítka)', nameEn: '(Czech Lager 10°)',
         color: '#e8d48b',
-        desc: 'Lehk\u00e9 pivko na ka\u017ed\u00fd den. 10\u00b0 Plato, ni\u017e\u0161\u00ed obsah alkoholu. Osv\u011b\u017euj\u00edc\u00ed, pitelné, ide\u00e1ln\u00ed k del\u0161\u00edmu posezen\u00ed. Z\u00e1klad \u010desk\u00e9 hospodsk\u00e9 kultury.',
-        abv: '3.5\u20134.5 %', ibu: '20\u201335', barva: 'Sv\u011btle zlat\u00e1', ebc: '5\u20139',
-        examples: ['Gambrinus 10\u00b0', 'Staropramen 10\u00b0', 'Budvar 10\u00b0'],
-        pairing: 'Utopenec, tla\u010denka, topinky s \u010desnekem',
-        temp: '5\u20137 \u00b0C', glass: 'T\u016fzka / Kriegl'
+        desc: 'Lehké pivko na každý den. 10° Plato, nižší obsah alkoholu. Osvěžující, pitelné, ideální k delšímu posezení. Základ české hospodské kultury.',
+        abv: '3.5–4.5 %', ibu: '20–35', barva: 'Světle zlatá', ebc: '5–9',
+        examples: ['Gambrinus 10°', 'Staropramen 10°', 'Budvar 10°'],
+        pairing: 'Utopenec, tlačenka, topinky s česnekem',
+        temp: '5–7 °C', glass: 'Tůzka / Kriegl'
       },
       {
         id: 'ipa', name: 'IPA', nameEn: '(India Pale Ale)',
         color: '#e17209',
-        desc: 'Svrchně kva\u0161en\u00fd styl s v\u00fdrazn\u00fdm chmelov\u00fdm ar\u00f3matem a ho\u0159kost\u00ed. P\u016fvod v Anglii 18. stolet\u00ed. Dnes v mnoha variant\u00e1ch: American IPA (citrusov\u00e9 chmely), West Coast (such\u00e1, ho\u0159k\u00e1), Session IPA (leh\u010d\u00ed verze).',
-        abv: '5.5\u20137.5 %', ibu: '40\u201370', barva: 'Zlat\u00e1 a\u017e m\u011bdov\u00e1', ebc: '8\u201318',
-        examples: ['Matu\u0161ka Raptor', 'Clock IPA', 'Falkon IPA'],
-        pairing: 'Pikantn\u00ed j\u00eddla, burger, curry, nakl\u00e1dan\u00e9 s\u00fdry',
-        temp: '8\u201312 \u00b0C', glass: 'IPA sklenice / Tulip'
+        desc: 'Svrchně kvašený styl s výrazným chmelovým arómatem a hořkostí. Původ v Anglii 18. století. Dnes v mnoha variantách: American IPA (citrusové chmely), West Coast (suchá, hořká), Session IPA (lehčí verze).',
+        abv: '5.5–7.5 %', ibu: '40–70', barva: 'Zlatá až mědová', ebc: '8–18',
+        examples: ['Matuška Raptor', 'Clock IPA', 'Falkon IPA'],
+        pairing: 'Pikantní jídla, burger, curry, nakládané sýry',
+        temp: '8–12 °C', glass: 'IPA sklenice / Tulip'
       },
       {
         id: 'neipa', name: 'NEIPA', nameEn: '(New England IPA)',
         color: '#f5c060',
-        desc: 'Zakalené, \u0161\u0165avaté IPA s n\u00edzkou ho\u0159kost\u00ed a intenz\u00edvn\u00edm ovocn\u00fdm ar\u00f3matem (mango, marakuja, broskev). Soft, hedvábné t\u011blo d\u00edky ovesn\u00fdm vlo\u010dk\u00e1m a p\u0161eni\u010dn\u00e9mu sladu. Dry hopping za studena.',
-        abv: '5.0\u20138.0 %', ibu: '20\u201350', barva: 'Zakalená zlat\u00e1 a\u017e oran\u017eov\u00e1', ebc: '6\u201314',
-        examples: ['Falk\u00f3n Hazy', 'Sibeeria Juicy', 'Clock Haze'],
-        pairing: 'Su\u0161i, ceviche, lehk\u00e9 sal\u00e1ty, ovocn\u00e9 dezerty',
-        temp: '6\u201310 \u00b0C', glass: 'IPA sklenice / Tulip'
+        desc: 'Zakalené, šťavaté IPA s nízkou hořkostí a intenzívním ovocným arómatem (mango, marakuja, broskev). Soft, hedvábné tělo díky ovesným vločkám a pšeničnému sladu. Dry hopping za studena.',
+        abv: '5.0–8.0 %', ibu: '20–50', barva: 'Zakalená zlatá až oranžová', ebc: '6–14',
+        examples: ['Falkón Hazy', 'Sibeeria Juicy', 'Clock Haze'],
+        pairing: 'Suši, ceviche, lehké saláty, ovocné dezerty',
+        temp: '6–10 °C', glass: 'IPA sklenice / Tulip'
       },
       {
-        id: 'psenicne', name: 'P\u0161eni\u010dn\u00e9 pivo', nameEn: '(Wheat Beer / Weizen)',
+        id: 'psenicne', name: 'Pšeničné pivo', nameEn: '(Wheat Beer / Weizen)',
         color: '#fad9a5',
-        desc: 'Svrchn\u011b kva\u0161en\u00fd styl s vysok\u00fdm pod\u00edlem p\u0161eni\u010dn\u00e9ho sladu (50\u201370 %). Typick\u00e1 ban\u00e1nov\u00e1 a h\u0159eb\u00ed\u010dkov\u00e1 chu\u0165 od speci\u00e1ln\u00edch kvasnic. Lehk\u00e9, osv\u011b\u017euj\u00edc\u00ed. Varianty: Hefeweizen (zakalené), Kristallweizen (\u010dir\u00e9), Dunkelweizen (tmav\u00e9).',
-        abv: '4.5\u20135.5 %', ibu: '8\u201315', barva: 'Sv\u011btle zlat\u00e1, zakalená', ebc: '4\u201312',
-        examples: ['Maisel Weisse', 'Hoegaarden', 'Prim\u00e1tor Weizen'],
-        pairing: 'Sal\u00e1ty, ryby, lehk\u00e1 letn\u00ed j\u00eddla, b\u00edl\u00fd sýr',
-        temp: '6\u20138 \u00b0C', glass: 'Vysok\u00e1 p\u0161eni\u010dn\u00e1 sklenice (Weizen)'
+        desc: 'Svrchně kvašený styl s vysokým podílem pšeničného sladu (50–70 %). Typická banánová a hřebíčková chuť od speciálních kvasnic. Lehké, osvěžující. Varianty: Hefeweizen (zakalené), Kristallweizen (čiré), Dunkelweizen (tmavé).',
+        abv: '4.5–5.5 %', ibu: '8–15', barva: 'Světle zlatá, zakalená', ebc: '4–12',
+        examples: ['Maisel Weisse', 'Hoegaarden', 'Primátor Weizen'],
+        pairing: 'Saláty, ryby, lehká letní jídla, bílý sýr',
+        temp: '6–8 °C', glass: 'Vysoká pšeničná sklenice (Weizen)'
       },
       {
         id: 'stout', name: 'Stout', nameEn: '(Stout / Porter)',
         color: '#1a0f06',
-        desc: 'Tmav\u00fd, pln\u00fd styl s p\u0159\u00edchutěmi pra\u017een\u00fdch slad\u016f \u2014 \u010dokol\u00e1da, k\u00e1va, karamel. Dry Stout (irsk\u00fd, such\u00fd), Sweet Stout (mlé\u010dn\u00fd), Oatmeal Stout (ovesn\u00fd), Imperial Stout (siln\u00fd 8\u201312 %). Porter je historick\u00fd p\u0159edch\u016fdce stoutu.',
-        abv: '4.0\u201312.0 %', ibu: '25\u201350', barva: '\u010cern\u00e1', ebc: '60\u201380+',
-        examples: ['Guinness', 'Matu\u0161ka Black IPA', 'Raven Stout'],
-        pairing: '\u010cokol\u00e1dov\u00fd dort, \u0161krob\u00e1kov\u00fd pud., ústřice, grilované maso',
-        temp: '10\u201314 \u00b0C', glass: 'Pint / Tulip / Snifter'
+        desc: 'Tmavý, plný styl s příchutěmi pražených sladů — čokoláda, káva, karamel. Dry Stout (irský, suchý), Sweet Stout (mléčný), Oatmeal Stout (ovesný), Imperial Stout (silný 8–12 %). Porter je historický předchůdce stoutu.',
+        abv: '4.0–12.0 %', ibu: '25–50', barva: 'Černá', ebc: '60–80+',
+        examples: ['Guinness', 'Matuška Black IPA', 'Raven Stout'],
+        pairing: 'Čokoládový dort, škrobákový pud., ústřice, grilované maso',
+        temp: '10–14 °C', glass: 'Pint / Tulip / Snifter'
       },
       {
         id: 'ale', name: 'Pale Ale', nameEn: '(Pale Ale / APA)',
         color: '#c67a30',
-        desc: 'Svrchn\u011b kva\u0161en\u00fd styl s vyv\u00e1\u017eenou chmelovou ho\u0159kost\u00ed a ovocn\u00fdmi t\u00f3ny. Z\u00e1klad mnoha modern\u00edch \u0159emesln\u00fdch styl\u016f. APA (American PA) pou\u017e\u00edv\u00e1 americké chmely s citrusov\u00fdm a borovicov\u00fdm ar\u00f3matem. English PA je jemn\u011bj\u0161\u00ed, v\u00edce sladov\u00e1.',
-        abv: '4.5\u20136.0 %', ibu: '30\u201350', barva: 'M\u011bdov\u00e1 a\u017e jantarov\u00e1', ebc: '8\u201320',
+        desc: 'Svrchně kvašený styl s vyváženou chmelovou hořkostí a ovocnými tóny. Základ mnoha moderních řemeslných stylů. APA (American PA) používá americké chmely s citrusovým a borovicovým arómatem. English PA je jemnější, více sladová.',
+        abv: '4.5–6.0 %', ibu: '30–50', barva: 'Mědová až jantarová', ebc: '8–20',
         examples: ['Sierra Nevada PA', 'Dva Kohouti Pale Ale', 'Clock Pale Ale'],
-        pairing: 'Burger, pizza, grilovan\u00e9 ku\u0159e, cheddar',
-        temp: '8\u201312 \u00b0C', glass: 'Pint / Nonic'
+        pairing: 'Burger, pizza, grilované kuře, cheddar',
+        temp: '8–12 °C', glass: 'Pint / Nonic'
       },
       {
         id: 'sour', name: 'Kyselák', nameEn: '(Sour / Wild Ale)',
         color: '#d4536a',
-        desc: 'Piva s v\u00fdraznou kyselost\u00ed. Berliner Weisse (leh\u010d\u00ed, \u010dasto s ovocem), Gose (se sol\u00ed a koriandrem), Lambik (spont\u00e1nn\u00ed kva\u0161en\u00ed, Belgie), Flanders Red (\u010derven\u00fd, octn\u00fd). Modern\u00ed variace pou\u017e\u00edvaj\u00ed ovoce \u2014 vi\u0161n\u011b, maliny, marakuja.',
-        abv: '3.0\u20138.0 %', ibu: '3\u201315', barva: 'R\u016fzná', ebc: '4\u201330',
+        desc: 'Piva s výraznou kyselostí. Berliner Weisse (lehčí, často s ovocem), Gose (se solí a koriandrem), Lambik (spontánní kvašení, Belgie), Flanders Red (červený, octný). Moderní variace používají ovoce — višně, maliny, marakuja.',
+        abv: '3.0–8.0 %', ibu: '3–15', barva: 'Různá', ebc: '4–30',
         examples: ['Lindemans', 'Rodenbach', 'Sibeeria Sour'],
-        pairing: 'Chevr, sal\u00e1ty, moř. plody, ovocn\u00e9 dezerty',
-        temp: '6\u201310 \u00b0C', glass: 'Tulip / Flétna'
+        pairing: 'Chevr, saláty, moř. plody, ovocné dezerty',
+        temp: '6–10 °C', glass: 'Tulip / Flétna'
       },
       {
         id: 'nefiltr', name: 'Nefiltrované', nameEn: '(Unfiltered / Kellerbier)',
         color: '#c9a858',
-        desc: 'Pivo bez finální filtrace si zachov\u00e1v\u00e1 v\u00edce chut\u00ed, arom\u00e1t\u016f a kvasnicov\u00fdch esenc\u00ed. Zakalený vzhled, pln\u011bj\u0161\u00ed chu\u0165. N\u011bmeck\u00e1 tradice Kellerbier/Zwickel. V \u010cesku obl\u00edben\u00e9 jako \u201ekvasnicov\u00e9\u201c.',
-        abv: '4.0\u20136.0 %', ibu: '20\u201340', barva: 'Zakalená zlat\u00e1', ebc: '6\u201315',
-        examples: ['Bernard Nefiltr.', 'Choť\u011bboř Nefiltr.', 'Rycht\u00e1\u0159 Natur'],
-        pairing: 'Tradi\u010dn\u00ed \u010desk\u00e1 kuchyn\u011b, pe\u010den\u00e1 kolena',
-        temp: '6\u20138 \u00b0C', glass: 'T\u016fzka / Kriegl'
+        desc: 'Pivo bez finální filtrace si zachovává více chutí, aromátů a kvasnicových esencí. Zakalený vzhled, plnější chuť. Německá tradice Kellerbier/Zwickel. V Česku oblíbené jako „kvasnicové“.',
+        abv: '4.0–6.0 %', ibu: '20–40', barva: 'Zakalená zlatá', ebc: '6–15',
+        examples: ['Bernard Nefiltr.', 'Choťěboř Nefiltr.', 'Rychtář Natur'],
+        pairing: 'Tradiční česká kuchyně, pečená kolena',
+        temp: '6–8 °C', glass: 'Tůzka / Kriegl'
       },
       {
         id: 'polotmave', name: 'Polotmavé', nameEn: '(Amber Lager / Vienna)',
         color: '#a56b3a',
-        desc: 'M\u011b\u010f mezi sv\u011btl\u00fdm a tmav\u00fdm le\u017e\u00e1kem. Jantarov\u00e1 barva, v\u00fdrazn\u011bj\u0161\u00ed sladov\u00e1 chu\u0165 s karamelovou nádechem. V\u00eddňský styl (Vienna Lager) nebo \u010desk\u00fd jantarov\u00fd le\u017e\u00e1k.',
-        abv: '4.5\u20135.5 %', ibu: '20\u201335', barva: 'Jantarov\u00e1 a\u017e m\u011b\u010f', ebc: '15\u201330',
-        examples: ['Sv\u00edj\u00e1nsk\u00fd Kní\u017ee', 'Bernard Jant\u00e1r', 'Rohozec Polotmavý'],
-        pairing: 'Gu\u013a\u00e1\u0161, pe\u010den\u00e1 žebírka, uzen\u00e9 maso',
-        temp: '7\u20139 \u00b0C', glass: 'T\u016fzka / Goblet'
+        desc: 'Měď mezi světlým a tmavým ležákem. Jantarová barva, výraznější sladová chuť s karamelovou nádechem. Vídňský styl (Vienna Lager) nebo český jantarový ležák.',
+        abv: '4.5–5.5 %', ibu: '20–35', barva: 'Jantarová až měď', ebc: '15–30',
+        examples: ['Svíjánský Kníže', 'Bernard Jantár', 'Rohozec Polotmavý'],
+        pairing: 'Guĺáš, pečená žebírka, uzené maso',
+        temp: '7–9 °C', glass: 'Tůzka / Goblet'
       },
       {
-        id: 'lager', name: 'Svět. le\u017e\u00e1k (inter.)', nameEn: '(International Lager)',
+        id: 'lager', name: 'Svět. ležák (inter.)', nameEn: '(International Lager)',
         color: '#f0e68c',
-        desc: 'Lehk\u00fd, čist\u00fd, neutr\u00e1ln\u00ed lager dominujíc\u00ed svět. produkci. M\u00e9ně chmelový a sladov\u00fd ne\u017e \u010desk\u00fd le\u017e\u00e1k. Pitelný, osv\u011b\u017eujíc\u00ed. Typick\u00fd pro velk\u00e9 komerčn\u00ed pivovary.',
-        abv: '4.0\u20135.0 %', ibu: '10\u201320', barva: 'Blede zlat\u00e1', ebc: '3\u20136',
+        desc: 'Lehký, čistý, neutrální lager dominující svět. produkci. Méně chmelový a sladový než český ležák. Pitelný, osvěžující. Typický pro velké komerční pivovary.',
+        abv: '4.0–5.0 %', ibu: '10–20', barva: 'Blede zlatá', ebc: '3–6',
         examples: ['Heineken', 'Corona', 'Stella Artois'],
-        pairing: 'Lehká j\u00eddla, ryby, sal\u00e1ty, sushi',
-        temp: '4\u20136 \u00b0C', glass: 'Standardn\u00ed sklenice'
+        pairing: 'Lehká jídla, ryby, saláty, sushi',
+        temp: '4–6 °C', glass: 'Standardní sklenice'
       },
       {
-        id: 'belgicke', name: 'Belgick\u00e9 styly', nameEn: '(Belgian Ales)',
+        id: 'belgicke', name: 'Belgické styly', nameEn: '(Belgian Ales)',
         color: '#d4a44c',
-        desc: 'Bohat\u00e1 tradice svrch. kv. styl\u016f: Dubbel (tmav\u00e9, sladov\u00e9), Tripel (sv\u011btl\u00e9, siln\u00e9), Witbier (p\u0161eni\u010dn\u00e9 s pomeran\u010dovou k\u016frou), Saison (farm\u00e1\u0159sk\u00e9, ko\u0159en\u011bné). Kvasnice dod\u00e1vaj\u00ed ovocn\u00e9 a ko\u0159en\u011bn\u00e9 t\u00f3ny.',
-        abv: '5.0\u201312.0 %', ibu: '15\u201345', barva: 'Zlat\u00e1 a\u017e tmav\u011b hn\u011bd\u00e1', ebc: '5\u201350',
+        desc: 'Bohatá tradice svrch. kv. stylů: Dubbel (tmavé, sladové), Tripel (světlé, silné), Witbier (pšeničné s pomerančovou kůrou), Saison (farmářské, kořeněné). Kvasnice dodávají ovocné a kořeněné tóny.',
+        abv: '5.0–12.0 %', ibu: '15–45', barva: 'Zlatá až tmavě hnědá', ebc: '5–50',
         examples: ['Chimay', 'Westmalle', 'Duvel'],
-        pairing: 'Měkk\u00e9 s\u00fdry, mu\u0161le, \u010dokol\u00e1da',
-        temp: '8\u201314 \u00b0C', glass: 'Chalice / Goblet'
+        pairing: 'Měkké sýry, mušle, čokoláda',
+        temp: '8–14 °C', glass: 'Chalice / Goblet'
       },
       {
-        id: 'specialni', name: 'Speci\u00e1ln\u00ed', nameEn: '(Specialty)',
+        id: 'specialni', name: 'Speciální', nameEn: '(Specialty)',
         color: '#8b6cc5',
-        desc: 'Experiment\u00e1ln\u00ed a sez\u00f3nn\u00ed piva: s př\u00eddavkem ovoce (vi\u0161ně, maliny), ko\u0159en\u00ed (skořice, vanilka), sudov\u011b zr\u00e1n\u00ed (bourbon, whisky barely), medov\u00e1, bylinkov\u00e1. Milkshake IPA, Pastry Stout a dal\u0161\u00ed modern\u00ed trendy.',
-        abv: '4.0\u201314.0 %', ibu: '5\u201360', barva: 'R\u016fzn\u00e1', ebc: 'R\u016fzn\u00e1',
-        examples: ['Medov\u00e9 pivo', 'Cherry Kriek', 'Barrel Aged Stout'],
-        pairing: 'Dle konkr\u00e9tn\u00edho stylu a př\u00edsad',
-        temp: '8\u201314 \u00b0C', glass: 'Dle stylu / Snifter'
+        desc: 'Experimentální a sezónní piva: s přídavkem ovoce (višně, maliny), koření (skořice, vanilka), sudově zrání (bourbon, whisky barely), medová, bylinková. Milkshake IPA, Pastry Stout a další moderní trendy.',
+        abv: '4.0–14.0 %', ibu: '5–60', barva: 'Různá', ebc: 'Různá',
+        examples: ['Medové pivo', 'Cherry Kriek', 'Barrel Aged Stout'],
+        pairing: 'Dle konkrétního stylu a přísad',
+        temp: '8–14 °C', glass: 'Dle stylu / Snifter'
       },
     ],
 
-    // Glos\u00e1\u0159 pivn\u00edch pojm\u016f (Beer Glossary)
+    // Glosář pivních pojmů (Beer Glossary)
     glossary: [
-      // Z\u00e1kladn\u00ed pojmy
-      { term: 'ABV', en: '(Alcohol by Volume)', desc: 'Obsah alkoholu v procentech objemu. B\u011b\u017en\u00fd le\u017e\u00e1k m\u00e1 4\u20135 %, IPA 5,5\u20137,5 %, Imperial Stout a\u017e 12+ %.' },
-      { term: 'IBU', en: '(International Bitterness Units)', desc: 'Mezin\u00e1rodn\u00ed jednotka ho\u0159kosti. \u010c\u00edm vy\u0161\u0161\u00ed \u010d\u00edslo, t\u00edm v\u011bt\u0161\u00ed ho\u0159kost. Le\u017e\u00e1k: 25\u201345, IPA: 40\u201370+, Sour: 3\u201315.' },
-      { term: 'EBC', en: '(European Brewery Convention)', desc: 'Stupnice barvy piva. 4\u20136 = sv\u011btle zlat\u00e1, 15\u201320 = jantarov\u00e1, 30\u201360 = tmav\u00e1, 60+ = \u010dern\u00e1.' },
-      { term: 'Stup\u0148ovitost', en: '(Original Gravity / \u00b0Plato)', desc: 'Obsah extraktu v mladin\u011b p\u0159ed kva\u0161en\u00edm. 10\u00b0 = des\u00edtka, 12\u00b0 = dvan\u00e1ctka. Vy\u0161\u0161\u00ed stupe\u0148 = siln\u011bj\u0161\u00ed pivo.' },
+      // Základní pojmy
+      { term: 'ABV', en: '(Alcohol by Volume)', desc: 'Obsah alkoholu v procentech objemu. Běžný ležák má 4–5 %, IPA 5,5–7,5 %, Imperial Stout až 12+ %.' },
+      { term: 'IBU', en: '(International Bitterness Units)', desc: 'Mezinárodní jednotka hořkosti. Čím vyšší číslo, tím větší hořkost. Ležák: 25–45, IPA: 40–70+, Sour: 3–15.' },
+      { term: 'EBC', en: '(European Brewery Convention)', desc: 'Stupnice barvy piva. 4–6 = světle zlatá, 15–20 = jantarová, 30–60 = tmavá, 60+ = černá.' },
+      { term: 'Stupňovitost', en: '(Original Gravity / °Plato)', desc: 'Obsah extraktu v mladině před kvašením. 10° = desítka, 12° = dvanáctka. Vyšší stupeň = silnější pivo.' },
 
       // Suroviny
-      { term: 'Chmel', en: '(Hops)', desc: 'Rostlina dod\u00e1vaj\u00edc\u00ed pivu ho\u0159kost, ar\u00f3ma a konzerva\u010dn\u00ed vlastnosti. \u010cesk\u00fd Saaz (\u017dateck\u00fd) je sv\u011btov\u011b prosl\u00fdlý aromatick\u00fd chmel.' },
-      { term: 'Slad', en: '(Malt)', desc: 'Nakl\u00ed\u010den\u00fd a usu\u0161en\u00fd je\u010dmen (nebo p\u0161enice). Z\u00e1klad chuti a barvy piva. Pra\u017een\u00e9 slady d\u00e1vaj\u00ed tmav\u00e9 pivo, karamely p\u0159id\u00e1vaj\u00ed sladkost.' },
-      { term: 'Kvasnice', en: '(Yeast)', desc: 'Jednobu\u0148e\u010dn\u00e9 houby p\u0159em\u011b\u0148uj\u00edc\u00ed cukry na alkohol a CO\u2082. Ale kvasnice (Saccharomyces cerevisiae) pracuj\u00ed naho\u0159e, Lager (S. pastorianus) dole.' },
-      { term: 'Voda', en: '(Water)', desc: 'Tvo\u0159\u00ed 90\u201395 % piva. Slou\u017een\u00ed vody (tvrdost, miner\u00e1ly) z\u00e1sadn\u011b ovliv\u0148uje v\u00fdslednou chu\u0165. Plze\u0148sk\u00e1 m\u011bkk\u00e1 voda = z\u00e1klad Pilsneru.' },
+      { term: 'Chmel', en: '(Hops)', desc: 'Rostlina dodávající pivu hořkost, aróma a konzervační vlastnosti. Český Saaz (Žatecký) je světově proslýlý aromatický chmel.' },
+      { term: 'Slad', en: '(Malt)', desc: 'Naklíčený a usušený ječmen (nebo pšenice). Základ chuti a barvy piva. Pražené slady dávají tmavé pivo, karamely přidávají sladkost.' },
+      { term: 'Kvasnice', en: '(Yeast)', desc: 'Jednobuňečné houby přeměňující cukry na alkohol a CO₂. Ale kvasnice (Saccharomyces cerevisiae) pracují nahoře, Lager (S. pastorianus) dole.' },
+      { term: 'Voda', en: '(Water)', desc: 'Tvoří 90–95 % piva. Sloužení vody (tvrdost, minerály) zásadně ovlivňuje výslednou chuť. Plzeňská měkká voda = základ Pilsneru.' },
 
-      // V\u00fdroba
-      { term: 'Kva\u0161en\u00ed', en: '(Fermentation)', desc: 'Proces, p\u0159i kter\u00e9m kvasnice p\u0159etv\u00e1\u0159ej\u00ed cukry na alkohol a CO\u2082. Svrchní (ale, 15\u201324 \u00b0C) nebo spodní (lager, 7\u201313 \u00b0C).' },
-      { term: 'Mladina', en: '(Wort)', desc: 'Sladk\u00fd roztok z\u00edskan\u00fd vylouhov\u00e1n\u00edm sladu ve vod\u011b. P\u0159ed kva\u0161en\u00edm se va\u0159\u00ed s chmelem. Z\u00e1klad ka\u017ed\u00e9ho piva.' },
-      { term: 'Rmuty', en: '(Mashing)', desc: 'Proces m\u00edch\u00e1n\u00ed mlet\u00e9ho sladu s vodou p\u0159i r\u016fzn\u00fdch teplot\u00e1ch. Enzymy \u0161t\u011bp\u00ed \u0161krob na zkvasiteln\u00e9 cukry.' },
-      { term: 'Chmelov\u00e1\u0159en\u00ed', en: '(Hopping)', desc: 'P\u0159id\u00e1v\u00e1n\u00ed chmele do mladiny. Prvn\u00ed d\u00e1vka = ho\u0159kost, posledn\u00ed = aróma. Dry hopping = za studena, jen aróma.' },
-      { term: 'Dry Hopping', en: '', desc: 'P\u0159id\u00e1n\u00ed chmele za studena po kva\u0161en\u00ed. D\u00e1v\u00e1 intenz\u00edvn\u00ed chmelov\u00e9 ar\u00f3ma bez zvy\u0161ov\u00e1n\u00ed ho\u0159kosti. Typick\u00e9 pro IPA a NEIPA.' },
-      { term: 'Zr\u00e1n\u00ed', en: '(Lagering / Conditioning)', desc: 'Dozr\u00e1v\u00e1n\u00ed piva za n\u00edzk\u00fdch teplot (0\u20134 \u00b0C). \u010cesk\u00fd le\u017e\u00e1k zr\u00e1l tradi\u010dn\u011b 6\u201312 t\u00fddn\u016f v le\u017e\u00e1ck\u00fdch sklepech.' },
-      { term: 'Sudov\u00e9 zr\u00e1n\u00ed', en: '(Barrel Aging)', desc: 'Zr\u00e1n\u00ed piva v d\u0159ev\u011bn\u00fdch sudech (bourbon, whisky, v\u00edno). P\u0159id\u00e1v\u00e1 vanilkov\u00e9, ko\u0159en\u011bn\u00e9 a d\u0159evit\u00e9 t\u00f3ny.' },
-      { term: 'Filtrace', en: '(Filtering)', desc: 'Odstra\u0148ov\u00e1n\u00ed kvasnic a z\u00e1kal\u016f. Filtrovan\u00e9 pivo je pr\u016fhledn\u00e9, nefiltrovan\u00e9 si zachov\u00e1v\u00e1 v\u00edce chut\u00ed.' },
-      { term: 'Pasterace', en: '(Pasteurization)', desc: 'Tepeln\u00e9 o\u0161et\u0159en\u00ed pro del\u0161\u00ed trvanlivost. Nepasterovan\u00e9 pivo m\u00e1 \u017eiv\u011bj\u0161\u00ed chu\u0165, ale krat\u0161\u00ed expiraci.' },
+      // Výroba
+      { term: 'Kvašení', en: '(Fermentation)', desc: 'Proces, při kterém kvasnice přetvářejí cukry na alkohol a CO₂. Svrchní (ale, 15–24 °C) nebo spodní (lager, 7–13 °C).' },
+      { term: 'Mladina', en: '(Wort)', desc: 'Sladký roztok získaný vylouhováním sladu ve vodě. Před kvašením se vaří s chmelem. Základ každého piva.' },
+      { term: 'Rmuty', en: '(Mashing)', desc: 'Proces míchání mletého sladu s vodou při různých teplotách. Enzymy štěpí škrob na zkvasitelné cukry.' },
+      { term: 'Chmelováření', en: '(Hopping)', desc: 'Přidávání chmele do mladiny. První dávka = hořkost, poslední = aróma. Dry hopping = za studena, jen aróma.' },
+      { term: 'Dry Hopping', en: '', desc: 'Přidání chmele za studena po kvašení. Dává intenzívní chmelové aróma bez zvyšování hořkosti. Typické pro IPA a NEIPA.' },
+      { term: 'Zrání', en: '(Lagering / Conditioning)', desc: 'Dozrávání piva za nízkých teplot (0–4 °C). Český ležák zrál tradičně 6–12 týdnů v ležáckých sklepech.' },
+      { term: 'Sudové zrání', en: '(Barrel Aging)', desc: 'Zrání piva v dřevěných sudech (bourbon, whisky, víno). Přidává vanilkové, kořeněné a dřevité tóny.' },
+      { term: 'Filtrace', en: '(Filtering)', desc: 'Odstraňování kvasnic a zákalů. Filtrované pivo je průhledné, nefiltrované si zachovává více chutí.' },
+      { term: 'Pasterace', en: '(Pasteurization)', desc: 'Tepelné ošetření pro delší trvanlivost. Nepasterované pivo má živější chuť, ale kratší expiraci.' },
 
-      // Serv\u00edrov\u00e1n\u00ed
-      { term: '\u010cep / Na \u010depu', en: '(On tap / Draft)', desc: 'Pivo to\u010den\u00e9 z tlakov\u00e9ho sudu p\u0159es v\u00fd\u010depn\u00ed za\u0159\u00edzen\u00ed. \u010cerstv\u00e9 a spr\u00e1vn\u011b na\u010d\u00e1\u0159ovan\u00e9 \u2014 to nejlep\u0161\u00ed pod\u00e1n\u00ed.' },
-      { term: '\u0160nyt', en: '', desc: 'Mal\u00e9 pivo (0,15\u20130,2 l) na ochutnan\u00ed. Ide\u00e1ln\u00ed na ochutn\u00e1n\u00ed nov\u00e9ho stylu nebo pro \u0159idi\u010de.' },
-      { term: 'Hladinkov\u00fd / Mlíko / \u0160nyt', en: '(Pour styles)', desc: 'T\u0159i zp\u016fsoby na\u010d\u00e1\u0159ov\u00e1n\u00ed: Hladinka (2 cm p\u011bny), Ml\u00edko (cel\u00e9 z p\u011bny, sladk\u00e9), \u0160nyt (mal\u00e9 ochutnan\u00ed).' },
-      { term: 'P\u011bna', en: '(Head / Foam)', desc: 'Ochrann\u00e1 vrstva na pivu. Chr\u00e1n\u00ed p\u0159ed oxidac\u00ed, udr\u017e\u00ed aróma. Ide\u00e1ln\u011b 2\u20133 cm u \u010desk\u00e9ho le\u017e\u00e1ku.' },
-      { term: 'Teplota serv.', en: '(Serving temp)', desc: 'Lager: 4\u20138 \u00b0C, Ale: 8\u201312 \u00b0C, Stout/Barley Wine: 12\u201316 \u00b0C. P\u0159\u00edli\u0161 studen\u00e9 pivo ztr\u00e1c\u00ed chu\u0165.' },
+      // Servírování
+      { term: 'Čep / Na čepu', en: '(On tap / Draft)', desc: 'Pivo točené z tlakového sudu přes výčepní zařízení. Čerstvé a správně načářované — to nejlepší podání.' },
+      { term: 'Šnyt', en: '', desc: 'Malé pivo (0,15–0,2 l) na ochutnaní. Ideální na ochutnání nového stylu nebo pro řidiče.' },
+      { term: 'Hladinkový / Mlíko / Šnyt', en: '(Pour styles)', desc: 'Tři způsoby načářování: Hladinka (2 cm pěny), Mlíko (celé z pěny, sladké), Šnyt (malé ochutnaní).' },
+      { term: 'Pěna', en: '(Head / Foam)', desc: 'Ochranná vrstva na pivu. Chrání před oxidací, udrží aróma. Ideálně 2–3 cm u českého ležáku.' },
+      { term: 'Teplota serv.', en: '(Serving temp)', desc: 'Lager: 4–8 °C, Ale: 8–12 °C, Stout/Barley Wine: 12–16 °C. Příliš studené pivo ztrácí chuť.' },
 
-      // Stylov\u00e9 pojmy
-      { term: 'Plze\u0148', en: '(Pilsner style)', desc: 'Pivn\u00ed styl pojmenovan\u00fd po m\u011bst\u011b Plze\u0148. Sv\u011btl\u00fd spodn\u011b kva\u0161en\u00fd le\u017e\u00e1k s v\u00fdrazn\u00fdm chmelem. Sv\u011btov\u00fd standard od 1842.' },
-      { term: 'NEIPA', en: '(New England IPA)', desc: 'Modern\u00ed styl IPA se zakalenn\u00fdm vzhledem, n\u00ed\u017e\u0161\u00ed ho\u0159kost\u00ed a intenz\u00edvn\u00edm ovocn\u00fdm ar\u00f3mem (tropick\u00e9 ovoce). M\u011bkk\u00e9 t\u011blo d\u00edky ovsu.' },
-      { term: 'Session', en: '', desc: 'Ozna\u010den\u00ed pro piva s ni\u017e\u0161\u00edm obsahem alkoholu (do 4,5 %), ur\u010den\u00e1 pro del\u0161\u00ed posezen\u00ed bez t\u011b\u017ek\u00e9 hlavy.' },
-      { term: 'Imperial', en: '', desc: 'Ozna\u010den\u00ed pro siln\u011bj\u0161\u00ed verzi stylu. Imperial Stout (8\u201312 %), Imperial IPA / DIPA (7\u201310 %). V\u00edce sladu, chmele, chut\u00ed.' },
-      { term: 'Craft / \u0158emesln\u00e9', en: '(Craft Beer)', desc: 'Pivo z mal\u00e9ho nez\u00e1visl\u00e9ho pivovaru s d\u016frazem na kvalitu, kreativitu a tradi\u010dn\u00ed postupy. V \u010cR boom od 2010.' },
+      // Stylové pojmy
+      { term: 'Plzeň', en: '(Pilsner style)', desc: 'Pivní styl pojmenovaný po městě Plzeň. Světlý spodně kvašený ležák s výrazným chmelem. Světový standard od 1842.' },
+      { term: 'NEIPA', en: '(New England IPA)', desc: 'Moderní styl IPA se zakalenným vzhledem, nížší hořkostí a intenzívním ovocným arómem (tropické ovoce). Měkké tělo díky ovsu.' },
+      { term: 'Session', en: '', desc: 'Označení pro piva s nižším obsahem alkoholu (do 4,5 %), určená pro delší posezení bez těžké hlavy.' },
+      { term: 'Imperial', en: '', desc: 'Označení pro silnější verzi stylu. Imperial Stout (8–12 %), Imperial IPA / DIPA (7–10 %). Více sladu, chmele, chutí.' },
+      { term: 'Craft / Řemeslné', en: '(Craft Beer)', desc: 'Pivo z malého nezávislého pivovaru s důrazem na kvalitu, kreativitu a tradiční postupy. V ČR boom od 2010.' },
 
-      // Kva\u0161en\u00ed a technologie
-      { term: 'Svrchní kva\u0161ení', en: '(Top-fermentation)', desc: 'Kva\u0161en\u00ed p\u0159i vy\u0161\u0161\u00ed teplot\u011b (15\u201324 \u00b0C). Kvasnice pracuj\u00ed na povrchu. Typick\u00e9 pro Ale, Wheat, Stout.' },
-      { term: 'Spodn\u00ed kva\u0161en\u00ed', en: '(Bottom-fermentation)', desc: 'Kva\u0161en\u00ed p\u0159i ni\u017e\u0161\u00edch teplot\u00e1ch (7\u201313 \u00b0C). Kvasnice klesaj\u00ed ke dnu. Typick\u00e9 pro Lager, Pilsner.' },
-      { term: 'Spont\u00e1nn\u00ed kva\u0161en\u00ed', en: '(Wild Fermentation)', desc: 'Kva\u0161en\u00ed divok\u00fdmi kvasnicemi z ovzdu\u0161\u00ed. Z\u00e1klad Lambik\u016f a n\u011bkter\u00fdch Sour piv. Nepředvídatelné, komplexn\u00ed.' },
+      // Kvašení a technologie
+      { term: 'Svrchní kvašení', en: '(Top-fermentation)', desc: 'Kvašení při vyšší teplotě (15–24 °C). Kvasnice pracují na povrchu. Typické pro Ale, Wheat, Stout.' },
+      { term: 'Spodní kvašení', en: '(Bottom-fermentation)', desc: 'Kvašení při nižších teplotách (7–13 °C). Kvasnice klesají ke dnu. Typické pro Lager, Pilsner.' },
+      { term: 'Spontánní kvašení', en: '(Wild Fermentation)', desc: 'Kvašení divokými kvasnicemi z ovzduší. Základ Lambiků a některých Sour piv. Nepředvídatelné, komplexní.' },
 
-      // Chmelov\u00e9 odr\u016fdy
-      { term: '\u017dateck\u00fd (Saaz)', en: '', desc: 'Nejslavn\u011bj\u0161\u00ed \u010desk\u00fd chmel. Jemn\u00e9, ko\u0159en\u011bn\u00e9, bylinkov\u00e9 ar\u00f3ma. Z\u00e1klad Pilsneru a \u010desk\u00fdch le\u017e\u00e1k\u016f.' },
-      { term: 'Citra', en: '', desc: 'Americk\u00fd chmel s intenz\u00edvn\u00edm citrusov\u00fdm a tropick\u00fdm ar\u00f3matem (grep, li\u010di, mango). Hvězda modern\u00edch IPA.' },
-      { term: 'Mosaic', en: '', desc: 'Americk\u00fd chmel s komplexn\u00edm profilem: borůvky, tropick\u00e9 ovoce, kvě\u0165iny. Popul\u00e1rn\u00ed v NEIPA a APA.' },
-      { term: 'Cascade', en: '', desc: 'Pr\u016fkopnick\u00fd americk\u00fd chmel (1972). Grapefruitov\u00e9, kvě\u0165inov\u00e9 ar\u00f3ma. Z\u00e1klad Sierra Nevada Pale Ale.' },
-      { term: 'Kazbek', en: '', desc: '\u010cesk\u00fd modern\u00ed chmel s citrusov\u00fdm a ovocn\u00fdm ar\u00f3matem (citr\u00f3n, limeta). Obl\u00edben\u00fd v \u010desk\u00fdch \u0159emesln\u00fdch pivovarech.' },
+      // Chmelové odrůdy
+      { term: 'Žatecký (Saaz)', en: '', desc: 'Nejslavnější český chmel. Jemné, kořeněné, bylinkové aróma. Základ Pilsneru a českých ležáků.' },
+      { term: 'Citra', en: '', desc: 'Americký chmel s intenzívním citrusovým a tropickým arómatem (grep, liči, mango). Hvězda moderních IPA.' },
+      { term: 'Mosaic', en: '', desc: 'Americký chmel s komplexním profilem: borůvky, tropické ovoce, kvěťiny. Populární v NEIPA a APA.' },
+      { term: 'Cascade', en: '', desc: 'Průkopnický americký chmel (1972). Grapefruitové, kvěťinové aróma. Základ Sierra Nevada Pale Ale.' },
+      { term: 'Kazbek', en: '', desc: 'Český moderní chmel s citrusovým a ovocným arómatem (citrón, limeta). Oblíbený v českých řemeslných pivovarech.' },
 
-      // P\u00e1rov\u00e1n\u00ed a kultura
-      { term: 'P\u00e1rov\u00e1n\u00ed', en: '(Food Pairing)', desc: 'Kombin\u00e1ce piva s j\u00eddlem. Le\u017e\u00e1k + \u0159\u00edzek, IPA + burger, Stout + \u010dokol\u00e1da, Wheat + sal\u00e1t, Sour + s\u00fdr.' },
-      { term: 'Pivn\u00ed l\u00e1zn\u011b', en: '(Beer Spa)', desc: '\u010cesk\u00e1 specialita \u2014 koupel v piv\u011b s chmelou a kvasnicemi. Relax pro t\u011blo i du\u0161i. Popul\u00e1rn\u00ed turistick\u00e1 atrakce.' },
+      // Párování a kultura
+      { term: 'Párování', en: '(Food Pairing)', desc: 'Kombináce piva s jídlem. Ležák + řízek, IPA + burger, Stout + čokoláda, Wheat + salát, Sour + sýr.' },
+      { term: 'Pivní lázně', en: '(Beer Spa)', desc: 'Česká specialita — koupel v pivě s chmelou a kvasnicemi. Relax pro tělo i duši. Populární turistická atrakce.' },
     ],
 
-    // Food menu (J\u00eddeln\u00ed l\u00edstek)
+    // Food menu (Jídelní lístek)
     foodItems: [
-      { name: 'Nakl\u00e1dan\u00fd hermel\u00edn', desc: 'V oleji s cibul\u00ed, paprikou a ko\u0159en\u00edm', price: 89, weight: '150 g', cat: 'cold' },
-      { name: 'Utopenec', desc: 'Klasick\u00fd utopen\u00fd bu\u0159t v pikantn\u00edm n\u00e1levu', price: 69, weight: '1 ks', cat: 'cold' },
-      { name: 'Pivn\u00ed s\u00fdr (oblo\u017een\u00fd)', desc: 'Tvar\u016f\u017eky, hermel\u00edn, n\u00edva s pe\u010divem', price: 129, weight: '200 g', cat: 'cold' },
-      { name: 'Tatar\u00e1k z lososa', desc: 'S kapary, \u010dervenou cibulkou a topinkami', price: 159, weight: '150 g', cat: 'cold' },
-      { name: 'Masov\u00e1 prk\u00e9nka', desc: 'Mix su\u0161en\u00fdch mas, s\u00fdr\u016f a okurek. Pro dva.', price: 219, weight: '350 g', cat: 'cold' },
-      { name: '\u0160kvarkov\u00e1 pom\u00e1z\u00e1nka', desc: 'Dom\u00e1c\u00ed, s \u010derstv\u00fdm chlebem', price: 79, weight: '150 g', cat: 'cold' },
-      { name: 'Topinky s \u010desnekem', desc: 'Klasika ke ka\u017ed\u00e9mu pivu. Se s\u00fdrem nebo bez.', price: 69, weight: '3 ks', cat: 'warm' },
-      { name: 'Pivn\u00ed klob\u00e1sa', desc: 'Grilovan\u00e1 klob\u00e1sa s ho\u0159\u010dic\u00ed a chlebem', price: 99, weight: '200 g', cat: 'warm' },
-      { name: 'Sma\u017een\u00fd s\u00fdr v housce', desc: 'Eidam 30 %, tatarsk\u00e1 om\u00e1\u010dka', price: 109, weight: '150 g', cat: 'warm' },
-      { name: 'Ku\u0159ec\u00ed stripsy', desc: 'S \u010desnekov\u00fdm dipem a hranolkami', price: 129, weight: '200 g', cat: 'warm' },
-      { name: 'Nachos grande', desc: 'Se s\u00fdrovou om\u00e1\u010dkou, jalape\u00f1os a salsou', price: 119, weight: '300 g', cat: 'warm' },
-      { name: 'Hov\u011bz\u00ed burger', desc: 'Dom\u00e1c\u00ed bulka, cheddar, slanina, BBQ', price: 179, weight: '250 g', cat: 'warm' },
+      { name: 'Nakládaný hermelín', desc: 'V oleji s cibulí, paprikou a kořením', price: 89, weight: '150 g', cat: 'cold' },
+      { name: 'Utopenec', desc: 'Klasický utopený buřt v pikantním nálevu', price: 69, weight: '1 ks', cat: 'cold' },
+      { name: 'Pivní sýr (obložený)', desc: 'Tvarůžky, hermelín, níva s pečivem', price: 129, weight: '200 g', cat: 'cold' },
+      { name: 'Tatarák z lososa', desc: 'S kapary, červenou cibulkou a topinkami', price: 159, weight: '150 g', cat: 'cold' },
+      { name: 'Masová prkénka', desc: 'Mix sušených mas, sýrů a okurek. Pro dva.', price: 219, weight: '350 g', cat: 'cold' },
+      { name: 'Škvarková pomázánka', desc: 'Domácí, s čerstvým chlebem', price: 79, weight: '150 g', cat: 'cold' },
+      { name: 'Topinky s česnekem', desc: 'Klasika ke každému pivu. Se sýrem nebo bez.', price: 69, weight: '3 ks', cat: 'warm' },
+      { name: 'Pivní klobása', desc: 'Grilovaná klobása s hořčicí a chlebem', price: 99, weight: '200 g', cat: 'warm' },
+      { name: 'Smažený sýr v housce', desc: 'Eidam 30 %, tatarská omáčka', price: 109, weight: '150 g', cat: 'warm' },
+      { name: 'Kuřecí stripsy', desc: 'S česnekovým dipem a hranolkami', price: 129, weight: '200 g', cat: 'warm' },
+      { name: 'Nachos grande', desc: 'Se sýrovou omáčkou, jalapeños a salsou', price: 119, weight: '300 g', cat: 'warm' },
+      { name: 'Hovězí burger', desc: 'Domácí bulka, cheddar, slanina, BBQ', price: 179, weight: '250 g', cat: 'warm' },
     ],
 
     // Opening hours
     hours: [
-      { day: 'Pond\u011bl\u00ed', time: '16:00 \u2013 24:00' },
-      { day: '\u00dater\u00fd', time: '16:00 \u2013 24:00' },
-      { day: 'St\u0159eda', time: '16:00 \u2013 24:00' },
-      { day: '\u010ctvrtek', time: '16:00 \u2013 24:00' },
-      { day: 'P\u00e1tek', time: '16:00 \u2013 24:00' },
-      { day: 'Sobota', time: '16:00 \u2013 24:00' },
-      { day: 'Ned\u011ble', time: '16:00 \u2013 24:00' },
+      { day: 'Pondělí', time: '16:00 – 24:00' },
+      { day: 'Úterý', time: '16:00 – 24:00' },
+      { day: 'Středa', time: '16:00 – 24:00' },
+      { day: 'Čtvrtek', time: '16:00 – 24:00' },
+      { day: 'Pátek', time: '16:00 – 24:00' },
+      { day: 'Sobota', time: '16:00 – 24:00' },
+      { day: 'Neděle', time: '16:00 – 24:00' },
     ],
 
     get filteredFood() {
@@ -1301,12 +1301,12 @@ function app() {
 
       const footerLeft = document.createElement('div');
       footerLeft.className = 'kiosk-footer-left';
-      footerLeft.textContent = 'Pivnice U Tygra \u2022 Brno';
+      footerLeft.textContent = 'Pivnice U Tygra • Brno';
 
       const footerCenter = document.createElement('div');
       footerCenter.className = 'kiosk-footer-center';
       footerCenter.id = 'kiosk-staleness';
-      footerCenter.textContent = 'Aktu\u00e1ln\u00ed';
+      footerCenter.textContent = 'Aktuální';
 
       const footerRight = document.createElement('div');
       footerRight.className = 'kiosk-footer-right';

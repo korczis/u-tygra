@@ -80,4 +80,17 @@ if [ -n "$STAGED_HTML" ]; then
   echo "  Czech First: PASS"
 fi
 
-echo "=== All quality gates passed (5/5) ==="
+# Phase 6: No Unicode escapes in JS (UTF-8 doctrine)
+echo "[6/6] Unicode escape check..."
+if [ -n "$STAGED_JS" ]; then
+  UNICODE_ESCAPES=$(echo "$STAGED_JS" | xargs grep -n '\\u[0-9a-fA-F]\{4\}' 2>/dev/null || true)
+  if [ -n "$UNICODE_ESCAPES" ]; then
+    echo "  ERROR [UTF-8 doctrine]: Unicode escapes found (use direct UTF-8 characters):"
+    echo "$UNICODE_ESCAPES" | head -5
+    echo "  Fix: Replace \\uXXXX with actual Czech characters (ě, š, č, ř, ž, ý, á, í, é, ú, ů, ť, ď, ň)"
+    exit 1
+  fi
+  echo "  UTF-8 doctrine: PASS"
+fi
+
+echo "=== All quality gates passed (6/6) ==="
