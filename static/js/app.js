@@ -545,6 +545,7 @@ function app() {
       { id: 'na-cepu', href: '#na-cepu', label: 'Na \u010depu', title: 'Na \u010depu \u2013 Pivnice U Tygra', desc: '\u017div\u00e1 nab\u00eddka \u010depovan\u00fdch piv. Budvar, \u0159emesln\u00e1 piva a speci\u00e1ly.' },
       { id: 'jidlo', href: '#jidlo', label: 'J\u00eddlo', title: 'J\u00eddlo \u2013 Pivnice U Tygra', desc: 'Tradi\u010dn\u00ed \u010desk\u00e9 pochutiny. Chlebíčky, utopen\u00e9, tla\u010denka a dal\u0161\u00ed.' },
       { id: 'salonek', href: '#salonek', label: 'Sal\u00f3nek', title: 'Sal\u00f3nek \u2013 Pivnice U Tygra', desc: 'Soukrom\u00fd sal\u00f3nek pro oslavy a firemn\u00ed akce. Kapacita 20 osob.' },
+      { id: 'galerie', href: '#galerie', label: 'Galerie', title: 'Galerie \u2013 Pivnice U Tygra', desc: 'Atmosf\u00e9ra Pivnice U Tygra. Interi\u00e9r, bar, zahr\u00e1dka.' },
       { id: 'kontakt', href: '#kontakt', label: 'Kontakt', title: 'Kontakt \u2013 Pivnice U Tygra', desc: 'Vrchlick\u00e9ho sad 1893/3, Brno. Otev\u0159eno denn\u011b 16:00\u201324:00.' },
     ],
 

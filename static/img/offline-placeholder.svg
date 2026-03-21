@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+  <rect width="400" height="300" fill="#2b2219"/>
+  <circle cx="200" cy="120" r="40" fill="none" stroke="#958757" stroke-width="3"/>
+  <line x1="170" y1="90" x2="230" y2="150" stroke="#958757" stroke-width="3"/>
+  <text x="200" y="200" text-anchor="middle" fill="#958757" font-family="system-ui, sans-serif" font-size="18" font-weight="600">Offline</text>
+  <text x="200" y="230" text-anchor="middle" fill="#6b5e3f" font-family="system-ui, sans-serif" font-size="14">Pivnice U Tygra</text>
+  <text x="200" y="260" text-anchor="middle" fill="#6b5e3f" font-family="system-ui, sans-serif" font-size="12">Zkontrolujte pripojeni k internetu</text>
+</svg>
