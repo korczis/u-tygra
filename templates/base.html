@@ -429,29 +429,9 @@
   <!-- Charlie Squad Performance Monitoring (load after analytics) -->
   <script src="{{ get_url(path='js/charlie-performance.js') }}" defer></script>
 
-  <!-- JavaScript optimization with priority loading -->
-  <script>
-    // Critical: Load Alpine.js with high priority after DOM ready
-    document.addEventListener('DOMContentLoaded', function() {
-      // Load Alpine.js first (critical for app functionality)
-      const alpineScript = document.createElement('script');
-      alpineScript.src = 'https://cdn.jsdelivr.net/npm/alpinejs@3.15.8/dist/cdn.min.js';
-      alpineScript.defer = true;
-      document.head.appendChild(alpineScript);
-
-      // Load app.js after Alpine is ready
-      alpineScript.onload = function() {
-        const appScript = document.createElement('script');
-        appScript.src = '{{ get_url(path='js/app.js') | safe }}';
-        appScript.async = true;
-        document.head.appendChild(appScript);
-      };
-
-      // Flowbite JS removed per flowbite-first.doctrine.md
-      // Alpine.js handles all interactivity — Flowbite CSS patterns only
-      // See .aiad/doctrine/flowbite-first.doctrine.md
-    });
-  </script>
+  <!-- App must load BEFORE Alpine.js (Alpine auto-inits x-data on load) -->
+  <script src="{{ get_url(path='js/app.js') }}"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.8/dist/cdn.min.js"></script>
 
   {% block scripts %}{% endblock %}
 </body>
