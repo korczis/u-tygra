@@ -55,8 +55,8 @@ function adminApp() {
       return this.photos.filter(function(p) { return p.category === this.photoCategoryFilter; }.bind(this));
     },
 
-    init() {
-      this._initFirebase();
+    async init() {
+      await this._initFirebase();
 
       // Hash routing: sync tab with URL
       var self = this;
@@ -77,6 +77,11 @@ function adminApp() {
     // === Auth ===
 
     async signIn() {
+      // Retry Firebase init if not connected
+      if (!this.firebaseConnected) {
+        await this._initFirebase();
+      }
+
       if (this.firebaseConnected && window._firebaseAuth) {
         var { GoogleAuthProvider, signInWithPopup } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js');
         var provider = new GoogleAuthProvider();
@@ -90,6 +95,7 @@ function adminApp() {
           this._fallbackAuth();
         }
       } else {
+        console.warn('Firebase not available, using local fallback');
         this._fallbackAuth();
       }
     },
@@ -102,7 +108,13 @@ function adminApp() {
 
     signOut() {
       this.authUser = null;
+      this.photos = [];
+      this.events = [];
+      this.foodItems = [];
       localStorage.removeItem(STORAGE_PREFIX + 'auth');
+      localStorage.removeItem(STORAGE_PREFIX + 'photos');
+      localStorage.removeItem(STORAGE_PREFIX + 'events');
+      localStorage.removeItem(STORAGE_PREFIX + 'food');
       if (window._firebaseAuth) {
         window._firebaseAuth.signOut();
       }
