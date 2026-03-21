@@ -255,7 +255,7 @@ class CharliePrivacy {
             <div class="privacy-toggle">
               <label class="privacy-toggle-label">
                 <input type="checkbox" id="analytics-consent" class="privacy-toggle-input"
-                       ${this.consentData?.analytics ? 'checked' : ''}>
+                       ${(this.consentData && this.consentData.analytics) ? 'checked' : ''}>
                 <span class="privacy-toggle-slider"></span>
                 <div class="privacy-toggle-text">
                   <strong>${this.czechText.analytics}</strong>
@@ -361,7 +361,7 @@ class CharliePrivacy {
     window.addEventListener('storage', (e) => {
       if (e.key === this.consentKey) {
         this.consentData = this.loadConsent();
-        this.hasConsent = this.consentData?.analytics || false;
+        this.hasConsent = (this.consentData && this.consentData.analytics) || false;
 
         if (this.hasConsent) {
           this.enableAnalytics();

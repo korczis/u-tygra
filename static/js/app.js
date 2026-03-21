@@ -1077,7 +1077,8 @@ function app() {
       }
 
       // Update document title
-      document.title = item.title + ' | ' + (document.querySelector('meta[property="og:site_name"]')?.content || 'Pivnice U Tygra');
+      var siteMeta = document.querySelector('meta[property="og:site_name"]');
+      document.title = item.title + ' | ' + (siteMeta ? siteMeta.content : 'Pivnice U Tygra');
 
       // Update OG meta tags
       const updates = {

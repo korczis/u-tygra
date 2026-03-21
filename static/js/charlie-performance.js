@@ -214,7 +214,8 @@ class CharliePerformance {
   monitorEventQueue() {
     if (!window.charlie) return;
 
-    const queueSize = window.charlie.sessionData?.userBehavior?.length || 0;
+    const sd = window.charlie.sessionData;
+    const queueSize = (sd && sd.userBehavior && sd.userBehavior.length) || 0;
     this.metrics.eventQueueSize = queueSize;
 
     if (queueSize > this.thresholds.maxQueueSize) {
