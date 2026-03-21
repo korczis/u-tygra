@@ -39,12 +39,12 @@
       <div class="hidden md:flex items-center gap-1">
         <template x-for="item in navItems" :key="item.href">
           <a :href="item.href"
-             @click="onNavClick(item.id)"
+             @click="!item.external && onNavClick(item.id)"
              :aria-current="activeSection === item.id ? 'page' : false"
              class="relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:text-tiger-400"
              :class="activeSection === item.id ? 'text-tiger-400' : 'text-brew-300'">
             <span x-text="item.label"></span>
-            <span class="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-tiger-500 rounded-full transition-all duration-300"
+            <span x-show="!item.external" class="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-tiger-500 rounded-full transition-all duration-300"
                   :class="activeSection === item.id ? 'w-6' : 'w-0'"></span>
           </a>
         </template>
@@ -73,7 +73,7 @@
            class="block px-5 py-3 rounded-lg text-base font-medium transition-all"
            :class="activeSection === item.id ? 'text-tiger-400 bg-tiger-500/10' : 'text-brew-300'"
            x-text="item.label"
-           @click="mobileMenu = false; onNavClick(item.id)">
+           @click="mobileMenu = false; !item.external && onNavClick(item.id)">
         </a>
       </template>
     </div>

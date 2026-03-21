@@ -635,6 +635,7 @@ function app() {
       { id: 'salonek', href: '#salonek', label: 'Salónek', title: 'Salónek – Pivnice U Tygra', desc: 'Soukromý salónek pro oslavy a firemní akce. Kapacita 20 osob.' },
       { id: 'galerie', href: '#galerie', label: 'Galerie', title: 'Galerie – Pivnice U Tygra', desc: 'Atmosféra Pivnice U Tygra. Interiér, bar, zahrádka.' },
       { id: 'kontakt', href: '#kontakt', label: 'Kontakt', title: 'Kontakt – Pivnice U Tygra', desc: 'Vrchlického sad 1893/3, Brno. Otevřeno denně 16:00–24:00.' },
+      { id: 'kiosk', href: (window.BASE_URL || '') + '/kiosk/', label: 'Kiosk', title: 'Na čepu – Kiosk', desc: 'Živá pivní tabule pro display.', external: true },
     ],
 
     // Known brewery URLs
