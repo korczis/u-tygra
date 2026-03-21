@@ -380,13 +380,13 @@ function kioskApp() {
       }
       const age = Math.round((Date.now() - this.lastRefresh) / 1000);
       if (age < 120) {
-        this.stalenessText = 'Aktu\u00e1ln\u00ed';
+        this.stalenessText = 'Aktuální';
         this.stalenessClass = 'kp-staleness-fresh';
       } else if (age < 300) {
-        this.stalenessText = 'P\u0159ed ' + Math.round(age / 60) + ' min';
+        this.stalenessText = 'Před ' + Math.round(age / 60) + ' min';
         this.stalenessClass = 'kp-staleness-stale';
       } else {
-        this.stalenessText = 'Data mohou b\u00fdt zastaral\u00e1';
+        this.stalenessText = 'Data mohou být zastaralá';
         this.stalenessClass = 'kp-staleness-offline';
       }
     },
