@@ -5,6 +5,7 @@ description = "Jednobuněčné houby přeměňující cukry na alkohol a CO₂. 
 en = "Yeast"
 category = "suroviny"
 related = ["kvaseni", "svrchni-kvaseni", "spodni-kvaseni"]
+funfact = "Jedna kvasnicová buňka se dokáže rozdělit až 30× za svůj život."
 +++
 
 **Kvasnice** (Saccharomyces) jsou jednobuněčné houby, které jsou zodpovědné za [kvašení](@/glosar/kvaseni.md) — přeměnu cukrů na etanol (alkohol) a oxid uhličitý (CO₂). Jsou to „neviditelní pivovarníci" — bez nich by pivo bylo jen [slad](@/glosar/slad.md)ká [chmele](@/glosar/chmel.md)ná voda.

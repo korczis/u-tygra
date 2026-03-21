@@ -5,6 +5,7 @@ description = "Intenzivně chmelené pivo s výrazným aroma a vyšší hořkost
 en = "India Pale Ale"
 category = "styly"
 related = ["ale", "pale-ale", "neipa", "double-ipa", "west-coast-ipa"]
+funfact = "IPA tvoří přes 40 % prodeje craft piva v USA."
 +++
 
 **IPA** (India Pale Ale) vznikla v 18. století v Anglii — silněji chmelená pro přežití cesty do Indie. Dnes je nejpopulárnějším craft stylem.

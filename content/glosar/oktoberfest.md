@@ -5,6 +5,7 @@ description = "Největší pivní festival na světě konaný každoročně v Mn
 en = "Oktoberfest"
 category = "kultura"
 related = ["marzen", "lager", "helles"]
+funfact = "Na Oktoberfestu se ročně vypije přes 7 milionů litrů piva za 16 dní."
 +++
 
 **Oktoberfest** se koná na mnichovské louce Theresienwiese od poloviny září do prvního říjnového víkendu.

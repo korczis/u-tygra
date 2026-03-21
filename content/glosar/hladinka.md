@@ -5,6 +5,7 @@ description = "Tři tradiční české způsoby servírování piva: hladinka, m
 en = "Pour styles"
 category = "servirovani"
 related = ["cep", "pena", "snyt"]
+funfact = "Správná hladinka má být 3 prsty vysoká a kompaktní jako šlehačka."
 +++
 
 V české pivní kultuře existují tři tradiční způsoby načárkování piva, které mění chuťový zážitek:

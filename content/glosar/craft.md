@@ -5,6 +5,7 @@ description = "Pivo z malého nezávislého pivovaru s důrazem na kvalitu, krea
 en = "Craft Beer"
 category = "styly"
 related = ["session", "imperial", "neipa"]
+funfact = "V Česku je přes 600 minipivovarů — jedna z nejhustších sítí na světě."
 +++
 
 **Craft beer** (řemeslné pivo) pochází z malých, nezávislých pivovarů, které kladou důraz na kvalitu surovin, kreativitu a pivovarské řemeslo.

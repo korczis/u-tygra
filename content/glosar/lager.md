@@ -5,6 +5,7 @@ description = "Spodně kvašené pivo zrající při nízkých teplotách. Nejro
 en = "Lager"
 category = "styly"
 related = ["plzen", "helles", "spodni-kvaseni"]
+funfact = "Slovo lager pochází z německého lagern (skladovat) — pivo zrálo v jeskyních."
 +++
 
 **Ležák** (lager) je pivo kvašené spodními [kvasnice](@/glosar/kvasnice.md)mi při teplotě 7–13 °C. Název pochází z německého *lagern* — skladovat, zrát.

@@ -5,6 +5,7 @@ description = "Německý zákon o čistotě piva z roku 1516 — nejstarší dos
 en = "German Beer Purity Law"
 category = "kultura"
 related = ["lager", "plzen", "helles"]
+funfact = "Reinheitsgebot z roku 1516 je nejstarší dosud platná potravinářská norma."
 +++
 
 **Reinheitsgebot** (zákon o čistotě piva) byl vydán 23. dubna 1516 vévodou Vilémem IV. Bavorským. Stanovil, že pivo smí obsahovat pouze **vodu, ječmen a [chmel](@/glosar/chmel.md)**.

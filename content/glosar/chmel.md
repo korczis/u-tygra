@@ -5,6 +5,7 @@ description = "Klíčová surovina pivovarnictví. Dodává pivu hořkost, aróm
 en = "Hops"
 category = "suroviny"
 related = ["zatecky", "citra", "mosaic", "cascade", "kazbek", "ibu", "chmelovani", "dry-hopping"]
+funfact = "Chmel je botanicky příbuzný konopí — oba patří do čeledi Cannabaceae."
 +++
 
 **Chmel** (Humulus lupulus) je popínavá rostlina z čeledi konopovitých. V pivovarnictví se používají samičí šištice (hlávky), které obsahují lupulin — žlutý prášek s alfa-kyselinami a esenciálními oleji.

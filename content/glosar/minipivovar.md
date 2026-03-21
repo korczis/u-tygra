@@ -5,6 +5,7 @@ description = "Malý pivovar s roční produkcí do 10 000 hl, často zaměřen�
 en = "Microbrewery"
 category = "kultura"
 related = ["craft", "pivni-lazne"]
+funfact = "První český minipivovar po revoluci byl Pivovar Dalešice (1999)."
 +++
 
 **Minipivovar** (microbrewery) je malý pivovar s omezenou produkcí a důrazem na kvalitu a rozmanitost.

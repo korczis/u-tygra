@@ -5,6 +5,7 @@ description = "Světlý spodně kvašený ležák. Pivní styl, který od roku 1
 en = "Pilsner style"
 category = "styly"
 related = ["zatecky", "chmel", "spodni-kvaseni"]
+funfact = "Pilsner Urquell z roku 1842 je předchůdce 70 % všech piv na světě."
 +++
 
 **Pilsner** je pivní styl, který v roce 1842 doslova změnil pivovarnictví. Vznikl v Plzni a stal se vzorem pro většinu světových ležáků.

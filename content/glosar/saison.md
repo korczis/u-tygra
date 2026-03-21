@@ -5,6 +5,7 @@ description = "Belgické farmářské pivo s kořenitým, ovocným charakterem a
 en = "Saison"
 category = "styly"
 related = ["ale", "craft", "svrchni-kvaseni"]
+funfact = "Saison se původně vařil v zimě pro farmáře na léto — odtud sezóna."
 +++
 
 **Saison** (*sezóna*) se původně vařil v zimě na belgických farmách pro letní práci na polích. Dnes je oblíbeným craft stylem.

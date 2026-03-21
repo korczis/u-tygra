@@ -5,6 +5,7 @@ description = "Kyselé pšeničné pivo s přídavkem soli a koriandru, původem
 en = "Gose"
 category = "styly"
 related = ["sour", "spontanni-kvaseni"]
+funfact = "Gose téměř vymřelo v 60. letech — poslední pivovar ho přestal vařit v roce 1966."
 +++
 
 **Gose** (vyslovuj *góze*) pochází z města Goslar v Dolním Sasku. Téměř vymřelo, ale zažívá renesanci v craft scéně.

@@ -5,6 +5,7 @@ description = "Naklíčené a usušené obiloviny — základ chuti, barvy a tě
 en = "Malt"
 category = "suroviny"
 related = ["ebc", "mladina", "rmuty"]
+funfact = "Pro 1 litr piva je potřeba přibližně 200 gramů sladu."
 +++
 
 **Slad** je naklíčené a usušené obilné zrno — nejčastěji ječmen, ale i pšenice, oves, žito nebo kukuřice. Je to „páteř" piva — dodává cukry pro [kvašení](@/glosar/kvaseni.md), barvu, chuť a tělo.

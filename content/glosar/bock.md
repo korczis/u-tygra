@@ -5,6 +5,7 @@ description = "Silné německé pivo s bohatou sladovou chutí, tradičně vaře
 en = "Bock"
 category = "styly"
 related = ["lager", "spodni-kvaseni"]
+funfact = "Bock má na etiketě tradičně kozla — bock znamená německy kozel."
 +++
 
 **Bock** pochází z města Einbeck v Dolním Sasku. Název je zkomolenina *Einbeck* → *ein Bock* (kozel).

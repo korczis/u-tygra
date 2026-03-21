@@ -5,6 +5,7 @@ description = "Lehké, kyselé berlínské pšeničné pivo, tradičně podávan
 en = "Berliner Weisse"
 category = "styly"
 related = ["sour", "weizen", "gose"]
+funfact = "Napoleon nazval Berliner Weisse šampaňským severu."
 +++
 
 **Berliner Weisse** je lehký, kyselý pšeničný styl z Berlína. Napoleon ho nazval „šampaňským severu".

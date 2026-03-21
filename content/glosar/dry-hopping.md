@@ -5,6 +5,7 @@ description = "Přidání chmele za studena po kvašení. Dodává intenzivní a
 en = ""
 category = "vyroba"
 related = ["chmel", "chmelovani", "neipa"]
+funfact = "Dry hopping se provádí za studena — proto dry (bez tepla, ne bez vody)."
 +++
 
 **Dry hopping** je technika přidávání [chmele](@/glosar/chmel.md) do piva po [kvašení](@/glosar/kvaseni.md), za studena (typicky 0–18 °C). Na rozdíl od [chmelování](@/glosar/chmelovani.md) při varu, dry hopping **nezvyšuje hořkost** — alfa-kyseliny se bez tepla neizomerují.

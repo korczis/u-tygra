@@ -5,6 +5,7 @@ description = "Německý uzený ležák z bamberského regionu s charakteristick
 en = "Rauchbier / Smoked Beer"
 category = "styly"
 related = ["lager", "marzen", "slad"]
+funfact = "V Bambergu vaří uzená piva nepřetržitě od roku 1405 (pivovar Schlenkerla)."
 +++
 
 **Rauchbier** (uzené pivo) se vaří z buchenkového uzeného sladu (*Rauchmalz*). Centrum tradice: Bamberg, Franky.

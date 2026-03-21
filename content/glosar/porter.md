@@ -5,6 +5,7 @@ description = "Tmavé svrchně kvašené pivo s tóny čokolády, kávy a praže
 en = "Porter"
 category = "styly"
 related = ["ale", "stout"]
+funfact = "Porter dostal jméno po londýnských nosičích (porters) v 18. století."
 +++
 
 **Porter** vznikl v 18. století v Londýně jako oblíbené pivo dělníků a nosičů (*porter* = nosič).

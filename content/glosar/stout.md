@@ -5,6 +5,7 @@ description = "Tmavé, silné pivo s intenzivní chutí praženého sladu, kávy
 en = "Stout"
 category = "styly"
 related = ["ale", "imperial", "porter"]
+funfact = "Guinness se čepuje přesně 119,5 sekundy — dvoudávkové čepování je tradice."
 +++
 
 **Stout** je nejsilnější člen rodiny tmavých ale. Původně vznikl jako „stout porter" — silnější verze porteru.

@@ -5,6 +5,7 @@ description = "Obsah alkoholu v pivu měřený v procentech objemu. Základní u
 en = "Alcohol by Volume"
 category = "zaklady"
 related = ["ibu", "stupnovitost", "kvaseni"]
+funfact = "Nejsilnější pivo na světě má 67,5 % ABV — Snake Venom od Brewmeister."
 +++
 
 **ABV** (Alcohol by Volume) je mezinárodně uznávaný způsob vyjádření obsahu alkoholu v nápoji. Udává se v procentech objemu — kolik procent celkového objemu piva tvoří čistý etanol.

@@ -5,6 +5,7 @@ description = "Belgické pivo kvašené spontánně divokými kvasnicemi z údol
 en = "Lambic"
 category = "styly"
 related = ["spontanni-kvaseni", "sour", "gose"]
+funfact = "Lambic kvasí spontánně — pivovary nechávají okna otevřená pro divoké kvasnice."
 +++
 
 **Lambic** je unikátní belgický styl — [mladina](@/glosar/mladina.md) se nechá zchladit přes noc v otevřených nádobách (*koelschip*), kde ji naočkují divoké [kvasnice](@/glosar/kvasnice.md) a bakterie z okolního vzduchu.

@@ -5,6 +5,7 @@ description = "Evropská stupnice barvy piva. Od 4 (světle zlatá) po 80+ (čer
 en = "European Brewery Convention"
 category = "zaklady"
 related = ["slad", "abv"]
+funfact = "Nejtmavší piva dosahují EBC přes 200 — jsou černější než káva."
 +++
 
 **EBC** (European Brewery Convention) je evropský standard pro měření barvy piva. V USA se používá alternativní stupnice **SRM** (Standard Reference Method), kde SRM ≈ EBC / 1,97.

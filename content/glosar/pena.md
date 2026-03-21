@@ -5,6 +5,7 @@ description = "Ochranná vrstva na pivu. Chrání před oxidací, udrží aróma
 en = "Head / Foam"
 category = "servirovani"
 related = ["cep", "hladinka"]
+funfact = "Ideální pivní pěna by měla vydržet minimálně 3 minuty — říká se tomu pěnostálost."
 +++
 
 **Pěna** je nedílnou součástí správně servírovaného piva. Není jen estetická — plní důležité funkce.
