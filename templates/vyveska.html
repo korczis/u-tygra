@@ -203,6 +203,23 @@ tbody td {
   white-space: nowrap;
 }
 
+.price-sep {
+  color: rgba(255,255,255,0.2);
+  font-weight: 400;
+}
+
+.price-small {
+  font-size: 0.7em;
+  font-weight: 600;
+  color: rgba(255,255,255,0.5);
+}
+
+.price-unit {
+  font-size: 0.5em;
+  font-weight: 400;
+  color: rgba(240,140,15,0.4);
+}
+
 .loading {
   flex: 1;
   display: flex;
@@ -473,7 +490,27 @@ function loadBeers() {
 
       tdPrice = document.createElement('td');
       tdPrice.className = 'td-price';
-      tdPrice.textContent = b.cena ? b.cena + ' Kč' : '';
+      if (b.cena && b.cena.indexOf('/') !== -1) {
+        // Split "57 / 37" into big price + smaller small price
+        var priceParts = b.cena.split('/');
+        var bigSpan = document.createElement('span');
+        bigSpan.textContent = priceParts[0].trim();
+        var sep = document.createElement('span');
+        sep.className = 'price-sep';
+        sep.textContent = ' / ';
+        var smallSpan = document.createElement('span');
+        smallSpan.className = 'price-small';
+        smallSpan.textContent = priceParts[1].trim();
+        var unit = document.createElement('span');
+        unit.className = 'price-unit';
+        unit.textContent = ' Kč';
+        tdPrice.appendChild(bigSpan);
+        tdPrice.appendChild(sep);
+        tdPrice.appendChild(smallSpan);
+        tdPrice.appendChild(unit);
+      } else if (b.cena) {
+        tdPrice.textContent = b.cena + ' Kč';
+      }
       tr.appendChild(tdPrice);
 
       tbody.appendChild(tr);
