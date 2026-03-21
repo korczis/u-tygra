@@ -172,6 +172,10 @@ tbody td {
   font-variant-numeric: tabular-nums;
 }
 
+tbody tr:nth-child(odd) .td-num {
+  background: #151007;
+}
+
 .td-name {
   font-size: 3.2vmin;
   font-weight: 800;
@@ -759,8 +763,8 @@ window.onresize = function() {
   var elTitle = document.getElementById('gc-title');
   var elEn = document.getElementById('gc-en');
   var elDesc = document.getElementById('gc-desc');
-  var INTERVAL = 5 * 60 * 1000; // 5 minutes
-  var DISPLAY = 12000; // show term for 12 seconds
+  var INTERVAL = (parseInt(params.get('interval'), 10) || 5) * 60 * 1000;
+  var DISPLAY = (parseInt(params.get('duration'), 10) || 12) * 1000;
   var lastIdx = -1;
 
   // Load glossary data
