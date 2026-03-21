@@ -5,7 +5,7 @@ description = "Spontanni pretekani piva z lahve po otevreni, zpusobene nadmernou
 en = "Gushing (Overfoaming)"
 category = "zaklady"
 related = ["karbonace", "oxid-uhlicity", "infekce"]
-funfact = "Nejcastejsi pricinou gushingu u komercnich piv jsou mikroskopicke proteinove castice z plesniveho jecmene."
+funfact = "Nejčastější příčinou gushingu u komercnich piv jsou mikroskopické proteinové částice z plesnivého ječmene."
 +++
 
 **Gushing** je jev, kdy pivo po otevreni lahve nebo plechovky nekontrolovane peni a preteka. Muze dojit ke ztrate velkeho mnozstvi piva behem nekolika sekund.

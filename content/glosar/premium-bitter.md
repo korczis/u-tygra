@@ -5,7 +5,7 @@ description = "Stredne silny anglicky bitter, take znamy jako best bitter, s vyv
 en = "Premium Bitter / Best Bitter"
 category = "styly"
 related = ["english-bitter", "strong-bitter", "esb", "pale-ale"]
-funfact = "Best bitter je v britských pubech často servvirovany z cask -- rucne cerpany z pineho sudu pri sklepni teplote."
+funfact = "Best bitter je v britských pubech často servvirovany z cask -- rucne cerpany z pineho sudu při sklepni teplotě."
 +++
 
 **Premium Bitter** (best bitter) -- stredni kategorie anglickych bitteru mezi ordinary bitterem a strong bitterem. Nabizi plnejsi telo a bohatsi sladovy zaklad nez zakladni bitter, zatimco si zachovava typickou anglickou pitelnost. Je to jeden z nejclassicctejsich pubnich stylu.

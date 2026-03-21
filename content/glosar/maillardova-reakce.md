@@ -5,7 +5,7 @@ description = "Chemicka reakce mezi cukry a aminokyselinami, ktera vytvari barvu
 en = "Maillard Reaction"
 category = "zaklady"
 related = ["melanoidiny", "karamelizace", "prazeny-slad", "slad"]
-funfact = "Maillardova reakce byla popsána francouzským chemikem Louisem-Camillem Maillardem v roce 1912 pri studiu syntéze bílkovin."
+funfact = "Maillardova reakce byla popsána francouzským chemikem Louisem-Camillem Maillardem v roce 1912 při studiu syntéze bílkovin."
 +++
 
 **Maillardova reakce** je soubor chemickych reakci mezi aminokyselinami a redukujicimi cukry, ke kterym dochazi pri zahrivani. Je zakladnim procesem pri prazdneni sladu, peceni chleba i grilovanim masa.

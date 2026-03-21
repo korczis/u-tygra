@@ -5,7 +5,7 @@ description = "Zlute pryskyricne zlazky v chmelovych hlavickach obsahujici alfa 
 en = "Lupulin"
 category = "zaklady"
 related = ["chmel", "alfa-kyseliny", "myrcen", "dry-hopping"]
-funfact = "Moderní produkt Cryo Hops je koncentrovany lupulin oddeleny od rostlinného materiálu pri extrémně nízkých teplotach."
+funfact = "Moderní produkt Cryo Hops je koncentrovany lupulin oddeleny od rostlinného materiálu při extrémně nízkých teplotach."
 +++
 
 **Lupulin** oznacuje drobne zlute zlazky (lupulinove zlazy) na vnitrni strane chmelovych hlavicek. Obsahuji klicove slouceniny pro pivovarnictvi -- alfa kyseliny, beta kyseliny a esencialni oleje.

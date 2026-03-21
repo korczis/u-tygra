@@ -5,7 +5,7 @@ description = "Japonsky fermentovany napoj z ryze, technologicky blizsi pivu nez
 en = "Sake"
 category = "styly"
 related = ["ryze", "kvaseni"]
-funfact = "I kdyz se sake často oznacuje jako ryzove vino, jeho výroba zahrnuje paralelni scukrovani a kvašení -- proces blizsi vaření piva."
+funfact = "I kdyz se sake často označuje jako ryzove vino, jeho výroba zahrnuje paralelni scukrovani a kvašení -- proces blizsi vaření piva."
 +++
 
 **Sake** -- japonsky narodni napoj vyrabeny fermentaci lestene ryze pomocii plisne kodzii (Aspergillus oryzae) a specialnich kvasinek. Proces zahrnuje simultanni scukrovani a kvaseni, coz je unikatni metoda odlisna jak od pivovarnnictvi, tak od vinarstvi. Sake existuje v mnoha variantach od suchych po sladke.

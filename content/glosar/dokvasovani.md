@@ -5,7 +5,7 @@ description = "Druhá fáze kvašení, při které pivo dozrává, čistí se a 
 en = "Secondary Fermentation / Conditioning"
 category = "vyroba"
 related = ["kvaseni", "zrani"]
-funfact = "Lezaky zraji v tancich 4-8 tydnu pri teplote blizke nule."
+funfact = "Ležáky zrají v tancích 4-8 týdnů při teplotě blízké nule."
 +++
 
 **Dokvašování** (conditioning) nastává po hlavním [kvašení](@/glosar/kvaseni.md). Pivo dozrává, [kvasnice](@/glosar/kvasnice.md) absorbují nežádoucí vedlejší produkty a pivo se přirozeně karbonuje.

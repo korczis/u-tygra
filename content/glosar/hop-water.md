@@ -5,7 +5,7 @@ description = "Nealkoholická perlivá voda ochucená chmelem, nabízející chm
 en = "Hop Water"
 category = "styly"
 related = ["chmel", "nealkoholicke-pivo", "dry-hopping"]
-funfact = "Hop water obsahuje typicky 0–5 kalorií na porci oproti 150–250 kaloriím v běžném pivu — je to doslova ochucená voda."
+funfact = "Hop water obsahuje typicky 0–5 kalorií na porci oproti 150–250 kaloriím v běžném pivu — je to doslova ochučená voda."
 +++
 
 **Hop Water** je nealkoholický nápoj vyrobený přidáním [chmele](@/glosar/chmel.md) do sycené vody. Na rozdíl od [nealkoholického piva](@/glosar/nealkoholicke-pivo.md) neobsahuje slad, neprochází kvašením a má prakticky nulový obsah kalorií.

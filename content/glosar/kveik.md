@@ -5,7 +5,7 @@ description = "Tradicni norska farmarska kvasinka schopna kvasit pri extrémne v
 en = "Kveik"
 category = "vyroba"
 related = ["kvasnice", "saccharomyces-cerevisiae", "saison"]
-funfact = "Kveik se v Norsku predaval z generace na generaci po staleti -- někteří farmari susili kvasinky na drevenych krouzicich zvanych kveikstokk."
+funfact = "Kveik se v Norsku predaval z generace na generaci po staleti -- někteří farmáři susili kvasinky na drevenych krouzicich zvanych kveikstokk."
 +++
 
 **Kveik** je skupina tradicnich norskych farmarsych kvasinek, ktere prekvapuji svou schopnosti kvasit pri extrémne vysokych teplotach (30--40 °C) bez produkce neprijemnych off-flavors. Zatimco bezne pivni kvasinky pri takovych teplotach produji fuze alkoholy a spatne chutě, kveik zustava cisty a casto produkuje prijemne ovocne estery.

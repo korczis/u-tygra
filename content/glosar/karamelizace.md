@@ -5,7 +5,7 @@ description = "Termicky rozklad cukru pri vysokych teplotach, ktery dodava pivu 
 en = "Caramelization"
 category = "zaklady"
 related = ["maillardova-reakce", "melanoidiny", "karamelovy-slad"]
-funfact = "Karamelizace sacharozy zacina pri 160 degC, zatimco Maillardova reakce probiha uz od 110 degC -- proto jsou to dva odlisne procesy."
+funfact = "Karamelizace sacharózy začíná při 160 degC, zatimco Maillardova reakce probíhá uz od 110 degC -- proto jsou to dva odlišné procesy."
 +++
 
 **Karamelizace** je pyrolyticka reakce cukru pri vysokych teplotach (nad 150 degC), pri ktere cukry oxiduji a polymeruji za vzniku hnedych pigmentu a charakteristickych karamelove sladkych vuni.

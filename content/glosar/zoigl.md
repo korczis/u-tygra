@@ -5,7 +5,7 @@ description = "Nemecke komunitni pivo z Horni Falce, varene ve spolecnem varnem 
 en = "Zoigl"
 category = "styly"
 related = ["kellerbier", "zwickelbier", "czech-lager"]
-funfact = "Zoigl se oznacuje sesticipou hvezdou (hexagramem) -- symbol reprezentuje sest ingredienci a kroku pivovarnickeho procesu."
+funfact = "Zoigl se označuje šesticípou hvězdou (hexagramem) -- symbol reprezentuje sest ingrediencí a kroků pivovarského procesu."
 +++
 
 **Zoigl** -- unikatni nemecka pivni tradice z Horni Falce (Oberpfalz), kde se pivo vari ve spolecnem obecnim varnem (Kommunbrauhaus) a pak kvassi a zraje v domacnostech jednotlivych pivovarniku. Sesticipa hvezda vyvsesena nad domem oznacuje, ze je pivo k prodeji. Styl je podobny nefiltrovanemu spodne kvasenemu lageru.

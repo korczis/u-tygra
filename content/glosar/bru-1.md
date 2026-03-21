@@ -5,7 +5,7 @@ description = "Americky chmel s vyraznym ananasovym a peckovinovym aromatem."
 en = "BRU-1"
 category = "chmely"
 related = ["citra", "mosaic", "neipa"]
-funfact = "BRU-1 je zkratka pro Brewing Research Unit 1 a byl vyvinut na univerzite ve Washingtonu."
+funfact = "BRU-1 je zkratka pro Brewing Research Unit 1 a byl vyvinut na univerzitě ve Washingtonu."
 +++
 
 **BRU-1** je americka chmelova odruda, ktera zaujme svym intenzivnim ananasovym charakterem doplnenym o tony peckovinoveho ovoce. Nazev je zkratkou pro Brewing Research Unit a odkazuje na jeho akademicky puvod. Skvele se hodi do tropickych IPA a NEIPA, kde jeho ovocny profil vynikne.

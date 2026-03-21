@@ -5,7 +5,7 @@ description = "Maly objem mladiny pouzity k rozmnozeni kvasinek pred zaockovani 
 en = "Yeast Starter"
 category = "vyroba"
 related = ["kvasnice", "pitching-rate", "kvaskova-banka", "hlavni-kvaseni"]
-funfact = "Správně pripraveny starter může zvýšit počet kvasinkových buněk 5--10x během 24--36 hodin."
+funfact = "Správně připraveny starter může zvýšit počet kvasinkových buněk 5--10x během 24--36 hodin."
 +++
 
 **Starter** je technika propagace kvasinek, pri ktere se maly objem sterilni mladiny zaockuje kvasinkami a necha se kvasit pred pridanim do hlavni varky. Cilem je rozmnozit dostatek zdravych kvasinkovych bunek pro spravnou fermentaci. Bez dostatecneho poctu bunek hrozi pomale rozbehnuti kvaseni a vznik off-flavors.
