@@ -126,7 +126,7 @@
     <div class="mt-16 flex flex-wrap items-center justify-center gap-8 text-sm text-brew-400">
       <div class="text-center">
         <div class="text-white font-semibold text-lg">{{ config.extra.opening_hours }}</div>
-        <div class="text-brew-500 text-xs mt-1 uppercase tracking-wider">Denne</div>
+        <div class="text-brew-500 text-xs mt-1 uppercase tracking-wider">Denně</div>
       </div>
       <span class="hidden sm:block w-px h-8 bg-brew-800"></span>
       <div class="text-center">
@@ -388,7 +388,7 @@
     <div class="mt-14" x-data="{ openStyle: null }">
       <h3 class="text-sm font-semibold text-brew-300 mb-4 flex items-center gap-3 uppercase tracking-wider">
         <span class="w-6 h-px bg-tiger-500/50"></span>
-        Pivni styly
+        Pivní styly
       </h3>
       <div class="flex flex-wrap gap-2 mb-3">
         <template x-for="style in beerStyles" :key="style.id">
@@ -419,7 +419,7 @@
             <span>Sklenice: <span class="text-brew-300" x-text="style.glass"></span></span>
           </div>
           <div class="mt-1.5 text-xs text-brew-500" x-show="style.pairing">
-            K j\u00eddlu: <span class="text-brew-300" x-text="style.pairing"></span>
+            K jídlu: <span class="text-brew-300" x-text="style.pairing"></span>
           </div>
           <div class="mt-2 flex flex-wrap gap-1.5">
             <template x-for="ex in style.examples" :key="ex">
@@ -430,15 +430,15 @@
       </template>
     </div>
 
-    <!-- Glos\u00e1\u0159 -->
+    <!-- Glosář -->
     <div class="mt-10" x-data="{ glossarySearch: '' }">
       <h3 class="text-sm font-semibold text-brew-300 mb-4 flex items-center gap-3 uppercase tracking-wider">
         <span class="w-6 h-px bg-tiger-500/50"></span>
-        Glos\u00e1\u0159 pivn\u00edch pojm\u016f
+        Glosář pivních pojmů
         <span class="text-brew-600 text-[10px] normal-case tracking-normal font-normal" x-text="'(' + glossary.length + ' pojm\u016f)'"></span>
       </h3>
       <div class="mb-4">
-        <input type="text" x-model="glossarySearch" placeholder="Hledat v glos\u00e1\u0159i\u2026"
+        <input type="text" x-model="glossarySearch" placeholder="Hledat v glosáři…"
                class="w-full sm:w-64 px-3 py-1.5 rounded-lg bg-white/5 border border-brew-700/30 text-brew-200 text-sm placeholder-brew-600 focus:outline-none focus:border-tiger-500/50 focus:ring-1 focus:ring-tiger-500/20">
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-1">
@@ -659,9 +659,9 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16">
       <span class="text-tiger-500 text-xs font-bold tracking-[0.3em] uppercase">Kontakt</span>
-      <h2 class="text-4xl md:text-5xl font-bold text-white mt-3 mb-5">Kde nas najdete</h2>
+      <h2 class="text-4xl md:text-5xl font-bold text-white mt-3 mb-5">Kde nás najdete</h2>
       <p class="text-brew-400 max-w-2xl mx-auto text-lg">
-        Hned u parku Luzanky, par kroku od zastavky Pionyrska.
+        Hned u parku Lužánky, pár kroků od zastávky Pionýrská.
       </p>
     </div>
 
@@ -691,7 +691,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
               </svg>
             </div>
-            Oteviraci doba
+            Otevírací doba
           </h3>
           <div class="space-y-0">
             <template x-for="h in hours" :key="h.day">
@@ -701,7 +701,7 @@
               </div>
             </template>
           </div>
-          <p class="text-brew-600 text-xs mt-3">* Flexibilni dle hostu. Rezervace i mimo oteviraci dobu.</p>
+          <p class="text-brew-600 text-xs mt-3">* Flexibilní dle hostů. Rezervace i mimo otevírací dobu.</p>
         </div>
 
         <!-- Phone -->
@@ -768,7 +768,7 @@
           </div>
         </div>
         <p class="text-brew-500 text-sm leading-relaxed max-w-xs">
-          Vase oblibena pivnice v srdci Brna, kousek od parku Luzanky.
+          Vaše oblíbená pivnice v srdci Brna, kousek od parku Lužánky.
         </p>
       </div>
 
