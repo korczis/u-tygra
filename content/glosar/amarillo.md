@@ -1,0 +1,18 @@
++++
+title = "Amarillo"
+description = "Americký aromatický chmel s výrazným pomerančovým a květinovým aroma."
+[extra]
+en = "Amarillo Hop"
+category = "chmely"
+related = ["cascade", "citra", "centennial", "chmel"]
++++
+
+**Amarillo** je americký chmelový kultivar s výrazně citrusovým charakterem. Název pochází ze španělského *amarillo* = žlutý.
+
+## Aromatický profil
+
+- Pomeranč, mandarinka, grapefruit
+- Květiny, lehký tropický podtón
+- Alfa kyseliny: 8–11 %
+
+Používá se v Pale Ale, IPA a wheat ale. Výborný pro dry hopping.

@@ -1,0 +1,19 @@
++++
+title = "Nelson Sauvin"
+description = "Novozélandský chmel s unikátním vinným, hroznovým aroma připomínajícím Sauvignon Blanc."
+[extra]
+en = "Nelson Sauvin Hop"
+category = "chmely"
+related = ["citra", "mosaic", "chmel"]
++++
+
+**Nelson Sauvin** pochází z novozélandského regionu Nelson. Název odkazuje na odrůdu vína Sauvignon Blanc, kterou svým aroma připomíná.
+
+## Aromatický profil
+
+- Bílé hrozny, angrešt, liči
+- Maracuja, broskev
+- Vinný, elegantní charakter
+- Alfa kyseliny: 12–13 %
+
+Unikátní chmel pro Belgian-style piva, Saison, NEIPA a experimentální ale.
