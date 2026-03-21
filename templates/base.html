@@ -351,7 +351,8 @@
 
   <!-- Shared navbar -->
   {% block navbar %}
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-brew-950/95 backdrop-blur-xl shadow-2xl shadow-black/30" role="navigation" aria-label="Hlavní navigace">
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-brew-950/95 backdrop-blur-xl shadow-2xl shadow-black/30" role="navigation" aria-label="Hlavní navigace"
+       x-data="{ navOpen: false }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-16 lg:h-20">
         <a href="{{ config.base_url | safe }}" class="flex items-center gap-3 group focus:outline-none focus:ring-2 focus:ring-tiger-400 focus:ring-offset-2 focus:ring-offset-brew-950 rounded-lg p-2" aria-label="Domů - Pivnice U Tygra">
@@ -361,13 +362,38 @@
             <span class="hidden sm:block text-[10px] text-brew-500 tracking-[0.2em] uppercase font-medium">Pivnice Brno</span>
           </div>
         </a>
+        <!-- Desktop -->
         <div class="hidden md:flex items-center gap-1">
           <a href="{{ config.base_url | safe }}#na-cepu" class="px-4 py-2 rounded-lg text-sm font-medium text-brew-300 hover:text-tiger-400 transition-all duration-200">Na čepu</a>
           <a href="{{ config.base_url | safe }}#jidlo" class="px-4 py-2 rounded-lg text-sm font-medium text-brew-300 hover:text-tiger-400 transition-all duration-200">Jídlo</a>
           <a href="{{ config.base_url | safe }}#salonek" class="px-4 py-2 rounded-lg text-sm font-medium text-brew-300 hover:text-tiger-400 transition-all duration-200">Salónek</a>
           <a href="{{ get_url(path='glosar') }}" class="px-4 py-2 rounded-lg text-sm font-medium text-brew-300 hover:text-tiger-400 transition-all duration-200">Glosář</a>
+          <a href="{{ config.base_url | safe }}/kiosk/" class="px-4 py-2 rounded-lg text-sm font-medium text-brew-300 hover:text-tiger-400 transition-all duration-200">Kiosk</a>
           <a href="{{ config.base_url | safe }}#kontakt" class="px-4 py-2 rounded-lg text-sm font-medium text-brew-300 hover:text-tiger-400 transition-all duration-200">Kontakt</a>
         </div>
+        <!-- Mobile toggle -->
+        <button class="md:hidden p-3 rounded-lg text-brew-300 hover:text-tiger-400 hover:bg-white/5 transition-all focus:ring-2 focus:ring-tiger-500 focus:outline-none"
+                @click="navOpen = !navOpen" aria-label="Menu"
+                :aria-expanded="navOpen.toString()">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path x-show="!navOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            <path x-show="navOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile menu -->
+    <div x-show="navOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2"
+         x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0 -translate-y-2"
+         class="md:hidden bg-brew-950/98 backdrop-blur-2xl border-t border-brew-800/30">
+      <div class="px-4 py-4 space-y-1">
+        <a href="{{ config.base_url | safe }}#na-cepu" @click="navOpen = false" class="block px-5 py-3 rounded-lg text-base font-medium text-brew-300 hover:text-tiger-400 transition-all">Na čepu</a>
+        <a href="{{ config.base_url | safe }}#jidlo" @click="navOpen = false" class="block px-5 py-3 rounded-lg text-base font-medium text-brew-300 hover:text-tiger-400 transition-all">Jídlo</a>
+        <a href="{{ config.base_url | safe }}#salonek" @click="navOpen = false" class="block px-5 py-3 rounded-lg text-base font-medium text-brew-300 hover:text-tiger-400 transition-all">Salónek</a>
+        <a href="{{ get_url(path='glosar') }}" @click="navOpen = false" class="block px-5 py-3 rounded-lg text-base font-medium text-brew-300 hover:text-tiger-400 transition-all">Glosář</a>
+        <a href="{{ config.base_url | safe }}/kiosk/" @click="navOpen = false" class="block px-5 py-3 rounded-lg text-base font-medium text-brew-300 hover:text-tiger-400 transition-all">Kiosk</a>
+        <a href="{{ config.base_url | safe }}#kontakt" @click="navOpen = false" class="block px-5 py-3 rounded-lg text-base font-medium text-brew-300 hover:text-tiger-400 transition-all">Kontakt</a>
       </div>
     </div>
   </nav>

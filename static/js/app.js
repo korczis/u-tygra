@@ -640,6 +640,7 @@ function app() {
       { id: 'jidlo', href: '#jidlo', label: 'Jídlo', title: 'Jídlo – Pivnice U Tygra', desc: 'Tradiční české pochutiny. Chlebíčky, utopené, tlačenka a další.' },
       { id: 'salonek', href: '#salonek', label: 'Salónek', title: 'Salónek – Pivnice U Tygra', desc: 'Soukromý salónek pro oslavy a firemní akce. Kapacita 20 osob.' },
       { id: 'galerie', href: '#galerie', label: 'Galerie', title: 'Galerie – Pivnice U Tygra', desc: 'Atmosféra Pivnice U Tygra. Interiér, bar, zahrádka.' },
+      { id: 'glosar', href: (window.BASE_URL || '') + '/glosar/', label: 'Glosář', title: 'Glosář pivních pojmů', desc: '100+ pivních pojmů od ABV po Žatecký chmel.', external: true },
       { id: 'kontakt', href: '#kontakt', label: 'Kontakt', title: 'Kontakt – Pivnice U Tygra', desc: 'Vrchlického sad 1893/3, Brno. Otevřeno denně 16:00–24:00.' },
       { id: 'kiosk', href: (window.BASE_URL || '') + '/kiosk/', label: 'Kiosk', title: 'Na čepu – Kiosk', desc: 'Živá pivní tabule pro display.', external: true },
     ],
