@@ -953,31 +953,31 @@ function app() {
       { term: 'Pivn\u00ed l\u00e1zn\u011b', en: '(Beer Spa)', desc: '\u010cesk\u00e1 specialita \u2014 koupel v piv\u011b s chmelou a kvasnicemi. Relax pro t\u011blo i du\u0161i. Popul\u00e1rn\u00ed turistick\u00e1 atrakce.' },
     ],
 
-    // Food menu
+    // Food menu (J\u00eddeln\u00ed l\u00edstek)
     foodItems: [
-      { name: 'Nakladany hermelin', desc: 'V oleji s cibuli, paprikou a korenim', price: 89, weight: '150 g', cat: 'cold' },
-      { name: 'Utopenec', desc: 'Klasicky utopeny burt v pikantnim nalevu', price: 69, weight: '1 ks', cat: 'cold' },
-      { name: 'Pivni syr (oblozeny)', desc: 'Tvaruzky, hermelin, niva s pecivem', price: 129, weight: '200 g', cat: 'cold' },
-      { name: 'Tatarek z lososa', desc: 'S kapary, cervenou cibulkou a topinkami', price: 159, weight: '150 g', cat: 'cold' },
-      { name: 'Masova prkenka', desc: 'Mix susenych mas, syru a okurek. Pro dva.', price: 219, weight: '350 g', cat: 'cold' },
-      { name: 'Skvarkova pomazanka', desc: 'Domaci, s cerstvym chlebem', price: 79, weight: '150 g', cat: 'cold' },
-      { name: 'Topinky s cesnekem', desc: 'Klasika ke kazdemu pivu. Se syrem nebo bez.', price: 69, weight: '3 ks', cat: 'warm' },
-      { name: 'Pivni klobasa', desc: 'Grilovana klobasa s horcici a chlebem', price: 99, weight: '200 g', cat: 'warm' },
-      { name: 'Smazeny syr v housce', desc: 'Eidam 30%, tatarska omacka', price: 109, weight: '150 g', cat: 'warm' },
-      { name: 'Kureci stripsy', desc: 'S cesnekovym dipem a hranolkami', price: 129, weight: '200 g', cat: 'warm' },
-      { name: 'Nachos grande', desc: 'Se syrovou omackou, jalapenos a salsou', price: 119, weight: '300 g', cat: 'warm' },
-      { name: 'Hovezi burger', desc: 'Domaci bulka, cheddar, slanina, BBQ', price: 179, weight: '250 g', cat: 'warm' },
+      { name: 'Nakl\u00e1dan\u00fd hermel\u00edn', desc: 'V oleji s cibul\u00ed, paprikou a ko\u0159en\u00edm', price: 89, weight: '150 g', cat: 'cold' },
+      { name: 'Utopenec', desc: 'Klasick\u00fd utopen\u00fd bu\u0159t v pikantn\u00edm n\u00e1levu', price: 69, weight: '1 ks', cat: 'cold' },
+      { name: 'Pivn\u00ed s\u00fdr (oblo\u017een\u00fd)', desc: 'Tvar\u016f\u017eky, hermel\u00edn, n\u00edva s pe\u010divem', price: 129, weight: '200 g', cat: 'cold' },
+      { name: 'Tatar\u00e1k z lososa', desc: 'S kapary, \u010dervenou cibulkou a topinkami', price: 159, weight: '150 g', cat: 'cold' },
+      { name: 'Masov\u00e1 prk\u00e9nka', desc: 'Mix su\u0161en\u00fdch mas, s\u00fdr\u016f a okurek. Pro dva.', price: 219, weight: '350 g', cat: 'cold' },
+      { name: '\u0160kvarkov\u00e1 pom\u00e1z\u00e1nka', desc: 'Dom\u00e1c\u00ed, s \u010derstv\u00fdm chlebem', price: 79, weight: '150 g', cat: 'cold' },
+      { name: 'Topinky s \u010desnekem', desc: 'Klasika ke ka\u017ed\u00e9mu pivu. Se s\u00fdrem nebo bez.', price: 69, weight: '3 ks', cat: 'warm' },
+      { name: 'Pivn\u00ed klob\u00e1sa', desc: 'Grilovan\u00e1 klob\u00e1sa s ho\u0159\u010dic\u00ed a chlebem', price: 99, weight: '200 g', cat: 'warm' },
+      { name: 'Sma\u017een\u00fd s\u00fdr v housce', desc: 'Eidam 30 %, tatarsk\u00e1 om\u00e1\u010dka', price: 109, weight: '150 g', cat: 'warm' },
+      { name: 'Ku\u0159ec\u00ed stripsy', desc: 'S \u010desnekov\u00fdm dipem a hranolkami', price: 129, weight: '200 g', cat: 'warm' },
+      { name: 'Nachos grande', desc: 'Se s\u00fdrovou om\u00e1\u010dkou, jalape\u00f1os a salsou', price: 119, weight: '300 g', cat: 'warm' },
+      { name: 'Hov\u011bz\u00ed burger', desc: 'Dom\u00e1c\u00ed bulka, cheddar, slanina, BBQ', price: 179, weight: '250 g', cat: 'warm' },
     ],
 
     // Opening hours
     hours: [
-      { day: 'Pondeli', time: '16:00 – 24:00' },
-      { day: 'Utery', time: '16:00 – 24:00' },
-      { day: 'Streda', time: '16:00 – 24:00' },
-      { day: 'Ctvrtek', time: '16:00 – 24:00' },
-      { day: 'Patek', time: '16:00 – 24:00' },
-      { day: 'Sobota', time: '16:00 – 24:00' },
-      { day: 'Nedele', time: '16:00 – 24:00' },
+      { day: 'Pond\u011bl\u00ed', time: '16:00 \u2013 24:00' },
+      { day: '\u00dater\u00fd', time: '16:00 \u2013 24:00' },
+      { day: 'St\u0159eda', time: '16:00 \u2013 24:00' },
+      { day: '\u010ctvrtek', time: '16:00 \u2013 24:00' },
+      { day: 'P\u00e1tek', time: '16:00 \u2013 24:00' },
+      { day: 'Sobota', time: '16:00 \u2013 24:00' },
+      { day: 'Ned\u011ble', time: '16:00 \u2013 24:00' },
     ],
 
     get filteredFood() {
