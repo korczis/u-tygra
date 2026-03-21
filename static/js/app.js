@@ -591,12 +591,18 @@ async function fetchBeerData() {
 }
 
 // Eagerly preload beer data BEFORE Alpine.js initializes
-// This ensures data is ready when Alpine calls app().init()
+// Skip on pages that don't need beer data (admin, privacy, glosar)
 window.__BEER_DATA__ = null;
-fetch(SHEETS_CSV_URL)
-  .then(function(r) { return r.text(); })
-  .then(function(csv) { window.__BEER_DATA__ = parseBeerCSV(csv); })
-  .catch(function(e) { console.warn('Preload failed, will retry in init:', e); });
+(function() {
+  var path = window.location.pathname;
+  var skip = /\/(admin|ochrana-udaju|glosar)\b/.test(path);
+  if (!skip) {
+    fetch(SHEETS_CSV_URL)
+      .then(function(r) { return r.text(); })
+      .then(function(csv) { window.__BEER_DATA__ = parseBeerCSV(csv); })
+      .catch(function(e) { console.warn('Preload failed, will retry in init:', e); });
+  }
+})();
 
 /**
  * Main Alpine.js app component
