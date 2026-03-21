@@ -395,7 +395,7 @@ tbody tr:nth-child(odd) .td-num {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 48px;
+  height: 56px;
   background: #1a1208;
   border-top: 2px solid #3d2a0e;
   display: flex;
@@ -439,9 +439,9 @@ tbody tr:nth-child(odd) .td-num {
   align-items: center;
   justify-content: flex-start;
   padding: 0 calc(1.5vw + 1.5vw) 0 1.5vw;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
-  color: #b9af89;
+  color: #e8e0c8;
   white-space: nowrap;
   letter-spacing: 0.03em;
 }
@@ -462,9 +462,9 @@ tbody tr:nth-child(odd) .td-num {
 }
 
 @media (min-width: 1920px) {
-  .ticker-bar { height: 60px; }
-  .ticker-label { font-size: 16px; padding: 0 28px; }
-  .ticker-text { font-size: 22px; }
+  .ticker-bar { height: 68px; }
+  .ticker-label { font-size: 18px; padding: 0 28px; }
+  .ticker-text { font-size: 26px; }
 }
 </style>
 </head>
@@ -472,7 +472,7 @@ tbody tr:nth-child(odd) .td-num {
 
 <div id="announcement" class="announcement" style="display:none"></div>
 
-<div class="table-wrap" style="margin-bottom: 48px;">
+<div class="table-wrap" style="margin-bottom: 56px;">
   <div id="loading" class="loading">Načítám nabídku...</div>
   <div id="beer-container"></div>
 </div>
@@ -795,7 +795,7 @@ function fitToScreen(beerCount) {
 
   // Use exact available height, no rounding down (prevents last row cutoff)
   // Account for ticker bar (48px, 60px on 1920px+)
-  var tickerHeight = window.innerWidth >= 1920 ? 60 : 48;
+  var tickerHeight = window.innerWidth >= 1920 ? 68 : 56;
   var availableHeight = window.innerHeight - usedHeight - tickerHeight - 4;
   if (beerCount > 0 && availableHeight > 0) {
     var rowHeight = availableHeight / beerCount;
@@ -851,6 +851,22 @@ function fitToScreen(beerCount) {
     var thSize = Math.min(Math.max(rowHeight * 0.15, 10), 20);
     for (i = 0; i < ths.length; i++) {
       ths[i].style.fontSize = thSize + 'px';
+    }
+
+    // Align ticker edges with table columns (pixel-perfect)
+    var tickerText = document.getElementById('ticker-text');
+    if (tickerText && ths.length >= 2) {
+      // Right edge = match CENA header right
+      var lastTh = ths[ths.length - 1];
+      var rightGap = window.innerWidth - lastTh.getBoundingClientRect().right;
+      tickerText.style.paddingRight = rightGap + 'px';
+
+      // Left edge = match PIVO header left (2nd column)
+      var pivoTh = ths[1];
+      var tickerLabel = document.querySelector('.ticker-label');
+      var labelWidth = tickerLabel ? tickerLabel.offsetWidth : 0;
+      var leftGap = pivoTh.getBoundingClientRect().left - labelWidth;
+      tickerText.style.paddingLeft = Math.max(0, leftGap) + 'px';
     }
   }
 }
@@ -1179,7 +1195,7 @@ function onGlossaryReady(cb) {
     wisdomIdx++;
 
     // 1. Fade out default text
-    tickerFade(tickerEl, 1, 0, 800, function() {
+    tickerFade(tickerEl, 1, 0, 1500, function() {
       // 2. Marquee scroll wisdom text
       marquee(tickerEl, text, function() {
         // 3. Fade in default text
@@ -1195,11 +1211,11 @@ function onGlossaryReady(cb) {
     tickerEl.textContent = defaultText;
     tickerEl.className = 'ticker-text';
     tickerEl.style.opacity = '0';
-    tickerFade(tickerEl, 0, 1, 800, cb);
+    tickerFade(tickerEl, 0, 1, 1500, cb);
   }
 
   function showWisdomText(text) {
-    tickerFade(tickerEl, 1, 0, 800, function() {
+    tickerFade(tickerEl, 1, 0, 1500, function() {
       marquee(tickerEl, text, function() {
         resetToDefault();
       });
