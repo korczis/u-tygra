@@ -7,21 +7,21 @@ category = "vyroba"
 related = ["svrchni-kvaseni", "kvaseni", "kvasnice"]
 +++
 
-**Spodní kvašení** probíhá za nižších teplot (7–13 °C). Kvasnice (Saccharomyces pastorianus) klesají ke dnu nádoby — odtud název.
+**Spodní [kvašení](@/glosar/kvaseni.md)** probíhá za nižších teplot (7–13 °C). Kvasnice (Saccharomyces pastorianus) klesají ke dnu nádoby — odtud název.
 
 ## Charakteristika
 
-- **Pomalejší** kvašení (1–2 týdny) + dlouhé zrání (4–12 týdnů)
+- **Pomalejší** kvašení (1–2 týdny) + dlouhé [zrání](@/glosar/zrani.md) (4–12 týdnů)
 - **Čistý profil** — minimální estery a fenoly
-- **Nechá vyniknout** slad a chmel bez kvasnicových tónů
+- **Nechá vyniknout** [slad](@/glosar/slad.md) a [chmel](@/glosar/chmel.md) bez [kvasnic](@/glosar/kvasnice.md)ových tónů
 - **Pitné, osvěžující** — proto dominuje světové produkci
 
 ## Typické styly
 
-- **Pilsner / Plzeňský ležák** — zlatá, chmelová hořkost
+- **[Pilsner](@/glosar/plzen.md) / Plzeňský ležák** — zlatá, chmelová hořkost
 - **Helles** — mnichovský světlý, sladový
 - **Schwarzbier** — černý lager, lehký, pražený
-- **Bock** — silný, sladový, 6–7 %
+- **[Bock](@/glosar/bock.md)** — silný, sladový, 6–7 %
 - **Doppelbock** — velmi silný, dezertní, 7–12 %
 - **Vienna Lager** — jantarový, toastový
 - **Märzen / Oktoberfest** — sladový, slavnostní

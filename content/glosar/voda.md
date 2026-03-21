@@ -25,20 +25,20 @@ related = ["chmel", "slad"]
 ### Plzeň — velmi měkká voda
 - Minimální obsah minerálů
 - Ideální pro **světlý ležák** — čistá, jemná chuť
-- Důvod, proč Pilsner vznikl právě zde
+- Důvod, proč [Pilsner](@/glosar/plzen.md) vznikl právě zde
 
 ### Burton-upon-Trent — tvrdá, síranová
 - Vysoký obsah síranů a vápníku
-- Zdůrazňuje chmelovou hořkost
-- Základ **English IPA** a **Pale Ale**
+- Zdůrazňuje [chmel](@/glosar/chmel.md)ovou hořkost
+- Základ **English IPA** a **[Pale Ale](@/glosar/pale-ale.md)**
 - „Burtonizace" = úprava vody na burtonský profil
 
 ### Dublin — vysoké bikarbonáty
-- Alkalická voda vyrovnává kyselost pražených sladů
-- Ideální pro **Stout** (Guinness)
+- Alkalická voda vyrovnává kyselost pražených [slad](@/glosar/slad.md)ů
+- Ideální pro **[Stout](@/glosar/stout.md)** (Guinness)
 
 ### Mnichov — vyvážená, mírně tvrdá
-- Vhodná pro **tmavé ležáky** a **Bock**
+- Vhodná pro **tmavé ležáky** a **[Bock](@/glosar/bock.md)**
 
 ## Moderní pivovarnictví
 

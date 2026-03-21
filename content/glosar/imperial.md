@@ -11,7 +11,7 @@ related = ["abv", "stout"]
 
 ## Původ
 
-Termín pochází od **Imperial Russian Stout** — silných, tmavých piv, která se v 18. a 19. století vařila v Anglii pro export na dvůr ruské carevny Kateřiny Veliké. Piva musela být dostatečně silná, aby přežila námořní cestu do Petrohradu.
+Termín pochází od **Imperial Russian [Stout](@/glosar/stout.md)** — silných, tmavých piv, která se v 18. a 19. století vařila v Anglii pro export na dvůr ruské carevny Kateřiny Veliké. Piva musela být dostatečně silná, aby přežila námořní cestu do Petrohradu.
 
 ## Příklady
 
@@ -25,8 +25,8 @@ Termín pochází od **Imperial Russian Stout** — silných, tmavých piv, kter
 
 ## Charakteristika
 
-- **Více sladu** — vyšší stupňovitost, sytější tělo
-- **Více chmele** — intenzivnější hořkost a aróma
+- **Více [sladu](@/glosar/slad.md)** — vyšší [stupňovitost](@/glosar/stupnovitost.md), sytější tělo
+- **Více [chmele](@/glosar/chmel.md)** — intenzivnější hořkost a aróma
 - **Více alkoholu** — zahřívající, komplexní
-- **Delší zrání** — často sudově zráné
+- **Delší [zrání](@/glosar/zrani.md)** — často sudově zráné
 - **Vyšší cena** — více surovin, delší výroba

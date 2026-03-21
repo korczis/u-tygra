@@ -7,13 +7,13 @@ category = "vyroba"
 related = ["kvaseni", "filtrace", "sudove-zrani"]
 +++
 
-**Zrání** (lagering, conditioning) je fáze, kdy pivo dozrává za nízkých teplot (0–4 °C) po hlavním kvašení. Slovo **lager** pochází z německého *lagern* = skladovat.
+**Zrání** (lagering, conditioning) je fáze, kdy pivo dozrává za nízkých teplot (0–4 °C) po hlavním [kvašení](@/glosar/kvaseni.md). Slovo **lager** pochází z německého *lagern* = skladovat.
 
 ## Proč je zrání důležité
 
 - **Zjemňuje chuť** — nežádoucí vedlejší produkty (diacetyl, acetaldehyd) se rozkládají
-- **Projasňuje pivo** — kvasnice a proteiny klesají ke dnu
-- **Harmonizuje** — sladové a chmelové tóny se sladí dohromady
+- **Projasňuje pivo** — [kvasnice](@/glosar/kvasnice.md) a proteiny klesají ke dnu
+- **Harmonizuje** — [slad](@/glosar/slad.md)ové a [chmel](@/glosar/chmel.md)ové tóny se sladí dohromady
 - **Karbonace** — přirozená tvorba CO₂ z dokvašování
 
 ## Doba zrání podle stylu

@@ -12,7 +12,7 @@ related = ["cep", "hladinka"]
 ## Funkce pěny
 
 1. **Ochrana** — brání kontaktu piva se vzduchem, zpomaluje oxidaci
-2. **Aróma** — zachycuje a postupně uvolňuje chmelové a sladové vůně
+2. **Aróma** — zachycuje a postupně uvolňuje [chmel](@/glosar/chmel.md)ové a [slad](@/glosar/slad.md)ové vůně
 3. **Izolace** — udržuje pivo studenější (pěna je tepelný izolátor)
 4. **Vizitka** — hustá, trvalá pěna = známka čerstvosti a kvality
 

@@ -7,7 +7,7 @@ category = "styly"
 related = ["pale-ale", "stout", "porter", "svrchni-kvaseni"]
 +++
 
-**Ale** je pivo kvašené svrchními kvasnicemi při teplotě 15–24 °C. Kvasnice pracují rychleji a produkují více esterů a fenolů, což dává alům ovocnější a kořenitější charakter.
+**Ale** je pivo kvašené svrchními [kvasnice](@/glosar/kvasnice.md)mi při teplotě 15–24 °C. Kvasnice pracují rychleji a produkují více esterů a fenolů, což dává alům ovocnější a kořenitější charakter.
 
 ## Rozdíl ale vs. lager
 
@@ -20,4 +20,4 @@ related = ["pale-ale", "stout", "porter", "svrchni-kvaseni"]
 
 ## Hlavní styly
 
-Pale Ale, IPA, Stout, Porter, Witbier, Saison, Belgian Tripel, Barley Wine.
+[Pale Ale](@/glosar/pale-ale.md), IPA, [Stout](@/glosar/stout.md), [Porter](@/glosar/porter.md), Witbier, Saison, Belgian Tripel, [Barley Wine](@/glosar/barley-wine.md).

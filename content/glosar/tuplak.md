@@ -21,7 +21,7 @@ related = ["hladinka", "snyt", "pena"]
 ## Tvary sklenic
 
 - **Willibecher** — univerzální, nejrozšířenější
-- **Pilsner** — vysoká, štíhlá, pro ležáky
+- **[Pilsner](@/glosar/plzen.md)** — vysoká, štíhlá, pro ležáky
 - **Weizen** — vysoká, zaoblená, pro pšeničná
 - **Tulipán** — s rozšířeným okrajem, pro belgická
 - **Pint** — anglický/irský standard (0,568 l)

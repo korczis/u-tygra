@@ -7,7 +7,7 @@ category = "styly"
 related = ["spontanni-kvaseni", "gose", "lambic"]
 +++
 
-**Kyselá piva** získávají svůj charakter z bakterií *Lactobacillus* nebo *Pediococcus*, případně divokých kvasnic *Brettanomyces*.
+**Kyselá piva** získávají svůj charakter z bakterií *Lactobacillus* nebo *Pediococcus*, případně divokých [kvasnic](@/glosar/kvasnice.md) *Brettanomyces*.
 
 ## Metody
 

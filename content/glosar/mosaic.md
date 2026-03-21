@@ -20,7 +20,7 @@ related = ["chmel", "citra", "dry-hopping"]
 
 ## Čím je unikátní
 
-Mosaic nabízí **neuvěřitelnou šířku** aromatického spektra — jedná se o jeden z mála chmelů, které fungují excelentně jako **single-hop** (jediný chmel v receptuře). Každý nálev vyzdvihne jinou dimenzi jeho profilu.
+Mosaic nabízí **neuvěřitelnou šířku** aromatického spektra — jedná se o jeden z mála [chmel](@/glosar/chmel.md)ů, které fungují excelentně jako **single-hop** (jediný chmel v receptuře). Každý nálev vyzdvihne jinou dimenzi jeho profilu.
 
 ## Genetika
 
@@ -28,7 +28,7 @@ Mosaic je dcera odrůdy **Simcoe** (křížení z roku 2000). Simcoe přispívá
 
 ## Použití
 
-- **Single-hop IPA/NEIPA** — Mosaic exceluje sám
-- **Kombinace s Citra** — klasická dvojice pro NEIPA
-- **Dry hopping** — ideální pro biotransformaci
-- **Pale Ale** — dostatečně komplexní i při nižších dávkách
+- **Single-hop IPA/[NEIPA](@/glosar/neipa.md)** — Mosaic exceluje sám
+- **Kombinace s [Citra](@/glosar/citra.md)** — klasická dvojice pro NEIPA
+- **[Dry hopping](@/glosar/dry-hopping.md)** — ideální pro biotransformaci
+- **[Pale Ale](@/glosar/pale-ale.md)** — dostatečně komplexní i při nižších dávkách

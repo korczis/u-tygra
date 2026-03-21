@@ -34,14 +34,14 @@ related = ["dry-hopping", "citra", "mosaic"]
 ## Klíč k NEIPA
 
 1. **Ovesné vločky + pšenice** — dodávají hedvábné tělo a zákal
-2. **Masivní dry hopping** — 10–20 g/l, často DDH (double dry hop)
-3. **Biotransformace** — dry hop během aktivního kvašení
+2. **Masivní [dry hopping](@/glosar/dry-hopping.md)** — 10–20 g/l, často DDH (double dry hop)
+3. **Biotransformace** — dry hop během aktivního [kvašení](@/glosar/kvaseni.md)
 4. **Nízká hořkost** — minimum bittering hops
-5. **Speciální kvasnice** — londýnské Ale kvasnice (nízká atenuace)
+5. **Speciální [kvasnice](@/glosar/kvasnice.md)** — londýnské Ale kvasnice (nízká atenuace)
 
 ## Oblíbené chmely pro NEIPA
 
-Citra, Mosaic, Galaxy, Simcoe, Nelson Sauvin, El Dorado, Sabro
+[Citra](@/glosar/citra.md), [Mosaic](@/glosar/mosaic.md), Galaxy, Simcoe, Nelson Sauvin, El Dorado, Sabro
 
 ## V Česku
 

@@ -7,7 +7,7 @@ category = "vyroba"
 related = ["spodni-kvaseni", "kvaseni", "kvasnice"]
 +++
 
-**Svrchní kvašení** probíhá při vyšších teplotách (15–24 °C). Kvasnice (Saccharomyces cerevisiae) během kvašení stoupají k povrchu, kde tvoří hustou pěnu — odtud název.
+**Svrchní [kvašení](@/glosar/kvaseni.md)** probíhá při vyšších teplotách (15–24 °C). Kvasnice (Saccharomyces cerevisiae) během kvašení stoupají k povrchu, kde tvoří hustou pěnu — odtud název.
 
 ## Charakteristika
 
@@ -18,12 +18,12 @@ related = ["spodni-kvaseni", "kvaseni", "kvasnice"]
 
 ## Typické styly
 
-- **Pale Ale / IPA** — chmelové, citrusové
-- **Stout / Porter** — pražené, čokoládové
-- **Hefeweizen** — banánové, hřebíčkové
+- **[Pale Ale](@/glosar/pale-ale.md) / IPA** — [chmel](@/glosar/chmel.md)ové, citrusové
+- **[Stout](@/glosar/stout.md) / [Porter](@/glosar/porter.md)** — pražené, čokoládové
+- **[Hefeweizen](@/glosar/weizen.md)** — banánové, hřebíčkové
 - **Belgian Ale** — ovocné, kořeněné
 - **Saison** — pepřivé, suché, farmářské
-- **Barley Wine** — silné, komplexní, dezertní
+- **[Barley Wine](@/glosar/barley-wine.md)** — silné, komplexní, dezertní
 
 ## Historie
 

@@ -7,11 +7,11 @@ category = "zaklady"
 related = ["kvaseni", "kvasnice"]
 +++
 
-**Diacetyl** je vedlejší produkt kvašení s chutí a vůní po **másle nebo karamelu**. V většině pivních stylů je považován za vadu.
+**Diacetyl** je vedlejší produkt [kvašení](@/glosar/kvaseni.md) s chutí a vůní po **másle nebo karamelu**. V většině pivních stylů je považován za vadu.
 
 ## Příčiny
 
-- Předčasné stočení z kvasnic
+- Předčasné stočení z [kvasnic](@/glosar/kvasnice.md)
 - Nedostatečná diacetylová pauza (2–3 dny při 15–18 °C na konci kvašení)
 - Infekce bakteriemi *Pediococcus*
 

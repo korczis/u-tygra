@@ -7,7 +7,7 @@ category = "chmely"
 related = ["chmel", "mosaic", "dry-hopping"]
 +++
 
-**Citra** je americká chmelová odrůda vyvinutá firmou **Hop Breeding Company** a uvolněná v roce 2007. Stala se jedním z nejpopulárnějších chmelů v craft pivovarnictví.
+**Citra** je americká [chmel](@/glosar/chmel.md)ová odrůda vyvinutá firmou **Hop Breeding Company** a uvolněná v roce 2007. Stala se jedním z nejpopulárnějších chmelů v craft pivovarnictví.
 
 ## Profil
 
@@ -32,7 +32,7 @@ Citra je kříženec odrůd Hallertau Mittelfrüh, US Tettnanger, East Kent Gold
 
 ## Časté kombinace
 
-- **Citra + Mosaic** — tropické + borůvkové
+- **Citra + [Mosaic](@/glosar/mosaic.md)** — tropické + borůvkové
 - **Citra + Simcoe** — citrusové + jehličnaté
 - **Citra + Galaxy** — dvojitě tropické
 - **Citra + Nelson Sauvin** — citrusy + bílé víno

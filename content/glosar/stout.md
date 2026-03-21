@@ -11,10 +11,10 @@ related = ["ale", "imperial", "porter"]
 
 ## Chuťový profil
 
-- Intenzivní pražený slad, káva, tmavá čokoláda
+- Intenzivní pražený [slad](@/glosar/slad.md), káva, tmavá čokoláda
 - Plné, krémové tělo
 - Suchý nebo sladký dozvuk
-- ABV: 4,0–12,0 %
+- [ABV](@/glosar/abv.md): 4,0–12,0 %
 
 ## Podtypy
 

@@ -11,7 +11,7 @@ related = ["ibu", "stupnovitost", "kvaseni"]
 
 ## Jak ABV vzniká
 
-Alkohol v pivu vzniká při **kvašení**. Kvasnice konzumují cukry z mladiny a přeměňují je na etanol a CO₂. Čím více cukru v mladině (vyšší stupňovitost), tím vyšší může být výsledné ABV.
+Alkohol v pivu vzniká při **[kvašení](@/glosar/kvaseni.md)**. Kvasnice konzumují cukry z [mladiny](@/glosar/mladina.md) a přeměňují je na etanol a CO₂. Čím více cukru v mladině (vyšší stupňovitost), tím vyšší může být výsledné ABV.
 
 ## Typické hodnoty ABV
 
@@ -35,7 +35,7 @@ Alkohol v pivu vzniká při **kvašení**. Kvasnice konzumují cukry z mladiny a
 
 ## ABV vs. stupňovitost
 
-V Česku se tradičně používá **stupňovitost** (°Plato), která měří obsah extraktu PŘED kvašením. ABV měří alkohol POTÉ.
+V Česku se tradičně používá **[stupňovitost](@/glosar/stupnovitost.md)** (°Plato), která měří obsah extraktu PŘED kvašením. ABV měří alkohol POTÉ.
 
 - 10° ≈ 3,5–4,5 % ABV
 - 12° ≈ 4,5–5,5 % ABV

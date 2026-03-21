@@ -11,7 +11,7 @@ V české pivní kultuře existují tři tradiční způsoby načárkování piv
 
 ## Hladinka
 
-Klasické načepování s **2–3 cm bílé pěny** na hladině. Standard v každé hospodě.
+Klasické načepování s **2–3 cm bílé [pěny](@/glosar/pena.md)** na hladině. Standard v každé hospodě.
 
 - **Technika**: Otevřít pípu, naklonit sklenici, na konci narovnat pro pěnu
 - **Chuť**: Vyvážená — čerstvé pivo s ochrannou pěnou

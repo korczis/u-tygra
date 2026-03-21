@@ -7,14 +7,14 @@ category = "styly"
 related = ["lager", "plzen", "spodni-kvaseni"]
 +++
 
-**Helles** (*helles* = světlé) vznikl v Mnichově jako odpověď na úspěch českého pilsneru. Na rozdíl od pilsneru je méně hořké a více sladové.
+**Helles** (*helles* = světlé) vznikl v Mnichově jako odpověď na úspěch českého [pilsner](@/glosar/plzen.md)u. Na rozdíl od pilsneru je méně hořké a více [slad](@/glosar/slad.md)ové.
 
 ## Chuťový profil
 
 - Jemný, chlebový slad
 - Nízká hořkost (16–22 IBU)
 - Čisté, svěží, pitné
-- ABV: 4,5–5,5 %
+- [ABV](@/glosar/abv.md): 4,5–5,5 %
 
 ## Typické příklady
 

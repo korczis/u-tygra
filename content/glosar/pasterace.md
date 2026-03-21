@@ -7,7 +7,7 @@ category = "vyroba"
 related = ["filtrace"]
 +++
 
-**Pasterace** je tepelné ošetření piva (60–72 °C po dobu 15–30 sekund), které zabíjí mikroorganismy a zabraňuje dalšímu kvašení. Pojmenována po Louis Pasteurovi (1822–1895).
+**Pasterace** je tepelné ošetření piva (60–72 °C po dobu 15–30 sekund), které zabíjí mikroorganismy a zabraňuje dalšímu [kvašení](@/glosar/kvaseni.md). Pojmenována po Louis Pasteurovi (1822–1895).
 
 ## Pasterované vs. nepasterované
 
@@ -32,7 +32,7 @@ Většina čepovaného piva v českých hospodách je **nepasterované** — pro
 - Kratší cesta od pivovaru k hospodě
 - Nepasterované = zachovaná plná chuť
 - Správná teplota z výčepního systému
-- Čerstvá pěna z čepu
+- Čerstvá [pěna](@/glosar/pena.md) z čepu
 
 ## Zajímavosti
 

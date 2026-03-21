@@ -11,10 +11,10 @@ related = ["sour", "spontanni-kvaseni"]
 
 ## Charakteristika
 
-- Lehká kyselost z mléčného kvašení
+- Lehká kyselost z mléčného [kvašení](@/glosar/kvaseni.md)
 - Jemná slanost, koriandr
 - Osvěžující, nízká hořkost (5–12 IBU)
-- ABV: 4,0–5,5 %
+- [ABV](@/glosar/abv.md): 4,0–5,5 %
 - Zakalené, pšeničný základ
 
 ## Moderní variace

@@ -7,7 +7,7 @@ category = "chmely"
 related = ["chmel", "cascade", "citra"]
 +++
 
-**Amarillo** je americký chmelový kultivar s výrazně citrusovým charakterem. Název pochází ze španělského *amarillo* = žlutý.
+**Amarillo** je americký [chmel](@/glosar/chmel.md)ový kultivar s výrazně citrusovým charakterem. Název pochází ze španělského *amarillo* = žlutý.
 
 ## Aromatický profil
 
@@ -15,4 +15,4 @@ related = ["chmel", "cascade", "citra"]
 - Květiny, lehký tropický podtón
 - Alfa kyseliny: 8–11 %
 
-Používá se v Pale Ale, IPA a wheat ale. Výborný pro dry hopping.
+Používá se v [Pale Ale](@/glosar/pale-ale.md), IPA a wheat ale. Výborný pro [dry hopping](@/glosar/dry-hopping.md).

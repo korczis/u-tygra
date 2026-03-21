@@ -7,7 +7,7 @@ category = "vyroba"
 related = ["chmel", "dry-hopping", "ibu"]
 +++
 
-**Chmelování** je umění přidávání chmele v přesný čas pro požadovaný efekt — hořkost, chuť nebo aróma. Čas přidání zásadně mění, co chmel pivu dodá.
+**Chmelování** je umění přidávání [chmele](@/glosar/chmel.md) v přesný čas pro požadovaný efekt — hořkost, chuť nebo aróma. Čas přidání zásadně mění, co chmel pivu dodá.
 
 ## Typy chmelování podle času
 

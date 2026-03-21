@@ -7,7 +7,7 @@ category = "kultura"
 related = ["chmel", "kvasnice"]
 +++
 
-**Pivní lázně** jsou česká turistická a wellness specialita — koupel ve směsi teplého piva, chmele, kvasnic a bylin v dřevěné kádi.
+**Pivní lázně** jsou česká turistická a wellness specialita — koupel ve směsi teplého piva, [chmele](@/glosar/chmel.md), [kvasnic](@/glosar/kvasnice.md) a bylin v dřevěné kádi.
 
 ## Co zahrnuje návštěva
 

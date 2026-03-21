@@ -7,7 +7,7 @@ category = "vyroba"
 related = ["kvaseni", "lambic", "sour"]
 +++
 
-**Spontánní kvašení** je nejstarší a nejprimitivnější způsob kvašení — mladina se ponechá otevřená a divoké kvasnice a bakterie z ovzduší ji zaočkují přirozeně.
+**Spontánní [kvašení](@/glosar/kvaseni.md)** je nejstarší a nejprimitivnější způsob kvašení — [mladina](@/glosar/mladina.md) se ponechá otevřená a divoké [kvasnice](@/glosar/kvasnice.md) a bakterie z ovzduší ji zaočkují přirozeně.
 
 ## Jak to funguje
 
@@ -38,4 +38,4 @@ related = ["kvaseni", "lambic", "sour"]
 
 Tradičně pouze v údolí řeky **Zenne** u Bruselu (Belgie), kde je unikátní mikrobiální flora. Slavné pivovary: **Cantillon, 3 Fonteinen, Boon, Tilquin**.
 
-Moderní pivovarníci po celém světě experimentují s „americkými Lambiky" — inspirovaní spontánním kvašením, ale v jiných regionech s odlišnou mikroflórou.
+Moderní pivovarníci po celém světě experimentují s „americkými [Lambik](@/glosar/lambic.md)y" — inspirovaní spontánním kvašením, ale v jiných regionech s odlišnou mikroflórou.

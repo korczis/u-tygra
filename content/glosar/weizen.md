@@ -7,14 +7,14 @@ category = "styly"
 related = ["witbier", "svrchni-kvaseni", "ale"]
 +++
 
-**Pšeničné pivo** (Weizen, Hefeweizen) obsahuje minimálně 50 % pšeničného sladu. Pochází z Bavorska.
+**Pšeničné pivo** (Weizen, Hefeweizen) obsahuje minimálně 50 % pšeničného [sladu](@/glosar/slad.md). Pochází z Bavorska.
 
 ## Chuťový profil
 
 - Banán, hřebíček, vanilka (z kvasnic)
 - Lehké, osvěžující, nízká hořkost (8–15 IBU)
 - Zakalené (nefilt.) nebo čiré (Kristallweizen)
-- ABV: 4,5–5,5 %
+- [ABV](@/glosar/abv.md): 4,5–5,5 %
 
 ## Varianty
 

@@ -7,7 +7,7 @@ category = "chmely"
 related = ["chmel", "citra", "cascade"]
 +++
 
-**Simcoe** je vyšlechtěný americký chmel (2000) s vysokým obsahem alfa kyselin (12–14 %) a unikátním duálním charakterem.
+**Simcoe** je vyšlechtěný americký [chmel](@/glosar/chmel.md) (2000) s vysokým obsahem alfa kyselin (12–14 %) a unikátním duálním charakterem.
 
 ## Aromatický profil
 
@@ -16,4 +16,4 @@ related = ["chmel", "citra", "cascade"]
 - Zemité, lesní tóny
 - Alfa kyseliny: 12–14 %
 
-Oblíbený v IPA a Double IPA. Často se kombinuje s Citra a Mosaic.
+Oblíbený v IPA a Double IPA. Často se kombinuje s [Citra](@/glosar/citra.md) a [Mosaic](@/glosar/mosaic.md).

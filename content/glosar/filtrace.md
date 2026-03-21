@@ -7,7 +7,7 @@ category = "vyroba"
 related = ["zrani", "pasterace"]
 +++
 
-**Filtrace** je proces odstraňování kvasnic, bílkovinných zákalů a dalších částic z piva. Rozhodnutí filtrovat nebo nefiltrovat zásadně ovlivňuje charakter piva.
+**Filtrace** je proces odstraňování [kvasnic](@/glosar/kvasnice.md), bílkovinných zákalů a dalších částic z piva. Rozhodnutí filtrovat nebo nefiltrovat zásadně ovlivňuje charakter piva.
 
 ## Filtrované vs. nefiltrované
 

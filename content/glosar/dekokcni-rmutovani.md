@@ -7,7 +7,7 @@ category = "vyroba"
 related = ["rmuty", "mladina"]
 +++
 
-**Dekokční rmutování** je tradiční metoda, při které se část rmutů odebere, svaří a vrátí zpět do hlavní nádoby, čímž se zvýší teplota celku.
+**Dekokční [rmutování](@/glosar/rmuty.md)** je tradiční metoda, při které se část rmutů odebere, svaří a vrátí zpět do hlavní nádoby, čímž se zvýší teplota celku.
 
 ## Postup
 
@@ -18,7 +18,7 @@ related = ["rmuty", "mladina"]
 
 ## Výhody
 
-- Hlubší sladový charakter, melanoidiny
+- Hlubší [slad](@/glosar/slad.md)ový charakter, melanoidiny
 - Lepší čiření
 - Tradiční chuťový profil českých ležáků
 

@@ -7,7 +7,7 @@ category = "zaklady"
 related = ["abv", "kvaseni", "mladina"]
 +++
 
-**Stupňovitost** (°Plato, °P) udává procento rozpuštěných látek (extraktu) v mladině před kvašením. Je to tradiční české měřítko „síly" piva.
+**Stupňovitost** (°Plato, °P) udává procento rozpuštěných látek (extraktu) v mladině před [kvašení](@/glosar/kvaseni.md)m. Je to tradiční české měřítko „síly" piva.
 
 ## České značení
 
@@ -23,11 +23,11 @@ related = ["abv", "kvaseni", "mladina"]
 
 ## Jak funguje stupňovitost
 
-Stupňovitost měří hustotu mladiny **před** kvašením. Vysoká stupňovitost = hodně cukrů = více „paliva" pro kvasnice = silnější pivo.
+Stupňovitost měří hustotu [mladiny](@/glosar/mladina.md) **před** kvašením. Vysoká stupňovitost = hodně cukrů = více „paliva" pro [kvasnice](@/glosar/kvasnice.md) = silnější pivo.
 
 **Ale ne vždy!** Záleží na **stupni prokvašení** (atenuaci):
 - **Vysoká atenuace** (75–85 %) — kvasnice zkonzumují většinu cukrů → suché, silnější pivo
-- **Nízká atenuace** (65–75 %) — zůstane více zbytkového cukru → sladší, slabší pivo
+- **Nízká atenuace** (65–75 %) — zůstane více zbytkového cukru → [slad](@/glosar/slad.md)ší, slabší pivo
 
 ## Měření
 
@@ -37,7 +37,7 @@ Stupňovitost měří hustotu mladiny **před** kvašením. Vysoká stupňovitos
 
 ## Stupňovitost vs. ABV
 
-Stupňovitost je čistě český/středoevropský koncept. Ve světě se používá ABV (procento alkoholu). Orientační přepočet:
+Stupňovitost je čistě český/středoevropský koncept. Ve světě se používá [ABV](@/glosar/abv.md) (procento alkoholu). Orientační přepočet:
 
 **ABV ≈ Stupňovitost × 0,4** (velmi hrubý odhad)
 

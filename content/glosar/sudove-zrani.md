@@ -7,7 +7,7 @@ category = "vyroba"
 related = ["zrani"]
 +++
 
-**Sudové zrání** (barrel aging) je technika, při které pivo zraje v dřevěných sudech — nejčastěji po předchozím použití pro whisky, bourbon, víno nebo rum. Dřevo a zbytkové látky v sudu dodávají pivu komplexní chuťové vrstvy.
+**Sudové [zrání](@/glosar/zrani.md)** (barrel aging) je technika, při které pivo zraje v dřevěných sudech — nejčastěji po předchozím použití pro whisky, bourbon, víno nebo rum. Dřevo a zbytkové látky v sudu dodávají pivu komplexní chuťové vrstvy.
 
 ## Typy sudů a jejich vliv
 
@@ -34,7 +34,7 @@ related = ["zrani"]
 Sudové zrání se typicky používá u silnějších piv (8 %+), protože:
 - Vyšší alkohol lépe extrahuje látky ze dřeva
 - Silnější piva vydrží delší zrání bez degradace
-- Dřevěné tóny lépe ladí s intenzivní sladovitostí
+- Dřevěné tóny lépe ladí s intenzivní [slad](@/glosar/slad.md)ovitostí
 
 ## Cena
 

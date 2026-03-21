@@ -18,12 +18,12 @@ Podobné chutě se vzájemně posilují:
 
 ### 2. Kontrast (Contrast)
 Opačné chutě se vyrovnávají:
-- Hořká IPA + sladké BBQ maso
+- Hořká IPA + [slad](@/glosar/slad.md)ké BBQ maso
 - Kyselý Sour + tučný sýr
 
 ### 3. Vyčištění (Cleanse)
 Pivo „čistí" patro mezi sousty:
-- Perlivý Pilsner + smažený sýr (odřezává mastnotu)
+- Perlivý [Pilsner](@/glosar/plzen.md) + smažený sýr (odřezává mastnotu)
 - Kyselá Gose + tučné maso
 
 ## Průvodce párováním

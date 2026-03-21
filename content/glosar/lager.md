@@ -7,12 +7,12 @@ category = "styly"
 related = ["plzen", "helles", "spodni-kvaseni"]
 +++
 
-**Ležák** (lager) je pivo kvašené spodními kvasnicemi při teplotě 7–13 °C. Název pochází z německého *lagern* — skladovat, zrát.
+**Ležák** (lager) je pivo kvašené spodními [kvasnice](@/glosar/kvasnice.md)mi při teplotě 7–13 °C. Název pochází z německého *lagern* — skladovat, zrát.
 
 ## Charakteristika
 
 - Čistá, hladká chuť bez výrazných kvasnicových tónů
-- Delší doba zrání (4–8 týdnů) při nízké teplotě
+- Delší doba [zrání](@/glosar/zrani.md) (4–8 týdnů) při nízké teplotě
 - Barva od světlé zlaté po tmavě hnědou
 
 ## Podtypy

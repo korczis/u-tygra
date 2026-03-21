@@ -7,7 +7,7 @@ category = "vyroba"
 related = ["chmel", "chmelovani", "neipa"]
 +++
 
-**Dry hopping** je technika přidávání chmele do piva po kvašení, za studena (typicky 0–18 °C). Na rozdíl od chmelování při varu, dry hopping **nezvyšuje hořkost** — alfa-kyseliny se bez tepla neizomerují.
+**Dry hopping** je technika přidávání [chmele](@/glosar/chmel.md) do piva po [kvašení](@/glosar/kvaseni.md), za studena (typicky 0–18 °C). Na rozdíl od [chmelování](@/glosar/chmelovani.md) při varu, dry hopping **nezvyšuje hořkost** — alfa-kyseliny se bez tepla neizomerují.
 
 ## Proč dry hopping
 
@@ -21,7 +21,7 @@ related = ["chmel", "chmelovani", "neipa"]
 Chmelové pelety se přidají přímo do fermentační nádoby nebo do ležáckého tanku. Kontakt 3–7 dní.
 
 ### Double Dry Hop (DDH)
-Dvě dávky chmele v různých fázích — ještě během kvašení a po kvašení. Populární u NEIPA. Intenzivnější, komplexnější aróma.
+Dvě dávky chmele v různých fázích — ještě během kvašení a po kvašení. Populární u [NEIPA](@/glosar/neipa.md). Intenzivnější, komplexnější aróma.
 
 ### Bio-transformace
 Dry hopping během aktivního kvašení. Kvasnice přeměňují chmelové oleje na nové aromatické sloučeniny — vznikají unikátní tropické a ovocné tóny.
@@ -37,8 +37,8 @@ Dry hopping během aktivního kvašení. Kvasnice přeměňují chmelové oleje 
 
 ## Oblíbené odrůdy pro dry hopping
 
-- **Citra** — grapefruit, mango, tropické ovoce
-- **Mosaic** — borůvky, papája, jehličí
+- **[Citra](@/glosar/citra.md)** — grapefruit, mango, tropické ovoce
+- **[Mosaic](@/glosar/mosaic.md)** — borůvky, papája, jehličí
 - **Galaxy** — marakuja, broskev (Austrálie)
 - **Nelson Sauvin** — bílé víno, angrešt (Nový Zéland)
 - **Simcoe** — jehličí, marakuja, ananas

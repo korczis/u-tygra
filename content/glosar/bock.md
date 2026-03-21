@@ -11,10 +11,10 @@ related = ["lager", "spodni-kvaseni"]
 
 ## Charakteristika
 
-- Plné, sladové tělo
+- Plné, [slad](@/glosar/slad.md)ové tělo
 - Karamel, chléb, tmavé ovoce
 - Mírná hořkost (20–30 IBU)
-- ABV: 6,0–7,5 %
+- [ABV](@/glosar/abv.md): 6,0–7,5 %
 
 ## Podtypy
 

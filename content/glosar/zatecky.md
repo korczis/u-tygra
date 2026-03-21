@@ -7,7 +7,7 @@ category = "chmely"
 related = ["chmel", "plzen"]
 +++
 
-**Žatecký chmel** (Saaz) je nejslavnější česká chmelová odrůda a jeden z nejcennějších aromatických chmelů na světě.
+**Žatecký [chmel](@/glosar/chmel.md)** (Saaz) je nejslavnější česká chmelová odrůda a jeden z nejcennějších aromatických chmelů na světě.
 
 ## Profil
 
@@ -23,7 +23,7 @@ related = ["chmel", "plzen"]
 
 1. **Jemnost** — na rozdíl od amerických chmelů nemá agresivní citrusové tóny
 2. **Elegance** — koření a bylinkové nuance, ne „in your face" charakter
-3. **Univerzálnost** — základ pro Pilsner, ale i belgické ležáky
+3. **Univerzálnost** — základ pro [Pilsner](@/glosar/plzen.md), ale i belgické ležáky
 4. **Terroir** — specifické klima a půda Žatecka dávají chmelu unikátní charakter
 
 ## Pěstování

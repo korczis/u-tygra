@@ -7,13 +7,13 @@ category = "zaklady"
 related = ["abv", "chmel", "ebc", "chmelovani"]
 +++
 
-**IBU** (International Bitterness Units) měří hořkost piva na stupnici od 0 do 120+. Hořkost dodává **chmel** — konkrétně alfa-kyseliny uvolněné při vaření mladiny.
+**IBU** (International Bitterness Units) měří hořkost piva na stupnici od 0 do 120+. Hořkost dodává **[chmel](@/glosar/chmel.md)** — konkrétně alfa-kyseliny uvolněné při vaření [mladiny](@/glosar/mladina.md).
 
 ## Jak IBU funguje
 
 Alfa-kyseliny v chmelu se při vaření izomerují (mění strukturu) a stávají se rozpustnými v pivě. Čím déle chmel vaříte a čím vyšší je obsah alfa-kyselin v odrůdě, tím vyšší IBU.
 
-**Důležité**: IBU měří chemickou hořkost, ale **vnímaná hořkost** závisí i na sladovitosti piva. IPA s 60 IBU může chutnat méně hořce než lehký lager s 30 IBU, protože sladkost vyrovnává hořkost.
+**Důležité**: IBU měří chemickou hořkost, ale **vnímaná hořkost** závisí i na [slad](@/glosar/slad.md)ovitosti piva. IPA s 60 IBU může chutnat méně hořce než lehký lager s 30 IBU, protože sladkost vyrovnává hořkost.
 
 ## Typické hodnoty IBU
 

@@ -13,9 +13,9 @@ related = ["ale", "craft", "svrchni-kvaseni"]
 
 - Pepř, hřebíček, citrusové kůry
 - Suchý, vysoce karbonovaný
-- Komplexní kvasnicový charakter
-- ABV: 5,0–8,5 %
-- IBU: 20–35
+- Komplexní [kvasnic](@/glosar/kvasnice.md)ový charakter
+- [ABV](@/glosar/abv.md): 5,0–8,5 %
+- [IBU](@/glosar/ibu.md): 20–35
 
 ## Znaky
 

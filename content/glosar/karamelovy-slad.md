@@ -7,7 +7,7 @@ category = "suroviny"
 related = ["slad", "ebc"]
 +++
 
-**Karamelový slad** (crystal malt) se zpracovává při vyšší teplotě — škroby se přemění na cukry přímo v zrnu, které pak karamelizují.
+**Karamelový [slad](@/glosar/slad.md)** (crystal malt) se zpracovává při vyšší teplotě — škroby se přemění na cukry přímo v zrnu, které pak karamelizují.
 
 ## Typy podle barvy
 

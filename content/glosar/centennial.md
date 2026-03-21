@@ -7,7 +7,7 @@ category = "chmely"
 related = ["chmel", "cascade"]
 +++
 
-**Centennial** (1990) je vyváženým chmelem pro hořčení i aroma. Přezdívá se mu *Super Cascade* díky podobnému, ale intenzivnějšímu profilu.
+**Centennial** (1990) je vyváženým [chmelem](@/glosar/chmel.md) pro hořčení i aroma. Přezdívá se mu *Super [Cascade](@/glosar/cascade.md)* díky podobnému, ale intenzivnějšímu profilu.
 
 ## Aromatický profil
 

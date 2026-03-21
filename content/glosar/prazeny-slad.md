@@ -7,7 +7,7 @@ category = "suroviny"
 related = ["slad", "porter", "stout"]
 +++
 
-**Pražený slad** se praží při teplotách 200–230 °C a dodává pivu tmavou barvu a intenzivní chuťový profil.
+**Pražený [slad](@/glosar/slad.md)** se praží při teplotách 200–230 °C a dodává pivu tmavou barvu a intenzivní chuťový profil.
 
 ## Typy
 

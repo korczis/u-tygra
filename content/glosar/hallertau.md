@@ -7,7 +7,7 @@ category = "chmely"
 related = ["chmel", "zatecky"]
 +++
 
-**Hallertau** (Hallertauer Mittelfrüh) pochází z regionu Hallertau v Bavorsku — největší chmelařské oblasti na světě.
+**Hallertau** (Hallertauer Mittelfrüh) pochází z regionu Hallertau v Bavorsku — největší [chmel](@/glosar/chmel.md)ařské oblasti na světě.
 
 ## Aromatický profil
 
@@ -18,4 +18,4 @@ related = ["chmel", "zatecky"]
 
 ## Použití
 
-Klíčový chmel pro německé ležáky, Helles, Pilsner a Weizen. Obdobu najdeme v českém Žateckém chmelu — oba patří k „ušlechtilým" (noble hops).
+Klíčový chmel pro německé ležáky, Helles, [Pilsner](@/glosar/plzen.md) a Weizen. Obdobu najdeme v českém Žateckém chmelu — oba patří k „ušlechtilým" (noble hops).

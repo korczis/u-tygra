@@ -7,7 +7,7 @@ category = "vyroba"
 related = ["kvasnice", "mladina", "svrchni-kvaseni", "spodni-kvaseni"]
 +++
 
-**Kvašení** (fermentace) je biochemický proces, při kterém kvasnice přeměňují jednoduché cukry (glukózu, maltózu) z mladiny na etanol (alkohol) a oxid uhličitý (CO₂).
+**Kvašení** (fermentace) je biochemický proces, při kterém [kvasnice](@/glosar/kvasnice.md) přeměňují jednoduché cukry (glukózu, maltózu) z [mladiny](@/glosar/mladina.md) na etanol (alkohol) a oxid uhličitý (CO₂).
 
 **C₆H₁₂O₆ → 2 C₂H₅OH + 2 CO₂**
 
@@ -17,7 +17,7 @@ related = ["kvasnice", "mladina", "svrchni-kvaseni", "spodni-kvaseni"]
 Kvasnice se adaptují na prostředí, konzumují kyslík a rostou. Ještě neprodukují alkohol.
 
 ### 2. Hlavní kvašení (1–7 dní)
-Intenzivní přeměna cukrů. Na povrchu se tvoří „kräusen" — hustá pěna z kvasnic a hop resinů. Teplota stoupá (uvolňuje se teplo). Většina alkoholu vzniká v této fázi.
+Intenzivní přeměna cukrů. Na povrchu se tvoří „kräusen" — hustá [pěna](@/glosar/pena.md) z kvasnic a hop resinů. Teplota stoupá (uvolňuje se teplo). Většina alkoholu vzniká v této fázi.
 
 ### 3. Sekundární kvašení / Dokvašování (1–4 týdny)
 Kvasnice dokvašují zbývající cukry, absorbují nežádoucí vedlejší produkty (diacetyl, acetaldehyd). Pivo se čistí.

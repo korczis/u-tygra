@@ -14,7 +14,7 @@ related = ["weizen", "svrchni-kvaseni", "ale"]
 - Koriandr, pomerančová kůra, citron
 - Lehké, zakalené, osvěžující
 - Velmi nízká hořkost (8–20 IBU)
-- ABV: 4,5–5,5 %
+- [ABV](@/glosar/abv.md): 4,5–5,5 %
 
 ## Rozdíl od Hefeweizen
 

@@ -11,9 +11,9 @@ related = ["bock", "lager", "oktoberfest"]
 
 ## Chuťový profil
 
-- Bohatý sladový charakter, toastový chléb
+- Bohatý [slad](@/glosar/slad.md)ový charakter, toastový chléb
 - Jantarová až měděná barva
 - Střední hořkost (18–24 IBU)
-- ABV: 5,5–6,5 %
+- [ABV](@/glosar/abv.md): 5,5–6,5 %
 
 Dnes je synonymem pro **Oktoberfest-pivo**, i když moderní Oktoberfest-biere bývají světlejší.

@@ -28,7 +28,7 @@ Jiná teorie: za obou světových válek britská vláda omezila obsah alkoholu 
 
 ## Session IPA
 
-Nejpopulárnější session styl. Výzva: jak zachovat intenzivní chmelové aróma při nízké sladové páteři? Řešení: masivní dry hopping a speciální techniky (BIAB, turbid mashing).
+Nejpopulárnější session styl. Výzva: jak zachovat intenzivní [chmel](@/glosar/chmel.md)ové aróma při nízké [slad](@/glosar/slad.md)ové páteři? Řešení: masivní [dry hopping](@/glosar/dry-hopping.md) a speciální techniky (BIAB, turbid mashing).
 
 ## Zajímavosti
 

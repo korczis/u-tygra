@@ -7,7 +7,7 @@ category = "chmely"
 related = ["chmel", "zatecky"]
 +++
 
-**Kazbek** je český chmel vyšlechtěný v roce 2010 křížením **Žateckého (Saaz)** s divokým čínským chmelem.
+**Kazbek** je český chmel vyšlechtěný v roce 2010 křížením **Žateckého (Saaz)** s divokým čínským [chmelem](@/glosar/chmel.md).
 
 ## Profil
 
@@ -23,13 +23,13 @@ Kazbek představuje **most mezi tradiční českou chmelařskou tradicí a moder
 
 - Má **české geny** (Saaz) — jemnost, elegance
 - Má **exotické geny** (divoký čínský) — citrusy, tropické nuance
-- Vyšší alfa než Saaz — vhodný i pro hořkost
+- Vyšší alfa než [Saaz](@/glosar/zatecky.md) — vhodný i pro hořkost
 - Citrusový profil — atraktivní pro IPA a APA
 
 ## Použití
 
 - **České řemeslné IPA** — česká alternativa k americkým chmelům
-- **APA** — citrusové Pale Ale s českým charakterem
+- **APA** — citrusové [Pale Ale](@/glosar/pale-ale.md) s českým charakterem
 - **Moderní ležáky** — osvěžení tradičního stylu
 - **Single-hop piva** — zajímavý solo profil
 

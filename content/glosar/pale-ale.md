@@ -7,7 +7,7 @@ category = "styly"
 related = ["ale", "craft", "neipa"]
 +++
 
-**Pale Ale** je základ moderního craft pivovarnictví. Vznikl v Anglii v 18. století díky světlejšímu sladu.
+**Pale Ale** je základ moderního craft pivovarnictví. Vznikl v Anglii v 18. století díky světlejšímu [sladu](@/glosar/slad.md).
 
 ## Podtypy
 

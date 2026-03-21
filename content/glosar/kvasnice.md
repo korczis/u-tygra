@@ -7,7 +7,7 @@ category = "suroviny"
 related = ["kvaseni", "svrchni-kvaseni", "spodni-kvaseni"]
 +++
 
-**Kvasnice** (Saccharomyces) jsou jednobuněčné houby, které jsou zodpovědné za kvašení — přeměnu cukrů na etanol (alkohol) a oxid uhličitý (CO₂). Jsou to „neviditelní pivovarníci" — bez nich by pivo bylo jen sladká chmelená voda.
+**Kvasnice** (Saccharomyces) jsou jednobuněčné houby, které jsou zodpovědné za [kvašení](@/glosar/kvaseni.md) — přeměnu cukrů na etanol (alkohol) a oxid uhličitý (CO₂). Jsou to „neviditelní pivovarníci" — bez nich by pivo bylo jen [slad](@/glosar/slad.md)ká [chmele](@/glosar/chmel.md)ná voda.
 
 ## Dva hlavní druhy
 
@@ -15,13 +15,13 @@ related = ["kvaseni", "svrchni-kvaseni", "spodni-kvaseni"]
 - **Teplota**: 15–24 °C
 - **Chování**: Stoupají k povrchu
 - **Charakter**: Produkují estery (ovocné tóny) a fenoly (kořeněné)
-- **Pro styly**: Ale, Stout, Wheat, IPA, belgické styly
+- **Pro styly**: Ale, [Stout](@/glosar/stout.md), Wheat, IPA, belgické styly
 
 ### Spodní kvasnice (Saccharomyces pastorianus)
 - **Teplota**: 7–13 °C
 - **Chování**: Klesají ke dnu
 - **Charakter**: Čistý, neutrální profil — nechá vyniknout slad a chmel
-- **Pro styly**: Lager, Pilsner, Bock, Märzen
+- **Pro styly**: Lager, [Pilsner](@/glosar/plzen.md), [Bock](@/glosar/bock.md), Märzen
 
 ## Co kvasnice dávají pivu
 
@@ -39,7 +39,7 @@ Kromě alkoholu a CO₂ produkují kvasnice stovky vedlejších látek:
 ## Divoké kvasnice
 
 Kromě kulturních kvasnic existují **divoké** — Brettanomyces, Lactobacillus, Pediococcus. Používají se pro:
-- **Lambiky** — spontánní kvašení v Belgii
+- **[Lambik](@/glosar/lambic.md)y** — spontánní kvašení v Belgii
 - **Sour Ale** — záměrná kyselost
 - **Farmhouse Ale** — komplexní, rustikální charakter
 

@@ -7,7 +7,7 @@ category = "vyroba"
 related = ["slad", "mladina"]
 +++
 
-**Rmutování** (mashing) je proces, při kterém se mletý slad smíchá s horkou vodou a enzymy přeměňují škrob na zkvasitelné cukry. Je to „kuchyňský" základ pivovarnictví.
+**Rmutování** (mashing) je proces, při kterém se mletý [slad](@/glosar/slad.md) smíchá s horkou vodou a enzymy přeměňují škrob na zkvasitelné cukry. Je to „kuchyňský" základ pivovarnictví.
 
 ## Enzymy a teplotní přestávky
 
@@ -32,7 +32,7 @@ Teplota se postupně zvyšuje přidáváním horké vody nebo ohřevem. Jednoduc
 - Bohatší barvu
 - Lepší pěnu
 
-**Pilsner Urquell** dodnes používá trojí dekokci — je to jeden z důvodů jeho charakteristické chuti.
+**[Pilsner](@/glosar/plzen.md) Urquell** dodnes používá trojí dekokci — je to jeden z důvodů jeho charakteristické chuti.
 
 ### BIAB (Brew In A Bag)
 Slad v pytli se ponoří do vody. Populární u domácích pivovarníků — jednoduchý a rychlý.

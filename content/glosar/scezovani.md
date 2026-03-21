@@ -7,7 +7,7 @@ category = "vyroba"
 related = ["mladina", "rmuty", "slad"]
 +++
 
-**Scezování** (*lautering*) je klíčový krok vaření piva — oddělení tekuté mladiny bohaté na cukry od pevného mláta.
+**Scezování** (*lautering*) je klíčový krok vaření piva — oddělení tekuté [mladiny](@/glosar/mladina.md) bohaté na cukry od pevného mláta.
 
 ## Průběh
 

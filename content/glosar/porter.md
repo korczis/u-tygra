@@ -11,10 +11,10 @@ related = ["ale", "stout"]
 
 ## Chuťový profil
 
-- Pražený slad, čokoláda, karamel
+- Pražený [slad](@/glosar/slad.md), čokoláda, karamel
 - Středně plné tělo
 - Mírná hořkost (18–35 IBU)
-- ABV: 4,0–6,5 %
+- [ABV](@/glosar/abv.md): 4,0–6,5 %
 
 ## Podtypy
 

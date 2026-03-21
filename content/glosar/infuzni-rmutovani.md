@@ -7,7 +7,7 @@ category = "vyroba"
 related = ["rmuty", "mladina", "dekokcni-rmutovani"]
 +++
 
-**Infuzní rmutování** je jednodušší alternativa dekokce — celý objem rmutů se ohřívá přímo nebo přidáním horké vody.
+**Infuzní [rmutování](@/glosar/rmuty.md)** je jednodušší alternativa dekokce — celý objem rmutů se ohřívá přímo nebo přidáním horké vody.
 
 ## Typy
 
@@ -20,6 +20,6 @@ related = ["rmuty", "mladina", "dekokcni-rmutovani"]
 
 - Jednodušší a rychlejší
 - Menší energetická náročnost
-- Dostatečné pro dobře modifikované slady
+- Dostatečné pro dobře modifikované [slad](@/glosar/slad.md)y
 
 Většina craft pivovarů a domácích vařičů používá infuzní metodu.

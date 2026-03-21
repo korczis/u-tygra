@@ -12,10 +12,10 @@ related = ["zatecky", "citra", "mosaic", "cascade", "kazbek", "ibu", "chmelovani
 ## Tři funkce chmele v pivu
 
 ### 1. Hořkost
-Alfa-kyseliny se při vaření izomerují a dodávají pivu charakteristickou hořkost. Měříme v **IBU** (International Bitterness Units).
+Alfa-kyseliny se při vaření izomerují a dodávají pivu charakteristickou hořkost. Měříme v **[IBU](@/glosar/ibu.md)** (International Bitterness Units).
 
 ### 2. Aróma
-Esenciální oleje (myrcen, humulen, linalool, geraniol) dodávají chmelové vůně — citrusy, tropické ovoce, jehličí, květiny, koření. Tyto oleje jsou těkavé a uvolňují se při pozdním chmelování nebo dry hoppingu.
+Esenciální oleje (myrcen, humulen, linalool, geraniol) dodávají chmelové vůně — citrusy, tropické ovoce, jehličí, květiny, koření. Tyto oleje jsou těkavé a uvolňují se při pozdním [chmelování](@/glosar/chmelovani.md) nebo [dry hopping](@/glosar/dry-hopping.md)u.
 
 ### 3. Konzervace
 Chmel má přirozené antibakteriální vlastnosti. Historicky byl důvodem, proč se pivo chmelilo — prodlužoval trvanlivost. IPA (India Pale Ale) dostala svůj název díky vysokému chmelení pro přežití cesty do Indie.
@@ -46,7 +46,7 @@ Chmel má přirozené antibakteriální vlastnosti. Historicky byl důvodem, pro
 
 - ČR je **3. největší producent chmele** na světě (po Německu a USA)
 - Hlavní oblast: **Žatecko** (severozápadní Čechy)
-- Žatecký chmel má **chráněné zeměpisné označení EU**
+- [Žatecký](@/glosar/zatecky.md) chmel má **chráněné zeměpisné označení EU**
 - Roční produkce: ~5 000 tun
 - Chmel se sklízí v srpnu/září
 - Česko pěstuje chmel nepřetržitě od 9. století

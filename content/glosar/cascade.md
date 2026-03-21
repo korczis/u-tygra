@@ -7,7 +7,7 @@ category = "chmely"
 related = ["chmel", "citra"]
 +++
 
-**Cascade** je americká chmelová odrůda z roku 1972 — první chmel, který definoval „americký" chmelový charakter. Bez Cascade by americká craft beer revoluce nevypadala tak, jak vypadá dnes.
+**Cascade** je americká [chmel](@/glosar/chmel.md)ová odrůda z roku 1972 — první chmel, který definoval „americký" chmelový charakter. Bez Cascade by americká craft beer revoluce nevypadala tak, jak vypadá dnes.
 
 ## Profil
 
@@ -20,9 +20,9 @@ related = ["chmel", "citra"]
 
 ## Historický význam
 
-V roce **1980** pivovar **Sierra Nevada** použil Cascade jako hlavní chmel ve svém **Pale Ale** — jednom z prvních amerických craft piv. Grapefruitový, květinový charakter šokoval pivaře zvyklé na jemné evropské chmely.
+V roce **1980** pivovar **Sierra Nevada** použil Cascade jako hlavní chmel ve svém **[Pale Ale](@/glosar/pale-ale.md)** — jednom z prvních amerických craft piv. Grapefruitový, květinový charakter šokoval pivaře zvyklé na jemné evropské chmely.
 
-Cascade otevřel dveře pro celou generaci amerických aromatických odrůd: Centennial, Chinook, Columbus, a později Citra, Mosaic, Simcoe.
+Cascade otevřel dveře pro celou generaci amerických aromatických odrůd: Centennial, Chinook, Columbus, a později [Citra](@/glosar/citra.md), [Mosaic](@/glosar/mosaic.md), Simcoe.
 
 ## Pojmenování
 

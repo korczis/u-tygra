@@ -24,9 +24,9 @@ related = ["slad", "abv"]
 
 ## Co určuje barvu
 
-Barvu piva určuje především **slad**:
+Barvu piva určuje především **[slad](@/glosar/slad.md)**:
 
-- **Pilsner slad** (2–4 EBC) — nejsvětlejší, základ ležáků
+- **[Pilsner](@/glosar/plzen.md) slad** (2–4 EBC) — nejsvětlejší, základ ležáků
 - **Mnichovský slad** (15–25 EBC) — tmavší, sladší
 - **Karamelový slad** (30–300 EBC) — přidává barvu a sladkost
 - **Čokoládový slad** (800–1000 EBC) — velmi tmavý, pražená chuť
@@ -36,6 +36,6 @@ I malé množství tmavého sladu výrazně ovlivní barvu. Stačí 5 % černéh
 
 ## Zajímavosti
 
-- Barva piva NESOUVISÍ přímo se silou — tmavý ležák může mít stejné ABV jako světlý
+- Barva piva NESOUVISÍ přímo se silou — tmavý ležák může mít stejné [ABV](@/glosar/abv.md) jako světlý
 - Barva se měří spektrofotometricky při vlnové délce 430 nm
 - Stárnutí piva (oxidace) postupně ztmavuje jeho barvu

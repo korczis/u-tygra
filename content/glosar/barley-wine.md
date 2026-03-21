@@ -14,8 +14,8 @@ related = ["ale", "imperial", "sudove-zrani"]
 - Karamel, tmavé ovoce, sherry, toffee
 - Plné, viskózní tělo
 - Intenzivní, ale vyvážené
-- ABV: 8,0–14,0 %
-- IBU: 35–100
+- [ABV](@/glosar/abv.md): 8,0–14,0 %
+- [IBU](@/glosar/ibu.md): 35–100
 
 ## Varianty
 
@@ -24,4 +24,4 @@ related = ["ale", "imperial", "sudove-zrani"]
 | English Barley Wine | Sladší, sladově orientovaný |
 | American Barley Wine | Agresivnější chmelení, pryskyřicový |
 
-Výborné pro **sudové zrání** (bourbon, whisky barely) a archivaci — zraje roky.
+Výborné pro **sudové [zrání](@/glosar/zrani.md)** (bourbon, whisky barely) a archivaci — zraje roky.

@@ -14,8 +14,8 @@ related = ["zatecky", "chmel", "spodni-kvaseni"]
 **5. října 1842** — bavorský pivovarník **Josef Groll** uvařil v Měšťanském pivovaru v Plzni první várku světlého spodně kvašeného ležáku. Kombinace tří faktorů vytvořila unikátní pivo:
 
 1. **Velmi měkká plzeňská voda** — minimální mineralizace
-2. **Moravský ječmenný slad** — světlý, jemný
-3. **Žatecký chmel (Saaz)** — jemné koření, bylinky
+2. **Moravský ječmenný [slad](@/glosar/slad.md)** — světlý, jemný
+3. **[Žatecký](@/glosar/zatecky.md) [chmel](@/glosar/chmel.md) (Saaz)** — jemné koření, bylinky
 
 Do té doby byla většina piv tmavá a zakalená. Plzeňské pivo bylo **zlaté a průhledné** — revoluce.
 

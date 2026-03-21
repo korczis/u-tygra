@@ -7,7 +7,7 @@ category = "vyroba"
 related = ["kvaseni", "zrani"]
 +++
 
-**Dokvašování** (conditioning) nastává po hlavním kvašení. Pivo dozrává, kvasnice absorbují nežádoucí vedlejší produkty a pivo se přirozeně karbonuje.
+**Dokvašování** (conditioning) nastává po hlavním [kvašení](@/glosar/kvaseni.md). Pivo dozrává, [kvasnice](@/glosar/kvasnice.md) absorbují nežádoucí vedlejší produkty a pivo se přirozeně karbonuje.
 
 ## Průběh
 

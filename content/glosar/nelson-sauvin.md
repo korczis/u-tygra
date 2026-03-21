@@ -16,4 +16,4 @@ related = ["chmel", "citra", "mosaic"]
 - Vinný, elegantní charakter
 - Alfa kyseliny: 12–13 %
 
-Unikátní chmel pro Belgian-style piva, Saison, NEIPA a experimentální ale.
+Unikátní [chmel](@/glosar/chmel.md) pro Belgian-style piva, Saison, [NEIPA](@/glosar/neipa.md) a experimentální ale.
