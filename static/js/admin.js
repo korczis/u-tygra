@@ -138,27 +138,30 @@ function adminApp() {
         var { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js');
         var { getAuth, onAuthStateChanged } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js');
         var { getFirestore } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js');
-        var { getStorage } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js');
 
         var app = initializeApp(config);
         window._firebaseAuth = getAuth(app);
         window._firebaseDb = getFirestore(app);
-        window._firebaseStorage = getStorage(app);
         this.firebaseConnected = true;
+        console.log('Firebase connected successfully');
 
-        onAuthStateChanged(window._firebaseAuth, async (user) => {
+        // Wait for auth state — don't load from localStorage
+        var self = this;
+        onAuthStateChanged(window._firebaseAuth, async function(user) {
           if (user) {
-            this.authUser = { email: user.email, uid: user.uid };
-            this._saveLocal('auth', this.authUser);
-            await this._loadFirestoreData();
+            console.log('Firebase auth:', user.email);
+            self.authUser = { email: user.email, uid: user.uid };
+            self._saveLocal('auth', self.authUser);
+            await self._loadFirestoreData();
           } else {
-            this.authUser = null;
+            console.log('Firebase: not signed in');
+            self.authUser = null;
           }
         });
       } catch (e) {
         console.error('Firebase init failed:', e);
         var saved = this._loadLocal('auth');
-        if (saved) {
+        if (saved && saved.email !== 'local@admin') {
           this.authUser = saved;
           this._loadLocalData();
         }
@@ -240,14 +243,8 @@ function adminApp() {
             createdAt: new Date().toISOString(),
           };
 
-          if (this.firebaseConnected && window._firebaseStorage) {
-            var { ref, uploadBytes, getDownloadURL } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js');
-            var storageRef = ref(window._firebaseStorage, 'photos/' + photo.id + '_' + file.name);
-            var snapshot = await uploadBytes(storageRef, file);
-            photo.url = await getDownloadURL(snapshot.ref);
-          } else {
-            photo.url = await this._fileToDataUrl(file);
-          }
+          // Store as data URL (no Firebase Storage needed — existing photos served from GitHub Pages)
+          photo.url = await this._fileToDataUrl(file);
 
           this.photos.unshift(photo);
           await this._firestoreSave('photos', photo.id, photo);
@@ -285,16 +282,6 @@ function adminApp() {
         this._saveLocal('photos', this.photos);
         await this._firestoreDelete('photos', photo.id);
 
-        // Delete from Storage
-        if (this.firebaseConnected && window._firebaseStorage && photo.url && photo.url.includes('firebase')) {
-          try {
-            var { ref, deleteObject } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js');
-            var storageRef = ref(window._firebaseStorage, 'photos/' + photo.id);
-            await deleteObject(storageRef);
-          } catch (e) {
-            console.warn('Storage delete failed:', e);
-          }
-        }
       }
     },
 
