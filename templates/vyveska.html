@@ -124,35 +124,44 @@ tbody td {
   vertical-align: middle;
 }
 
+.td-num {
+  font-size: 3vmin;
+  font-weight: 700;
+  color: rgba(240,140,15,0.4);
+  padding-right: 1.5vw;
+  width: 3vw;
+  text-align: center;
+}
+
 .td-name {
-  font-size: 3.5vmin;
+  font-size: 4vmin;
   font-weight: 700;
   color: #fff;
   padding-right: 2vw;
 }
 
 .td-brewery {
-  font-size: 2.5vmin;
+  font-size: 3.2vmin;
   font-weight: 500;
   color: #f08c0f;
   padding-right: 2vw;
 }
 
 .td-style {
-  font-size: 2vmin;
+  font-size: 2.8vmin;
   color: rgba(255,255,255,0.35);
   padding-right: 2vw;
 }
 
 .td-abv {
-  font-size: 2.2vmin;
+  font-size: 3vmin;
   color: rgba(255,255,255,0.4);
   text-align: center;
   padding-right: 2vw;
 }
 
 .td-price {
-  font-size: 3.5vmin;
+  font-size: 4vmin;
   font-weight: 800;
   color: #fff;
   text-align: right;
@@ -178,11 +187,12 @@ tbody td {
 }
 
 @media (min-width: 1920px) {
-  .td-name, .td-price { font-size: 2.8rem; }
-  .td-brewery { font-size: 1.8rem; }
-  .td-style { font-size: 1.4rem; }
-  .td-abv { font-size: 1.5rem; }
-  thead th { font-size: 0.9rem; }
+  .td-num { font-size: 2rem; }
+  .td-name, .td-price { font-size: 3rem; }
+  .td-brewery { font-size: 2.2rem; }
+  .td-style { font-size: 1.6rem; }
+  .td-abv { font-size: 1.8rem; }
+  thead th { font-size: 1rem; }
   .brand { font-size: 2.5rem; }
 }
 </style>
@@ -365,7 +375,7 @@ function loadBeers() {
 
     var thead = document.createElement('thead');
     var headerRow = document.createElement('tr');
-    var thNames = ['Pivo', 'Pivovar', 'Styl', 'Alk.', 'Cena'];
+    var thNames = ['#', 'Pivo', 'Pivovar', 'Styl', 'Alk.', 'Cena'];
     var ti;
     for (ti = 0; ti < thNames.length; ti++) {
       var th = document.createElement('th');
@@ -380,6 +390,11 @@ function loadBeers() {
     for (ri = 0; ri < beers.length; ri++) {
       b = beers[ri];
       tr = document.createElement('tr');
+
+      var tdNum = document.createElement('td');
+      tdNum.className = 'td-num';
+      tdNum.textContent = (ri + 1) + '.';
+      tr.appendChild(tdNum);
 
       tdName = document.createElement('td');
       tdName.className = 'td-name';
@@ -442,32 +457,33 @@ function fitToScreen(beerCount) {
       rows[i].style.height = rowHeight + 'px';
     }
 
-    // Scale font sizes based on row height
-    var nameSize = Math.min(Math.max(rowHeight * 0.35, 16), 48);
-    var brewerySize = Math.min(Math.max(rowHeight * 0.25, 14), 36);
-    var styleSize = Math.min(Math.max(rowHeight * 0.2, 12), 28);
+    // Scale ALL font sizes based on row height
+    var nameSize = Math.min(Math.max(rowHeight * 0.38, 18), 56);
+    var brewerySize = Math.min(Math.max(rowHeight * 0.30, 16), 44);
+    var styleSize = Math.min(Math.max(rowHeight * 0.25, 14), 36);
+    var abvSize = Math.min(Math.max(rowHeight * 0.28, 14), 38);
     var priceSize = nameSize;
+    var numSize = Math.min(Math.max(rowHeight * 0.28, 14), 38);
 
-    var names = document.querySelectorAll('.td-name');
-    var breweries = document.querySelectorAll('.td-brewery');
-    var styles = document.querySelectorAll('.td-style');
-    var abvs = document.querySelectorAll('.td-abv');
-    var prices = document.querySelectorAll('.td-price');
+    var setSize = function(selector, size) {
+      var els = document.querySelectorAll(selector);
+      for (var j = 0; j < els.length; j++) {
+        els[j].style.fontSize = size + 'px';
+      }
+    };
 
-    for (i = 0; i < names.length; i++) {
-      names[i].style.fontSize = nameSize + 'px';
-    }
-    for (i = 0; i < breweries.length; i++) {
-      breweries[i].style.fontSize = brewerySize + 'px';
-    }
-    for (i = 0; i < styles.length; i++) {
-      styles[i].style.fontSize = styleSize + 'px';
-    }
-    for (i = 0; i < abvs.length; i++) {
-      abvs[i].style.fontSize = styleSize + 'px';
-    }
-    for (i = 0; i < prices.length; i++) {
-      prices[i].style.fontSize = priceSize + 'px';
+    setSize('.td-num', numSize);
+    setSize('.td-name', nameSize);
+    setSize('.td-brewery', brewerySize);
+    setSize('.td-style', styleSize);
+    setSize('.td-abv', abvSize);
+    setSize('.td-price', priceSize);
+
+    // Scale header too
+    var ths = document.querySelectorAll('thead th');
+    var thSize = Math.min(Math.max(rowHeight * 0.15, 10), 20);
+    for (i = 0; i < ths.length; i++) {
+      ths[i].style.fontSize = thSize + 'px';
     }
   }
 }
