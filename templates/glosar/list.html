@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}Glosář pivních pojmů{% endblock %}
+{% block meta_description %}Kompletní glosář pivních pojmů — {{ section.pages | length }} termínů od ABV po Žatecký chmel. Vše co potřebujete vědět o pivu.{% endblock %}
+{% block og_title %}Glosář pivních pojmů | Pivnice U Tygra{% endblock %}
+{% block og_description %}Kompletní glosář pivních pojmů — {{ section.pages | length }} termínů. Od ABV po Žatecký chmel.{% endblock %}
+
+{% block body %}
+<nav class="fixed top-0 left-0 right-0 z-50 bg-brew-950/95 backdrop-blur-xl shadow-2xl shadow-black/30" role="navigation">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <a href="{{ config.base_url | safe }}" class="flex items-center gap-3 group" aria-label="Zpět na hlavní stránku">
+        <img src="{{ get_url(path='img/logo.svg') }}" alt="" class="w-8 h-8 opacity-90" role="presentation">
+        <span class="text-base font-bold text-white">U Tygra</span>
+      </a>
+      <a href="{{ config.base_url | safe }}#na-cepu" class="text-brew-300 hover:text-tiger-400 text-sm font-medium transition-colors">
+        ← Na čepu
+      </a>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-24 pb-16 min-h-screen">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <span class="text-tiger-500 text-xs font-bold tracking-[0.3em] uppercase">Encyklopedie</span>
+      <h1 class="text-4xl md:text-5xl font-bold text-white mt-3 mb-4">Glosář pivních pojmů</h1>
+      <p class="text-brew-400 max-w-2xl mx-auto text-lg">
+        {{ section.pages | length }} pojmů ze světa piva — od základů po pokročilé pivovarnické termíny.
+      </p>
+    </div>
+
+    <!-- Category filter -->
+    <div class="flex flex-wrap justify-center gap-2 mb-10" x-data="{ filter: 'all' }">
+      <button @click="filter = 'all'" :class="filter === 'all' ? 'bg-tiger-500/20 text-tiger-400 ring-1 ring-tiger-500/30' : 'glass text-brew-300 hover:text-white'" class="px-4 py-1.5 rounded-lg text-sm font-medium transition-all">Vše</button>
+      {% set categories = ["zaklady", "suroviny", "vyroba", "servirovani", "styly", "chmely", "kultura"] %}
+      {% for cat in categories %}
+      <button @click="filter = '{{ cat }}'" :class="filter === '{{ cat }}' ? 'bg-tiger-500/20 text-tiger-400 ring-1 ring-tiger-500/30' : 'glass text-brew-300 hover:text-white'" class="px-4 py-1.5 rounded-lg text-sm font-medium transition-all capitalize">
+        {% if cat == "zaklady" %}Základy{% elif cat == "suroviny" %}Suroviny{% elif cat == "vyroba" %}Výroba{% elif cat == "servirovani" %}Servírování{% elif cat == "styly" %}Styly{% elif cat == "chmely" %}Chmely{% elif cat == "kultura" %}Kultura{% endif %}
+      </button>
+      {% endfor %}
+    </div>
+
+    <!-- Terms grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {% for page in section.pages | sort(attribute="title") %}
+      <a href="{{ page.permalink }}"
+         class="glass rounded-xl p-5 transition-all hover:border-tiger-500/20 hover:bg-white/5 group block"
+         {% if page.extra.category is defined %}x-show="filter === 'all' || filter === '{{ page.extra.category }}'"{% endif %}>
+        <div class="flex items-baseline gap-2 mb-2">
+          <h2 class="text-tiger-400 font-bold text-base group-hover:text-tiger-300 transition-colors">{{ page.title }}</h2>
+          {% if page.extra.en is defined and page.extra.en %}
+          <span class="text-brew-600 text-xs">{{ page.extra.en }}</span>
+          {% endif %}
+        </div>
+        <p class="text-brew-400 text-sm leading-relaxed line-clamp-2">{{ page.description | default(value="") }}</p>
+        {% if page.extra.category is defined %}
+        <span class="inline-block mt-2 text-xs px-2 py-0.5 rounded bg-brew-800/50 text-brew-500 capitalize">
+          {% if page.extra.category == "zaklady" %}Základy{% elif page.extra.category == "suroviny" %}Suroviny{% elif page.extra.category == "vyroba" %}Výroba{% elif page.extra.category == "servirovani" %}Servírování{% elif page.extra.category == "styly" %}Styly{% elif page.extra.category == "chmely" %}Chmely{% elif page.extra.category == "kultura" %}Kultura{% endif %}
+        </span>
+        {% endif %}
+      </a>
+      {% endfor %}
+    </div>
+
+    <div class="text-center mt-12">
+      <a href="{{ config.base_url | safe }}" class="text-brew-400 hover:text-tiger-400 text-sm transition-colors">
+        ← Zpět na hlavní stránku
+      </a>
+    </div>
+  </div>
+</main>
+{% endblock %}
