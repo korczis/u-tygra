@@ -176,16 +176,6 @@ tbody td {
   font-size: 3vmin;
 }
 
-.footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.5vh 3vw;
-  border-top: 1px solid rgba(240,140,15,0.08);
-  color: rgba(255,255,255,0.2);
-  font-size: 1.8vmin;
-}
-
 @media (min-width: 1920px) {
   .td-num { font-size: 2rem; }
   .td-name, .td-price { font-size: 3rem; }
@@ -214,10 +204,6 @@ tbody td {
   <div id="beer-container"></div>
 </div>
 
-<div class="footer">
-  <span>Pivnice U Tygra · Brno</span>
-  <span id="status">Načítám...</span>
-</div>
 
 <script>
 // ES5-only kiosk for old Smart TV browsers (JVC, Samsung, LG)
@@ -284,7 +270,7 @@ function loadBeers() {
 
     if (xhr.status !== 200) {
       document.getElementById('loading').textContent = 'Nepodařilo se načíst nabídku.';
-      document.getElementById('status').textContent = 'Offline';
+      // offline
       return;
     }
 
@@ -427,7 +413,7 @@ function loadBeers() {
 
     container.appendChild(table);
     document.getElementById('loading').style.display = 'none';
-    document.getElementById('status').textContent = 'Aktuální';
+    // loaded
 
     // Fit rows to fill entire screen height
     fitToScreen(beers.length);
@@ -439,13 +425,11 @@ function fitToScreen(beerCount) {
   // Calculate available height for table body
   var header = document.querySelector('.header');
   var announcement = document.getElementById('announcement');
-  var footer = document.querySelector('.footer');
   var thead = document.querySelector('thead');
 
   var usedHeight = 0;
   if (header) usedHeight += header.offsetHeight;
   if (announcement && announcement.style.display !== 'none') usedHeight += announcement.offsetHeight;
-  if (footer) usedHeight += footer.offsetHeight;
   if (thead) usedHeight += thead.offsetHeight;
 
   var availableHeight = window.innerHeight - usedHeight;
