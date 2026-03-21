@@ -339,7 +339,7 @@
   {% block head %}{% endblock %}
 </head>
 
-<body class="bg-brew-950 text-brew-100 font-body antialiased" x-data="app()" x-cloak>
+{% block body_tag %}<body class="bg-brew-950 text-brew-100 font-body antialiased" x-data="app()" x-cloak>{% endblock %}
   <noscript>
     <div style="background:#f08c0f;color:#fff;padding:1rem;text-align:center;font-family:sans-serif">
       <strong>Pivnice U Tygra</strong> &mdash; {{ config.extra.address }}, {{ config.extra.city }}
