@@ -348,13 +348,21 @@
 </head>
 
 <body class="bg-brew-950 text-brew-100 font-body antialiased" x-data="app()" x-cloak>
+  <noscript>
+    <div style="background:#f08c0f;color:#fff;padding:1rem;text-align:center;font-family:sans-serif">
+      <strong>Pivnice U Tygra</strong> &mdash; {{ config.extra.address }}, {{ config.extra.city }}
+      &bull; Tel: {{ config.extra.phone_bar }}
+      &bull; Otev&iacute;r&aacute;me denn&ecaron; {{ config.extra.opening_hours }}
+    </div>
+  </noscript>
   {% block body %}{% endblock %}
 
   <!-- Service Worker Registration -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/js/sw.js')
+        const swPath = (window.BASE_URL ? new URL(window.BASE_URL).pathname.replace(/\/$/, '') : '') + '/js/sw.js';
+        navigator.serviceWorker.register(swPath)
           .then(registration => {
             console.log('✅ Service Worker registered:', registration.scope);
 

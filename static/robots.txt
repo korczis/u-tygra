@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://korczis.gitlab.io/u-tygra/sitemap.xml

@@ -1,0 +1,25 @@
+/* TEAM */
+Owner: KONOVO s.r.o.
+Site: https://www.pivniceutygra.cz
+Location: Brno, Czech Republic
+
+Developer: Tomas Korcak (korczis)
+GitHub: https://github.com/korczis
+LinkedIn: https://linkedin.com/in/korczis
+Location: Brno, Czech Republic
+
+/* TECHNOLOGY */
+SSG: Zola 0.22.1
+JS Framework: Alpine.js 3.x
+CSS: Tailwind CSS 3.x (CDN)
+Components: Flowbite 2.5.x
+Data: Google Sheets CSV (live)
+Analytics: Google Analytics 4
+Hosting: GitHub Pages + GitLab Pages
+AIAD: AI-Augmented Development v2.0
+
+/* SITE */
+Language: Czech (cs)
+Standards: HTML5, WCAG 2.1 AA
+Components: PWA, Service Worker, Web Worker
+Last update: 2026-03-21

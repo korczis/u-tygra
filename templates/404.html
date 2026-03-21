@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 - Stránka nenalezena | Pivnice U Tygra</title>
+  <meta name="robots" content="noindex">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #2b2219;
+      color: #e8e5d8;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+    .container { max-width: 480px; }
+    .code {
+      font-size: 8rem;
+      font-weight: 800;
+      color: #f08c0f;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+    p {
+      color: #b9af89;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+    a {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      background: #f08c0f;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    a:hover { background: #e17209; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="code">404</div>
+    <h1>Tato stránka neexistuje</h1>
+    <p>Možná jste se ztratili cestou do hospody. Nevadí, pivo na vás čeká na hlavní stránce.</p>
+    <a href="{{ config.base_url | default(value='/') }}">Zpět na hlavní stránku</a>
+  </div>
+</body>
+</html>

@@ -1,8 +1,37 @@
+# Build output
 public/
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Editor
 *.swp
 *.swo
 *~
+.idea/
+.vscode/
+*.code-workspace
+
+# Environment
 .env
+.env.local
+.env.*.local
+
+# Dependencies
 node_modules/
+
+# Cache
+.cache/
+.sass-cache/
+
+# Reports
+reports/
+
+# AIAD backups
 .aiad-backup-*/
+
+# Credentials
+*.key
+*.pem
+credentials*
