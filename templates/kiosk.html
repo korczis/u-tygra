@@ -102,7 +102,9 @@ body {
   color: #f7c46d;
   font-size: 2.5vmin;
   font-weight: 600;
-  border-bottom: 1px solid rgba(240,140,15,0.08);
+  background: rgba(240,140,15,0.03);
+  border-bottom: 1px solid rgba(240,140,15,0.1);
+  letter-spacing: 0.01em;
 }
 
 .table-wrap {
@@ -127,26 +129,29 @@ col.col-price { width: 20%; }
 
 thead th {
   text-align: left;
-  color: rgba(255,255,255,0.3);
+  color: rgba(240,140,15,0.5);
   font-size: 1.8vmin;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
-  padding: 2vh 0 1.5vh;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  letter-spacing: 0.18em;
+  padding: 2vh 1vw 1.5vh;
+  border-bottom: 2px solid rgba(240,140,15,0.15);
   position: sticky;
   top: 0;
   background: #0a0704;
 }
 
-thead th:last-child { text-align: right; }
+thead th:first-child { text-align: center; padding-left: 0; padding-right: 0; }
+thead th:nth-child(5) { text-align: center; }
+thead th:last-child { text-align: right; padding-right: 1vw; }
 
 tbody tr {
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.035);
+  transition: background 0.2s ease;
 }
 
 tbody tr:nth-child(odd) {
-  background: rgba(255,255,255,0.015);
+  background: rgba(255,255,255,0.018);
 }
 
 tbody td {
@@ -157,13 +162,14 @@ tbody td {
 .td-num {
   font-size: 3vmin;
   font-weight: 800;
-  color: #f08c0f;
+  color: rgba(240,140,15,0.7);
   text-align: center;
   vertical-align: middle;
   white-space: nowrap;
-  background: rgba(240,140,15,0.06);
-  border-right: 2px solid rgba(240,140,15,0.2);
+  background: rgba(240,140,15,0.04);
+  border-right: 1px solid rgba(240,140,15,0.12);
   padding: 0;
+  font-variant-numeric: tabular-nums;
 }
 
 .td-name {
@@ -211,7 +217,8 @@ tbody td {
   color: #fff;
   text-align: right;
   white-space: nowrap;
-  padding: 0 1vw 0 0;
+  padding: 0 1.5vw 0 0;
+  font-variant-numeric: tabular-nums;
 }
 
 .price-sep {
@@ -236,8 +243,14 @@ tbody td {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255,255,255,0.3);
+  color: rgba(255,255,255,0.2);
   font-size: 3vmin;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
 }
 
 /* Mobile: hide Styl + Alk columns */
