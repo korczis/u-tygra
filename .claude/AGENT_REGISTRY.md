@@ -21,4 +21,14 @@
 | **link-integrity-checker** | External URLs, internal paths, data endpoints | TOML |
 | **quality-gate-sentinel** | Quality standards enforcement | TOML |
 
-## Total: 11 agents (5 Claude Code + 6 AIAD)
+## AIAD Commands (.aiad/commands/)
+
+| Command | Description | Usage |
+|---------|-------------|-------|
+| **content-analyze** | Content structure analysis | `make content-analyze` |
+| **test-links** | Link integrity (ext + int + data) | `make test-links` |
+| **validate** | Pre-push: build + check + assets | `make validate` |
+| **dev-check** | Dev environment health check | `make dev-check` |
+| **deploy-status** | GitHub/GitLab deployment status | `make deploy-status` |
+
+## Totals: 11 agents (5 Claude + 6 AIAD), 5 commands

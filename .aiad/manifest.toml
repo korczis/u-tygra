@@ -94,8 +94,8 @@ namespace = "u-tygra"
 shell_integration = true
 makefile_integration = true
 directory = "commands"
-total_commands = 16
-categories = ["content", "build_deploy", "quality_maintenance"]
+total_commands = 19
+categories = ["content", "build_deploy", "quality_maintenance", "dx"]
 
 [commands.content]
 analyze = true

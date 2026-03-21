@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+# AIAD Command: dev-check
+# Quick development environment health check
+set -uo pipefail
+
+echo "=== U Tygra Dev Environment ==="
+echo ""
+
+# Zola
+if command -v zola &> /dev/null; then
+  ZOLA_VER=$(zola --version 2>&1 | head -1)
+  echo "  Zola:       $ZOLA_VER"
+else
+  echo "  Zola:       NOT FOUND (install: brew install zola)"
+fi
+
+# Git hooks
+if [ -f ".githooks/pre-commit" ]; then
+  HOOKS_PATH=$(git config core.hooksPath 2>/dev/null || echo "not set")
+  if [ "$HOOKS_PATH" = ".githooks" ]; then
+    echo "  Git hooks:  ACTIVE (.githooks/)"
+  else
+    echo "  Git hooks:  NOT CONFIGURED (run: git config core.hooksPath .githooks)"
+  fi
+else
+  echo "  Git hooks:  MISSING"
+fi
+
+# Google Sheets
+echo -n "  Sheets CSV: "
+HTTP=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 \
+  "https://docs.google.com/spreadsheets/d/e/2PACX-1vSeZjP4HadboLuS8v4KVobNqsKtjaBpBJ8oCuPCC-OjfkCtCWA8N_asuxkedh7QSGhsrXU0JU_bV_Rn/pub?gid=1804527038&single=true&output=csv" 2>/dev/null) || HTTP="000"
+if [ "$HTTP" = "200" ]; then
+  echo "ONLINE (HTTP 200)"
+else
+  echo "OFFLINE (HTTP $HTTP)"
+fi
+
+# Remotes
+echo "  Remotes:"
+git remote -v 2>/dev/null | grep push | while read name url rest; do
+  echo "    $name -> $url"
+done
+
+# AIAD
+AGENT_COUNT=$(ls .aiad/agents/*.toml 2>/dev/null | wc -l | tr -d ' ')
+CMD_COUNT=$(ls .aiad/commands/* 2>/dev/null | wc -l | tr -d ' ')
+CLAUDE_AGENT_COUNT=$(ls .claude/agents/*.md 2>/dev/null | wc -l | tr -d ' ')
+echo "  AIAD:       $AGENT_COUNT agents, $CMD_COUNT commands"
+echo "  Claude:     $CLAUDE_AGENT_COUNT agents"
+
+# Content stats
+echo ""
+echo "=== Content Stats ==="
+if [ -f "static/js/app.js" ]; then
+  LINES=$(wc -l < static/js/app.js | tr -d ' ')
+  STYLES=$(grep -c "id: '" static/js/app.js 2>/dev/null || echo 0)
+  GLOSSARY=$(grep -c "term: '" static/js/app.js 2>/dev/null || echo 0)
+  echo "  app.js:     $LINES lines"
+  echo "  Beer styles: $STYLES"
+  echo "  Glossary:   $GLOSSARY terms"
+fi
+
+echo ""
+echo "=== Ready for development ==="

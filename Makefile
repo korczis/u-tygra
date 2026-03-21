@@ -347,5 +347,23 @@ quick-deploy: content-validate build-prod ## Quick deployment workflow
 full-check: clean content-analyze quality-check build-prod test-links health-report ## Full quality assurance workflow
 	@echo "$(GREEN)✓$(NC) Full quality check completed"
 
+##@ Quick DX Commands
+
+validate: ## Pre-push validation (build + check + internal links)
+	@$(AIAD_CMD)/validate
+
+dev-check: ## Dev environment health check
+	@$(AIAD_CMD)/dev-check
+
+deploy-status: ## Check deployment status on GitHub/GitLab Pages
+	@$(AIAD_CMD)/deploy-status
+
+push: validate ## Validate then push to both remotes
+	@echo "$(BLUE)Pushing to origin (GitLab)...$(NC)"
+	@git push origin main
+	@echo "$(BLUE)Pushing to github...$(NC)"
+	@git push github main
+	@echo "$(GREEN)✓$(NC) Pushed to both remotes"
+
 # Include local extensions if available
 -include Makefile.local

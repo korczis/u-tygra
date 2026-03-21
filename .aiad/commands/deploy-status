@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# AIAD Command: deploy-status
+# Check deployment status on both platforms
+set -uo pipefail
+
+echo "=== Deployment Status ==="
+echo ""
+
+# GitHub Pages
+echo -n "GitHub Pages: "
+GH_STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "https://korczis.github.io/u-tygra/" 2>/dev/null) || GH_STATUS="000"
+if [ "$GH_STATUS" = "200" ]; then
+  echo "LIVE (HTTP $GH_STATUS)"
+else
+  echo "DOWN (HTTP $GH_STATUS)"
+fi
+
+# GitLab Pages
+echo -n "GitLab Pages: "
+GL_STATUS=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L "https://korczis.gitlab.io/u-tygra/" 2>/dev/null) || GL_STATUS="000"
+if [ "$GL_STATUS" = "200" ] || [ "$GL_STATUS" = "302" ]; then
+  echo "LIVE (HTTP $GL_STATUS)"
+else
+  echo "DOWN (HTTP $GL_STATUS)"
+fi
+
+# Last deploy
+echo ""
+echo "Last commit: $(git log -1 --format='%h %s (%cr)')"
+echo "Branch:      $(git branch --show-current)"
+
+# CI status (if gh available)
+if command -v gh &> /dev/null; then
+  echo ""
+  echo "Recent CI runs:"
+  gh run list --limit 4 2>/dev/null | while IFS=$'\t' read status conclusion title workflow branch event id duration date; do
+    printf "  %s %s (%s)\n" "$conclusion" "$title" "$workflow"
+  done 2>/dev/null || echo "  (gh not authenticated)"
+fi
