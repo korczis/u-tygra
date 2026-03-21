@@ -4,7 +4,7 @@ description = "Druhá fáze kvašení, při které pivo dozrává, čistí se a 
 [extra]
 en = "Secondary Fermentation / Conditioning"
 category = "vyroba"
-related = ["kvaseni", "zrani", "lahvove-kvaseni"]
+related = ["kvaseni", "zrani"]
 +++
 
 **Dokvašování** (conditioning) nastává po hlavním kvašení. Pivo dozrává, kvasnice absorbují nežádoucí vedlejší produkty a pivo se přirozeně karbonuje.

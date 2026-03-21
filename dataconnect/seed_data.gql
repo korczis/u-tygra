@@ -1,0 +1,97 @@
+mutation SeedData @transaction @auth(level: PUBLIC, insecureReason: "This is seed data and intended to be publicly loadable.") {
+  pubInfo_insertMany(data: [
+    {
+      id: "b2a6d7e0-c3f8-4e1b-9d2a-0f8c7e6d5a4b",
+      name: "The Golden Spoon",
+      address: "123 Main St, Anytown, USA",
+      phoneNumber: "555-123-4567",
+      email: "info@goldenspoon.com",
+      description: "A cozy restaurant with a diverse menu.",
+      history: "Established in 1990, serving the community for decades.",
+      openingHours: "Mon-Sat: 11 AM - 10 PM",
+      imageUrl: "https://example.com/goldenspoon.jpg",
+      createdAt: "2023-01-01T10:00:00Z"
+    },
+    {
+      id: "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      name: "The Hungry Robot",
+      address: "456 Oak Ave, Techville, USA",
+      phoneNumber: "555-987-6543",
+      email: "hello@hungryrobot.com",
+      description: "Modern eatery with innovative dishes and robot waiters.",
+      history: "Opened in 2020, quickly became a local favorite.",
+      openingHours: "Tue-Sun: 12 PM - 11 PM",
+      imageUrl: "https://example.com/hungryrobot.jpg",
+      createdAt: "2023-02-15T11:30:00Z"
+    }
+  ])
+  menuItem_insertMany(data: [
+    {
+      id: "c1d2e3f4-g5h6-7i8j-9k0l-1m2n3o4p5q6r",
+      name: "Spaghetti Carbonara",
+      type: "Main Course",
+      price: 18.50,
+      description: "Classic Italian pasta dish with crispy pancetta and creamy egg sauce.",
+      category: "Pasta",
+      imageUrl: "https://example.com/carbonara.jpg",
+      createdAt: "2023-03-01T14:00:00Z"
+    },
+    {
+      id: "f7e8d9c0-b1a2-3b4c-5d6e-7f8g9h0i1j2k",
+      name: "Margherita Pizza",
+      type: "Main Course",
+      price: 15.00,
+      description: "Traditional pizza with fresh mozzarella, basil, and tomato sauce.",
+      category: "Pizza",
+      imageUrl: "https://example.com/margherita.jpg",
+      createdAt: "2023-03-05T15:30:00Z"
+    },
+    {
+      id: "00a11b22-33c4-4d55-66e7-7f8899aabbee",
+      name: "Chocolate Lava Cake",
+      type: "Dessert",
+      price: 9.00,
+      description: "Warm chocolate cake with a molten chocolate center, served with vanilla ice cream.",
+      category: "Dessert",
+      imageUrl: "https://example.com/lavacake.jpg",
+      createdAt: "2023-03-10T16:00:00Z"
+    }
+  ])
+  user_insertMany(data: [
+    {
+      id: "user1234567890abcdef1234567890abcdef",
+      displayName: "Alice Wonderland",
+      email: "alice@example.com",
+      phoneNumber: "111-222-3333",
+      createdAt: "2023-01-20T09:00:00Z"
+    },
+    {
+      id: "userfedcba9876543210fedcba9876543210",
+      displayName: "Bob The Builder",
+      email: "bob@example.com",
+      createdAt: "2023-01-25T10:15:00Z"
+    }
+  ])
+  reservation_insertMany(data: [
+    {
+      id: "res11111-2222-3333-4444-555555555555",
+      userId: "user1234567890abcdef1234567890abcdef",
+      reservationDate: "2023-04-20",
+      reservationTime: "19:00",
+      numberOfGuests: 4,
+      status: "Confirmed",
+      notes: "Birthday celebration for a friend.",
+      createdAt: "2023-04-10T14:00:00Z"
+    },
+    {
+      id: "res22222-3333-4444-5555-666666666666",
+      userId: "userfedcba9876543210fedcba9876543210",
+      reservationDate: "2023-05-01",
+      reservationTime: "12:30",
+      numberOfGuests: 2,
+      status: "Pending",
+      notes: "Lunch meeting.",
+      createdAt: "2023-04-15T10:00:00Z"
+    }
+  ])
+}

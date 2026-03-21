@@ -4,7 +4,7 @@ description = "Kyselé pšeničné pivo s přídavkem soli a koriandru, původem
 [extra]
 en = "Gose"
 category = "styly"
-related = ["sour", "weizen", "spontanni-kvaseni"]
+related = ["sour", "spontanni-kvaseni"]
 +++
 
 **Gose** (vyslovuj *góze*) pochází z města Goslar v Dolním Sasku. Téměř vymřelo, ale zažívá renesanci v craft scéně.

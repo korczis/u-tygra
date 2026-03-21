@@ -4,7 +4,7 @@ description = "Pivní sklenice o objemu 1 litr, tradičně používaná v bavors
 [extra]
 en = "Maß / Stein"
 category = "servirovani"
-related = ["snyt", "hladinka", "pena"]
+related = ["hladinka", "snyt", "pena"]
 +++
 
 **Tupláček** (Maß, stein) je litrová pivní sklenice. V češtině se používá i pro půllitrovou sklenici (*tuplák*).

@@ -4,7 +4,7 @@ description = "Metoda přirozené karbonace piva dokvašováním přímo v lahvi
 [extra]
 en = "Bottle Conditioning"
 category = "vyroba"
-related = ["dokvasovani", "kvaseni", "kvasnice"]
+related = ["kvaseni", "kvasnice", "dokvasovani"]
 +++
 
 **Lahvové kvašení** (*bottle conditioning*) je metoda, při které se pivo karbonuje přirozeně — do lahve se přidá malé množství cukru a kvasnic, které vytvoří CO₂.

@@ -4,7 +4,7 @@ description = "New England IPA — zakalená, šťavnatá IPA s tropickým aróm
 [extra]
 en = "New England IPA"
 category = "styly"
-related = ["dry-hopping", "chmel", "citra", "mosaic"]
+related = ["dry-hopping", "citra", "mosaic"]
 +++
 
 **NEIPA** (New England IPA) je moderní styl IPA, který vznikl kolem roku 2015 v oblasti Nové Anglie (severovýchod USA).

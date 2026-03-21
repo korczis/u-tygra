@@ -4,7 +4,7 @@ description = "Spodně kvašené pivo zrající při nízkých teplotách. Nejro
 [extra]
 en = "Lager"
 category = "styly"
-related = ["spodni-kvaseni", "plzen", "helles", "dunkel"]
+related = ["plzen", "helles", "spodni-kvaseni"]
 +++
 
 **Ležák** (lager) je pivo kvašené spodními kvasnicemi při teplotě 7–13 °C. Název pochází z německého *lagern* — skladovat, zrát.

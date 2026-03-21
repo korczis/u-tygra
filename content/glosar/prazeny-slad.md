@@ -4,7 +4,7 @@ description = "Slad pražený při vysokých teplotách pro tmavou barvu a chuť
 [extra]
 en = "Roasted Malt"
 category = "suroviny"
-related = ["slad", "karamelovy-slad", "stout", "porter"]
+related = ["slad", "porter", "stout"]
 +++
 
 **Pražený slad** se praží při teplotách 200–230 °C a dodává pivu tmavou barvu a intenzivní chuťový profil.

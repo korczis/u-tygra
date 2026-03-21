@@ -4,7 +4,7 @@ description = "Tmavé, silné pivo s intenzivní chutí praženého sladu, kávy
 [extra]
 en = "Stout"
 category = "styly"
-related = ["porter", "imperial", "ale"]
+related = ["ale", "imperial", "porter"]
 +++
 
 **Stout** je nejsilnější člen rodiny tmavých ale. Původně vznikl jako „stout porter" — silnější verze porteru.

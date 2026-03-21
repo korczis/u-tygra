@@ -4,7 +4,7 @@ description = "Oddělení sladké mladiny od mláta (vylouženého sladu) po rmu
 [extra]
 en = "Lautering"
 category = "vyroba"
-related = ["rmuty", "mladina", "slad"]
+related = ["mladina", "rmuty", "slad"]
 +++
 
 **Scezování** (*lautering*) je klíčový krok vaření piva — oddělení tekuté mladiny bohaté na cukry od pevného mláta.

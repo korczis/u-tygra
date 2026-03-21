@@ -4,7 +4,7 @@ description = "Tmavé svrchně kvašené pivo s tóny čokolády, kávy a praže
 [extra]
 en = "Porter"
 category = "styly"
-related = ["stout", "ale", "prazeny-slad"]
+related = ["ale", "stout"]
 +++
 
 **Porter** vznikl v 18. století v Londýně jako oblíbené pivo dělníků a nosičů (*porter* = nosič).

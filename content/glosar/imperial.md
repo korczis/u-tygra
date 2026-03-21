@@ -4,7 +4,7 @@ description = "Označení pro silnější verzi pivního stylu. Imperial Stout 8
 [extra]
 en = ""
 category = "styly"
-related = ["abv"]
+related = ["abv", "stout"]
 +++
 
 **Imperial** označuje silnější, intenzivnější a komplexnější verzi standardního pivního stylu.

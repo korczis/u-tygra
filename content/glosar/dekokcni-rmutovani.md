@@ -4,7 +4,7 @@ description = "Tradiční česká a německá metoda rmutování, při které se
 [extra]
 en = "Decoction Mashing"
 category = "vyroba"
-related = ["rmuty", "infuzni-rmutovani", "mladina"]
+related = ["rmuty", "mladina"]
 +++
 
 **Dekokční rmutování** je tradiční metoda, při které se část rmutů odebere, svaří a vrátí zpět do hlavní nádoby, čímž se zvýší teplota celku.

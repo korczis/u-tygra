@@ -4,7 +4,7 @@ description = "Světlý spodně kvašený ležák. Pivní styl, který od roku 1
 [extra]
 en = "Pilsner style"
 category = "styly"
-related = ["zatecky", "chmel", "stupnovitost", "spodni-kvaseni"]
+related = ["zatecky", "chmel", "spodni-kvaseni"]
 +++
 
 **Pilsner** je pivní styl, který v roce 1842 doslova změnil pivovarnictví. Vznikl v Plzni a stal se vzorem pro většinu světových ležáků.

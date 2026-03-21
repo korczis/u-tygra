@@ -4,7 +4,7 @@ description = "Jantarový bavorský ležák tradičně vařený v březnu pro Ok
 [extra]
 en = "Märzen"
 category = "styly"
-related = ["lager", "bock", "oktoberfest"]
+related = ["bock", "lager", "oktoberfest"]
 +++
 
 **Märzen** (*März* = březen) se historicky vařil v březnu — posledním měsíci, kdy se smělo vařit pivo před letními vedry. Zrálo v jeskyních až do podzimu.

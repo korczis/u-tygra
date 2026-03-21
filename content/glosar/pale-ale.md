@@ -4,7 +4,7 @@ description = "Svrchně kvašené pivo se střední hořkostí a výrazným chme
 [extra]
 en = "Pale Ale"
 category = "styly"
-related = ["ale", "neipa", "craft"]
+related = ["ale", "craft", "neipa"]
 +++
 
 **Pale Ale** je základ moderního craft pivovarnictví. Vznikl v Anglii v 18. století díky světlejšímu sladu.

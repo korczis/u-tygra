@@ -1,0 +1,52 @@
+query ListAllMenuItems @auth(level: PUBLIC, insecureReason: "This operation is safe to expose to the public as it lists publicly available menu items.") {
+  menuItems {
+    id
+    name
+    type
+    price
+    description
+    category
+    imageUrl
+  }
+}
+
+query GetMyReservations @auth(level: USER) {
+  reservations(where: {userId: {eq_expr: "auth.uid"}}) {
+    id
+    reservationDate
+    reservationTime
+    numberOfGuests
+    status
+    notes
+    createdAt
+  }
+}
+
+mutation CreateNewReservation($reservationDate: Date!, $reservationTime: String!, $numberOfGuests: Int!, $status: String!, $notes: String) @auth(level: USER) {
+  reservation_insert(data: {
+    userId_expr: "auth.uid",
+    reservationDate: $reservationDate,
+    reservationTime: $reservationTime,
+    numberOfGuests: $numberOfGuests,
+    status: $status,
+    notes: $notes
+  }) {
+    id
+  }
+}
+
+mutation UpdatePubDetails($name: String!, $address: String!, $phoneNumber: String!, $email: String!, $description: String, $history: String, $openingHours: String, $imageUrl: String) @auth(expr: "auth.token.admin == true", insecureReason: "This operation requires administrator privileges to update sensitive pub information.") {
+  pubInfo_updateMany(
+    all: true, # Assuming only one PubInfo entry for the app, updating the single record.
+    data: {
+      name: $name,
+      address: $address,
+      phoneNumber: $phoneNumber,
+      email: $email,
+      description: $description,
+      history: $history,
+      openingHours: $openingHours,
+      imageUrl: $imageUrl
+    }
+  )
+}

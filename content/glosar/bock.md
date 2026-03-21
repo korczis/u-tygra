@@ -4,7 +4,7 @@ description = "Silné německé pivo s bohatou sladovou chutí, tradičně vaře
 [extra]
 en = "Bock"
 category = "styly"
-related = ["lager", "spodni-kvaseni", "marzen"]
+related = ["lager", "spodni-kvaseni"]
 +++
 
 **Bock** pochází z města Einbeck v Dolním Sasku. Název je zkomolenina *Einbeck* → *ein Bock* (kozel).

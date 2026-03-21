@@ -4,7 +4,7 @@ description = "Nežádoucí chuťová vada piva s máslovým, karamelkovým arom
 [extra]
 en = "Diacetyl"
 category = "zaklady"
-related = ["kvaseni", "dokvasovani", "kvasnice"]
+related = ["kvaseni", "kvasnice"]
 +++
 
 **Diacetyl** je vedlejší produkt kvašení s chutí a vůní po **másle nebo karamelu**. V většině pivních stylů je považován za vadu.

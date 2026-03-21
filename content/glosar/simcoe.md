@@ -4,7 +4,7 @@ description = "Americký chmelový kultivar s komplexním aroma borovice, citrus
 [extra]
 en = "Simcoe Hop"
 category = "chmely"
-related = ["cascade", "citra", "chinook", "chmel"]
+related = ["chmel", "citra", "cascade"]
 +++
 
 **Simcoe** je vyšlechtěný americký chmel (2000) s vysokým obsahem alfa kyselin (12–14 %) a unikátním duálním charakterem.

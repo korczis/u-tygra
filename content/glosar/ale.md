@@ -4,7 +4,7 @@ description = "Svrchně kvašené pivo s bohatší a komplexnější chutí než
 [extra]
 en = "Ale"
 category = "styly"
-related = ["svrchni-kvaseni", "pale-ale", "stout", "porter"]
+related = ["pale-ale", "stout", "porter", "svrchni-kvaseni"]
 +++
 
 **Ale** je pivo kvašené svrchními kvasnicemi při teplotě 15–24 °C. Kvasnice pracují rychleji a produkují více esterů a fenolů, což dává alům ovocnější a kořenitější charakter.

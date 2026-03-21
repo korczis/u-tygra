@@ -4,7 +4,7 @@ description = "Kvašení divokými kvasnicemi z ovzduší. Základ Lambiků a un
 [extra]
 en = "Wild Fermentation"
 category = "vyroba"
-related = ["kvaseni"]
+related = ["kvaseni", "lambic", "sour"]
 +++
 
 **Spontánní kvašení** je nejstarší a nejprimitivnější způsob kvašení — mladina se ponechá otevřená a divoké kvasnice a bakterie z ovzduší ji zaočkují přirozeně.

@@ -4,7 +4,7 @@ description = "Americký chmel s intenzivním borovicovým a grapefruitovým aro
 [extra]
 en = "Chinook Hop"
 category = "chmely"
-related = ["simcoe", "centennial", "chmel"]
+related = ["chmel", "cascade", "simcoe"]
 +++
 
 **Chinook** (1985) je dual-purpose chmel — výborný pro hořčení i aroma. Pojmenován po indiánském kmeni z Pacifického severozápadu.

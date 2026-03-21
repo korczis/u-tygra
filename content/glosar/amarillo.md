@@ -4,7 +4,7 @@ description = "Americký aromatický chmel s výrazným pomerančovým a květin
 [extra]
 en = "Amarillo Hop"
 category = "chmely"
-related = ["cascade", "citra", "centennial", "chmel"]
+related = ["chmel", "cascade", "citra"]
 +++
 
 **Amarillo** je americký chmelový kultivar s výrazně citrusovým charakterem. Název pochází ze španělského *amarillo* = žlutý.

@@ -4,7 +4,7 @@ description = "Speciální slad zpracovaný tak, aby dodal pivu karamelovou slad
 [extra]
 en = "Crystal / Caramel Malt"
 category = "suroviny"
-related = ["slad", "prazeny-slad", "ebc"]
+related = ["slad", "ebc"]
 +++
 
 **Karamelový slad** (crystal malt) se zpracovává při vyšší teplotě — škroby se přemění na cukry přímo v zrnu, které pak karamelizují.

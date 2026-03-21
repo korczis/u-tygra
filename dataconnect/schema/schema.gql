@@ -1,0 +1,38 @@
+type User @table {
+  displayName: String!
+  email: String
+  phoneNumber: String
+  createdAt: Timestamp!
+}
+
+type MenuItem @table {
+  name: String!
+  type: String!
+  price: Float!
+  description: String
+  category: String
+  imageUrl: String
+  createdAt: Timestamp!
+}
+
+type Reservation @table {
+  user: User
+  reservationDate: Date!
+  reservationTime: String!
+  numberOfGuests: Int!
+  status: String!
+  notes: String
+  createdAt: Timestamp!
+}
+
+type PubInfo @table {
+  name: String!
+  address: String!
+  phoneNumber: String!
+  email: String!
+  description: String
+  history: String
+  openingHours: String
+  imageUrl: String
+  createdAt: Timestamp!
+}

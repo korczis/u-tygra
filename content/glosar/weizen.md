@@ -4,7 +4,7 @@ description = "Svrchně kvašené pivo s vysokým podílem pšeničného sladu, 
 [extra]
 en = "Weizen / Wheat Beer"
 category = "styly"
-related = ["svrchni-kvaseni", "ale", "witbier"]
+related = ["witbier", "svrchni-kvaseni", "ale"]
 +++
 
 **Pšeničné pivo** (Weizen, Hefeweizen) obsahuje minimálně 50 % pšeničného sladu. Pochází z Bavorska.
