@@ -12,8 +12,12 @@ function adminApp() {
     authUser: null,
     firebaseConnected: false,
 
-    // Navigation
-    activeTab: 'photos',
+    // Navigation (hash-routed)
+    activeTab: (function() {
+      var hash = window.location.hash.replace('#', '');
+      var valid = ['photos', 'events', 'food', 'settings'];
+      return valid.indexOf(hash) !== -1 ? hash : 'photos';
+    })(),
     tabs: [
       { id: 'photos', label: 'Fotografie' },
       { id: 'events', label: 'Akce' },
@@ -53,6 +57,21 @@ function adminApp() {
 
     init() {
       this._initFirebase();
+
+      // Hash routing: sync tab with URL
+      var self = this;
+      window.addEventListener('hashchange', function() {
+        var hash = window.location.hash.replace('#', '');
+        var valid = ['photos', 'events', 'food', 'settings'];
+        if (valid.indexOf(hash) !== -1) {
+          self.activeTab = hash;
+        }
+      });
+    },
+
+    setTab(tabId) {
+      this.activeTab = tabId;
+      window.location.hash = tabId;
     },
 
     // === Auth ===
