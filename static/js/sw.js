@@ -4,21 +4,21 @@
  * AIAD Alpha Squad PWA Core
  */
 
-const CACHE_NAME = 'u-tygra-v1.2.0';
-const RUNTIME_CACHE = 'runtime-v1';
+const CACHE_NAME = 'u-tygra-v2.0.0';
+const RUNTIME_CACHE = 'runtime-v2';
 
-// Static assets to cache immediately
+// Static assets to cache - use relative paths for subdirectory deployments
 const STATIC_ASSETS = [
-  '/',
-  '/css/style.css',
-  '/js/app.js',
-  '/js/performance.js',
-  '/img/logo.svg',
-  '/img/favicon.ico',
-  '/img/gallery/interior-main.jpg',
-  '/img/gallery/beer-taps.jpg',
-  '/img/gallery/food-chlebicky-1.jpg',
-  '/site.webmanifest'
+  './',
+  './css/style.css',
+  './js/app.js',
+  './js/performance.js',
+  './img/logo.svg',
+  './img/favicon.ico',
+  './img/gallery/interior-main.jpg',
+  './img/gallery/beer-taps.jpg',
+  './img/gallery/food-chlebicky-1.jpg',
+  './site.webmanifest'
 ];
 
 // Cache-first resources (long-term cache)
@@ -36,8 +36,8 @@ const NETWORK_FIRST_URLS = [
 
 // Offline fallback content
 const OFFLINE_FALLBACK = {
-  page: '/offline.html',
-  image: '/img/offline-placeholder.svg'
+  page: './offline.html',
+  image: './img/offline-placeholder.svg'
 };
 
 /**
@@ -105,7 +105,10 @@ self.addEventListener('fetch', event => {
   }
 
   // Handle different resource types with appropriate strategies
-  if (isStaticAsset(url)) {
+  // HTML pages: network-first (always get latest version)
+  if (request.mode === 'navigate' || request.destination === 'document') {
+    event.respondWith(networkFirst(request));
+  } else if (isStaticAsset(url)) {
     event.respondWith(cacheFirst(request));
   } else if (isNetworkFirst(url)) {
     event.respondWith(networkFirst(request));
@@ -199,9 +202,9 @@ async function staleWhileRevalidate(request) {
  */
 function isStaticAsset(url) {
   return CACHE_FIRST_URLS.some(pattern => url.href.includes(pattern)) ||
-         url.pathname.startsWith('/css/') ||
-         url.pathname.startsWith('/js/') ||
-         url.pathname.startsWith('/img/');
+         url.pathname.includes('/css/') ||
+         url.pathname.includes('/js/') ||
+         url.pathname.includes('/img/');
 }
 
 function isNetworkFirst(url) {
