@@ -1,0 +1,119 @@
+# Link Integrity Checker Agent
+# Validates all external URLs, internal paths, and live data endpoints
+
+[meta]
+name = "link-integrity-checker"
+version = "1.0.0"
+category = "quality_assurance"
+description = "Comprehensive link integrity validation for external URLs, internal paths, and live data endpoints"
+created = "2026-01-31"
+author = "AIAD Standard Library v2.0.0"
+
+[capabilities]
+external_url_validation = true
+internal_path_verification = true
+live_data_endpoint_testing = true
+parallel_http_testing = true
+csv_data_validation = true
+cross_platform_support = true
+
+[domain_expertise]
+primary = "link_integrity"
+secondary = ["http_testing", "static_site_validation", "data_endpoint_monitoring"]
+technologies = ["curl", "bash", "http", "csv"]
+url_categories = ["brewery_websites", "cdn_resources", "google_services", "social_media"]
+
+[tool_access]
+read_files = ["public/**/*", "static/**/*", "templates/**/*.html", "static/js/app.js"]
+write_files = ["reports/link-integrity/*.json"]
+bash_commands = ["curl", "wc", "grep", "mktemp"]
+external_tools = ["lychee"]
+
+[url_inventory]
+brewery_urls = 22
+cdn_urls = 6
+service_urls = 3
+internal_paths = 35
+data_endpoints = 1
+total_checks = 67
+
+[url_inventory.categories]
+brewery = "Czech and international brewery websites from breweryUrls in app.js"
+cdn = "Tailwind CSS, Alpine.js, Flowbite, Google Fonts, Google Analytics"
+service = "Facebook page, Schema.org, Google Maps embed"
+internal = "JavaScript, CSS, images, favicons, gallery, PWA manifests in public/"
+data = "Google Sheets CSV endpoint with live beer menu"
+
+[validation_rules]
+external_timeout = 10
+max_parallel = 8
+follow_redirects = true
+accepted_status_codes = [200, 301, 302, 303, 307, 308]
+user_agent = "Mozilla/5.0 (compatible; U-Tygra-LinkChecker/1.0)"
+
+[validation_rules.google_sheets]
+min_response_bytes = 10
+min_csv_rows = 2
+min_columns_per_row = 2
+max_attempts = 2
+retry_delay = 3
+
+[validation_rules.internal]
+require_build = true
+check_file_exists = true
+check_file_non_empty = true
+build_directory = "public"
+
+[workflows]
+
+[workflows.full_check]
+description = "Run all link integrity checks"
+command = "test-links"
+steps = ["check_external", "check_internal", "check_data", "generate_summary"]
+blocking_on_failure = true
+parallel_execution = true
+
+[workflows.external_only]
+description = "Check only external URLs"
+command = "test-links --external-only"
+blocking_on_failure = false
+
+[workflows.internal_only]
+description = "Check only internal paths after build"
+command = "test-links --internal-only"
+blocking_on_failure = true
+
+[workflows.data_only]
+description = "Validate Google Sheets CSV data endpoint"
+command = "test-links --data-only"
+blocking_on_failure = true
+
+[reporting]
+format = ["console", "json"]
+output_directory = "reports/link-integrity"
+per_url_status = true
+category_breakdown = true
+failure_details = true
+
+[integration]
+makefile_targets = ["test-links", "test-links-external", "test-links-internal", "test-links-data", "test-links-offline"]
+ci_workflow = "aiad-integration.yml"
+quality_gate = "link_integrity"
+blocking = true
+
+[performance]
+timeout_per_url = 10
+max_parallel_requests = 8
+total_timeout = 300
+
+[error_handling]
+retry_on_network_error = true
+max_retries = 2
+retry_delay = 3
+continue_on_external_failure = true
+fail_on_internal_missing = true
+fail_on_empty_data = true
+
+[monitoring]
+metrics = ["pass_count", "fail_count", "response_times", "data_freshness"]
+alerts = ["broken_brewery_url", "cdn_unavailable", "empty_beer_data", "missing_assets"]

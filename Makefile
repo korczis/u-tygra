@@ -2,7 +2,7 @@
 # Version: 1.0.0
 # AIAD Standard Library v2.0.0
 
-.PHONY: help dev build deploy test docs clean
+.PHONY: help dev build deploy test docs clean test-links test-links-external test-links-internal test-links-data test-links-offline
 .DEFAULT_GOAL := help
 
 # Colors for output
@@ -156,6 +156,33 @@ backup-content: ## Backup content and configuration
 	@mkdir -p $(REPORTS_DIR)/backups
 	@tar -czf $(REPORTS_DIR)/backups/content-backup-$(shell date +%Y%m%d_%H%M%S).tar.gz content docs zola.toml $(AIAD_DIR)
 	@echo "$(GREEN)✓$(NC) Content backup completed"
+
+##@ Link Testing
+
+test-links: ## Run all link integrity tests
+	@echo "$(BLUE)Running comprehensive link integrity tests...$(NC)"
+	@$(MAKE) _ensure-dirs
+	@$(AIAD_CMD)/test-links $(VERBOSE)
+
+test-links-external: ## Test external URLs only (brewery, CDN, social)
+	@echo "$(BLUE)Testing external URLs...$(NC)"
+	@$(MAKE) _ensure-dirs
+	@$(AIAD_CMD)/test-links --external-only $(VERBOSE)
+
+test-links-internal: ## Test internal paths only (requires build)
+	@echo "$(BLUE)Testing internal paths...$(NC)"
+	@$(MAKE) _ensure-dirs
+	@$(AIAD_CMD)/test-links --internal-only $(VERBOSE)
+
+test-links-data: ## Validate Google Sheets CSV data endpoint
+	@echo "$(BLUE)Testing data endpoints...$(NC)"
+	@$(MAKE) _ensure-dirs
+	@$(AIAD_CMD)/test-links --data-only $(VERBOSE)
+
+test-links-offline: ## Test links offline (skip external)
+	@echo "$(BLUE)Testing links in offline mode...$(NC)"
+	@$(MAKE) _ensure-dirs
+	@$(AIAD_CMD)/test-links --skip-external $(VERBOSE)
 
 ##@ Documentation
 
@@ -317,7 +344,7 @@ watch: ## Watch files and rebuild on changes
 quick-deploy: content-validate build-prod ## Quick deployment workflow
 	@echo "$(GREEN)✓$(NC) Quick deployment ready"
 
-full-check: clean content-analyze quality-check build-prod health-report ## Full quality assurance workflow
+full-check: clean content-analyze quality-check build-prod test-links health-report ## Full quality assurance workflow
 	@echo "$(GREEN)✓$(NC) Full quality check completed"
 
 # Include local extensions if available

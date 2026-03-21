@@ -19,6 +19,13 @@ make test                 # Alias for quality-check
 make full-check           # clean + analyze + quality + build + health report
 make clean                # Remove public/, .cache/, .sass-cache/
 make help                 # List all 50+ Makefile targets
+
+# Link integrity testing
+make test-links           # Full: external URLs + internal paths + data
+make test-links-external  # Brewery, CDN, social URLs only
+make test-links-internal  # Internal paths in public/ (needs build)
+make test-links-data      # Google Sheets CSV data validation
+make test-links-offline   # Internal checks only (no network)
 ```
 
 Requires Zola v0.22.1. No npm/node — Tailwind, Alpine.js, and Flowbite are loaded via CDN.
@@ -49,7 +56,7 @@ The CSV is fetched client-side from a public Google Sheets export URL. Parsing h
 - `hours` — opening hours array
 - `didYouKnow` — rotating beer trivia facts
 
-When adding a new brewery, update both `breweryUrls` and `breweryIcons` objects in `app.js`.
+When adding a new brewery, update both `breweryUrls` and `breweryIcons` objects in `app.js`, and add the URL to `.aiad/commands/test-links` BREWERY_URLS array.
 
 ### URL Parameters
 
@@ -78,7 +85,7 @@ Two parallel pipelines deploy on push to main:
 ## AIAD Ecosystem
 
 The project uses an AIAD (AI-Augmented Development) framework:
-- Agent configs in `.aiad/agents/` (content-validator, build-orchestrator, google-sheets-sync, docs-analyzer, quality-gate-sentinel, etc.)
+- Agent configs in `.aiad/agents/` (content-validator, build-orchestrator, google-sheets-sync, docs-analyzer, quality-gate-sentinel, link-integrity-checker)
 - Executable commands in `.aiad/commands/`
 - Manifest in `.aiad/manifest.toml`
 - Documentation in `docs/` (modular: core, guides, reference, operations, architecture)

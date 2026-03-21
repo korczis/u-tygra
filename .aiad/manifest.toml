@@ -64,7 +64,7 @@ enabled = true
 auto_discovery = true
 command_integration = true
 directory = "agents"
-total_agents = 12
+total_agents = 13
 categories = ["content_management", "development_workflow", "documentation", "quality_assurance"]
 
 [agents.content_management]
@@ -79,6 +79,9 @@ deployment_manager = true
 quality_gate_sentinel = true
 performance_monitor = true
 
+[agents.quality_assurance]
+link_integrity_checker = true
+
 [agents.documentation]
 docs_analyzer = true
 cross_reference_manager = true
@@ -91,7 +94,7 @@ namespace = "u-tygra"
 shell_integration = true
 makefile_integration = true
 directory = "commands"
-total_commands = 15
+total_commands = 16
 categories = ["content", "build_deploy", "quality_maintenance"]
 
 [commands.content]
@@ -108,6 +111,7 @@ deploy_prod = true
 
 [commands.quality_maintenance]
 quality_check = true
+link_testing = true
 docs_generate = true
 health_report = true
 backup_content = true
