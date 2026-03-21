@@ -117,13 +117,13 @@ table {
   table-layout: fixed;
 }
 
-/* Column widths: # 4% | Pivo 28% | Pivovar 20% | Styl 18% | Alk 10% | Cena 20% */
-col.col-num { width: 4%; }
-col.col-name { width: 28%; }
+/* Column widths — # is auto (set by JS to square), rest fills remaining space */
+col.col-num { width: 1px; } /* overridden by JS to row height */
+col.col-name { width: 30%; }
 col.col-brewery { width: 20%; }
 col.col-style { width: 18%; }
 col.col-abv { width: 10%; }
-col.col-price { width: 20%; }
+col.col-price { width: 22%; }
 
 thead th {
   text-align: left;
@@ -156,12 +156,12 @@ tbody td {
 
 .td-num {
   font-size: 3vmin;
-  font-weight: 700;
+  font-weight: 800;
   color: #f08c0f;
-  padding-right: 2.5vw;
-  width: 3vw;
   text-align: center;
   white-space: nowrap;
+  background: rgba(240,140,15,0.08);
+  border-right: 1px solid rgba(240,140,15,0.15);
 }
 
 .td-name {
@@ -541,10 +541,19 @@ function fitToScreen(beerCount) {
     var rowHeight = availableHeight / beerCount;
     var rows = document.querySelectorAll('tbody tr');
     var i;
+    var rh = Math.floor(rowHeight);
     for (i = 0; i < rows.length; i++) {
-      rows[i].style.height = Math.floor(rowHeight) + 'px';
-      rows[i].style.maxHeight = Math.floor(rowHeight) + 'px';
+      rows[i].style.height = rh + 'px';
+      rows[i].style.maxHeight = rh + 'px';
       rows[i].style.overflow = 'hidden';
+    }
+
+    // Make .td-num a square tile (width = row height)
+    var nums = document.querySelectorAll('.td-num');
+    for (i = 0; i < nums.length; i++) {
+      nums[i].style.width = rh + 'px';
+      nums[i].style.minWidth = rh + 'px';
+      nums[i].style.maxWidth = rh + 'px';
     }
 
     // Set table-wrap to exact remaining height
