@@ -375,6 +375,25 @@
 
   {% block body %}{% endblock %}
 
+  <!-- Shared footer -->
+  {% block footer %}
+  <footer class="border-t border-brew-800/30 py-8 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-brew-600">
+        <div class="flex items-center gap-3">
+          <img src="{{ get_url(path='img/logo.svg') }}" alt="" class="w-5 h-5 opacity-50" role="presentation">
+          <span>{{ config.extra.business_name }} &middot; {{ config.extra.address }}, {{ config.extra.city }}</span>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="{{ config.base_url | safe }}#kontakt" class="hover:text-tiger-400 transition-colors">Kontakt</a>
+          <a href="{{ get_url(path='glosar') }}" class="hover:text-tiger-400 transition-colors">Glosář</a>
+          <a href="{{ get_url(path='ochrana-udaju') }}" class="hover:text-tiger-400 transition-colors">Ochrana údajů</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  {% endblock %}
+
   <!-- Service Worker Registration -->
   <script>
     if ('serviceWorker' in navigator) {
