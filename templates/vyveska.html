@@ -8,11 +8,18 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
 body {
   background: #0a0704;
   color: #e8e5d8;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  min-height: 100vh;
+  height: 100vh;
+  max-height: 100vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -77,8 +84,10 @@ body {
 
 .table-wrap {
   flex: 1;
-  overflow-y: auto;
+  overflow: hidden;
   padding: 0 3vw;
+  display: flex;
+  flex-direction: column;
 }
 
 table {
@@ -111,8 +120,8 @@ tbody tr:nth-child(odd) {
 }
 
 tbody td {
-  padding: 2.2vh 0;
-  vertical-align: baseline;
+  padding: 0;
+  vertical-align: middle;
 }
 
 .td-name {
@@ -404,8 +413,63 @@ function loadBeers() {
     container.appendChild(table);
     document.getElementById('loading').style.display = 'none';
     document.getElementById('status').textContent = 'Aktuální';
+
+    // Fit rows to fill entire screen height
+    fitToScreen(beers.length);
   };
   xhr.send();
+}
+
+function fitToScreen(beerCount) {
+  // Calculate available height for table body
+  var header = document.querySelector('.header');
+  var announcement = document.getElementById('announcement');
+  var footer = document.querySelector('.footer');
+  var thead = document.querySelector('thead');
+
+  var usedHeight = 0;
+  if (header) usedHeight += header.offsetHeight;
+  if (announcement && announcement.style.display !== 'none') usedHeight += announcement.offsetHeight;
+  if (footer) usedHeight += footer.offsetHeight;
+  if (thead) usedHeight += thead.offsetHeight;
+
+  var availableHeight = window.innerHeight - usedHeight;
+  if (beerCount > 0 && availableHeight > 0) {
+    var rowHeight = Math.floor(availableHeight / beerCount);
+    var rows = document.querySelectorAll('tbody tr');
+    var i;
+    for (i = 0; i < rows.length; i++) {
+      rows[i].style.height = rowHeight + 'px';
+    }
+
+    // Scale font sizes based on row height
+    var nameSize = Math.min(Math.max(rowHeight * 0.35, 16), 48);
+    var brewerySize = Math.min(Math.max(rowHeight * 0.25, 14), 36);
+    var styleSize = Math.min(Math.max(rowHeight * 0.2, 12), 28);
+    var priceSize = nameSize;
+
+    var names = document.querySelectorAll('.td-name');
+    var breweries = document.querySelectorAll('.td-brewery');
+    var styles = document.querySelectorAll('.td-style');
+    var abvs = document.querySelectorAll('.td-abv');
+    var prices = document.querySelectorAll('.td-price');
+
+    for (i = 0; i < names.length; i++) {
+      names[i].style.fontSize = nameSize + 'px';
+    }
+    for (i = 0; i < breweries.length; i++) {
+      breweries[i].style.fontSize = brewerySize + 'px';
+    }
+    for (i = 0; i < styles.length; i++) {
+      styles[i].style.fontSize = styleSize + 'px';
+    }
+    for (i = 0; i < abvs.length; i++) {
+      abvs[i].style.fontSize = styleSize + 'px';
+    }
+    for (i = 0; i < prices.length; i++) {
+      prices[i].style.fontSize = priceSize + 'px';
+    }
+  }
 }
 
 // Initial load
@@ -413,6 +477,12 @@ loadBeers();
 
 // Auto-refresh every 90 seconds
 setInterval(loadBeers, REFRESH_MS);
+
+// Refit on resize (orientation change, etc.)
+window.onresize = function() {
+  var rows = document.querySelectorAll('tbody tr');
+  if (rows.length > 0) fitToScreen(rows.length);
+};
 </script>
 
 </body>
