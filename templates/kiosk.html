@@ -115,8 +115,9 @@ body {
   min-height: 0;
 }
 
-table {
+table#beer-table {
   width: 100%;
+  height: 100%;
   border-collapse: collapse;
   table-layout: fixed;
 }
@@ -777,32 +778,12 @@ function fitToScreen(beerCount) {
   var thead = document.querySelector('thead');
   var tableWrap = document.querySelector('.table-wrap');
 
-  // Measure actual available height from table-wrap (flex:1 handles layout)
-  var availableHeight = tableWrap.clientHeight;
+  // CSS table height:100% distributes rows evenly — just calculate rowHeight for font scaling
+  var availableHeight = tableWrap ? tableWrap.clientHeight : window.innerHeight;
   if (thead) availableHeight -= thead.offsetHeight;
   if (beerCount > 0 && availableHeight > 0) {
     var rowHeight = availableHeight / beerCount;
-    var rows = document.querySelectorAll('tbody tr');
     var i;
-    var rh = Math.floor(rowHeight);
-    for (i = 0; i < rows.length; i++) {
-      rows[i].style.height = rh + 'px';
-      rows[i].style.maxHeight = rh + 'px';
-      rows[i].style.overflow = 'hidden';
-    }
-
-    // Make .td-num a square tile (width = row height)
-    var nums = document.querySelectorAll('.td-num');
-    for (i = 0; i < nums.length; i++) {
-      nums[i].style.width = rh + 'px';
-      nums[i].style.minWidth = rh + 'px';
-      nums[i].style.maxWidth = rh + 'px';
-    }
-
-    // Let flex layout handle table-wrap height — just ensure overflow hidden
-    if (tableWrap) {
-      tableWrap.style.overflow = 'hidden';
-    }
 
     // Scale ALL font sizes based on row height
     var nameSize = Math.min(Math.max(rowHeight * 0.30, 16), 44);
