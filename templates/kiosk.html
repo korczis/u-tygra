@@ -297,6 +297,73 @@ tbody td {
   .td-abv { font-size: 1.8rem; }
   thead th { font-size: 1rem; }
 }
+
+/* Glossary overlay — fullscreen card with crossfade */
+.glossary-overlay {
+  position: fixed;
+  inset: 0;
+  background: #0a0704;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
+}
+
+.glossary-overlay.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.glossary-card {
+  max-width: 70vw;
+  text-align: center;
+  padding: 6vh 4vw;
+}
+
+.glossary-card .gc-label {
+  font-size: 2vmin;
+  font-weight: 600;
+  color: #f08c0f;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 3vh;
+}
+
+.glossary-card .gc-title {
+  font-size: 8vmin;
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 1vh;
+}
+
+.glossary-card .gc-en {
+  font-size: 3.5vmin;
+  font-weight: 400;
+  color: #f08c0f;
+  margin-bottom: 4vh;
+  font-style: italic;
+}
+
+.glossary-card .gc-desc {
+  font-size: 3.5vmin;
+  font-weight: 400;
+  color: #b9af89;
+  line-height: 1.6;
+  max-width: 60vw;
+  margin: 0 auto;
+}
+
+.glossary-card .gc-dot {
+  width: 6px;
+  height: 6px;
+  background: #f08c0f;
+  border-radius: 50%;
+  margin: 4vh auto;
+}
 </style>
 </head>
 <body>
@@ -306,6 +373,17 @@ tbody td {
 <div class="table-wrap">
   <div id="loading" class="loading">Načítám nabídku...</div>
   <div id="beer-container"></div>
+</div>
+
+<!-- Glossary overlay (dynamic mode only) -->
+<div id="glossary-overlay" class="glossary-overlay">
+  <div class="glossary-card">
+    <div class="gc-label">Pivní glosář</div>
+    <div id="gc-title" class="gc-title"></div>
+    <div id="gc-en" class="gc-en"></div>
+    <div class="gc-dot"></div>
+    <div id="gc-desc" class="gc-desc"></div>
+  </div>
 </div>
 
 
@@ -669,6 +747,67 @@ window.onresize = function() {
   var rows = document.querySelectorAll('tbody tr');
   if (rows.length > 0) fitToScreen(rows.length);
 };
+
+// === Dynamic mode: ?dynamic=true ===
+// Shows a random glossary term every 5 minutes with crossfade
+(function() {
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('dynamic') !== 'true') return;
+
+  var glossaryTerms = [];
+  var overlay = document.getElementById('glossary-overlay');
+  var elTitle = document.getElementById('gc-title');
+  var elEn = document.getElementById('gc-en');
+  var elDesc = document.getElementById('gc-desc');
+  var INTERVAL = 5 * 60 * 1000; // 5 minutes
+  var DISPLAY = 12000; // show term for 12 seconds
+  var lastIdx = -1;
+
+  // Load glossary data
+  var basePath = window.location.pathname.replace(/\/kiosk\/?$/, '');
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', basePath + '/glosar-data/', true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState !== 4 || xhr.status !== 200) return;
+    try {
+      glossaryTerms = JSON.parse(xhr.responseText);
+      if (glossaryTerms.length > 0) {
+        setTimeout(showRandomTerm, INTERVAL);
+      }
+    } catch (e) {
+      // silently ignore
+    }
+  };
+  xhr.send();
+
+  function showRandomTerm() {
+    if (glossaryTerms.length === 0) return;
+
+    // Pick random term (avoid repeating)
+    var idx = lastIdx;
+    while (idx === lastIdx && glossaryTerms.length > 1) {
+      idx = Math.floor(Math.random() * glossaryTerms.length);
+    }
+    lastIdx = idx;
+
+    var term = glossaryTerms[idx];
+    elTitle.textContent = term.title;
+    elEn.textContent = term.en || '';
+    elEn.style.display = term.en ? '' : 'none';
+    elDesc.textContent = term.desc;
+
+    // Fade in
+    overlay.classList.add('visible');
+
+    // Fade out after DISPLAY ms
+    setTimeout(function() {
+      overlay.classList.remove('visible');
+    }, DISPLAY);
+
+    // Schedule next
+    setTimeout(showRandomTerm, INTERVAL);
+  }
+})();
 </script>
 
 </body>

@@ -1,0 +1,1 @@
+{% set glosar = get_section(path="glosar/_index.md") %}[{% for page in glosar.pages %}{"title":"{{ page.title }}","desc":"{{ page.description | default(value='') }}","en":"{{ page.extra.en | default(value='') }}"}{% if not loop.last %},{% endif %}{% endfor %}]
