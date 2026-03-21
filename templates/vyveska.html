@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Na čepu — Pivnice U Tygra</title>
+<meta name="robots" content="noindex">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0a0704;
+  color: #e8e5d8;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  user-select: none;
+  cursor: none;
+  scrollbar-width: none;
+  animation: shift 120s ease-in-out infinite;
+}
+
+@keyframes shift {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(1px, 1px); }
+  50% { transform: translate(0, 2px); }
+  75% { transform: translate(-1px, 1px); }
+}
+
+::-webkit-scrollbar { display: none; }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2vh 3vw;
+  border-bottom: 1px solid rgba(240,140,15,0.15);
+}
+
+.brand {
+  font-size: 5vmin;
+  font-weight: 800;
+  color: #fff;
+}
+
+.live {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  color: #22c55e;
+  font-size: 2.5vmin;
+  font-weight: 600;
+}
+
+.live-dot {
+  width: 10px;
+  height: 10px;
+  background: #22c55e;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.announcement {
+  padding: 1.5vh 3vw;
+  color: #f7c46d;
+  font-size: 2.5vmin;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(240,140,15,0.08);
+}
+
+.table-wrap {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 3vw;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead th {
+  text-align: left;
+  color: rgba(255,255,255,0.3);
+  font-size: 1.8vmin;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  padding: 2vh 0 1.5vh;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  position: sticky;
+  top: 0;
+  background: #0a0704;
+}
+
+thead th:last-child { text-align: right; }
+
+tbody tr {
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+tbody tr:nth-child(odd) {
+  background: rgba(255,255,255,0.015);
+}
+
+tbody td {
+  padding: 2.2vh 0;
+  vertical-align: baseline;
+}
+
+.td-name {
+  font-size: 3.5vmin;
+  font-weight: 700;
+  color: #fff;
+  padding-right: 2vw;
+}
+
+.td-brewery {
+  font-size: 2.5vmin;
+  font-weight: 500;
+  color: #f08c0f;
+  padding-right: 2vw;
+}
+
+.td-style {
+  font-size: 2vmin;
+  color: rgba(255,255,255,0.35);
+  padding-right: 2vw;
+}
+
+.td-abv {
+  font-size: 2.2vmin;
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  padding-right: 2vw;
+}
+
+.td-price {
+  font-size: 3.5vmin;
+  font-weight: 800;
+  color: #fff;
+  text-align: right;
+}
+
+.loading {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.3);
+  font-size: 3vmin;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5vh 3vw;
+  border-top: 1px solid rgba(240,140,15,0.08);
+  color: rgba(255,255,255,0.2);
+  font-size: 1.8vmin;
+}
+
+@media (min-width: 1920px) {
+  .td-name, .td-price { font-size: 2.8rem; }
+  .td-brewery { font-size: 1.8rem; }
+  .td-style { font-size: 1.4rem; }
+  .td-abv { font-size: 1.5rem; }
+  thead th { font-size: 0.9rem; }
+  .brand { font-size: 2.5rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1 class="brand">Na čepu</h1>
+  <div class="live">
+    <span class="live-dot"></span>
+    <span>Živě</span>
+  </div>
+</div>
+
+<div id="announcement" class="announcement" style="display:none"></div>
+
+<div class="table-wrap">
+  <div id="loading" class="loading">Načítám nabídku...</div>
+  <div id="beer-container"></div>
+</div>
+
+<div class="footer">
+  <span>Pivnice U Tygra · Brno</span>
+  <span id="status">Načítám...</span>
+</div>
+
+<script>
+// ES5-only kiosk for old Smart TV browsers (JVC, Samsung, LG)
+// No const/let, no arrow functions, no template literals, no async/await
+// No Alpine.js, no modules, no classes - pure vanilla ES5
+
+var CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSeZjP4HadboLuS8v4KVobNqsKtjaBpBJ8oCuPCC-OjfkCtCWA8N_asuxkedh7QSGhsrXU0JU_bV_Rn/pub?gid=1804527038&single=true&output=csv';
+var REFRESH_MS = 90000;
+
+function esc(text) {
+  if (!text) return '';
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function parseCSVLine(line) {
+  var cells = [];
+  var current = '';
+  var inQuotes = false;
+  var i, ch;
+  for (i = 0; i < line.length; i++) {
+    ch = line[i];
+    if (inQuotes) {
+      if (ch === '"') {
+        if (i + 1 < line.length && line[i + 1] === '"') {
+          current += '"';
+          i++;
+        } else {
+          inQuotes = false;
+        }
+      } else {
+        current += ch;
+      }
+    } else {
+      if (ch === '"') {
+        inQuotes = true;
+      } else if (ch === ',') {
+        cells.push(current.trim());
+        current = '';
+      } else {
+        current += ch;
+      }
+    }
+  }
+  cells.push(current.trim());
+  return cells;
+}
+
+function normalizeKey(h) {
+  var k = h.toLowerCase().trim();
+  if (k.indexOf('pivovar') !== -1) return 'pivovar';
+  if (k.indexOf('název') !== -1 || k.indexOf('name') !== -1) return 'nazev';
+  if (k.indexOf('styl') !== -1 || k.indexOf('style') !== -1) return 'styl';
+  if (k.indexOf('alk') !== -1 || k === '%') return 'abv';
+  if (k.indexOf('ibu') !== -1) return 'ibu';
+  if (k.indexOf('cena') !== -1 || k.indexOf('price') !== -1) return 'cena';
+  return k;
+}
+
+function loadBeers() {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', CSV_URL, true);
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState !== 4) return;
+
+    if (xhr.status !== 200) {
+      document.getElementById('loading').textContent = 'Nepodařilo se načíst nabídku.';
+      document.getElementById('status').textContent = 'Offline';
+      return;
+    }
+
+    var csv = xhr.responseText;
+    var lines = csv.split('\n');
+    var nonEmpty = [];
+    var i;
+    for (i = 0; i < lines.length; i++) {
+      if (lines[i].trim()) nonEmpty.push(lines[i]);
+    }
+
+    if (nonEmpty.length === 0) return;
+
+    // Announcement from row 1, columns C-F
+    var firstRow = parseCSVLine(nonEmpty[0]);
+    var ann = [];
+    var a;
+    for (a = 2; a <= 5; a++) {
+      if (firstRow[a]) ann.push(firstRow[a]);
+    }
+    var announcement = ann.join(' ');
+
+    var annEl = document.getElementById('announcement');
+    if (announcement) {
+      annEl.textContent = announcement;
+      annEl.style.display = '';
+    } else {
+      annEl.style.display = 'none';
+    }
+
+    // Find header row
+    var headerIdx = -1;
+    var h;
+    for (h = 0; h < nonEmpty.length; h++) {
+      var lower = nonEmpty[h].toLowerCase();
+      if (lower.indexOf('pivo') !== -1 || lower.indexOf('pivovar') !== -1 || lower.indexOf('název') !== -1) {
+        headerIdx = h;
+        break;
+      }
+    }
+
+    if (headerIdx < 0) {
+      document.getElementById('loading').textContent = 'Žádná piva na čepu.';
+      return;
+    }
+
+    var rawHeaders = parseCSVLine(nonEmpty[headerIdx]);
+    var headers = [];
+    var hi;
+    for (hi = 0; hi < rawHeaders.length; hi++) {
+      headers.push(normalizeKey(rawHeaders[hi]));
+    }
+
+    // Parse beers (deduplicate by brewery+name)
+    var beers = [];
+    var seen = {};
+    var bi, cells, brewery, name, breweryIdx, nameIdx, ci, key, beer, ki;
+    for (bi = headerIdx + 1; bi < nonEmpty.length && beers.length < 12; bi++) {
+      cells = parseCSVLine(nonEmpty[bi]);
+      breweryIdx = -1;
+      nameIdx = -1;
+      for (ci = 0; ci < headers.length; ci++) {
+        if (headers[ci] === 'pivovar') breweryIdx = ci;
+        if (headers[ci] === 'nazev') nameIdx = ci;
+      }
+      brewery = breweryIdx >= 0 ? (cells[breweryIdx] || '').trim() : '';
+      name = nameIdx >= 0 ? (cells[nameIdx] || '').trim() : '';
+      if (!brewery && !name) continue;
+
+      key = brewery.toLowerCase() + '|' + name.toLowerCase();
+      if (seen[key]) continue;
+      seen[key] = true;
+
+      beer = {};
+      for (ki = 0; ki < headers.length; ki++) {
+        if (headers[ki]) beer[headers[ki]] = (cells[ki] || '').trim();
+      }
+      beers.push(beer);
+    }
+
+    // Build table using DOM (no innerHTML with untrusted content)
+    var container = document.getElementById('beer-container');
+    var oldTable = document.getElementById('beer-table');
+    if (oldTable) container.removeChild(oldTable);
+
+    var table = document.createElement('table');
+    table.id = 'beer-table';
+
+    var thead = document.createElement('thead');
+    var headerRow = document.createElement('tr');
+    var thNames = ['Pivo', 'Pivovar', 'Styl', 'Alk.', 'Cena'];
+    var ti;
+    for (ti = 0; ti < thNames.length; ti++) {
+      var th = document.createElement('th');
+      th.textContent = thNames[ti];
+      headerRow.appendChild(th);
+    }
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    var tbody = document.createElement('tbody');
+    var ri, b, tr, tdName, tdBrewery, tdStyle, tdAbv, tdPrice;
+    for (ri = 0; ri < beers.length; ri++) {
+      b = beers[ri];
+      tr = document.createElement('tr');
+
+      tdName = document.createElement('td');
+      tdName.className = 'td-name';
+      tdName.textContent = b.nazev || '';
+      tr.appendChild(tdName);
+
+      tdBrewery = document.createElement('td');
+      tdBrewery.className = 'td-brewery';
+      tdBrewery.textContent = b.pivovar || '';
+      tr.appendChild(tdBrewery);
+
+      tdStyle = document.createElement('td');
+      tdStyle.className = 'td-style';
+      tdStyle.textContent = b.styl || '';
+      tr.appendChild(tdStyle);
+
+      tdAbv = document.createElement('td');
+      tdAbv.className = 'td-abv';
+      tdAbv.textContent = b.abv || '';
+      tr.appendChild(tdAbv);
+
+      tdPrice = document.createElement('td');
+      tdPrice.className = 'td-price';
+      tdPrice.textContent = b.cena ? b.cena + ' Kč' : '';
+      tr.appendChild(tdPrice);
+
+      tbody.appendChild(tr);
+    }
+    table.appendChild(tbody);
+
+    container.appendChild(table);
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('status').textContent = 'Aktuální';
+  };
+  xhr.send();
+}
+
+// Initial load
+loadBeers();
+
+// Auto-refresh every 90 seconds
+setInterval(loadBeers, REFRESH_MS);
+</script>
+
+</body>
+</html>
