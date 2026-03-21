@@ -8,24 +8,6 @@
 {% block og_type %}article{% endblock %}
 
 {% block body %}
-<nav class="fixed top-0 left-0 right-0 z-50 bg-brew-950/95 backdrop-blur-xl shadow-2xl shadow-black/30" role="navigation">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16">
-      <a href="{{ config.base_url | safe }}" class="flex items-center gap-3 group" aria-label="Zpět na hlavní stránku">
-        <img src="{{ get_url(path='img/logo.svg') }}" alt="" class="w-8 h-8 opacity-90" role="presentation">
-        <span class="text-base font-bold text-white">U Tygra</span>
-      </a>
-      <div class="flex items-center gap-4">
-        <a href="{{ get_url(path='glosar') }}" class="text-brew-300 hover:text-tiger-400 text-sm font-medium transition-colors">
-          Glosář
-        </a>
-        <a href="{{ config.base_url | safe }}#na-cepu" class="text-brew-300 hover:text-tiger-400 text-sm font-medium transition-colors">
-          Na čepu
-        </a>
-      </div>
-    </div>
-  </div>
-</nav>
 
 <main class="pt-24 pb-16 min-h-screen">
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
