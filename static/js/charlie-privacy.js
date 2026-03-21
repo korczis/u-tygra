@@ -776,4 +776,4 @@ window.charliePrivacy = charliePrivacy;
 // Development helper
 window.resetPrivacyConsent = () => charliePrivacy.resetConsent();
 
-console.log('🔒 Charlie Privacy initialized - GDPR compliant analytics consent');
+if (new URLSearchParams(window.location.search).has('debug')) console.log('🔒 Charlie Privacy initialized - GDPR compliant analytics consent');

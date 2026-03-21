@@ -48,7 +48,7 @@ class CharliePerformance {
     // Report performance metrics periodically
     this.startPerformanceReporting();
 
-    console.log('📊 Charlie Performance monitoring initialized');
+    if (new URLSearchParams(window.location.search).has('debug')) console.log('📊 Charlie Performance monitoring initialized');
   }
 
   /**
@@ -253,7 +253,7 @@ class CharliePerformance {
     // Update overall performance impact assessment
     this.assessPerformanceImpact();
 
-    console.warn(`⚠️ Charlie Analytics performance impact: ${type} = ${value}`);
+    if (new URLSearchParams(window.location.search).has('debug')) console.warn(`⚠️ Charlie Analytics performance impact: ${type} = ${value}`);
   }
 
   /**
@@ -452,4 +452,4 @@ if (window.charlie) {
 window.charliePerformanceReport = () => charliePerformance.generatePerformanceSummary();
 window.resetCharliePerformance = () => charliePerformance.resetMetrics();
 
-console.log('📊 Charlie Performance monitoring active - tracking analytics performance impact');
+if (new URLSearchParams(window.location.search).has('debug')) console.log('📊 Charlie Performance monitoring active - tracking analytics performance impact');

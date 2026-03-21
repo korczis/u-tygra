@@ -154,8 +154,8 @@ async function testWebWorkerSupport() {
   return typeof Worker !== 'undefined' ? 1 : 0;
 }
 
-// Run tests when page is loaded
-if (typeof window !== 'undefined') {
+// Run tests only when ?debug is present
+if (typeof window !== 'undefined' && new URLSearchParams(window.location.search).has('debug')) {
   window.addEventListener('load', async () => {
     // Wait a bit for metrics to stabilize
     setTimeout(async () => {

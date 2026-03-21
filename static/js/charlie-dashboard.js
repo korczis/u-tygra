@@ -726,4 +726,4 @@ document.addEventListener('keydown', (e) => {
   }
 });
 
-console.log('🎯 Charlie Dashboard loaded. Press Ctrl+Shift+C for admin access.');
+if (new URLSearchParams(window.location.search).has('debug')) console.log('🎯 Charlie Dashboard loaded. Press Ctrl+Shift+C for admin access.');
