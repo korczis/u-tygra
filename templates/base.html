@@ -234,15 +234,13 @@
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
-  <!-- Critical resource preloads for Core Web Vitals optimization -->
-  <link rel="preload" as="image" href="{{ get_url(path='img/hero-bg.jpg') }}" fetchpriority="high">
+  <!-- Preloads -->
   <link rel="preload" as="image" href="{{ get_url(path='img/logo.svg') }}" fetchpriority="high">
   <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/alpinejs@3.15.8/dist/cdn.min.js">
-  <link rel="preload" as="script" href="{{ get_url(path='js/app.js') }}">
-
-  <!-- Prefetch likely user interactions -->
+  {% block preloads %}
+  <link rel="preload" as="image" href="{{ get_url(path='img/hero-bg.jpg') }}" fetchpriority="high">
   <link rel="prefetch" href="{{ get_url(path='img/gallery/interior-main.jpg') }}">
-  <link rel="prefetch" href="{{ get_url(path='img/gallery/beer-taps.jpg') }}">
+  {% endblock %}
 
   <!-- Critical CSS - Inlined for instant render -->
   <style>
@@ -431,20 +429,20 @@
     });
   </script>
 
-  <!-- Performance monitoring (non-blocking) -->
-  <script src="{{ get_url(path='js/performance.js') }}" async></script>
+  <!-- Performance monitoring (deferred, non-critical) -->
+  <script src="{{ get_url(path='js/performance.js') }}" defer></script>
 
-  <!-- Performance testing (ES module with export) -->
-  <script type="module" src="{{ get_url(path='js/performance-test.js') }}"></script>
-
-  <!-- Charlie Squad Analytics Dashboard (load after main app) -->
-  <script src="{{ get_url(path='js/charlie-dashboard.js') }}" defer></script>
-
-  <!-- Charlie Squad Privacy & GDPR Compliance (load early for consent management) -->
-  <script src="{{ get_url(path='js/charlie-privacy.js') }}" defer></script>
-
-  <!-- Charlie Squad Performance Monitoring (load after analytics) -->
-  <script src="{{ get_url(path='js/charlie-performance.js') }}" defer></script>
+  <!-- Charlie Squad: lazy-load only when GA is active (saves ~54 KB on initial load) -->
+  <script>
+    if (typeof gtag === 'function') {
+      ['charlie-dashboard','charlie-privacy','charlie-performance'].forEach(function(name) {
+        var s = document.createElement('script');
+        s.src = '{{ get_url(path="js/") | safe }}' + name + '.js';
+        s.defer = true;
+        document.body.appendChild(s);
+      });
+    }
+  </script>
 
   <!-- App must load BEFORE Alpine.js (Alpine auto-inits x-data on load) -->
   <script src="{{ get_url(path='js/app.js') }}"></script>

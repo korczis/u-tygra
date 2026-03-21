@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block body_tag %}<body class="bg-brew-950 text-brew-100 font-body antialiased">{% endblock %}
+{% block preloads %}{% endblock %}
 {% block title %}{{ page.title }}{% if page.extra.en is defined and page.extra.en %} {{ page.extra.en }}{% endif %} — Glosář{% endblock %}
 {% block meta_description %}{{ page.description | default(value=page.title ~ " — pivní termín z glosáře Pivnice U Tygra") }}{% endblock %}
 {% block og_title %}{{ page.title }}{% if page.extra.en is defined and page.extra.en %} {{ page.extra.en }}{% endif %} | Glosář | Pivnice U Tygra{% endblock %}
