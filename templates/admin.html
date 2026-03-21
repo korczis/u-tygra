@@ -11,6 +11,19 @@
 {% block twitter_title %}Admin | Pivnice U Tygra{% endblock %}
 {% block twitter_description %}Administrační panel Pivnice U Tygra.{% endblock %}
 
+{% block head %}
+<script>
+window.FIREBASE_CONFIG = {
+  apiKey: "AIzaSyB50U3NrQzDM5EtUKZ0TTwc4VXRSfN5v4o",
+  authDomain: "u-tygra.firebaseapp.com",
+  projectId: "u-tygra",
+  storageBucket: "u-tygra.firebasestorage.app",
+  messagingSenderId: "342065439807",
+  appId: "1:342065439807:web:87227a21a6ad2a12c7048a"
+};
+</script>
+{% endblock %}
+
 {% block body_tag %}<body class="bg-brew-950 text-brew-100 font-body antialiased" x-cloak>{% endblock %}
 {% block navbar %}{% endblock %}
 
