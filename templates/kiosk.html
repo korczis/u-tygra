@@ -193,6 +193,16 @@
     text-align: center;
   }
 
+  /* Column: IBU */
+  .kiosk-page .kp-ibu {
+    font-size: clamp(0.9rem, 1.5vw, 1.4rem);
+    font-weight: 500;
+    color: rgba(255,255,255,0.35);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    text-align: center;
+  }
+
   /* Column: Price — high contrast, tiger tint */
   .kiosk-page .kp-price {
     font-size: clamp(1.4rem, 2.8vw, 2.6rem);
@@ -259,8 +269,10 @@
   @media (max-width: 767px) {
     .kiosk-page .kp-style,
     .kiosk-page .kp-abv,
+    .kiosk-page .kp-ibu,
     .kiosk-page thead th:nth-child(3),
-    .kiosk-page thead th:nth-child(4) { display: none; }
+    .kiosk-page thead th:nth-child(4),
+    .kiosk-page thead th:nth-child(5) { display: none; }
     .kiosk-page .kp-name { font-size: clamp(1rem, 4vw, 1.3rem); }
     .kiosk-page .kp-brewery { font-size: clamp(0.8rem, 3vw, 1rem); white-space: normal; }
     .kiosk-page .kp-price { font-size: clamp(1rem, 4vw, 1.3rem); }
@@ -335,6 +347,7 @@
             <th>Pivovar</th>
             <th>Styl</th>
             <th style="text-align:center">Alk</th>
+            <th style="text-align:center">IBU</th>
             <th>Cena</th>
           </tr>
         </thead>
@@ -345,6 +358,7 @@
               <td class="kp-brewery" x-text="beer.pivovar || ''"></td>
               <td class="kp-style" x-text="beer.styl || ''"></td>
               <td class="kp-abv" x-text="beer.abv || ''"></td>
+              <td class="kp-ibu" x-text="beer.ibu || '—'"></td>
               <td class="kp-price">
                 <span x-text="beer.cena || ''"></span><span class="kp-price-unit" x-show="beer.cena">Kč</span>
               </td>
