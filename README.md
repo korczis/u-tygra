@@ -1,276 +1,306 @@
 # Pivnice U Tygra
 
-Static website for **Pivnice U Tygra**, a Czech pub in Brno serving Budvar and craft beers near Luzanky park. Built with Zola, Alpine.js, Tailwind CSS, and Flowbite.
+Webová prezentace **Pivnice U Tygra** — české hospody v Brně u parku Lužánky. Budvar, řemeslná piva, studená i teplá kuchyně, soukromý salónek.
 
-**Live**: [pivniceutygra.cz](https://www.pivniceutygra.cz) (replacing the current static HTML site)
-
----
-
-## Tech Stack
-
-| Layer | Technology | Version | Delivery |
-|-------|-----------|---------|----------|
-| SSG | [Zola](https://www.getzola.org) | 0.22.1 | Local binary |
-| UI Framework | [Alpine.js](https://alpinejs.dev) | 3.14.3 | CDN |
-| CSS | [Tailwind CSS](https://tailwindcss.com) | 3.x | CDN |
-| Components | [Flowbite](https://flowbite.com) | 2.5.2 | CDN (CSS only) |
-| Analytics | Google Analytics 4 | — | gtag.js |
-| Live Data | Google Sheets | — | CSV export |
-| Storage | Firebase (planned) | — | Free tier |
-| Hosting | GitHub Pages + GitLab Pages | — | Dual deployment |
-
-**No Node.js, npm, or build pipeline** beyond Zola. All frontend dependencies via CDN.
+**Live:** [korczis.github.io/u-tygra](https://korczis.github.io/u-tygra) | [korczis.gitlab.io/u-tygra](https://korczis.gitlab.io/u-tygra)
 
 ---
 
-## Quick Start
+## Technologie
 
-```bash
-# Prerequisites: Zola v0.22.1 (https://www.getzola.org/documentation/getting-started/installation/)
+| Vrstva | Technologie |
+|--------|-------------|
+| **SSG** | [Zola](https://www.getzola.org/) 0.22.1 (Rust) |
+| **JS framework** | [Alpine.js](https://alpinejs.dev/) 3.15 (CDN) |
+| **CSS** | [Tailwind CSS](https://tailwindcss.com/) 3.x (CDN) + vlastní `style.css` |
+| **Komponenty** | [Flowbite](https://flowbite.com/) 2.5 (CSS only) |
+| **Data** | Google Sheets CSV (živá nabídka piv) |
+| **Backend** | Firebase (admin panel — Auth, Firestore, Storage) |
+| **Hosting** | GitHub Pages + GitLab Pages (dual deploy) |
+| **PWA** | Service Worker, offline page, install prompt |
+| **CI/CD** | GitHub Actions (deploy + quality gates) |
+| **AIAD** | AI-Augmented Development framework |
 
-# Development server with hot reload
-zola serve
-# -> http://127.0.0.1:1111
-
-# Production build
-zola build
-# -> output in public/
-
-# Quality checks
-make quality-check    # Content + links + zola check
-make test             # Alias for quality-check
-make full-check       # clean + analyze + quality + build + health
-make help             # List all 50+ Makefile targets
-```
-
----
-
-## Architecture
-
-### Single-Page Application
-
-One Zola page (`content/_index.md`) rendered through `templates/index.html` extending `templates/base.html`. Six sections:
-
-| Section | ID | Content |
-|---------|-----|---------|
-| Hero | `#home` | Announcement banner, CTAs, quick stats |
-| Na cepu | `#na-cepu` | Live beer board from Google Sheets |
-| Jidlo | `#jidlo` | Food menu with cold/warm tabs |
-| Salonek | `#salonek` | Private room info + gallery |
-| Galerie | `#galerie` | Pub interior photos |
-| Kontakt | `#kontakt` | Address, hours, phone, Google Maps |
-
-### Live Beer Data Flow
-
-```
-Google Sheets (published CSV)
-    -> fetch() in app.js
-    -> CSVWorkerManager (Web Worker off-thread parsing)
-    -> liveBeers[] + announcement
-    -> Alpine.js reactive rendering
-```
-
-- **Source**: Google Sheets CSV export (configured in `zola.toml` via `sheets_id` / `sheets_gid`)
-- **Parsing**: `static/js/csv-worker.js` (Web Worker) with main-thread fallback
-- **Columns**: pivovar, nazev, styl, abv, ibu, cena
-- **Announcement**: Row 1, columns C-F
-- **Max beers**: 12 (hardcoded in worker)
-- **Kiosk refresh**: Every 2 minutes
-
-### Key Files
-
-```
-templates/
-  base.html          # Head, CDN loading, Schema.org, SW registration
-  index.html         # All 6 sections with Alpine.js bindings
-
-static/js/
-  app.js             # Complete Alpine.js app (~1200 lines)
-                     #   - CharlieAnalytics (GA4 events)
-                     #   - CSVWorkerManager (Web Worker bridge)
-                     #   - breweryUrls/breweryIcons (27 breweries)
-                     #   - beerStyles (9 styles), foodItems (12 items)
-                     #   - Kiosk mode UI and auto-refresh
-  csv-worker.js      # Off-thread CSV parsing
-  sw.js              # Service Worker (Cache-First images, Network-First CSV)
-  charlie-privacy.js # GDPR consent banner
-
-static/css/
-  style.css          # Glass morphism, hero gradients, beer animations, kiosk
-
-zola.toml            # All business data, Google Sheets config, GA4 ID
-content/_index.md    # Single page content marker
-```
-
-### Configuration (`zola.toml`)
-
-All business data in `[extra]`:
-
-```toml
-business_name = "Pivnice U Tygra"
-address = "Vrchlickeho sad 1893/3"
-phone_bar = "+420 776 140 840"
-phone_ops = "+420 777 935 052"
-company = "KONOVO s.r.o."
-ico = "17846927"
-ga_id = "G-FTXJKHH6R0"
-opening_hours = "16:00-24:00"
-```
-
----
-
-## Kiosk Mode
-
-Activate with `?kiosk=1` URL parameter. Designed for large TV display in the pub.
-
-```bash
-# Chromium kiosk launch
-chromium --kiosk --noerrdialogs --disable-translate --disable-infobars \
-  --start-fullscreen --window-size=1920,1080 \
-  "https://korczis.github.io/u-tygra/?kiosk=1"
-```
-
-**Features**:
-- Auto-refresh beer data every 2 minutes
-- Grid view default
-- Hidden navigation and footer
-- Optimized for 1920x1080 landscape
-- Anti-burn-in pixel shifting
-- Wake Lock API (prevents display sleep)
-- Self-healing (auto-recovery from errors)
-
-See `.aiad/doctrine/kiosk-fortress.doctrine.md` for full specification.
-
----
-
-## PWA Support
-
-- `static/site.webmanifest` — Full manifest with shortcuts
-- `static/js/sw.js` — Service Worker with offline fallback
-- `static/offline.html` — Offline page
-- Install prompt after 10 seconds
-- Cache strategies: Cache-First (images), Network-First (CSV data)
-
----
-
-## Deployment
-
-Dual deployment on push to `main`:
-
-### GitHub Pages
-`.github/workflows/pages.yml` — Rewrites `base_url` from GitLab to `https://korczis.github.io/u-tygra` via sed at build time.
-
-### GitLab Pages
-`.gitlab-ci.yml` — Uses `base_url` from `zola.toml` as-is (`https://korczis.gitlab.io/u-tygra`).
-
-**Important**: If you change `base_url` in `zola.toml`, also update the sed pattern in `.github/workflows/pages.yml`.
-
----
-
-## Custom Theme
-
-Two Tailwind color palettes defined inline in `base.html`:
-
-| Palette | Base | Usage |
-|---------|------|-------|
-| `tiger` | `#f08c0f` | Primary accent (orange shades: `tiger-400` to `tiger-600`) |
-| `brew` | `#958757` | Backgrounds and text (brown shades: `brew-300` to `brew-950`) |
-
-Dark theme optimized for pub ambience. See `.aiad/doctrine/kiosk-fortress.doctrine.md` for kiosk-specific palette.
-
----
-
-## AIAD Ecosystem
-
-AI-Augmented Development framework:
-
-```
-.aiad/
-  manifest.toml          # Project metadata and ecosystem config
-  doctrine/              # Governance doctrines (6 files)
-    no-mercy-no-doubts   # Zero tolerance for defects
-    no-way-back          # Permanent solutions only
-    golden-tap           # Content freshness guarantees
-    kiosk-fortress       # Display security and UX
-    czech-first          # Localization rules
-    flowbite-first       # UI component standards
-    absorption-strategy  # Technology integration rules
-  policies/              # Enforcement policies
-  agents/                # AI agent configurations (13 agents)
-  commands/              # Executable AIAD commands (16 commands)
-  quality-gates.toml     # Quality thresholds
-```
-
-Key commands:
-```bash
-make aiad-status     # Ecosystem overview
-make aiad-agents     # List all agents
-make quality-check   # Run all quality gates
-make test-links      # Full link integrity test
-```
-
----
-
-## Link Testing
-
-```bash
-make test-links           # Full: external + internal + data
-make test-links-external  # Brewery URLs, CDN, social
-make test-links-internal  # Internal paths (needs build)
-make test-links-data      # Google Sheets CSV validation
-make test-links-offline   # Internal only (no network)
-```
-
----
-
-## Adding a New Brewery
-
-1. Add to `breweryUrls` in `static/js/app.js` (name -> website URL)
-2. Add to `breweryIcons` in `static/js/app.js` (name -> icon category)
-3. Add URL to `.aiad/commands/test-links` BREWERY_URLS array
-4. Run `make test-links-external` to validate
-
----
-
-## URL Parameters
-
-| Parameter | Effect |
-|-----------|--------|
-| `?kiosk=1` | Kiosk mode (TV display, no UI chrome, auto-refresh) |
-
----
-
-## Project Structure
+## Struktura projektu
 
 ```
 u-tygra/
-  content/
-    _index.md              # Single page content
-  templates/
-    base.html              # HTML head, CDN, SW, Schema.org
-    index.html             # All sections
-  static/
-    css/style.css          # Custom effects
-    js/                    # App, worker, SW, privacy, analytics
-    img/                   # Hero, gallery, food, salonek photos
-    site.webmanifest       # PWA manifest
-    offline.html           # Offline fallback
-  sass/                    # SASS source files
-  .aiad/                   # AIAD ecosystem
-  .claude/                 # Claude Code configuration
-  .github/workflows/       # GitHub Pages deployment
-  .gitlab-ci.yml           # GitLab Pages deployment
-  .githooks/               # Git hooks
-  zola.toml                # Zola config + business data
-  Makefile                 # 50+ targets
+├── content/                  # Zola obsah
+│   ├── _index.md             # Hlavní stránka
+│   ├── glosar/               # Pivní glosář (99 termínů)
+│   │   ├── _index.md         # Seznam všech pojmů
+│   │   ├── abv.md            # Jednotlivé termíny
+│   │   ├── chmel.md
+│   │   └── ...
+│   ├── kiosk.md              # Kiosk režim (Alpine.js)
+│   ├── vyveska.md            # TV vývěska (ES5, zero-dependency)
+│   ├── admin.md              # Admin panel (Firebase)
+│   └── ochrana-udaju.md      # GDPR
+├── templates/                # Zola šablony (Tera)
+│   ├── base.html             # Základ — sdílený navbar, footer, meta
+│   ├── index.html            # Hlavní stránka
+│   ├── kiosk.html            # Kiosk pro moderní prohlížeče
+│   ├── vyveska.html          # TV vývěska (ES5, standalone)
+│   ├── admin.html            # Admin panel
+│   ├── 404.html              # Chybová stránka
+│   └── glosar/               # Glosář šablony
+│       ├── list.html          # Přehled pojmů s filtrem
+│       └── page.html          # Detail termínu
+├── static/
+│   ├── js/
+│   │   ├── app.js            # Hlavní Alpine.js aplikace (~1600 řádků)
+│   │   ├── admin.js          # Admin panel (Firebase CRUD)
+│   │   ├── csv-worker.js     # Web Worker pro CSV parsing
+│   │   ├── performance.js    # Core Web Vitals monitoring
+│   │   ├── sw.js             # Service Worker (cache strategies)
+│   │   └── charlie-*.js      # Analytics suite
+│   ├── css/style.css         # Vlastní styly (kiosk, glosář, efekty)
+│   └── img/                  # Obrázky, favicony, galerie
+├── .aiad/                    # AIAD agents & commands
+│   ├── agents/               # 6 TOML agent configs
+│   ├── commands/             # 5 shell commands
+│   └── manifest.toml         # AIAD manifest
+├── .claude/                  # Claude Code konfigurace
+│   ├── CLAUDE.md             # Projektové instrukce
+│   ├── agents/               # 5 Claude Code agents
+│   ├── protocols/            # Quality gates
+│   └── AGENT_REGISTRY.md     # Katalog agentů
+├── .github/workflows/        # CI/CD
+│   ├── pages.yml             # Deploy na GitHub Pages
+│   └── aiad-integration.yml  # Quality gates pipeline
+├── .gitlab-ci.yml            # Deploy na GitLab Pages
+├── .githooks/pre-commit      # 6-phase quality gates
+├── firebase.json             # Firebase konfigurace
+├── firestore.rules           # Firestore security rules
+├── storage.rules             # Storage security rules
+├── zola.toml                 # Zola konfigurace + business data
+├── Makefile                  # 50+ dev příkazů
+└── CLAUDE.md -> .claude/CLAUDE.md
 ```
 
----
+## Stránky
 
-## License
+| Route | Popis | Technologie |
+|-------|-------|-------------|
+| `/` | Hlavní stránka — hero, nástěnka, jídlo, salónek, galerie, kontakt | Alpine.js + Google Sheets CSV |
+| `/glosar/` | Pivní glosář — 99 termínů s filtrem podle kategorií | Zola section + Alpine.js filtr |
+| `/glosar/{term}/` | Detail termínu — obsah, tabulky, related links | Zola page + vlastní CSS |
+| `/kiosk/` | Kiosk režim pro moderní prohlížeče | Alpine.js + kioskApp() |
+| `/vyveska/` | TV vývěska pro staré Smart TV (JVC, Samsung, LG) | Pure ES5, zero dependencies |
+| `/admin/` | Admin panel — fotky, akce, jídlo, nastavení | Firebase Auth + Firestore |
+| `/ochrana-udaju/` | Ochrana osobních údajů (GDPR) | Statická stránka |
+
+## Živá nabídka piv
+
+Nabídka piv se načítá z **Google Sheets** publikovaného jako CSV:
+
+```
+Google Sheets → HTTP CSV → fetch() → parseBeerCSV() → Alpine.js reactivity → UI
+```
+
+- **Řádek 1, sloupce C–F**: Announcement text (zobrazí se nad nabídkou)
+- **Header řádek**: Pivovar, Název, Styl, Alk., IBU, Cena
+- **Data**: Max 12 piv, deduplikace podle pivovar+název
+- **Refresh**: Automaticky každých 90 sekund (kiosk/vývěska)
+- **Fallback**: Main-thread parser pokud Web Worker selže
+
+### Editace nabídky
+
+Nabídku editujete přímo v Google Sheets. Změny se projeví na webu do 90 sekund.
+
+## TV vývěska (`/vyveska/`)
+
+Speciální stránka pro zobrazení na TV v hospodě:
+
+- **Zero dependencies** — žádný Alpine.js, žádné ES6+, žádné moduly
+- **ES5 kompatibilní** — funguje na starých Smart TV (JVC, Samsung Tizen, LG webOS)
+- **Fullscreen** — 100vh, žádný header/footer, řádky vyplní celou obrazovku
+- **Auto-refresh** — data se obnovují každých 90 sekund
+- **Anti-burn-in** — subtilní 2px posun každých 120 sekund
+- **Adaptivní fonty** — velikost se přizpůsobí počtu piv a rozlišení TV
+- **Čtvercové číslo řádku** — tiger dlaždice s číslem piva
+- **Dvouřádkové názvy** — dlouhé názvy se rozdělí, 2. řádek menší
+
+Použití na TV:
+```
+https://korczis.github.io/u-tygra/vyveska/
+```
+
+## Pivní glosář
+
+99 termínů ve 7 kategoriích:
+
+| Kategorie | Počet | Příklady |
+|-----------|-------|----------|
+| **Základy** | ABV, IBU, EBC, Stupňovitost | 4 |
+| **Suroviny** | Chmel, Slad, Kvasnice, Voda | 4 |
+| **Výroba** | Kvašení, Mladina, Rmuty, Dry Hopping, Zrání... | ~20 |
+| **Servírování** | Čep, Šnyt, Hladinka, Pěna, Teplota | 6 |
+| **Styly** | Pilsner, IPA, NEIPA, Stout, Craft, Session... | ~20 |
+| **Chmely** | Žatecký (Saaz), Citra, Mosaic, Cascade, Kazbek... | ~10 |
+| **Kultura** | Párování, Pivní lázně, Minipivovar... | ~5 |
+
+Každý termín má:
+- Vlastní URL (`/glosar/abv/`, `/glosar/chmel/`)
+- Detailní obsah s tabulkami a historickým kontextem
+- Cross-reference linky na související pojmy (186 inline linků)
+- OG/Twitter meta tagy pro sdílení
+- Schema.org structured data
+
+## Admin panel (`/admin/`)
+
+Firebase-based admin rozhraní:
+
+- **Přihlášení**: Google Auth (Firebase) nebo lokální režim (localStorage)
+- **Fotografie**: Upload, kategorizace, mazání
+- **Akce**: CRUD pro události (živá hudba, degustace, kvízy)
+- **Jídelní lístek**: Správa studených a teplých jídel
+- **Nastavení**: Firebase status, Google Sheets odkaz, kiosk URL
+- **Hash routing**: `/admin/#photos`, `/admin/#events`, `/admin/#food`, `/admin/#settings`
+
+### Firebase setup
+
+```bash
+npm install -g firebase-tools
+firebase login
+firebase deploy --only firestore:rules,storage
+```
+
+V [Firebase Console](https://console.firebase.google.com/project/u-tygra):
+1. Authentication → Sign-in method → Google → Enable
+2. Přidat `korczis.github.io` do Authorized domains
+
+## Vývoj
+
+### Požadavky
+
+- [Zola](https://www.getzola.org/documentation/getting-started/installation/) 0.22.1+
+
+### Příkazy
+
+```bash
+# Vývoj
+zola serve                    # Dev server na port 1111
+zola build                    # Production build do public/
+zola check                    # Validace odkazů
+
+# Quality gates
+make quality-check            # Kompletní quality gates
+make test-links               # Integrita odkazů (ext + int + data)
+make full-check               # clean + analyze + quality + build + links
+
+# AIAD
+make dev-check                # Dev environment health check
+make deploy-status            # GitHub/GitLab deploy status
+make validate                 # Pre-push validace
+make push                     # Validate + push na oba remotes
+
+# Ostatní
+make help                     # Všechny příkazy (50+)
+make clean                    # Smazat build artifacts
+```
+
+### Pre-commit hooks
+
+6-phase validace (`.githooks/pre-commit`):
+
+1. **Zola check** — broken links, template errors
+2. **Content** — UTF-8 encoding validace
+3. **Doctrine** — Flowbite First, NMND (no TODO/FIXME)
+4. **Security** — no hardcoded secrets
+5. **Czech First** — kontrola diakritiky
+6. **UTF-8 doctrine** — žádné `\uXXXX` Unicode escapes v JS
+
+### Git workflow
+
+```bash
+git config core.hooksPath .githooks   # Aktivovat hooks
+```
+
+Conventional commits: `feat(scope): description`
+
+Dual remote:
+- `origin` → GitLab (`git@gitlab.com:korczis/u-tygra.git`)
+- `github` → GitHub (`git@github.com:korczis/u-tygra.git`)
+
+## Architektura
+
+### Sdílené komponenty (base.html)
+
+```
+{% block navbar %}    — Sdílený navbar (Na čepu, Jídlo, Salónek, Glosář, Kontakt)
+{% block body %}      — Obsah stránky
+{% block footer %}    — Sdílený footer (adresa, odkazy)
+{% block app_script %}— app.js (přepínatelné, admin/glosar ho skipují)
+{% block preloads %}  — Preload resources (hero image jen na hlavní stránce)
+{% block body_tag %}  — Body atributy (x-data, x-cloak)
+```
+
+### Stránky a jejich bloky
+
+| Stránka | navbar | footer | app_script | body_tag |
+|---------|--------|--------|------------|----------|
+| index | vlastní (Alpine) | vlastní | app() | x-data="app()" x-cloak |
+| glosar/list | sdílený | sdílený | skip | x-data="{ filter: 'all' }" |
+| glosar/page | sdílený | sdílený | skip | plain |
+| kiosk | skip | skip | kioskApp() | x-data="kioskApp()" x-cloak |
+| vyveska | — | — | — | standalone (ne base.html) |
+| admin | skip | skip | skip | plain |
+
+### CSP (Content Security Policy)
+
+```
+script-src: 'self' cdn.tailwindcss.com cdn.jsdelivr.net www.googletagmanager.com www.gstatic.com
+connect-src: 'self' docs.google.com *.googleusercontent.com region1.google-analytics.com
+frame-src: 'self' www.google.com *.firebaseapp.com
+```
+
+## SEO
+
+- 104 stránek s `<title>`, `<meta description>`, OG tags, Twitter Card
+- Schema.org: BarOrPub, Organization, WebSite, BreadcrumbList, Menu
+- `robots.txt`, `sitemap.xml` (generovaný Zolou), `humans.txt`
+- Canonical URLs, `lang="cs"`, geo tags
+- Breadcrumbs na glosářových stránkách
+
+## Performance
+
+- **Critical CSS** inlined v `<head>` (~3 KB)
+- **app.js** načten synchronně jen na hlavní stránce (65 KB)
+- **Glosář, admin, kiosk** — skipují app.js
+- **Charlie analytics** — lazy-loaded jen když je GA aktivní
+- **Service Worker** — network-first pro HTML, cache-first pro assets
+- **Preconnect** — fonts, Sheets, Tailwind, jsdelivr
+- **Hero image** preloaded jen na hlavní stránce
+
+## AIAD ekosystém
+
+### Agents (11)
+
+**Claude Code** (`.claude/agents/`):
+commit-coordinator, deploy-manager, code-reviewer, content-manager, session-tracker
+
+**AIAD** (`.aiad/agents/`):
+build-orchestrator, content-validator, docs-analyzer, google-sheets-sync, link-integrity-checker, quality-gate-sentinel
+
+### Commands (5)
+
+| Příkaz | Popis |
+|--------|-------|
+| `content-analyze` | Analýza struktury obsahu |
+| `test-links` | Integrita odkazů (brewery, CDN, data) |
+| `validate` | Pre-push validace |
+| `dev-check` | Dev environment health |
+| `deploy-status` | Deploy status na GitHub/GitLab |
+
+## Licence
 
 MIT
 
-## Maintainer
+## Autor
 
-KONOVO s.r.o. (ICO: 17846927)
+**[Tomáš Korčák](https://github.com/korczis)** (korczis)
+
+- GitHub: [github.com/korczis](https://github.com/korczis)
+- LinkedIn: [linkedin.com/in/korczis](https://linkedin.com/in/korczis)
+- Provozovatel: KONOVO s.r.o., IČO 17846927
