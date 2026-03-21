@@ -3,10 +3,23 @@
 
 [x-cloak] { display: none !important; }
 
-/* === Smooth scrolling === */
+/* === Smooth scrolling + page snap === */
 html {
   scroll-behavior: smooth;
   scrollbar-gutter: stable;
+  scroll-snap-type: y proximity;
+}
+
+/* Sections snap to top of viewport */
+section[id] {
+  scroll-snap-align: start;
+}
+
+/* Disable snap on mobile when keyboard is open or when interacting with content */
+@media (max-height: 500px) {
+  html {
+    scroll-snap-type: none;
+  }
 }
 
 /* === Hero background === */

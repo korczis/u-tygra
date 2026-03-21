@@ -539,13 +539,13 @@ function app() {
     installPrompt: null,
     isOnline: navigator.onLine,
 
-    // Navigation
+    // Navigation with section metadata for OG tags
     navItems: [
-      { id: 'home', href: '#home', label: 'Domu' },
-      { id: 'na-cepu', href: '#na-cepu', label: 'Na cepu' },
-      { id: 'jidlo', href: '#jidlo', label: 'Jidlo' },
-      { id: 'salonek', href: '#salonek', label: 'Salonek' },
-      { id: 'kontakt', href: '#kontakt', label: 'Kontakt' },
+      { id: 'home', href: '#home', label: 'Dom\u016f', title: 'Pivnice U Tygra', desc: 'Budvar & \u0159emesln\u00e1 piva u Lu\u017e\u00e1nek. Brno.' },
+      { id: 'na-cepu', href: '#na-cepu', label: 'Na \u010depu', title: 'Na \u010depu \u2013 Pivnice U Tygra', desc: '\u017div\u00e1 nab\u00eddka \u010depovan\u00fdch piv. Budvar, \u0159emesln\u00e1 piva a speci\u00e1ly.' },
+      { id: 'jidlo', href: '#jidlo', label: 'J\u00eddlo', title: 'J\u00eddlo \u2013 Pivnice U Tygra', desc: 'Tradi\u010dn\u00ed \u010desk\u00e9 pochutiny. Chlebíčky, utopen\u00e9, tla\u010denka a dal\u0161\u00ed.' },
+      { id: 'salonek', href: '#salonek', label: 'Sal\u00f3nek', title: 'Sal\u00f3nek \u2013 Pivnice U Tygra', desc: 'Soukrom\u00fd sal\u00f3nek pro oslavy a firemn\u00ed akce. Kapacita 20 osob.' },
+      { id: 'kontakt', href: '#kontakt', label: 'Kontakt', title: 'Kontakt \u2013 Pivnice U Tygra', desc: 'Vrchlick\u00e9ho sad 1893/3, Brno. Otev\u0159eno denn\u011b 16:00\u201324:00.' },
     ],
 
     // Known brewery URLs
@@ -855,6 +855,46 @@ function app() {
     onNavClick(section) {
       charlie.trackMenuNavigation(section, 'nav_click');
       this.activeSection = section;
+      this.updateSectionMeta(section);
+    },
+
+    /**
+     * Update OG meta tags and URL hash for current section
+     */
+    updateSectionMeta(sectionId) {
+      const item = this.navItems.find(n => n.id === sectionId);
+      if (!item) return;
+
+      // Update URL hash without scrolling
+      const newHash = sectionId === 'home' ? '' : '#' + sectionId;
+      const newUrl = window.location.pathname + newHash;
+      if (window.location.pathname + window.location.hash !== newUrl) {
+        history.replaceState(null, '', newUrl);
+      }
+
+      // Update document title
+      document.title = item.title + ' | ' + (document.querySelector('meta[property="og:site_name"]')?.content || 'Pivnice U Tygra');
+
+      // Update OG meta tags
+      const updates = {
+        'og:title': item.title,
+        'og:description': item.desc,
+        'og:url': window.location.href,
+        'twitter:title': item.title,
+        'twitter:description': item.desc,
+        'twitter:url': window.location.href
+      };
+
+      for (const [prop, value] of Object.entries(updates)) {
+        const isOg = prop.startsWith('og:');
+        const selector = isOg ? `meta[property="${prop}"]` : `meta[name="${prop}"]`;
+        const meta = document.querySelector(selector);
+        if (meta) meta.setAttribute('content', value);
+      }
+
+      // Update meta description
+      const descMeta = document.querySelector('meta[name="description"]');
+      if (descMeta) descMeta.setAttribute('content', item.desc);
     },
 
     /**
@@ -943,6 +983,16 @@ function app() {
       this.setupPWA();
       this.monitorConnectivity();
 
+      // Navigate to hash section on load
+      const initialHash = window.location.hash.replace('#', '');
+      if (initialHash) {
+        const target = document.getElementById(initialHash);
+        if (target) {
+          setTimeout(() => target.scrollIntoView(), 100);
+          this.activeSection = initialHash;
+        }
+      }
+
       // Intersection observer for active section tracking with analytics
       const sections = document.querySelectorAll('section[id]');
       const observer = new IntersectionObserver(
@@ -955,6 +1005,7 @@ function app() {
               // Track section changes with analytics
               if (previousSection !== this.activeSection) {
                 charlie.trackMenuNavigation(this.activeSection, 'scroll');
+                this.updateSectionMeta(this.activeSection);
               }
             }
           });
@@ -962,6 +1013,15 @@ function app() {
         { rootMargin: '-40% 0px -40% 0px' }
       );
       sections.forEach((s) => observer.observe(s));
+
+      // Handle browser back/forward for hash navigation
+      window.addEventListener('hashchange', () => {
+        const hash = window.location.hash.replace('#', '');
+        if (hash && hash !== this.activeSection) {
+          const target = document.getElementById(hash);
+          if (target) target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
 
       // Track session end when user leaves
       window.addEventListener('beforeunload', () => {
