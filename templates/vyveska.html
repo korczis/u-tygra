@@ -117,13 +117,13 @@ table {
   table-layout: fixed;
 }
 
-/* Column widths — # is auto (set by JS to square), rest fills remaining space */
-col.col-num { width: 1px; } /* overridden by JS to row height */
-col.col-name { width: 30%; }
-col.col-brewery { width: 20%; }
-col.col-style { width: 18%; }
+/* Column widths — # width set by JS to be square (= row height) */
+col.col-num { width: 8%; }
+col.col-name { width: 27%; }
+col.col-brewery { width: 18%; }
+col.col-style { width: 17%; }
 col.col-abv { width: 10%; }
-col.col-price { width: 22%; }
+col.col-price { width: 20%; }
 
 thead th {
   text-align: left;
@@ -159,46 +159,57 @@ tbody td {
   font-weight: 800;
   color: #f08c0f;
   text-align: center;
+  vertical-align: middle;
   white-space: nowrap;
-  background: rgba(240,140,15,0.08);
-  border-right: 1px solid rgba(240,140,15,0.15);
+  background: rgba(240,140,15,0.06);
+  border-right: 2px solid rgba(240,140,15,0.2);
+  padding: 0;
 }
 
 .td-name {
-  font-size: 4vmin;
+  font-size: 3vmin;
   font-weight: 700;
   color: #fff;
-  padding-right: 2vw;
+  padding: 0 1.5vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 0; /* needed for text-overflow in table cell */
 }
 
 .td-brewery {
-  font-size: 3.2vmin;
+  font-size: 2.5vmin;
   font-weight: 500;
   color: #f08c0f;
-  padding-right: 2vw;
+  padding: 0 1vw;
   white-space: nowrap;
 }
 
 .td-style {
-  font-size: 2.8vmin;
+  font-size: 2.2vmin;
   color: rgba(255,255,255,0.35);
-  padding-right: 2vw;
+  padding: 0 1vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 0;
 }
 
 .td-abv {
-  font-size: 3vmin;
+  font-size: 2.5vmin;
   color: rgba(255,255,255,0.4);
   text-align: center;
-  padding-right: 2vw;
+  padding: 0 1vw;
   white-space: nowrap;
 }
 
 .td-price {
-  font-size: 4vmin;
+  font-size: 3.5vmin;
   font-weight: 800;
   color: #fff;
   text-align: right;
   white-space: nowrap;
+  padding: 0 1vw 0 0;
 }
 
 .price-sep {
@@ -227,24 +238,21 @@ tbody td {
   font-size: 3vmin;
 }
 
-/* Mobile first: hide less important columns on small screens */
+/* Mobile: hide Styl + Alk columns */
 @media (max-width: 600px) {
-  .table-wrap { padding: 0 2vw; }
+  .table-wrap { padding: 0 1vw; }
   .td-style, .td-abv,
   col.col-style, col.col-abv,
   thead th:nth-child(4), thead th:nth-child(5) {
     display: none;
   }
-  col.col-num { width: 8%; }
-  col.col-name { width: 40%; }
-  col.col-brewery { width: 27%; }
+  col.col-num { width: 12%; }
+  col.col-name { width: 38%; }
+  col.col-brewery { width: 25%; }
   col.col-price { width: 25%; }
-  .td-num { font-size: 4vw; }
-  .td-name { font-size: 5vw; }
-  .td-brewery { font-size: 4vw; white-space: normal; }
-  .td-price { font-size: 5vw; }
-  thead th { font-size: 2.5vw; padding: 1.5vh 0 1vh; }
-  .announcement { font-size: 3.5vw; padding: 1vh 3vw; }
+  .td-name, .td-brewery { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  thead th { font-size: 2.5vw; padding: 1vh 0; }
+  .announcement { font-size: 3.5vw; padding: 1vh 2vw; }
 }
 
 /* Tablet */
@@ -564,12 +572,12 @@ function fitToScreen(beerCount) {
     }
 
     // Scale ALL font sizes based on row height
-    var nameSize = Math.min(Math.max(rowHeight * 0.38, 18), 56);
-    var brewerySize = Math.min(Math.max(rowHeight * 0.30, 16), 44);
-    var styleSize = Math.min(Math.max(rowHeight * 0.25, 14), 36);
-    var abvSize = Math.min(Math.max(rowHeight * 0.28, 14), 38);
-    var priceSize = nameSize;
-    var numSize = Math.min(Math.max(rowHeight * 0.28, 14), 38);
+    var nameSize = Math.min(Math.max(rowHeight * 0.30, 16), 44);
+    var brewerySize = Math.min(Math.max(rowHeight * 0.24, 14), 36);
+    var styleSize = Math.min(Math.max(rowHeight * 0.20, 12), 28);
+    var abvSize = Math.min(Math.max(rowHeight * 0.22, 12), 30);
+    var priceSize = Math.min(Math.max(rowHeight * 0.32, 18), 48);
+    var numSize = Math.min(Math.max(rowHeight * 0.30, 16), 44);
 
     var setSize = function(selector, size) {
       var els = document.querySelectorAll(selector);
