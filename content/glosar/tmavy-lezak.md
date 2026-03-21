@@ -5,6 +5,7 @@ description = "České tmavé pivo s karamelovou, chlebovou chutí a hladkým do
 en = "Czech Dark Lager"
 category = "styly"
 related = ["lager", "dunkel", "karamelovy-slad"]
+funfact = "Cesky tmavy lezak je jemnejsi nez nemecky Dunkel — pouziva jiny typ sladu."
 +++
 
 **Tmavý ležák** je tradiční český pivní styl s bohatou barvou z karamelových a pražených sladů.

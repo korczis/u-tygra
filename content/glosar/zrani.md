@@ -5,6 +5,7 @@ description = "Dozrávání piva za nízkých teplot. Klíčová fáze pro hladk
 en = "Lagering / Conditioning"
 category = "vyroba"
 related = ["kvaseni", "filtrace", "sudove-zrani"]
+funfact = "Nektere Barley Wine zraji desitky let a zlepsují se jako víno."
 +++
 
 **Zrání** (lagering, conditioning) je fáze, kdy pivo dozrává za nízkých teplot (0–4 °C) po hlavním [kvašení](@/glosar/kvaseni.md). Slovo **lager** pochází z německého *lagern* = skladovat.

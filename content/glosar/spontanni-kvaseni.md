@@ -5,6 +5,7 @@ description = "Kvašení divokými kvasnicemi z ovzduší. Základ Lambiků a un
 en = "Wild Fermentation"
 category = "vyroba"
 related = ["kvaseni", "lambic", "sour"]
+funfact = "Spontanni kvaseni funguje jen v urcitych regionech — nejznamejsi je udoli Senne u Bruselu."
 +++
 
 **Spontánní [kvašení](@/glosar/kvaseni.md)** je nejstarší a nejprimitivnější způsob kvašení — [mladina](@/glosar/mladina.md) se ponechá otevřená a divoké [kvasnice](@/glosar/kvasnice.md) a bakterie z ovzduší ji zaočkují přirozeně.

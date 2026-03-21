@@ -5,6 +5,7 @@ description = "Čirá, suchá, agresivně chmelená IPA z amerického západníh
 en = "West Coast IPA"
 category = "styly"
 related = ["ipa", "apa", "double-ipa"]
+funfact = "West Coast IPA je protipol NEIPA — cira, sucha a s vyraznou horkosti."
 +++
 
 **West Coast IPA** je protipól NEIPA — čirá, suchá a s výraznou hořkostí. Styl definovaný kalifornskými pivovary.

@@ -5,6 +5,7 @@ description = "Pivní sklenice o objemu 1 litr, tradičně používaná v bavors
 en = "Maß / Stein"
 category = "servirovani"
 related = ["hladinka", "snyt", "pena"]
+funfact = "Na Oktoberfestu se Mass (tuplak) plni presne na rysku — kontroluje to specialni urad."
 +++
 
 **Tupláček** (Maß, stein) je litrová pivní sklenice. V češtině se používá i pro půllitrovou sklenici (*tuplák*).

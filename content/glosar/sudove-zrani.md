@@ -5,6 +5,7 @@ description = "Zrání piva v dřevěných sudech. Dodává komplexní chutě va
 en = "Barrel Aging"
 category = "vyroba"
 related = ["zrani"]
+funfact = "Whisky barely dodavaji pivu vanilku a kokos z americkeho dubu."
 +++
 
 **Sudové [zrání](@/glosar/zrani.md)** (barrel aging) je technika, při které pivo zraje v dřevěných sudech — nejčastěji po předchozím použití pro whisky, bourbon, víno nebo rum. Dřevo a zbytkové látky v sudu dodávají pivu komplexní chuťové vrstvy.

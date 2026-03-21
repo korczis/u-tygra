@@ -5,6 +5,7 @@ description = "Hybrid Witbieru a IPA — koriandrem a pomerančem kořeněná IP
 en = "White IPA"
 category = "styly"
 related = ["ipa", "witbier", "weizen"]
+funfact = "White IPA kombinuje belgicky Witbier s americkym chmelenim — hybrid dvou svetu."
 +++
 
 **White IPA** kombinuje belgický Witbier s americkou IPA — pšeničný základ, koriandr a pomerančová kůra s výrazným americkým chmelením.
