@@ -1122,10 +1122,13 @@ function onGlossaryReady(cb) {
     el.textContent = text;
     el.className = 'ticker-text ticker-wisdom';
     el.style.opacity = '1';
+    el.style.width = 'auto';
+    el.style.right = 'auto';
     el.style.left = containerWidth + 'px';
 
-    // Force reflow to get correct scrollWidth
-    var textWidth = el.offsetWidth || el.scrollWidth;
+    // Force reflow then measure actual text width
+    el.offsetHeight; // force reflow
+    var textWidth = el.scrollWidth || el.offsetWidth;
 
     var startX = containerWidth;
     var endX = -textWidth - 50;
@@ -1154,16 +1157,21 @@ function onGlossaryReady(cb) {
     tickerFade(tickerEl, 1, 0, 1500, function() {
       // 2. Marquee scroll wisdom text
       marquee(tickerEl, text, function() {
-        // 3. Fade in default text
-        resetToDefault(function() {
-          setTimeout(showWisdom, WISDOM_INTERVAL);
-        });
+        // 3. Pause 500ms after text exits left
+        setTimeout(function() {
+          // 4. Fade in default text
+          resetToDefault(function() {
+            setTimeout(showWisdom, WISDOM_INTERVAL);
+          });
+        }, 500);
       });
     });
   }
 
   function resetToDefault(cb) {
-    tickerEl.style.left = '';
+    tickerEl.style.left = '0';
+    tickerEl.style.width = '';
+    tickerEl.style.right = '0';
     tickerEl.textContent = defaultText;
     tickerEl.className = 'ticker-text';
     tickerEl.style.opacity = '0';
