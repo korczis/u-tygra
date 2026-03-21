@@ -1080,195 +1080,196 @@ function onGlossaryReady(cb) {
   };
 })();
 
-// === CNN-style ticker bar ===
+// === CNN-style ticker bar (state machine) ===
 (function() {
-  var tickerEl = document.getElementById('ticker-text');
-  if (!tickerEl) return;
+  var el = document.getElementById('ticker-text');
+  if (!el) return;
 
+  // State: 'idle' | 'fadeout' | 'scrolling' | 'pause' | 'fadein'
+  var state = 'idle';
+  var animId = null; // current requestAnimationFrame ID
+  var timer = null;  // current setTimeout ID
+
+  // Config
+  var WISDOM_INTERVAL = 45000;
+  var FADE_MS = 1200;
+  var SCROLL_SPEED = 80;
+  var PAUSE_MS = 500;
+
+  // Default static text
   var S = '\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0';
   var defaultText = 'KONOVO s.r.o.' + S + '\u2022' + S + 'I\u010cO: 17846927' + S + '\u2022' + S + 'Vrchlick\u00e9ho sad 1893/3, Brno' + S + '\u2022' + S + 'Denn\u011b 16:00\u201324:00' + S + '\u2022' + S + '776 140 840';
+
+  // Data pools
   var wisdoms = [];
   var wisdomIdx = 0;
-  var WISDOM_INTERVAL = 45000;
-  var WISDOM_DISPLAY = 8000;
+  var promos = (typeof KIOSK_PROMOS !== 'undefined') ? KIOSK_PROMOS : [
+    'korczis@gmail.com \u2022 linkedin.com/in/korcaktomas \u2022 S laskou vyrobil Tomas Korcak'
+  ];
+  var promoIdx = 0;
 
-  tickerEl.textContent = defaultText;
+  // Init: show default text
+  el.textContent = defaultText;
+  el.style.opacity = '1';
 
-  // Use shared glossary loader (DRY — same data as overlay)
+  // Cancel any running animation
+  function cancel() {
+    if (animId) { cancelAnimationFrame(animId); animId = null; }
+    if (timer) { clearTimeout(timer); timer = null; }
+  }
+
+  // Animate opacity from→to
+  function animateOpacity(from, to, duration, cb) {
+    var start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / duration, 1);
+      el.style.opacity = String(from + (to - from) * p);
+      if (p < 1) { animId = requestAnimationFrame(step); }
+      else { animId = null; if (cb) cb(); }
+    }
+    animId = requestAnimationFrame(step);
+  }
+
+  // Scroll text from right to left
+  function animateScroll(cb) {
+    var container = el.parentNode;
+    var containerW = container.offsetWidth;
+    el.style.width = 'auto';
+    el.style.right = 'auto';
+    el.style.left = containerW + 'px';
+    el.style.opacity = '1';
+    el.offsetHeight; // reflow
+    var textW = el.scrollWidth || el.offsetWidth;
+    var startX = containerW;
+    var endX = -textW - 50;
+    var dist = startX - endX;
+    var duration = (dist / SCROLL_SPEED) * 1000;
+    var start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / duration, 1);
+      el.style.left = Math.round(startX + (endX - startX) * p) + 'px';
+      if (p < 1) { animId = requestAnimationFrame(step); }
+      else { animId = null; if (cb) cb(); }
+    }
+    animId = requestAnimationFrame(step);
+  }
+
+  // Reset element to default static text
+  function resetEl() {
+    el.style.left = '0';
+    el.style.width = '';
+    el.style.right = '0';
+    el.textContent = defaultText;
+    el.className = 'ticker-text';
+  }
+
+  // Main sequence: fade out → set text → scroll → pause → fade in default
+  function scrollMessage(text, cssClass, cb) {
+    if (state !== 'idle') { cancel(); resetEl(); }
+
+    state = 'fadeout';
+    animateOpacity(1, 0, FADE_MS, function() {
+      // Set scrolling text
+      el.textContent = text;
+      el.className = 'ticker-text ' + cssClass;
+      state = 'scrolling';
+      animateScroll(function() {
+        state = 'pause';
+        timer = setTimeout(function() {
+          // Reset to default, fade in
+          resetEl();
+          el.style.opacity = '0';
+          state = 'fadein';
+          animateOpacity(0, 1, FADE_MS, function() {
+            state = 'idle';
+            if (cb) cb();
+          });
+        }, PAUSE_MS);
+      });
+    });
+  }
+
+  // === Wisdom scheduling ===
+  function scheduleNextWisdom() {
+    timer = setTimeout(triggerWisdom, WISDOM_INTERVAL);
+  }
+
+  function triggerWisdom() {
+    if (wisdoms.length === 0) { scheduleNextWisdom(); return; }
+    var text = wisdoms[wisdomIdx % wisdoms.length];
+    wisdomIdx++;
+    scrollMessage(text, 'ticker-wisdom', scheduleNextWisdom);
+  }
+
+  // Load wisdoms from glossary
   onGlossaryReady(function(terms) {
     for (var i = 0; i < terms.length; i++) {
-      if (terms[i].funfact) {
-        wisdoms.push(terms[i].title + ': ' + terms[i].funfact);
-      }
+      if (terms[i].funfact) wisdoms.push(terms[i].title + ': ' + terms[i].funfact);
     }
     // Shuffle
     for (var j = wisdoms.length - 1; j > 0; j--) {
       var k = Math.floor(Math.random() * (j + 1));
       var tmp = wisdoms[j]; wisdoms[j] = wisdoms[k]; wisdoms[k] = tmp;
     }
-    if (wisdoms.length > 0) {
-      setTimeout(showWisdom, WISDOM_INTERVAL);
-    }
+    scheduleNextWisdom();
   });
 
-  function tickerFade(el, from, to, duration, cb) {
-    var start = null;
-    function step(ts) {
-      if (!start) start = ts;
-      var p = Math.min((ts - start) / duration, 1);
-      el.style.opacity = String(from + (to - from) * p);
-      if (p < 1) { requestAnimationFrame(step); }
-      else { if (cb) cb(); }
-    }
-    requestAnimationFrame(step);
-  }
-
-  function marquee(el, text, cb, cssClass) {
-    var container = el.parentNode;
-    var containerWidth = container.offsetWidth;
-
-    // Set text and make visible offscreen to measure
-    el.textContent = text;
-    el.className = 'ticker-text ' + (cssClass || 'ticker-wisdom');
-    el.style.opacity = '1';
-    el.style.width = 'auto';
-    el.style.right = 'auto';
-    el.style.left = containerWidth + 'px';
-
-    // Force reflow then measure actual text width
-    el.offsetHeight; // force reflow
-    var textWidth = el.scrollWidth || el.offsetWidth;
-
-    var startX = containerWidth;
-    var endX = -textWidth - 50;
-    var distance = startX - endX;
-    var speed = 80;
-    var duration = (distance / speed) * 1000;
-    var start = null;
-
-    function step(ts) {
-      if (!start) start = ts;
-      var p = Math.min((ts - start) / duration, 1);
-      var x = startX + (endX - startX) * p;
-      el.style.left = Math.round(x) + 'px';
-      if (p < 1) { requestAnimationFrame(step); }
-      else { if (cb) cb(); }
-    }
-    requestAnimationFrame(step);
-  }
-
-  function showWisdom() {
-    if (wisdoms.length === 0) return;
-    var text = wisdoms[wisdomIdx % wisdoms.length];
-    wisdomIdx++;
-
-    // 1. Fade out default text
-    tickerFade(tickerEl, 1, 0, 1500, function() {
-      // 2. Marquee scroll wisdom text
-      marquee(tickerEl, text, function() {
-        // 3. Pause 500ms after text exits left
-        setTimeout(function() {
-          // 4. Fade in default text
-          resetToDefault(function() {
-            setTimeout(showWisdom, WISDOM_INTERVAL);
-          });
-        }, 500);
-      });
-    });
-  }
-
-  function resetToDefault(cb) {
-    tickerEl.style.left = '0';
-    tickerEl.style.width = '';
-    tickerEl.style.right = '0';
-    tickerEl.textContent = defaultText;
-    tickerEl.className = 'ticker-text';
-    tickerEl.style.opacity = '0';
-    tickerFade(tickerEl, 0, 1, 1500, cb);
-  }
-
-  function showWisdomText(text, cssClass) {
-    tickerFade(tickerEl, 1, 0, 1500, function() {
-      marquee(tickerEl, text, function() {
-        setTimeout(function() {
-          resetToDefault();
-        }, 500);
-      }, cssClass);
-    });
-  }
-
-  // === Self-promo: at :00, :15, :30, :45 or click on label ===
-  // Promos loaded from external promos.js (KIOSK_PROMOS array)
-  var promos = (typeof KIOSK_PROMOS !== 'undefined') ? KIOSK_PROMOS : [
-    'korczis@gmail.com \u2022 linkedin.com/in/korcaktomas \u2022 S laskou vyrobil Tomas Korcak'
-  ];
-  var promoIdx = 0;
-
-  function showPromo() {
+  // === Promo scheduling: at :00, :15, :30, :45 ===
+  function triggerPromo() {
     var text = promos[promoIdx % promos.length];
     promoIdx++;
-    showWisdomText(text, 'ticker-promo');
+    scrollMessage(text, 'ticker-promo');
   }
 
-  // Schedule at :00, :15, :30, :45
   function schedulePromo() {
     var now = new Date();
     var min = now.getMinutes();
     var sec = now.getSeconds();
-    // Next quarter: 0, 15, 30, 45
-    var nextQuarter = (Math.floor(min / 15) + 1) * 15;
-    var msUntil = ((nextQuarter - min) * 60 - sec) * 1000;
-    if (msUntil <= 0) msUntil += 15 * 60 * 1000;
+    var nextQ = (Math.floor(min / 15) + 1) * 15;
+    var ms = ((nextQ - min) * 60 - sec) * 1000;
+    if (ms <= 0) ms += 15 * 60 * 1000;
     setTimeout(function() {
-      showPromo();
-      // Repeat every 15 min
-      setInterval(showPromo, 15 * 60 * 1000);
-    }, msUntil);
+      triggerPromo();
+      setInterval(triggerPromo, 15 * 60 * 1000);
+    }, ms);
   }
   schedulePromo();
 
-  // Click label to trigger promo
-  var tickerLabel = document.querySelector('.ticker-label');
-  if (tickerLabel) {
-    tickerLabel.style.cursor = 'pointer';
-    tickerLabel.onclick = function(e) {
-      e.stopPropagation();
-      showPromo();
-    };
+  // === Click handlers ===
+  var labelEl = document.querySelector('.ticker-label');
+  if (labelEl) {
+    labelEl.style.cursor = 'pointer';
+    labelEl.onclick = function(e) { e.stopPropagation(); triggerPromo(); };
+  }
+  var contentEl = document.querySelector('.ticker-content');
+  if (contentEl) {
+    contentEl.style.cursor = 'pointer';
+    contentEl.onclick = function() { triggerWisdom(); };
   }
 
-  // Click content to trigger wisdom
-  var tickerContent = document.querySelector('.ticker-content');
-  if (tickerContent) {
-    tickerContent.style.cursor = 'pointer';
-    tickerContent.onclick = function() { showWisdom(); };
-  }
-
-  // Console API for ticker
+  // === Console API ===
   window.ticker = {
-    showWisdom: function() { showWisdom(); return 'Triggering wisdom...'; },
-    showPromo: function() { showPromo(); return 'Triggering promo...'; },
-    scrollText: function(text) { showWisdomText(text || 'Test ticker text'); return 'Scrolling...'; },
-    setInterval: function(sec) { WISDOM_INTERVAL = sec * 1000; return 'Ticker interval: ' + sec + 's'; },
+    showWisdom: function() { triggerWisdom(); return 'Wisdom triggered'; },
+    showPromo: function() { triggerPromo(); return 'Promo triggered'; },
+    scrollText: function(text, cls) { scrollMessage(text || 'Test', cls || 'ticker-wisdom'); return 'Scrolling'; },
+    setInterval: function(s) { WISDOM_INTERVAL = s * 1000; return 'Interval: ' + s + 's'; },
+    state: function() { return state; },
     listWisdoms: function() {
-      for (var i = 0; i < Math.min(wisdoms.length, 20); i++) {
-        console.log(i + ': ' + wisdoms[i].substring(0, 80) + '...');
-      }
-      return wisdoms.length + ' wisdoms loaded';
+      wisdoms.slice(0, 20).forEach(function(w, i) { console.log(i + ': ' + w.substring(0, 80)); });
+      return wisdoms.length + ' wisdoms';
     },
     listPromos: function() {
-      for (var i = 0; i < promos.length; i++) {
-        console.log(i + ': ' + promos[i]);
-      }
+      promos.slice(0, 20).forEach(function(p, i) { console.log(i + ': ' + p.substring(0, 80)); });
       return promos.length + ' promos';
     },
     help: function() {
-      console.log('ticker.showWisdom()         \u2014 trigger wisdom now');
-      console.log('ticker.showPromo()          \u2014 trigger self-promo now');
-      console.log('ticker.scrollText("text")   \u2014 scroll custom text');
-      console.log('ticker.setInterval(30)      \u2014 set wisdom interval (sec)');
-      console.log('ticker.listWisdoms()        \u2014 list wisdoms');
-      console.log('ticker.listPromos()         \u2014 list promos');
+      console.log('ticker.showWisdom()        \u2014 trigger wisdom');
+      console.log('ticker.showPromo()         \u2014 trigger promo');
+      console.log('ticker.scrollText("text")  \u2014 scroll custom text');
+      console.log('ticker.setInterval(30)     \u2014 wisdom interval (sec)');
+      console.log('ticker.state()             \u2014 current state');
       return 'Ticker API';
     }
   };
