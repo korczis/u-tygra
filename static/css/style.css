@@ -259,6 +259,13 @@ body.kiosk-mode .foam-border::before {
   font-weight: 600;
 }
 
+#kiosk-container .kiosk-announcement {
+  color: #f7c46d;
+  font-size: clamp(1rem, 1.75vw, 1.5rem);
+  font-weight: 600;
+  font-style: italic;
+}
+
 /* View toggle button */
 #kiosk-container .kiosk-view-toggle {
   background: rgba(255, 255, 255, 0.05);
@@ -461,4 +468,121 @@ body.kiosk-mode .foam-border::before {
   font-size: clamp(0.7rem, 1vw, 0.9rem);
   color: rgba(149, 135, 87, 0.4);
   pointer-events: none;
+}
+
+/* ═══════ LARGE SCREEN / TV OPTIMIZATION (32"+, 1920px+) ═══════ */
+@media (min-width: 1920px) {
+  #kiosk-container {
+    padding: 3vh 3vw;
+  }
+
+  #kiosk-container .kiosk-title {
+    font-size: 4rem;
+  }
+
+  #kiosk-container .kiosk-live {
+    font-size: 1.5rem;
+  }
+
+  #kiosk-container .kiosk-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5vh 2vw;
+  }
+
+  #kiosk-container .kiosk-card {
+    padding: 3vh 2.5vw;
+    border-radius: 1.25rem;
+  }
+
+  #kiosk-container .kiosk-beer-name {
+    font-size: 2.25rem;
+  }
+
+  #kiosk-container .kiosk-price {
+    font-size: 2.25rem;
+  }
+
+  #kiosk-container .kiosk-brewery {
+    font-size: 1.75rem;
+  }
+
+  #kiosk-container .kiosk-style {
+    font-size: 1.25rem;
+    padding: 0.5vh 1.25vw;
+  }
+
+  #kiosk-container .kiosk-stats {
+    font-size: 1.25rem;
+  }
+
+  /* List view - larger for TV readability */
+  #kiosk-container .kiosk-list-header {
+    font-size: 1.1rem;
+    padding: 2vh 2.5vw;
+  }
+
+  #kiosk-container .kiosk-list-row {
+    padding: 2.5vh 2.5vw;
+  }
+
+  #kiosk-container .kiosk-col-name {
+    font-size: 2rem;
+  }
+
+  #kiosk-container .kiosk-col-brewery {
+    font-size: 1.75rem;
+  }
+
+  #kiosk-container .kiosk-col-style {
+    font-size: 1.5rem;
+  }
+
+  #kiosk-container .kiosk-col-abv {
+    font-size: 1.5rem;
+  }
+
+  #kiosk-container .kiosk-col-price {
+    font-size: 2rem;
+  }
+
+  #kiosk-container .kiosk-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  #kiosk-container .kiosk-view-toggle {
+    padding: 1rem;
+  }
+}
+
+/* ═══════ ULTRA-WIDE / 4K SCREENS (3840px+) ═══════ */
+@media (min-width: 3840px) {
+  #kiosk-container .kiosk-title {
+    font-size: 5rem;
+  }
+
+  #kiosk-container .kiosk-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 3vh 2.5vw;
+  }
+
+  #kiosk-container .kiosk-beer-name {
+    font-size: 3rem;
+  }
+
+  #kiosk-container .kiosk-price {
+    font-size: 3rem;
+  }
+
+  #kiosk-container .kiosk-brewery {
+    font-size: 2.25rem;
+  }
+
+  #kiosk-container .kiosk-col-name {
+    font-size: 2.75rem;
+  }
+
+  #kiosk-container .kiosk-col-price {
+    font-size: 2.75rem;
+  }
 }

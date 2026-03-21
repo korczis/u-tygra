@@ -396,7 +396,9 @@ class CSVWorkerManager {
     if (this.worker) return;
 
     try {
-      this.worker = new Worker(`${window.BASE_URL || ''}/js/csv-worker.js`);
+      // Use pathname from BASE_URL to get relative path for worker
+      const basePath = window.BASE_URL ? new URL(window.BASE_URL).pathname.replace(/\/$/, '') : '';
+      this.worker = new Worker(`${basePath}/js/csv-worker.js`);
       this.worker.onmessage = (e) => {
         const { id, type, data, error } = e.data;
         const callback = this.pendingCallbacks.get(id);
@@ -430,7 +432,6 @@ class CSVWorkerManager {
   }
 
   parseCSVFallback(csvText) {
-    // Original parsing logic as fallback
     const lines = csvText.split('\n').filter(l => l.trim());
     if (lines.length === 0) return { announcement: '', beers: [] };
 
@@ -439,9 +440,48 @@ class CSVWorkerManager {
       .filter(Boolean)
       .join(' ');
 
+    // Find header row
+    let headerIdx = -1;
+    for (let i = 0; i < lines.length; i++) {
+      const lower = lines[i].toLowerCase();
+      if (lower.includes('pivo') || lower.includes('pivovar') || lower.includes('n\u00e1zev')) {
+        headerIdx = i;
+        break;
+      }
+    }
+
+    function normalizeKey(h) {
+      const k = h.toLowerCase().trim();
+      if (k.includes('pivovar')) return 'pivovar';
+      if (k.includes('n\u00e1zev') || k.includes('name')) return 'nazev';
+      if (k.includes('styl') || k.includes('style')) return 'styl';
+      if (k.includes('alk') || k === '%') return 'abv';
+      if (k.includes('ibu')) return 'ibu';
+      if (k.includes('cena') || k.includes('price')) return 'cena';
+      return k;
+    }
+
     const beers = [];
-    // Simplified parsing for fallback
-    return { announcement, beers: beers.slice(0, 12) };
+    if (headerIdx >= 0) {
+      const rawHeaders = parseCSVLine(lines[headerIdx]);
+      const headers = rawHeaders.map(normalizeKey);
+      for (let i = headerIdx + 1; i < lines.length && beers.length < 12; i++) {
+        const cells = parseCSVLine(lines[i]);
+        const breweryIdx = headers.indexOf('pivovar');
+        const nameIdx = headers.indexOf('nazev');
+        const brewery = breweryIdx >= 0 ? (cells[breweryIdx] || '').trim() : '';
+        const name = nameIdx >= 0 ? (cells[nameIdx] || '').trim() : '';
+        if (!brewery && !name) continue;
+
+        const beer = {};
+        headers.forEach((h, idx) => {
+          if (h) beer[h] = (cells[idx] || '').trim();
+        });
+        beers.push(beer);
+      }
+    }
+
+    return { announcement, beers };
   }
 }
 
@@ -960,13 +1000,15 @@ function app() {
       // Header
       const header = document.createElement('div');
       header.className = 'kiosk-header';
+      // Note: announcement is already sanitized by sanitizeText() in CSV parser
       header.innerHTML = `
         <div class="kiosk-header-left">
-          <h1 class="kiosk-title">Nástěnka</h1>
+          <h1 class="kiosk-title">Pivnice U Tygra</h1>
           <div class="kiosk-live">
             <span class="live-dot"></span>
             <span>ŽIVĚ Z ČEPU</span>
           </div>
+          ${this.announcement ? `<div class="kiosk-announcement">${this.announcement}</div>` : ''}
         </div>
         <div class="kiosk-header-right">
           <button id="kiosk-toggle-view" class="kiosk-view-toggle" title="Přepnout zobrazení">
