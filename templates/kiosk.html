@@ -574,6 +574,12 @@ function loadBeers() {
     for (ti = 0; ti < thNames.length; ti++) {
       var th = document.createElement('th');
       th.textContent = thNames[ti];
+      if (ti === 0) {
+        th.style.cursor = 'pointer';
+        th.onclick = function() {
+          if (window.kiosk && window.kiosk.showTerm) window.kiosk.showTerm();
+        };
+      }
       headerRow.appendChild(th);
     }
     thead.appendChild(headerRow);
