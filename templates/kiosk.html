@@ -315,10 +315,8 @@ tbody tr:nth-child(odd) .td-num {
   background: #0a0704;
   z-index: 100;
   display: none;
-}
-
-.glossary-overlay.visible {
-  display: block;
+  opacity: 0;
+  filter: alpha(opacity=0);
 }
 
 .glossary-card {
@@ -757,6 +755,42 @@ function fitToScreen(beerCount) {
   }
 }
 
+// ES5 fade helpers (no CSS transitions — TV compatible)
+function fadeIn(el, duration, callback) {
+  el.style.display = 'block';
+  el.style.opacity = '0';
+  var start = null;
+  function step(ts) {
+    if (!start) start = ts;
+    var progress = Math.min((ts - start) / duration, 1);
+    el.style.opacity = String(progress);
+    el.style.filter = 'alpha(opacity=' + Math.round(progress * 100) + ')';
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      if (callback) callback();
+    }
+  }
+  requestAnimationFrame(step);
+}
+
+function fadeOut(el, duration, callback) {
+  var start = null;
+  function step(ts) {
+    if (!start) start = ts;
+    var progress = Math.min((ts - start) / duration, 1);
+    el.style.opacity = String(1 - progress);
+    el.style.filter = 'alpha(opacity=' + Math.round((1 - progress) * 100) + ')';
+    if (progress < 1) {
+      requestAnimationFrame(step);
+    } else {
+      el.style.display = 'none';
+      if (callback) callback();
+    }
+  }
+  requestAnimationFrame(step);
+}
+
 // Initial load
 loadBeers();
 
@@ -821,17 +855,18 @@ window.onresize = function() {
     elEn.style.display = term.en ? '' : 'none';
     elDesc.textContent = term.desc;
 
-    // Calculate reading time: ~5 words/sec + 2s base
+    // Calculate reading time: ~5 words/sec + 2s base, then 1.5x
     var text = term.title + ' ' + (term.en || '') + ' ' + term.desc;
     var wordCount = text.split(/\s+/).length;
     var readingMs = Math.max(DISPLAY, (wordCount / 5) * 1000 + 2000);
-
-    overlay.classList.add('visible');
+    readingMs = Math.round(readingMs * 1.5);
 
     if (timer) clearTimeout(timer);
-    setTimeout(function() {
-      overlay.classList.remove('visible');
-    }, readingMs);
+    fadeIn(overlay, 800, function() {
+      setTimeout(function() {
+        fadeOut(overlay, 800);
+      }, readingMs);
+    });
     timer = setTimeout(showRandomTerm, INTERVAL);
 
     return term.title + (term.en ? ' (' + term.en + ')' : '');
