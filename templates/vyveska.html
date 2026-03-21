@@ -108,7 +108,7 @@ body {
 .table-wrap {
   flex: 1;
   overflow: hidden;
-  padding: 0 3vw;
+  padding: 0 1.5vw;
   display: flex;
   flex-direction: column;
 }
@@ -159,8 +159,8 @@ tbody td {
 .td-num {
   font-size: 3vmin;
   font-weight: 700;
-  color: rgba(240,140,15,0.4);
-  padding-right: 1.5vw;
+  color: #f08c0f;
+  padding-right: 2.5vw;
   width: 3vw;
   text-align: center;
   white-space: nowrap;
@@ -212,6 +212,37 @@ tbody td {
   font-size: 3vmin;
 }
 
+/* Mobile first: hide less important columns on small screens */
+@media (max-width: 600px) {
+  .table-wrap { padding: 0 2vw; }
+  .td-style, .td-abv,
+  col.col-style, col.col-abv,
+  thead th:nth-child(4), thead th:nth-child(5) {
+    display: none;
+  }
+  col.col-num { width: 8%; }
+  col.col-name { width: 40%; }
+  col.col-brewery { width: 27%; }
+  col.col-price { width: 25%; }
+  .td-num { font-size: 4vw; }
+  .td-name { font-size: 5vw; }
+  .td-brewery { font-size: 4vw; white-space: normal; }
+  .td-price { font-size: 5vw; }
+  thead th { font-size: 2.5vw; padding: 1.5vh 0 1vh; }
+  .announcement { font-size: 3.5vw; padding: 1vh 3vw; }
+}
+
+/* Tablet */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .td-num { font-size: 2.5vmin; }
+  .td-name { font-size: 3.5vmin; }
+  .td-brewery { font-size: 2.8vmin; }
+  .td-style { font-size: 2.2vmin; }
+  .td-abv { font-size: 2.5vmin; }
+  .td-price { font-size: 3.5vmin; }
+}
+
+/* Large TV (1920px+) */
 @media (min-width: 1920px) {
   .td-num { font-size: 2rem; }
   .td-name, .td-price { font-size: 3rem; }
