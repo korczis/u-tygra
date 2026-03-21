@@ -1,10 +1,7 @@
 /**
  * Admin Panel - Pivnice U Tygra
- * Firebase-ready admin interface for managing photos, events, and food menu.
- * Currently uses localStorage as fallback until Firebase is configured.
- *
- * Firebase setup: Add your config to window.FIREBASE_CONFIG before this script loads,
- * or configure in zola.toml [extra.firebase_*] fields.
+ * Firebase-powered admin interface for managing photos, events, and food menu.
+ * Falls back to localStorage when Firebase is not available.
  */
 
 const STORAGE_PREFIX = 'utygra_admin_';
@@ -20,8 +17,8 @@ function adminApp() {
     tabs: [
       { id: 'photos', label: 'Fotografie' },
       { id: 'events', label: 'Akce' },
-      { id: 'food', label: 'Jidelni listek' },
-      { id: 'settings', label: 'Nastaveni' },
+      { id: 'food', label: 'Jídelní lístek' },
+      { id: 'settings', label: 'Nastavení' },
     ],
 
     // Photos
@@ -51,24 +48,24 @@ function adminApp() {
 
     get filteredPhotos() {
       if (this.photoCategoryFilter === 'all') return this.photos;
-      return this.photos.filter(p => p.category === this.photoCategoryFilter);
+      return this.photos.filter(function(p) { return p.category === this.photoCategoryFilter; }.bind(this));
     },
 
     init() {
       this._initFirebase();
-      this._loadLocalData();
     },
 
     // === Auth ===
 
     async signIn() {
       if (this.firebaseConnected && window._firebaseAuth) {
-        const { GoogleAuthProvider, signInWithPopup } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js');
-        const provider = new GoogleAuthProvider();
+        var { GoogleAuthProvider, signInWithPopup } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js');
+        var provider = new GoogleAuthProvider();
         try {
-          const result = await signInWithPopup(window._firebaseAuth, provider);
+          var result = await signInWithPopup(window._firebaseAuth, provider);
           this.authUser = { email: result.user.email, uid: result.user.uid };
           this._saveLocal('auth', this.authUser);
+          await this._loadFirestoreData();
         } catch (e) {
           console.error('Firebase auth error:', e);
           this._fallbackAuth();
@@ -79,9 +76,9 @@ function adminApp() {
     },
 
     _fallbackAuth() {
-      // Local-only auth for development
       this.authUser = { email: 'local@admin', uid: 'local' };
       this._saveLocal('auth', this.authUser);
+      this._loadLocalData();
     },
 
     signOut() {
@@ -95,76 +92,134 @@ function adminApp() {
     // === Firebase Init ===
 
     async _initFirebase() {
-      const config = window.FIREBASE_CONFIG;
+      var config = window.FIREBASE_CONFIG;
       if (!config) {
         console.log('Firebase not configured — using localStorage fallback');
-        // Auto-login from saved session
-        const saved = this._loadLocal('auth');
-        if (saved) this.authUser = saved;
+        var saved = this._loadLocal('auth');
+        if (saved) {
+          this.authUser = saved;
+          this._loadLocalData();
+        }
         return;
       }
 
       try {
-        const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js');
-        const { getAuth, onAuthStateChanged } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js');
-        const { getFirestore } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js');
-        const { getStorage } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js');
+        var { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js');
+        var { getAuth, onAuthStateChanged } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js');
+        var { getFirestore } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js');
+        var { getStorage } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js');
 
-        const app = initializeApp(config);
+        var app = initializeApp(config);
         window._firebaseAuth = getAuth(app);
         window._firebaseDb = getFirestore(app);
         window._firebaseStorage = getStorage(app);
         this.firebaseConnected = true;
 
-        onAuthStateChanged(window._firebaseAuth, (user) => {
+        onAuthStateChanged(window._firebaseAuth, async (user) => {
           if (user) {
             this.authUser = { email: user.email, uid: user.uid };
+            this._saveLocal('auth', this.authUser);
+            await this._loadFirestoreData();
           } else {
             this.authUser = null;
           }
         });
       } catch (e) {
         console.error('Firebase init failed:', e);
-        const saved = this._loadLocal('auth');
-        if (saved) this.authUser = saved;
+        var saved = this._loadLocal('auth');
+        if (saved) {
+          this.authUser = saved;
+          this._loadLocalData();
+        }
+      }
+    },
+
+    // === Firestore CRUD ===
+
+    async _loadFirestoreData() {
+      if (!this.firebaseConnected || !window._firebaseDb) {
+        this._loadLocalData();
+        return;
+      }
+
+      try {
+        var { collection, getDocs, orderBy, query } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js');
+        var db = window._firebaseDb;
+
+        // Load photos
+        var photosSnap = await getDocs(query(collection(db, 'photos'), orderBy('createdAt', 'desc')));
+        this.photos = photosSnap.docs.map(function(doc) { return Object.assign({ id: doc.id }, doc.data()); });
+
+        // Load events
+        var eventsSnap = await getDocs(query(collection(db, 'events'), orderBy('date', 'asc')));
+        this.events = eventsSnap.docs.map(function(doc) { return Object.assign({ id: doc.id }, doc.data()); });
+
+        // Load food
+        var foodSnap = await getDocs(collection(db, 'food'));
+        var foodData = foodSnap.docs.map(function(doc) { return Object.assign({ id: doc.id }, doc.data()); });
+        this.foodItems = foodData.length > 0 ? foodData : this._defaultFood();
+
+        // Sync to localStorage as backup
+        this._saveLocal('photos', this.photos);
+        this._saveLocal('events', this.events);
+        this._saveLocal('food', this.foodItems);
+      } catch (e) {
+        console.warn('Firestore load failed, using localStorage:', e);
+        this._loadLocalData();
+      }
+    },
+
+    async _firestoreSave(collectionName, id, data) {
+      if (!this.firebaseConnected || !window._firebaseDb) return;
+
+      try {
+        var { doc, setDoc } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js');
+        await setDoc(doc(window._firebaseDb, collectionName, id), data);
+      } catch (e) {
+        console.error('Firestore save error:', e);
+      }
+    },
+
+    async _firestoreDelete(collectionName, id) {
+      if (!this.firebaseConnected || !window._firebaseDb) return;
+
+      try {
+        var { doc, deleteDoc } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js');
+        await deleteDoc(doc(window._firebaseDb, collectionName, id));
+      } catch (e) {
+        console.error('Firestore delete error:', e);
       }
     },
 
     // === Photos ===
 
     async handlePhotoUpload(event) {
-      const files = event.target.files;
+      var files = event.target.files;
       if (!files.length) return;
 
       this.uploading = true;
 
-      for (const file of files) {
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i];
         try {
-          if (this.firebaseConnected && window._firebaseStorage) {
-            // Firebase Storage upload
-            const { ref, uploadBytes, getDownloadURL } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js');
-            const storageRef = ref(window._firebaseStorage, `photos/${Date.now()}_${file.name}`);
-            const snapshot = await uploadBytes(storageRef, file);
-            const url = await getDownloadURL(snapshot.ref);
+          var photo = {
+            id: Date.now().toString() + '_' + i,
+            alt: file.name.replace(/\.[^.]+$/, ''),
+            category: 'interior',
+            createdAt: new Date().toISOString(),
+          };
 
-            this.photos.push({
-              id: Date.now().toString(),
-              url: url,
-              alt: file.name.replace(/\.[^.]+$/, ''),
-              category: 'interior',
-              createdAt: new Date().toISOString(),
-            });
+          if (this.firebaseConnected && window._firebaseStorage) {
+            var { ref, uploadBytes, getDownloadURL } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js');
+            var storageRef = ref(window._firebaseStorage, 'photos/' + photo.id + '_' + file.name);
+            var snapshot = await uploadBytes(storageRef, file);
+            photo.url = await getDownloadURL(snapshot.ref);
           } else {
-            // Local fallback — convert to data URL
-            const url = await this._fileToDataUrl(file);
-            this.photos.push({
-              id: Date.now().toString(),
-              url: url,
-              alt: file.name.replace(/\.[^.]+$/, ''),
-              category: 'interior',
-              createdAt: new Date().toISOString(),
-            });
+            photo.url = await this._fileToDataUrl(file);
           }
+
+          this.photos.unshift(photo);
+          await this._firestoreSave('photos', photo.id, photo);
         } catch (e) {
           console.error('Photo upload error:', e);
         }
@@ -176,38 +231,54 @@ function adminApp() {
     },
 
     _fileToDataUrl(file) {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result);
+      return new Promise(function(resolve, reject) {
+        var reader = new FileReader();
+        reader.onload = function() { resolve(reader.result); };
         reader.onerror = reject;
         reader.readAsDataURL(file);
       });
     },
 
-    editPhoto(photo) {
-      const newCategory = prompt('Kategorie (interior, beer, food, events, salonek):', photo.category);
-      if (newCategory && this.photoCategories.some(c => c.id === newCategory)) {
+    async editPhoto(photo) {
+      var newCategory = prompt('Kategorie (interior, beer, food, events, salonek):', photo.category);
+      if (newCategory && this.photoCategories.some(function(c) { return c.id === newCategory; })) {
         photo.category = newCategory;
         this._saveLocal('photos', this.photos);
+        await this._firestoreSave('photos', photo.id, photo);
       }
     },
 
-    deletePhoto(photo) {
+    async deletePhoto(photo) {
       if (confirm('Opravdu smazat tuto fotku?')) {
-        this.photos = this.photos.filter(p => p.id !== photo.id);
+        this.photos = this.photos.filter(function(p) { return p.id !== photo.id; });
         this._saveLocal('photos', this.photos);
+        await this._firestoreDelete('photos', photo.id);
+
+        // Delete from Storage
+        if (this.firebaseConnected && window._firebaseStorage && photo.url && photo.url.includes('firebase')) {
+          try {
+            var { ref, deleteObject } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js');
+            var storageRef = ref(window._firebaseStorage, 'photos/' + photo.id);
+            await deleteObject(storageRef);
+          } catch (e) {
+            console.warn('Storage delete failed:', e);
+          }
+        }
       }
     },
 
     // === Events ===
 
-    saveEvent() {
+    async saveEvent() {
       if (!this.eventForm.title || !this.eventForm.date) return;
 
       if (this.editingEvent) {
         Object.assign(this.editingEvent, this.eventForm);
+        await this._firestoreSave('events', this.editingEvent.id, this.editingEvent);
       } else {
-        this.events.push({ ...this.eventForm, id: Date.now().toString() });
+        var newEvent = Object.assign({}, this.eventForm, { id: Date.now().toString() });
+        this.events.push(newEvent);
+        await this._firestoreSave('events', newEvent.id, newEvent);
       }
 
       this._saveLocal('events', this.events);
@@ -216,14 +287,15 @@ function adminApp() {
 
     editEvent(event) {
       this.editingEvent = event;
-      this.eventForm = { ...event };
+      this.eventForm = Object.assign({}, event);
       this.showEventForm = true;
     },
 
-    deleteEvent(event) {
+    async deleteEvent(event) {
       if (confirm('Opravdu smazat tuto akci?')) {
-        this.events = this.events.filter(e => e.id !== event.id);
+        this.events = this.events.filter(function(e) { return e.id !== event.id; });
         this._saveLocal('events', this.events);
+        await this._firestoreDelete('events', event.id);
       }
     },
 
@@ -235,13 +307,20 @@ function adminApp() {
 
     // === Food ===
 
-    saveFood() {
+    async saveFood() {
       if (!this.foodForm.name || !this.foodForm.price) return;
 
       if (this.editingFood) {
         Object.assign(this.editingFood, this.foodForm);
+        this.editingFood.price = parseInt(this.editingFood.price, 10);
+        await this._firestoreSave('food', this.editingFood.id, this.editingFood);
       } else {
-        this.foodItems.push({ ...this.foodForm, id: Date.now().toString(), price: parseInt(this.foodForm.price, 10) });
+        var newItem = Object.assign({}, this.foodForm, {
+          id: Date.now().toString(),
+          price: parseInt(this.foodForm.price, 10),
+        });
+        this.foodItems.push(newItem);
+        await this._firestoreSave('food', newItem.id, newItem);
       }
 
       this._saveLocal('food', this.foodItems);
@@ -250,14 +329,16 @@ function adminApp() {
 
     editFoodItem(item) {
       this.editingFood = item;
-      this.foodForm = { ...item };
+      this.foodForm = Object.assign({}, item);
       this.showFoodForm = true;
     },
 
-    deleteFoodItem(item) {
-      if (confirm('Opravdu smazat tuto polozku?')) {
-        this.foodItems = this.foodItems.filter(f => f.id !== (item.id || item.name));
+    async deleteFoodItem(item) {
+      if (confirm('Opravdu smazat tuto položku?')) {
+        var itemId = item.id || item.name;
+        this.foodItems = this.foodItems.filter(function(f) { return f.id !== itemId; });
         this._saveLocal('food', this.foodItems);
+        await this._firestoreDelete('food', itemId);
       }
     },
 
@@ -279,7 +360,7 @@ function adminApp() {
 
     _loadLocal(key) {
       try {
-        const data = localStorage.getItem(STORAGE_PREFIX + key);
+        var data = localStorage.getItem(STORAGE_PREFIX + key);
         return data ? JSON.parse(data) : null;
       } catch (e) {
         return null;
@@ -289,28 +370,25 @@ function adminApp() {
     _loadLocalData() {
       this.photos = this._loadLocal('photos') || [];
       this.events = this._loadLocal('events') || [];
+      var savedFood = this._loadLocal('food');
+      this.foodItems = (savedFood && savedFood.length > 0) ? savedFood : this._defaultFood();
+    },
 
-      // Load food from localStorage or use defaults from main app
-      const savedFood = this._loadLocal('food');
-      if (savedFood && savedFood.length > 0) {
-        this.foodItems = savedFood;
-      } else {
-        // Default food items matching app.js
-        this.foodItems = [
-          { id: '1', name: 'Utopenci', desc: 'Domaci, pikantni', weight: '150g', price: 89, category: 'cold' },
-          { id: '2', name: 'Tlacenka s cibuli', desc: 'S octem a chlebem', weight: '200g', price: 79, category: 'cold' },
-          { id: '3', name: 'Chlebicky', desc: 'Mix 3ks', weight: '250g', price: 99, category: 'cold' },
-          { id: '4', name: 'Nakládaný hermelín', desc: 'V oleji s kořením', weight: '150g', price: 89, category: 'cold' },
-          { id: '5', name: 'Pivní sýr', desc: 'Olomoucké tvarůžky', weight: '100g', price: 69, category: 'cold' },
-          { id: '6', name: 'Studená mísa', desc: 'Mix šunky, sýru, zeleniny', weight: '300g', price: 159, category: 'cold' },
-          { id: '7', name: 'Smažený sýr', desc: 'S hranolkami a tatarkou', weight: '150g', price: 139, category: 'warm' },
-          { id: '8', name: 'Klobása', desc: 'Grilovana s hořčicí a chlebem', weight: '200g', price: 109, category: 'warm' },
-          { id: '9', name: 'Topinky', desc: 'S česnekem nebo pomazánkou', weight: '200g', price: 79, category: 'warm' },
-          { id: '10', name: 'Bramborák', desc: 'Domácí, křupavý', weight: '200g', price: 89, category: 'warm' },
-          { id: '11', name: 'Párek v rohlíku', desc: 'Klasika s hořčicí', weight: '150g', price: 59, category: 'warm' },
-          { id: '12', name: 'Hovězí guláš', desc: 'S houskovým knedlíkem', weight: '300g', price: 149, category: 'warm' },
-        ];
-      }
+    _defaultFood() {
+      return [
+        { id: '1', name: 'Utopenci', desc: 'Domácí, pikantní', weight: '150g', price: 89, category: 'cold' },
+        { id: '2', name: 'Tlačenka s cibulí', desc: 'S octem a chlebem', weight: '200g', price: 79, category: 'cold' },
+        { id: '3', name: 'Chlebíčky', desc: 'Mix 3ks', weight: '250g', price: 99, category: 'cold' },
+        { id: '4', name: 'Nakládaný hermelín', desc: 'V oleji s kořením', weight: '150g', price: 89, category: 'cold' },
+        { id: '5', name: 'Pivní sýr', desc: 'Olomoucké tvarůžky', weight: '100g', price: 69, category: 'cold' },
+        { id: '6', name: 'Studená mísa', desc: 'Mix šunky, sýru, zeleniny', weight: '300g', price: 159, category: 'cold' },
+        { id: '7', name: 'Smažený sýr', desc: 'S hranolkami a tatarkou', weight: '150g', price: 139, category: 'warm' },
+        { id: '8', name: 'Klobása', desc: 'Grilovaná s hořčicí a chlebem', weight: '200g', price: 109, category: 'warm' },
+        { id: '9', name: 'Topinky', desc: 'S česnekem nebo pomazánkou', weight: '200g', price: 79, category: 'warm' },
+        { id: '10', name: 'Bramborák', desc: 'Domácí, křupavý', weight: '200g', price: 89, category: 'warm' },
+        { id: '11', name: 'Párek v rohlíku', desc: 'Klasika s hořčicí', weight: '150g', price: 59, category: 'warm' },
+        { id: '12', name: 'Hovězí guláš', desc: 'S houskovým knedlíkem', weight: '300g', price: 149, category: 'warm' },
+      ];
     },
   };
 }
