@@ -809,12 +809,17 @@ window.onresize = function() {
     elEn.style.display = term.en ? '' : 'none';
     elDesc.textContent = term.desc;
 
+    // Calculate reading time: ~3 words/sec for slow reader + base time
+    var text = term.title + ' ' + (term.en || '') + ' ' + term.desc;
+    var wordCount = text.split(/\s+/).length;
+    var readingMs = Math.max(DISPLAY, (wordCount / 3) * 1000 + 3000);
+
     overlay.classList.add('visible');
 
     if (timer) clearTimeout(timer);
     setTimeout(function() {
       overlay.classList.remove('visible');
-    }, DISPLAY);
+    }, readingMs);
     timer = setTimeout(showRandomTerm, INTERVAL);
 
     return term.title + (term.en ? ' (' + term.en + ')' : '');
