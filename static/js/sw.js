@@ -4,7 +4,7 @@
  * AIAD Alpha Squad PWA Core
  */
 
-const CACHE_NAME = 'u-tygra-v3.0.0';
+const CACHE_NAME = 'u-tygra-v4.0.0';
 const RUNTIME_CACHE = 'runtime-v3';
 
 // Static assets to cache - use relative paths for subdirectory deployments
