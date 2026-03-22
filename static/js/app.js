@@ -634,15 +634,40 @@ function app() {
     isOnline: navigator.onLine,
 
     // Navigation with section metadata for OG tags
+    // Firebase public data
+    aktualityEvents: [],
+    firebaseFoodItems: [],
+    firebasePhotos: [],
+
     navItems: [
       { id: 'home', href: '#home', label: 'Domů', title: 'Pivnice U Tygra', desc: 'Budvar & řemeslná piva u Lužánek. Brno.' },
+      { id: 'aktuality', href: '#aktuality', label: 'Aktuality', title: 'Aktuality – Pivnice U Tygra', desc: 'Akce, novinky a speciální nabídky.' },
+      { id: 'o-nas', href: '#o-nas', label: 'O pivnici', title: 'O pivnici – Pivnice U Tygra', desc: 'Vaše oblíbená pivnice u Lužánek v centru Brna.' },
       { id: 'na-cepu', href: '#na-cepu', label: 'Na čepu', title: 'Na čepu – Pivnice U Tygra', desc: 'Živá nabídka čepovaných piv. Budvar, řemeslná piva a speciály.' },
-      { id: 'jidlo', href: '#jidlo', label: 'Jídlo', title: 'Jídlo – Pivnice U Tygra', desc: 'Tradiční české pochutiny. Chlebíčky, utopené, tlačenka a další.' },
+      { id: 'jidlo', href: '#jidlo', label: 'Menu', title: 'Menu – Pivnice U Tygra', desc: 'Jídelní a nápojový lístek. Chlebíčky, utopené, tlačenka a další.' },
       { id: 'salonek', href: '#salonek', label: 'Salónek', title: 'Salónek – Pivnice U Tygra', desc: 'Soukromý salónek pro oslavy a firemní akce. Kapacita 20 osob.' },
+      { id: 'rezervace', href: '#rezervace', label: 'Rezervace', title: 'Rezervace – Pivnice U Tygra', desc: 'Zarezervujte si stůl nebo salónek.' },
       { id: 'galerie', href: '#galerie', label: 'Galerie', title: 'Galerie – Pivnice U Tygra', desc: 'Atmosféra Pivnice U Tygra. Interiér, bar, zahrádka.' },
       { id: 'glosar', href: (window.BASE_URL || '') + '/glosar/', label: 'Glosář', title: 'Glosář pivních pojmů', desc: '100+ pivních pojmů od ABV po Žatecký chmel.', external: true },
       { id: 'kontakt', href: '#kontakt', label: 'Kontakt', title: 'Kontakt – Pivnice U Tygra', desc: 'Vrchlického sad 1893/3, Brno. Otevřeno denně 16:00–24:00.' },
       { id: 'kiosk', href: (window.BASE_URL || '') + '/kiosk/', label: 'Kiosk', title: 'Na čepu – Kiosk', desc: 'Živá pivní tabule pro display.', external: true },
+    ],
+
+    // Drink menu items (non-beer beverages)
+    drinkItems: [
+      { name: 'Kofola', desc: 'Originál, čepovaná', volume: '0,3 l', price: 35 },
+      { name: 'Kofola', desc: 'Originál, čepovaná', volume: '0,5 l', price: 45 },
+      { name: 'Coca-Cola', desc: '', volume: '0,33 l', price: 40 },
+      { name: 'Sprite', desc: '', volume: '0,33 l', price: 40 },
+      { name: 'Džus', desc: 'Pomeranč / Jablko', volume: '0,2 l', price: 35 },
+      { name: 'Minerální voda', desc: 'Perlivá / Neperlivá', volume: '0,33 l', price: 30 },
+      { name: 'Fernet Stock', desc: 'Hořký bylinný likér', volume: '0,04 l', price: 45 },
+      { name: 'Becherovka', desc: 'Originál', volume: '0,04 l', price: 45 },
+      { name: 'Slivovice', desc: 'Moravská', volume: '0,04 l', price: 50 },
+      { name: 'Víno bílé', desc: 'Dle aktuální nabídky', volume: '0,2 l', price: 50 },
+      { name: 'Víno červené', desc: 'Dle aktuální nabídky', volume: '0,2 l', price: 50 },
+      { name: 'Espresso', desc: '', volume: '', price: 45 },
+      { name: 'Čaj', desc: 'Výběr druhů', volume: '', price: 35 },
     ],
 
     // Known brewery URLs
@@ -989,6 +1014,14 @@ function app() {
     ],
 
     get filteredFood() {
+      if (this.firebaseFoodItems.length > 0) {
+        // Firebase has all items (cold, warm, drinks) in one collection
+        return this.firebaseFoodItems.filter(i => i.category === this.activeFoodTab);
+      }
+      // Fallback to hardcoded data
+      if (this.activeFoodTab === 'drinks') {
+        return this.drinkItems;
+      }
       return this.foodItems.filter(i => i.cat === this.activeFoodTab);
     },
 
@@ -1165,6 +1198,9 @@ function app() {
 
       // Fetch live beer data first
       await this.refreshBeerData();
+
+      // Load public data from Firebase (events, food, photos)
+      this.loadFirebaseData();
 
       // Kiosk mode setup - create dedicated fullscreen UI
       // See .aiad/doctrine/kiosk-fortress.doctrine.md
@@ -1578,6 +1614,47 @@ function app() {
         max: Math.max(...prices),
         avg: Math.round(prices.reduce((a, b) => a + b, 0) / prices.length)
       };
+    },
+
+    /**
+     * Load public data from Firebase (events, food, photos)
+     * No auth required — Firestore rules allow public read
+     */
+    async loadFirebaseData() {
+      const config = window.FIREBASE_CONFIG;
+      if (!config) return;
+
+      try {
+        const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js');
+        const { getFirestore, collection, getDocs, query, orderBy } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js');
+
+        const app = initializeApp(config, 'public-reader');
+        const db = getFirestore(app);
+
+        // Load events → aktuality
+        const eventsSnap = await getDocs(query(collection(db, 'events'), orderBy('date', 'asc')));
+        const allEvents = eventsSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        const now = new Date();
+        const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+        this.aktualityEvents = allEvents
+          .filter(e => !e.date || new Date(e.date) >= weekAgo)
+          .slice(0, 6);
+
+        // Load food items (override hardcoded if Firebase has data)
+        const foodSnap = await getDocs(collection(db, 'food'));
+        const firebaseFood = foodSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        if (firebaseFood.length > 0) {
+          this.firebaseFoodItems = firebaseFood;
+        }
+
+        // Load photos for gallery
+        const photosSnap = await getDocs(query(collection(db, 'photos'), orderBy('createdAt', 'desc')));
+        this.firebasePhotos = photosSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+        console.log(`Firebase loaded: ${allEvents.length} events, ${firebaseFood.length} food, ${this.firebasePhotos.length} photos`);
+      } catch (e) {
+        console.warn('Firebase public read failed:', e.message);
+      }
     },
 
     /**
