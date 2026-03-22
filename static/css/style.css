@@ -611,6 +611,22 @@ body.kiosk-mode .foam-border::before {
   height: 50vh;
 }
 
+/* Kiosk skeleton loading */
+@keyframes kiosk-skeleton-fade {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+#kiosk-container .kiosk-skeleton-card,
+#kiosk-container .kiosk-skeleton-row {
+  animation: kiosk-skeleton-fade 1.8s ease-in-out infinite;
+}
+#kiosk-container .kiosk-skeleton-card .skeleton,
+#kiosk-container .kiosk-skeleton-row .skeleton {
+  background: linear-gradient(90deg, rgba(149,135,87,0.08) 25%, rgba(240,140,15,0.12) 50%, rgba(149,135,87,0.08) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
 /* Scrollbar for kiosk */
 #kiosk-container .kiosk-content::-webkit-scrollbar {
   width: 6px;

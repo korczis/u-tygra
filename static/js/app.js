@@ -1467,9 +1467,53 @@ function app() {
     // Fingerprint of last rendered kiosk data (skip re-render when unchanged)
     _kioskDataFingerprint: '',
 
+    _buildKioskSkeleton: function() {
+      var i, rows = '';
+      var count = 6;
+
+      if (this.kioskView === 'list') {
+        // Skeleton list: header + shimmer rows
+        rows = '<div class="kiosk-list">' +
+          '<div class="kiosk-list-header">' +
+            '<span class="kiosk-col-name">Název</span>' +
+            '<span class="kiosk-col-brewery">Pivovar</span>' +
+            '<span class="kiosk-col-style">Styl</span>' +
+            '<span class="kiosk-col-abv">Alk.</span>' +
+            '<span class="kiosk-col-price">Cena</span>' +
+          '</div>';
+        for (i = 0; i < count; i++) {
+          rows += '<div class="kiosk-list-row kiosk-skeleton-row" style="animation-delay:' + (i * 0.1) + 's">' +
+            '<span class="kiosk-col-name"><span class="skeleton" style="width:' + (55 + (i * 7) % 30) + '%;height:1.5em;display:block"></span></span>' +
+            '<span class="kiosk-col-brewery"><span class="skeleton" style="width:' + (50 + (i * 11) % 35) + '%;height:1.2em;display:block"></span></span>' +
+            '<span class="kiosk-col-style"><span class="skeleton" style="width:' + (40 + (i * 13) % 40) + '%;height:1.2em;display:block"></span></span>' +
+            '<span class="kiosk-col-abv"><span class="skeleton" style="width:60%;height:1.2em;display:block"></span></span>' +
+            '<span class="kiosk-col-price"><span class="skeleton" style="width:50%;height:1.5em;display:block;margin-left:auto"></span></span>' +
+          '</div>';
+        }
+        return rows + '</div>';
+      }
+
+      // Skeleton grid: shimmer cards
+      rows = '<div class="kiosk-grid">';
+      for (i = 0; i < count; i++) {
+        rows += '<div class="kiosk-card kiosk-skeleton-card" style="animation-delay:' + (i * 0.08) + 's">' +
+          '<div class="kiosk-card-top">' +
+            '<div class="skeleton" style="width:' + (50 + (i * 9) % 35) + '%;height:1.8em"></div>' +
+            '<div class="skeleton" style="width:4em;height:1.8em"></div>' +
+          '</div>' +
+          '<div style="margin-bottom:1vh"><div class="skeleton" style="width:' + (35 + (i * 11) % 30) + '%;height:1.3em"></div></div>' +
+          '<div class="kiosk-card-bottom">' +
+            '<div class="skeleton" style="width:5em;height:1.6em;border-radius:0.375rem"></div>' +
+            '<div class="skeleton" style="width:4em;height:1.2em"></div>' +
+          '</div>' +
+        '</div>';
+      }
+      return rows + '</div>';
+    },
+
     _buildKioskHTML: function() {
       if (this.liveBeers.length === 0) {
-        return '<div class="kiosk-empty">Načítám nabídku...</div>';
+        return this._buildKioskSkeleton();
       }
 
       if (this.kioskView === 'list') {
