@@ -24,7 +24,7 @@
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-12">
       <span class="text-tiger-500 text-xs font-bold tracking-[0.3em] uppercase">Encyklopedie</span>
-      <h1 class="text-4xl md:text-5xl font-bold text-white mt-3 mb-4">Glosář pivních pojmů</h1>
+      <h1 class="text-2xl sm:text-3xl md:text-5xl font-bold text-white mt-3 mb-4">Glosář pivních pojmů</h1>
       <p class="text-brew-400 max-w-2xl mx-auto text-lg">
         {{ section.pages | length }} pojmů ze světa piva — od základů po pokročilé pivovarnické termíny.
       </p>
@@ -32,10 +32,10 @@
 
     <!-- Category filter -->
     <div class="flex flex-wrap justify-center gap-2 mb-10" role="group" aria-label="Filtr kategorií">
-      <button @click="filter = 'all'" :aria-pressed="(filter === 'all').toString()" :class="filter === 'all' ? 'bg-tiger-500/20 text-tiger-400 ring-1 ring-tiger-500/30' : 'glass text-brew-300 hover:text-white'" class="px-4 py-1.5 rounded-lg text-sm font-medium transition-all">Vše</button>
+      <button @click="filter = 'all'" :aria-pressed="(filter === 'all').toString()" :class="filter === 'all' ? 'bg-tiger-500/20 text-tiger-400 ring-1 ring-tiger-500/30' : 'glass text-brew-300 hover:text-white'" class="px-4 py-2.5 rounded-lg text-sm font-medium transition-all min-h-[44px] flex items-center">Vše</button>
       {% set categories = ["zaklady", "suroviny", "vyroba", "servirovani", "styly", "chmely", "kultura"] %}
       {% for cat in categories %}
-      <button @click="filter = '{{ cat }}'" :aria-pressed="(filter === '{{ cat }}').toString()" :class="filter === '{{ cat }}' ? 'bg-tiger-500/20 text-tiger-400 ring-1 ring-tiger-500/30' : 'glass text-brew-300 hover:text-white'" class="px-4 py-1.5 rounded-lg text-sm font-medium transition-all capitalize">
+      <button @click="filter = '{{ cat }}'" :aria-pressed="(filter === '{{ cat }}').toString()" :class="filter === '{{ cat }}' ? 'bg-tiger-500/20 text-tiger-400 ring-1 ring-tiger-500/30' : 'glass text-brew-300 hover:text-white'" class="px-4 py-2.5 rounded-lg text-sm font-medium transition-all min-h-[44px] flex items-center capitalize">
         {% if cat == "zaklady" %}Základy{% elif cat == "suroviny" %}Suroviny{% elif cat == "vyroba" %}Výroba{% elif cat == "servirovani" %}Servírování{% elif cat == "styly" %}Styly{% elif cat == "chmely" %}Chmely{% elif cat == "kultura" %}Kultura{% endif %}
       </button>
       {% endfor %}

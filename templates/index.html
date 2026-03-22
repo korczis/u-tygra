@@ -94,13 +94,13 @@ window.FIREBASE_CONFIG = {
         </button>
         <div x-show="openGroup === 'uvod'" x-transition class="pl-4 space-y-1">
           <a href="#home" @click="mobileMenu = false; onNavClick('home')"
-             class="block px-5 py-2 rounded-lg text-sm font-medium transition-all"
+             class="block px-5 py-3 rounded-lg text-sm font-medium transition-all"
              :class="activeSection === 'home' ? 'text-tiger-400 bg-tiger-500/10' : 'text-brew-400'">Domů</a>
           <a href="#aktuality" @click="mobileMenu = false; onNavClick('aktuality')"
-             class="block px-5 py-2 rounded-lg text-sm font-medium transition-all"
+             class="block px-5 py-3 rounded-lg text-sm font-medium transition-all"
              :class="activeSection === 'aktuality' ? 'text-tiger-400 bg-tiger-500/10' : 'text-brew-400'">Aktuality</a>
           <a href="#o-nas" @click="mobileMenu = false; onNavClick('o-nas')"
-             class="block px-5 py-2 rounded-lg text-sm font-medium transition-all"
+             class="block px-5 py-3 rounded-lg text-sm font-medium transition-all"
              :class="activeSection === 'o-nas' ? 'text-tiger-400 bg-tiger-500/10' : 'text-brew-400'">O pivnici</a>
         </div>
       </div>
@@ -116,10 +116,10 @@ window.FIREBASE_CONFIG = {
         </button>
         <div x-show="openGroup === 'menu'" x-transition class="pl-4 space-y-1">
           <a href="#na-cepu" @click="mobileMenu = false; onNavClick('na-cepu')"
-             class="block px-5 py-2 rounded-lg text-sm font-medium transition-all"
+             class="block px-5 py-3 rounded-lg text-sm font-medium transition-all"
              :class="activeSection === 'na-cepu' ? 'text-tiger-400 bg-tiger-500/10' : 'text-brew-400'">Na čepu</a>
           <a href="#jidlo" @click="mobileMenu = false; onNavClick('jidlo')"
-             class="block px-5 py-2 rounded-lg text-sm font-medium transition-all"
+             class="block px-5 py-3 rounded-lg text-sm font-medium transition-all"
              :class="activeSection === 'jidlo' ? 'text-tiger-400 bg-tiger-500/10' : 'text-brew-400'">Jídelní lístek</a>
         </div>
       </div>
@@ -142,7 +142,7 @@ window.FIREBASE_CONFIG = {
       <!-- Divider + extras -->
       <div class="border-t border-brew-800/30 pt-2 mt-2">
         <a href="#galerie" @click="mobileMenu = false; onNavClick('galerie')"
-           class="block px-5 py-2 rounded-lg text-sm font-medium transition-all"
+           class="block px-5 py-3 rounded-lg text-sm font-medium transition-all"
            :class="activeSection === 'galerie' ? 'text-tiger-400 bg-tiger-500/10' : 'text-brew-500'">Galerie</a>
         <a :href="(window.BASE_URL || '') + '/glosar/'"
            class="block px-5 py-2 rounded-lg text-sm font-medium text-brew-500 transition-all hover:text-tiger-400">Glosář</a>
@@ -287,7 +287,7 @@ window.FIREBASE_CONFIG = {
 <!-- ═══════════════════════════════════════════════════════ -->
 <section id="o-nas" class="section-darker py-16 lg:py-24 foam-border">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid lg:grid-cols-2 gap-12 items-center">
+    <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
       <div>
         <span class="text-tiger-500 text-xs font-bold tracking-[0.3em] uppercase">O pivnici</span>
         <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mt-3 mb-6">Vaše pivnice u Lužánek</h2>
@@ -945,7 +945,7 @@ window.FIREBASE_CONFIG = {
       </div>
 
       <!-- Map -->
-      <div class="glass rounded-2xl overflow-hidden h-[400px] lg:h-full min-h-[400px]">
+      <div class="glass rounded-2xl overflow-hidden h-[300px] sm:h-[400px] lg:h-full min-h-[300px]">
         <iframe
           src="https://www.google.com/maps?q=Pivnice+U+Tygra,+Vrchlick%C3%A9ho+sad+1893/3,+Brno&z=17&output=embed"
           width="100%" height="100%"

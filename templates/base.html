@@ -401,9 +401,9 @@
             </svg>
           </button>
           <div x-show="openGroup === 'uvod'" x-transition class="pl-4 space-y-1">
-            <a href="{{ config.base_url | safe }}" @click="navOpen = false" class="block px-5 py-2 rounded-lg text-sm font-medium text-brew-400 hover:text-tiger-400 transition-all">Domů</a>
-            <a href="{{ config.base_url | safe }}#aktuality" @click="navOpen = false" class="block px-5 py-2 rounded-lg text-sm font-medium text-brew-400 hover:text-tiger-400 transition-all">Aktuality</a>
-            <a href="{{ config.base_url | safe }}#o-nas" @click="navOpen = false" class="block px-5 py-2 rounded-lg text-sm font-medium text-brew-400 hover:text-tiger-400 transition-all">O pivnici</a>
+            <a href="{{ config.base_url | safe }}" @click="navOpen = false" class="block px-5 py-3 rounded-lg text-sm font-medium text-brew-400 hover:text-tiger-400 transition-all">Domů</a>
+            <a href="{{ config.base_url | safe }}#aktuality" @click="navOpen = false" class="block px-5 py-3 rounded-lg text-sm font-medium text-brew-400 hover:text-tiger-400 transition-all">Aktuality</a>
+            <a href="{{ config.base_url | safe }}#o-nas" @click="navOpen = false" class="block px-5 py-3 rounded-lg text-sm font-medium text-brew-400 hover:text-tiger-400 transition-all">O pivnici</a>
           </div>
         </div>
         <!-- Menu (accordion) -->
@@ -416,8 +416,8 @@
             </svg>
           </button>
           <div x-show="openGroup === 'menu'" x-transition class="pl-4 space-y-1">
-            <a href="{{ config.base_url | safe }}#na-cepu" @click="navOpen = false" class="block px-5 py-2 rounded-lg text-sm font-medium text-brew-400 hover:text-tiger-400 transition-all">Na čepu</a>
-            <a href="{{ config.base_url | safe }}#jidlo" @click="navOpen = false" class="block px-5 py-2 rounded-lg text-sm font-medium text-brew-400 hover:text-tiger-400 transition-all">Jídelní lístek</a>
+            <a href="{{ config.base_url | safe }}#na-cepu" @click="navOpen = false" class="block px-5 py-3 rounded-lg text-sm font-medium text-brew-400 hover:text-tiger-400 transition-all">Na čepu</a>
+            <a href="{{ config.base_url | safe }}#jidlo" @click="navOpen = false" class="block px-5 py-3 rounded-lg text-sm font-medium text-brew-400 hover:text-tiger-400 transition-all">Jídelní lístek</a>
           </div>
         </div>
         <!-- Direct links -->
@@ -426,8 +426,8 @@
         <a href="{{ config.base_url | safe }}#kontakt" @click="navOpen = false" class="block px-5 py-3 rounded-lg text-base font-medium text-brew-300 hover:text-tiger-400 transition-all">Kontakt</a>
         <!-- Extras -->
         <div class="border-t border-brew-800/30 pt-2 mt-2">
-          <a href="{{ config.base_url | safe }}#galerie" @click="navOpen = false" class="block px-5 py-2 rounded-lg text-sm font-medium text-brew-500 hover:text-tiger-400 transition-all">Galerie</a>
-          <a href="{{ get_url(path='glosar') }}" @click="navOpen = false" class="block px-5 py-2 rounded-lg text-sm font-medium text-brew-500 hover:text-tiger-400 transition-all">Glosář</a>
+          <a href="{{ config.base_url | safe }}#galerie" @click="navOpen = false" class="block px-5 py-3 rounded-lg text-sm font-medium text-brew-500 hover:text-tiger-400 transition-all">Galerie</a>
+          <a href="{{ get_url(path='glosar') }}" @click="navOpen = false" class="block px-5 py-3 rounded-lg text-sm font-medium text-brew-500 hover:text-tiger-400 transition-all">Glosář</a>
         </div>
       </div>
     </div>
@@ -493,7 +493,7 @@
           <span class="w-1 h-1 rounded-full bg-brew-800"></span>
           <span>Tailwind</span>
         </div>
-        <div class="mt-4 text-brew-700 text-xs">
+        <div class="text-brew-700 text-xs">
           S láskou vyrobil <a href="mailto:korczis@gmail.com" class="hover:text-tiger-400 transition-colors">korczis@gmail.com</a>
         </div>
       </div>

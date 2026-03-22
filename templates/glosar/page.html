@@ -24,12 +24,12 @@
 <main class="pt-24 pb-16 min-h-screen">
   <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Breadcrumbs -->
-    <nav class="mb-8 text-sm text-brew-500" aria-label="Breadcrumb">
+    <nav class="mb-8 text-sm text-brew-500 flex flex-wrap items-center gap-x-1" aria-label="Breadcrumb">
       <a href="{{ config.base_url | safe }}" class="hover:text-tiger-400 transition-colors">Domů</a>
-      <span class="mx-2">/</span>
+      <span>/</span>
       <a href="{{ get_url(path='glosar') }}" class="hover:text-tiger-400 transition-colors">Glosář</a>
-      <span class="mx-2">/</span>
-      <span class="text-brew-300" aria-current="page">{{ page.title }}</span>
+      <span>/</span>
+      <span class="text-brew-300 truncate min-w-0" aria-current="page">{{ page.title }}</span>
     </nav>
 
     <!-- Term header -->
@@ -39,7 +39,7 @@
         {% if page.extra.category == "zaklady" %}Základy{% elif page.extra.category == "suroviny" %}Suroviny{% elif page.extra.category == "vyroba" %}Výroba{% elif page.extra.category == "servirovani" %}Servírování{% elif page.extra.category == "styly" %}Styly{% elif page.extra.category == "chmely" %}Chmely{% elif page.extra.category == "kultura" %}Kultura{% endif %}
       </span>
       {% endif %}
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-2">{{ page.title }}</h1>
+      <h1 class="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-2">{{ page.title }}</h1>
       {% if page.extra.en is defined and page.extra.en %}
       <p class="text-brew-500 text-lg">{{ page.extra.en }}</p>
       {% endif %}
@@ -57,7 +57,7 @@
       <div class="flex flex-wrap gap-2">
         {% for term in page.extra.related %}
         {% set term_page = get_page(path="glosar/" ~ term ~ ".md", required=false) %}
-        <a href="{{ get_url(path='glosar/' ~ term) }}" class="px-3 py-1.5 rounded-lg glass text-brew-300 hover:text-tiger-400 text-sm font-medium transition-all hover:bg-white/5">
+        <a href="{{ get_url(path='glosar/' ~ term) }}" class="px-3 py-2.5 rounded-lg glass text-brew-300 hover:text-tiger-400 text-sm font-medium transition-all hover:bg-white/5 min-h-[44px] inline-flex items-center">
           {% if term_page %}{{ term_page.title }}{% else %}{{ term | replace(from="-", to=" ") | title }}{% endif %}
         </a>
         {% endfor %}
@@ -66,7 +66,7 @@
     {% endif %}
 
     <!-- Navigation -->
-    <div class="mt-12 flex justify-between items-center">
+    <div class="mt-12 flex flex-wrap justify-between items-center gap-4">
       <a href="{{ get_url(path='glosar') }}" class="text-brew-400 hover:text-tiger-400 text-sm transition-colors flex items-center gap-2">
         ← Všechny pojmy
       </a>
