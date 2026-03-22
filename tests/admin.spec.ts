@@ -42,9 +42,12 @@ test.describe('Admin stránka', () => {
 
   test('dashboard stats are visible after login', async ({ page }) => {
     await loginAndWait(page);
-    await expect(page.getByText('Akce')).toBeVisible();
-    await expect(page.getByText('Fotografie')).toBeVisible();
-    await expect(page.getByText('Firebase')).toBeVisible();
+    // Stats grid has 3 cards: Akce count, Fotografie count, Firebase status
+    const statsGrid = page.locator('.grid.grid-cols-3');
+    await expect(statsGrid).toBeVisible();
+    await expect(statsGrid.locator('text=Akce')).toBeVisible();
+    await expect(statsGrid.locator('text=Fotografie')).toBeVisible();
+    await expect(statsGrid.locator('text=Firebase')).toBeVisible();
   });
 
   test('events tab — create and delete event', async ({ page }) => {
