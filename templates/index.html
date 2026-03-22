@@ -17,7 +17,6 @@
 {% block twitter_image_alt %}Pivnice U Tygra - interiér s klenbovým stropem a čepem{% endblock %}
 
 {% block navbar %}{% endblock %}
-{% block footer %}{% endblock %}
 
 {% block head %}
 <script>
@@ -976,67 +975,6 @@ window.FIREBASE_CONFIG = {
     </div>
   </div>
 </section>
-
-<!-- ═══════════════════════════════════════════════════════ -->
-<!-- Footer                                                 -->
-<!-- ═══════════════════════════════════════════════════════ -->
-<footer class="bg-brew-950 border-t border-brew-800/20 py-12">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
-      <div>
-        <div class="flex items-center gap-3 mb-4">
-          <img src="{{ get_url(path='img/logo.svg') }}" alt="U Tygra" class="w-8 h-8 opacity-80">
-          <div>
-            <span class="text-base font-bold text-tiger-400">{{ config.extra.business_name }}</span>
-            <span class="block text-xs text-brew-600">{{ config.extra.tagline }}</span>
-          </div>
-        </div>
-        <p class="text-brew-500 text-sm leading-relaxed max-w-xs">
-          Vaše oblíbená pivnice v srdci Brna, kousek od parku Lužánky.
-        </p>
-      </div>
-
-      <div>
-        <h4 class="text-white font-semibold mb-4 text-sm">Navigace</h4>
-        <div class="space-y-2">
-          <template x-for="item in navItems" :key="item.href">
-            <a :href="item.href"
-               class="block text-brew-400 hover:text-tiger-400 transition-colors text-sm"
-               x-text="item.label"></a>
-          </template>
-        </div>
-      </div>
-
-      <div>
-        <h4 class="text-white font-semibold mb-4 text-sm">Provozovatel</h4>
-        <div class="space-y-1.5 text-sm text-brew-400">
-          <p>{{ config.extra.company }}</p>
-          <p>IČO: {{ config.extra.ico }}</p>
-          <p>{{ config.extra.bank }}</p>
-          <p>Účet: {{ config.extra.account }}</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="pt-8 border-t border-brew-800/20 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p class="text-brew-700 text-sm">
-        &copy; <span x-text="new Date().getFullYear()"></span> {{ config.extra.business_name }}
-      </p>
-      <div class="flex items-center gap-3 text-brew-800 text-xs">
-        <a href="{{ get_url(path='ochrana-udaju') }}" class="hover:text-tiger-400 transition-colors">Ochrana údajů</a>
-        <span class="w-1 h-1 rounded-full bg-brew-800"></span>
-        <span>Zola</span>
-        <span class="w-1 h-1 rounded-full bg-brew-800"></span>
-        <span>Alpine.js</span>
-        <span class="w-1 h-1 rounded-full bg-brew-800"></span>
-        <span>Tailwind</span>
-      </div>
-      <div class="mt-4 text-brew-700 text-xs">
-        S láskou vyrobil <a href="mailto:korczis@gmail.com" class="hover:text-tiger-400 transition-colors">korczis@gmail.com</a>
-      </div>
-    </div>
-  </div>
-</footer>
 
 <!-- Back to top -->
 <button x-show="scrolled"
