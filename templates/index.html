@@ -253,7 +253,7 @@ window.FIREBASE_CONFIG = {
     <!-- Events from admin/Firebase -->
     <div x-show="aktualityEvents.length > 0" class="space-y-4 max-w-3xl mx-auto">
       <template x-for="event in aktualityEvents" :key="event.id">
-        <div class="glass rounded-xl overflow-hidden transition-all duration-300 hover:border-tiger-500/20 hover:shadow-lg hover:shadow-tiger-500/5 group">
+        <a :href="eventDetailUrl(event)" class="block glass rounded-xl overflow-hidden transition-all duration-300 hover:border-tiger-500/20 hover:shadow-lg hover:shadow-tiger-500/5 group">
           <div class="flex">
             <!-- Date block -->
             <div class="shrink-0 w-20 sm:w-24 flex flex-col items-center justify-center py-5 px-3"
@@ -296,11 +296,23 @@ window.FIREBASE_CONFIG = {
               </div>
 
               <h3 class="text-lg sm:text-xl font-bold text-white group-hover:text-tiger-400 transition-colors" x-text="event.title"></h3>
-              <p x-show="event.description" class="text-brew-400 text-sm leading-relaxed mt-2" x-text="event.description"></p>
+              <p x-show="event.description" class="text-brew-400 text-sm leading-relaxed mt-2 line-clamp-2" x-text="event.description"></p>
+              <span class="inline-flex items-center gap-1 text-tiger-400 text-xs font-medium mt-3 group-hover:gap-2 transition-all">
+                Detail
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              </span>
             </div>
           </div>
-        </div>
+        </a>
       </template>
+
+      <!-- Link to full aktuality page -->
+      <div class="text-center mt-6">
+        <a href="{{ config.base_url | safe }}/aktuality/" class="inline-flex items-center gap-2 text-tiger-400 hover:text-tiger-300 text-sm font-medium transition-colors">
+          Všechny aktuality
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
     </div>
 
     <!-- Fallback when no events -->

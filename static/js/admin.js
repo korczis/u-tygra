@@ -47,7 +47,7 @@ function adminApp() {
     events: [],
     showEventForm: false,
     editingEvent: null,
-    eventForm: { title: '', date: '', time: '', category: 'jine', description: '' },
+    eventForm: { title: '', date: '', time: '', category: 'jine', description: '', image: '' },
 
     // Settings
     announcementText: '',
@@ -361,7 +361,7 @@ function adminApp() {
     cancelEventForm() {
       this.showEventForm = false;
       this.editingEvent = null;
-      this.eventForm = { title: '', date: '', time: '', category: 'jine', description: '' };
+      this.eventForm = { title: '', date: '', time: '', category: 'jine', description: '', image: '' };
     },
 
     // === Announcement ===

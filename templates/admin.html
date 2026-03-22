@@ -292,6 +292,14 @@ window.FIREBASE_CONFIG = {
                 <textarea id="event-desc" x-model="eventForm.description" rows="3" placeholder="Podrobný popis akce..."
                           class="w-full bg-brew-900 border border-brew-700 rounded-lg px-3 py-2 text-white text-sm focus:border-tiger-500 focus:ring-1 focus:ring-tiger-500 outline-none resize-none"></textarea>
               </div>
+              <div class="md:col-span-2">
+                <label for="event-image" class="block text-sm text-brew-400 mb-1">Obrázek URL <span class="text-brew-600">(volitelné — social preview)</span></label>
+                <input type="url" id="event-image" x-model="eventForm.image" placeholder="https://example.com/obrazek.jpg"
+                       class="w-full bg-brew-900 border border-brew-700 rounded-lg px-3 py-2 text-white text-sm focus:border-tiger-500 focus:ring-1 focus:ring-tiger-500 outline-none">
+                <template x-if="eventForm.image">
+                  <img :src="eventForm.image" class="mt-2 rounded-lg max-h-32 object-cover" alt="Náhled">
+                </template>
+              </div>
             </div>
             <div class="flex gap-3 mt-4">
               <button @click="saveEvent()" class="px-4 py-2 bg-tiger-500 hover:bg-tiger-600 text-white text-sm font-semibold rounded-lg transition-colors">

@@ -1113,6 +1113,18 @@ function app() {
       return icons[cat] || '';
     },
 
+    eventSlug(event) {
+      let slug = (event.title || '').toLowerCase()
+        .normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+      if (event.date) slug += '-' + event.date;
+      return slug;
+    },
+
+    eventDetailUrl(event) {
+      return (window.BASE_URL || '') + '/aktuality/#' + this.eventSlug(event);
+    },
+
     isEventToday(dateStr) {
       if (!dateStr) return false;
       const today = new Date();
