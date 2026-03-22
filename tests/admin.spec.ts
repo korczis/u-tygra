@@ -36,14 +36,15 @@ test.describe('Admin stránka', () => {
     await loginAndWait(page);
 
     await expect(page.getByRole('tab', { name: 'Akce' })).toBeVisible();
-    await expect(page.getByRole('tab', { name: 'Menu' })).toBeVisible();
     await expect(page.getByRole('tab', { name: 'Fotografie' })).toBeVisible();
     await expect(page.getByRole('tab', { name: 'Nastavení' })).toBeVisible();
   });
 
   test('dashboard stats are visible after login', async ({ page }) => {
     await loginAndWait(page);
-    await expect(page.getByText('Položky menu')).toBeVisible();
+    await expect(page.getByText('Akce')).toBeVisible();
+    await expect(page.getByText('Fotografie')).toBeVisible();
+    await expect(page.getByText('Firebase')).toBeVisible();
   });
 
   test('events tab — create and delete event', async ({ page }) => {
@@ -68,35 +69,6 @@ test.describe('Admin stránka', () => {
     // Delete the event
     page.on('dialog', dialog => dialog.accept());
     await page.locator('button[aria-label="Smazat akci"]').first().click();
-  });
-
-  test('food tab — shows category filters and items', async ({ page }) => {
-    await loginAndWait(page);
-
-    // Switch to food tab
-    await page.getByRole('tab', { name: 'Menu' }).click();
-
-    // Category filters visible
-    await expect(page.locator('button').filter({ hasText: /^Studené$/ })).toBeVisible();
-    await expect(page.locator('button').filter({ hasText: /^Teplé$/ })).toBeVisible();
-    await expect(page.locator('button').filter({ hasText: /^Nápoje$/ })).toBeVisible();
-
-    // Add item button
-    await expect(page.locator('button').filter({ hasText: 'Přidat položku' })).toBeVisible();
-  });
-
-  test('food tab — create food item', async ({ page }) => {
-    await loginAndWait(page);
-    await page.getByRole('tab', { name: 'Menu' }).click();
-
-    await page.locator('button').filter({ hasText: 'Přidat položku' }).click();
-    await page.fill('#food-name', 'Testovací jídlo');
-    await page.fill('#food-price', '99');
-    await page.fill('#food-weight', '200 g');
-    await page.fill('#food-desc', 'Popis testovacího jídla');
-    await page.getByRole('button', { name: 'Uložit', exact: true }).click();
-
-    await expect(page.getByText('Testovací jídlo')).toBeVisible();
   });
 
   test('settings tab — has all sections', async ({ page }) => {
@@ -124,7 +96,7 @@ test.describe('Admin stránka', () => {
     await page.getByRole('tab', { name: 'Fotografie' }).click();
 
     await expect(page.getByText('Nahrát fotky')).toBeVisible();
-    // Photo category filters (use panel scope to avoid collision with food filters)
+    // Photo category filters
     const photosPanel = page.locator('#admin-panel-photos');
     await expect(photosPanel.locator('button').filter({ hasText: /^Vše$/ })).toBeVisible();
     await expect(photosPanel.locator('button').filter({ hasText: /^Interiér$/ })).toBeVisible();

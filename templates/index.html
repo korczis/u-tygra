@@ -586,7 +586,7 @@ window.FIREBASE_CONFIG = {
 
     <!-- Tabs (Flowbite pill tabs pattern with Alpine.js behavior) -->
     <div class="mb-10 flex justify-center gap-2" role="tablist">
-      <template x-for="tab in [{key: 'cold', label: 'Studené'}, {key: 'warm', label: 'Teplé'}, {key: 'drinks', label: 'Nápoje'}]" :key="tab.key">
+      <template x-for="tab in foodTabs" :key="tab.key">
         <button @click="onFoodTabSwitch(tab.key)"
                 role="tab" :id="'tab-' + tab.key" :aria-controls="'panel-food-' + tab.key"
                 :aria-selected="activeFoodTab === tab.key"

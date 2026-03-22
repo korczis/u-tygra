@@ -7,6 +7,9 @@
 const SHEETS_CSV_URL =
   'https://docs.google.com/spreadsheets/d/e/2PACX-1vSeZjP4HadboLuS8v4KVobNqsKtjaBpBJ8oCuPCC-OjfkCtCWA8N_asuxkedh7QSGhsrXU0JU_bV_Rn/pub?gid=1804527038&single=true&output=csv';
 
+const DRINKS_CSV_URL =
+  'https://docs.google.com/spreadsheets/d/e/2PACX-1vSeZjP4HadboLuS8v4KVobNqsKtjaBpBJ8oCuPCC-OjfkCtCWA8N_asuxkedh7QSGhsrXU0JU_bV_Rn/pub?gid=1397910173&single=true&output=csv';
+
 /**
  * Charlie Squad Analytics - Enhanced tracking system
  * Privacy-first analytics with Czech pub industry context
@@ -653,22 +656,9 @@ function app() {
       { id: 'kiosk', href: (window.BASE_URL || '') + '/kiosk/', label: 'Kiosk', title: 'Na čepu – Kiosk', desc: 'Živá pivní tabule pro display.', external: true, hideNav: true },
     ],
 
-    // Drink menu items (non-beer beverages)
-    drinkItems: [
-      { name: 'Kofola', desc: 'Originál, čepovaná', volume: '0,3 l', price: 35 },
-      { name: 'Kofola', desc: 'Originál, čepovaná', volume: '0,5 l', price: 45 },
-      { name: 'Coca-Cola', desc: '', volume: '0,33 l', price: 40 },
-      { name: 'Sprite', desc: '', volume: '0,33 l', price: 40 },
-      { name: 'Džus', desc: 'Pomeranč / Jablko', volume: '0,2 l', price: 35 },
-      { name: 'Minerální voda', desc: 'Perlivá / Neperlivá', volume: '0,33 l', price: 30 },
-      { name: 'Fernet Stock', desc: 'Hořký bylinný likér', volume: '0,04 l', price: 45 },
-      { name: 'Becherovka', desc: 'Originál', volume: '0,04 l', price: 45 },
-      { name: 'Slivovice', desc: 'Moravská', volume: '0,04 l', price: 50 },
-      { name: 'Víno bílé', desc: 'Dle aktuální nabídky', volume: '0,2 l', price: 50 },
-      { name: 'Víno červené', desc: 'Dle aktuální nabídky', volume: '0,2 l', price: 50 },
-      { name: 'Espresso', desc: '', volume: '', price: 45 },
-      { name: 'Čaj', desc: 'Výběr druhů', volume: '', price: 35 },
-    ],
+    // Drink menu items loaded from Google Sheets CSV
+    drinkItems: [],
+    drinkCategories: [],
 
     // Known brewery URLs
     breweryUrls: {
@@ -1026,14 +1016,26 @@ function app() {
 
     get filteredFood() {
       if (this.firebaseFoodItems.length > 0) {
-        // Firebase has all items (cold, warm, drinks) in one collection
+        // Firebase has all items (cold, warm) in one collection
         return this.firebaseFoodItems.filter(i => i.category === this.activeFoodTab);
       }
-      // Fallback to hardcoded data
-      if (this.activeFoodTab === 'drinks') {
-        return this.drinkItems;
+      // Drink categories from CSV (matched by category name)
+      const drinkCat = this.drinkCategories.find(c => c.key === this.activeFoodTab);
+      if (drinkCat) {
+        return this.drinkItems.filter(i => i.cat === drinkCat.key);
       }
       return this.foodItems.filter(i => i.cat === this.activeFoodTab);
+    },
+
+    get foodTabs() {
+      const tabs = [
+        { key: 'cold', label: 'Studené' },
+        { key: 'warm', label: 'Teplé' },
+      ];
+      for (const cat of this.drinkCategories) {
+        tabs.push(cat);
+      }
+      return tabs;
     },
 
     /**
@@ -1207,8 +1209,11 @@ function app() {
       // Track application start
       charlie.trackMenuNavigation('home', 'app_start');
 
-      // Fetch live beer data first
-      await this.refreshBeerData();
+      // Fetch live beer data and drinks menu
+      await Promise.all([
+        this.refreshBeerData(),
+        this.loadDrinksData(),
+      ]);
 
       // Load public data from Firebase (events, food, photos)
       this.loadFirebaseData();
@@ -1611,6 +1616,72 @@ function app() {
           retry_available: true
         });
       }
+    },
+
+    /**
+     * Load drinks menu from Google Sheets CSV (Kategorie, Název, Cena)
+     */
+    async loadDrinksData() {
+      try {
+        const response = await fetch(DRINKS_CSV_URL);
+        if (!response.ok) return;
+        const csvText = await response.text();
+        const lines = csvText.trim().split('\n');
+        if (lines.length < 2) return;
+
+        const items = [];
+        const categorySet = new Map();
+
+        for (let i = 1; i < lines.length; i++) {
+          const row = this.parseDrinksCsvRow(lines[i]);
+          if (row.length < 3 || !row[0].trim()) continue;
+
+          const kategorie = row[0].trim();
+          const nazev = row[1].trim();
+          const cena = parseInt(row[2].trim(), 10) || 0;
+
+          // Build category key (lowercase, no diacritics for internal use)
+          const key = 'drink_' + kategorie.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, '_');
+
+          if (!categorySet.has(key)) {
+            categorySet.set(key, kategorie);
+          }
+
+          items.push({ name: nazev, desc: '', weight: '', price: cena, cat: key });
+        }
+
+        this.drinkItems = items;
+        this.drinkCategories = Array.from(categorySet.entries()).map(([key, label]) => ({ key, label }));
+
+        // Default to first tab if current tab doesn't exist
+        if (this.activeFoodTab === 'cold' && this.foodItems.length === 0 && this.drinkCategories.length > 0) {
+          this.activeFoodTab = this.drinkCategories[0].key;
+        }
+      } catch (e) {
+        console.warn('Failed to load drinks data:', e);
+      }
+    },
+
+    /**
+     * Parse a single CSV row handling quoted fields with commas
+     */
+    parseDrinksCsvRow(line) {
+      const result = [];
+      let current = '';
+      let inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (ch === '"') {
+          inQuotes = !inQuotes;
+        } else if (ch === ',' && !inQuotes) {
+          result.push(current);
+          current = '';
+        } else {
+          current += ch;
+        }
+      }
+      result.push(current);
+      return result;
     },
 
     /**
