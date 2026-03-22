@@ -85,6 +85,54 @@ Custom Tailwind theme defined inline in `base.html` with two palettes:
 
 `static/css/style.css` has custom effects: glass morphism, hero gradients, beer card animations, shimmer loading skeleton, dark map filter, kiosk mode (TV-optimized with 1920px+ and 3840px+ breakpoints).
 
+### Mobile First & Responsive Design
+
+**ENFORCED**: All UI must be mobile-first and fully responsive.
+
+- Write Tailwind classes mobile-first: base styles for mobile, then `sm:`, `md:`, `lg:`, `xl:` breakpoints
+- Test all layouts at 320px, 768px, 1024px, 1440px, and 1920px widths
+- Touch targets must be at least 44x44px on mobile
+- No horizontal scroll on any viewport
+- Images must use responsive sizing (`w-full`, `object-cover`, `aspect-*`)
+- Navigation: accordion menu on mobile (`md:hidden`), horizontal bar on desktop (`hidden md:flex`)
+- Grid layouts: single column on mobile, multi-column on larger screens (`grid-cols-1 md:grid-cols-2 lg:grid-cols-3`)
+
+### Shared Navbar & Footer
+
+**ENFORCED**: Navbar and footer are defined once in `templates/base.html` and inherited by all pages.
+
+- **Do NOT duplicate** navbar or footer HTML in individual page templates
+- `index.html` overrides `{% block navbar %}` to empty because it has its own dynamic navbar (with Alpine.js `navItems` and scroll tracking) inside `{% block body %}`
+- `admin.html` and `kiosk.html` override both blocks to empty (they have their own headers)
+- All other pages (glosar, privacy) inherit base.html's navbar and footer automatically
+- When adding/removing nav items, update **both** base.html (static links) and app.js `navItems` (dynamic)
+
+### Template Block Override Rules
+
+**ENFORCED**: Every template extending `base.html` must follow this pattern:
+
+| Block | index.html | admin.html | glosar/*.html | privacy.html | Default |
+|-------|-----------|------------|---------------|-------------|---------|
+| `navbar` | empty (own nav in body) | empty (own header) | inherit | inherit | shared nav |
+| `footer` | inherit | empty | inherit | inherit | shared footer |
+| `body_tag` | inherit (app() + x-cloak) | custom (no x-data) | custom (filter only) | custom (no x-data) | app() + x-cloak |
+| `app_script` | inherit (app.js) | empty (admin.js) | empty | empty | app.js |
+
+- **Never** create inline `<nav>` or `<footer>` elements inside `{% block body %}` — use the shared blocks
+- **Always** use `{{ config.base_url | safe }}` (with `| safe` filter) for URL references
+- Pages that don't need `app.js` **must** override `{% block app_script %}{% endblock %}`
+- Subpages should use breadcrumbs inside `<main class="pt-24">` for consistent spacing below fixed navbar
+
+### Firebase Data Integration
+
+Events, food menu, and photos are stored in Firebase Firestore (project: `u-tygra`). Firestore rules allow public read, authenticated write.
+
+- Main site loads data via `loadFirebaseData()` in app.js (no auth required)
+- Admin panel (`/admin/`) provides CRUD interface with Google auth
+- Seed script: `scripts/seed-firebase.mjs` — paste in admin console to populate
+- Events display in `#aktuality` section, filtered to recent/upcoming (7 days back + future)
+- Food/drink items in Firestore override hardcoded `foodItems`/`drinkItems` when available
+
 ### Configuration
 
 `zola.toml` holds all business data accessible in templates via `config.extra.*` — address, phones, company info (ICO, bank account), Google Sheets IDs, GA4 tracking ID.
