@@ -10,6 +10,9 @@ const SHEETS_CSV_URL =
 const DRINKS_CSV_URL =
   'https://docs.google.com/spreadsheets/d/e/2PACX-1vSeZjP4HadboLuS8v4KVobNqsKtjaBpBJ8oCuPCC-OjfkCtCWA8N_asuxkedh7QSGhsrXU0JU_bV_Rn/pub?gid=1397910173&single=true&output=csv';
 
+const FOOD_CSV_URL =
+  'https://docs.google.com/spreadsheets/d/e/2PACX-1vSeZjP4HadboLuS8v4KVobNqsKtjaBpBJ8oCuPCC-OjfkCtCWA8N_asuxkedh7QSGhsrXU0JU_bV_Rn/pub?gid=2135437169&single=true&output=csv';
+
 /**
  * Charlie Squad Analytics - Enhanced tracking system
  * Privacy-first analytics with Czech pub industry context
@@ -620,7 +623,7 @@ function app() {
     scrolled: false,
     mobileMenu: false,
     activeSection: 'home',
-    activeFoodTab: 'cold',
+    activeFoodTab: '',
     beerLoading: true,
     beerError: false,
     beerView: 'grid', // Default to grid in kiosk mode for better space usage
@@ -639,7 +642,6 @@ function app() {
     // Navigation with section metadata for OG tags
     // Firebase public data
     aktualityEvents: [],
-    firebaseFoodItems: [],
     firebasePhotos: [],
 
     navItems: [
@@ -987,21 +989,10 @@ function app() {
       { term: 'Pivní lázně', en: '(Beer Spa)', desc: 'Česká specialita — koupel v pivě s chmelou a kvasnicemi. Relax pro tělo i duši. Populární turistická atrakce.' },
     ],
 
-    // Food menu (Jídelní lístek)
-    foodItems: [
-      { name: 'Nakládaný hermelín', desc: 'V oleji s cibulí, paprikou a kořením', price: 89, weight: '150 g', cat: 'cold' },
-      { name: 'Utopenec', desc: 'Klasický utopený buřt v pikantním nálevu', price: 69, weight: '1 ks', cat: 'cold' },
-      { name: 'Pivní sýr (obložený)', desc: 'Tvarůžky, hermelín, níva s pečivem', price: 129, weight: '200 g', cat: 'cold' },
-      { name: 'Tatarák z lososa', desc: 'S kapary, červenou cibulkou a topinkami', price: 159, weight: '150 g', cat: 'cold' },
-      { name: 'Masová prkénka', desc: 'Mix sušených mas, sýrů a okurek. Pro dva.', price: 219, weight: '350 g', cat: 'cold' },
-      { name: 'Škvarková pomázánka', desc: 'Domácí, s čerstvým chlebem', price: 79, weight: '150 g', cat: 'cold' },
-      { name: 'Topinky s česnekem', desc: 'Klasika ke každému pivu. Se sýrem nebo bez.', price: 69, weight: '3 ks', cat: 'warm' },
-      { name: 'Pivní klobása', desc: 'Grilovaná klobása s hořčicí a chlebem', price: 99, weight: '200 g', cat: 'warm' },
-      { name: 'Smažený sýr v housce', desc: 'Eidam 30 %, tatarská omáčka', price: 109, weight: '150 g', cat: 'warm' },
-      { name: 'Kuřecí stripsy', desc: 'S česnekovým dipem a hranolkami', price: 129, weight: '200 g', cat: 'warm' },
-      { name: 'Nachos grande', desc: 'Se sýrovou omáčkou, jalapeños a salsou', price: 119, weight: '300 g', cat: 'warm' },
-      { name: 'Hovězí burger', desc: 'Domácí bulka, cheddar, slanina, BBQ', price: 179, weight: '250 g', cat: 'warm' },
-    ],
+    // Food menu loaded from Google Sheets CSV
+    foodItems: [],
+    foodCategories: [],
+    foodLoading: true,
 
     // Opening hours
     hours: [
@@ -1015,23 +1006,22 @@ function app() {
     ],
 
     get filteredFood() {
-      if (this.firebaseFoodItems.length > 0) {
-        // Firebase has all items (cold, warm) in one collection
-        return this.firebaseFoodItems.filter(i => i.category === this.activeFoodTab);
-      }
-      // Drink categories from CSV (matched by category name)
+      // Drink categories from CSV
       const drinkCat = this.drinkCategories.find(c => c.key === this.activeFoodTab);
       if (drinkCat) {
         return this.drinkItems.filter(i => i.cat === drinkCat.key);
       }
+      // Food categories from CSV
       return this.foodItems.filter(i => i.cat === this.activeFoodTab);
     },
 
     get foodTabs() {
-      const tabs = [
-        { key: 'cold', label: 'Studené' },
-        { key: 'warm', label: 'Teplé' },
-      ];
+      const tabs = [];
+      // Food categories first (from food CSV)
+      for (const cat of this.foodCategories) {
+        tabs.push(cat);
+      }
+      // Then drink categories (from drinks CSV)
       for (const cat of this.drinkCategories) {
         tabs.push(cat);
       }
@@ -1209,13 +1199,14 @@ function app() {
       // Track application start
       charlie.trackMenuNavigation('home', 'app_start');
 
-      // Fetch live beer data and drinks menu
+      // Fetch live beer data, food menu, and drinks menu
       await Promise.all([
         this.refreshBeerData(),
+        this.loadFoodData(),
         this.loadDrinksData(),
       ]);
 
-      // Load public data from Firebase (events, food, photos)
+      // Load public data from Firebase (events, photos)
       this.loadFirebaseData();
 
       // Kiosk mode setup - create dedicated fullscreen UI
@@ -1619,6 +1610,82 @@ function app() {
     },
 
     /**
+     * Load food menu from Google Sheets CSV
+     * Columns: Aktuální?, Množství, Kategorie, Název, Cena, Alergeny
+     * - Only rows with Aktuální? = "x" are shown
+     * - Kategorie is sparse (carries forward from last non-empty value)
+     * - Empty rows (no Název) are skipped
+     */
+    async loadFoodData() {
+      try {
+        const response = await fetch(FOOD_CSV_URL);
+        if (!response.ok) return;
+        const csvText = await response.text();
+        const lines = csvText.trim().split('\n');
+        if (lines.length < 2) return;
+
+        const items = [];
+        const categoryOrder = [];
+        const categorySet = new Set();
+        let currentCategory = '';
+
+        for (let i = 1; i < lines.length; i++) {
+          const row = this.parseMenuCsvRow(lines[i]);
+
+          // Update current category if column C is filled
+          const rowCategory = (row[2] || '').trim();
+          if (rowCategory) {
+            currentCategory = rowCategory;
+          }
+
+          // Skip rows without a name (column D)
+          const nazev = (row[3] || '').trim();
+          if (!nazev) continue;
+
+          // Only show rows where Aktuální? (column A) is "x"
+          const aktualni = (row[0] || '').trim().toLowerCase();
+          if (aktualni !== 'x') continue;
+
+          // Parse price: "125,-" -> 125, "17,-" -> 17, "125" -> 125
+          const rawPrice = (row[4] || '').trim().replace(',-', '').replace('"', '');
+          const price = parseInt(rawPrice, 10) || 0;
+
+          const mnozstvi = (row[1] || '').trim();
+          const alergeny = (row[5] || '').trim();
+          const cat = currentCategory || 'Ostatní';
+
+          // Build category key
+          const key = 'food_' + cat.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, '_');
+
+          if (!categorySet.has(key)) {
+            categorySet.add(key);
+            categoryOrder.push({ key, label: cat });
+          }
+
+          items.push({
+            name: nazev,
+            desc: alergeny ? 'Alergeny: ' + alergeny : '',
+            weight: mnozstvi,
+            price,
+            cat: key,
+          });
+        }
+
+        this.foodItems = items;
+        this.foodCategories = categoryOrder;
+        this.foodLoading = false;
+
+        // Set active tab to first available food category
+        if (this.foodCategories.length > 0) {
+          this.activeFoodTab = this.foodCategories[0].key;
+        }
+      } catch (e) {
+        console.warn('Failed to load food data:', e);
+        this.foodLoading = false;
+      }
+    },
+
+    /**
      * Load drinks menu from Google Sheets CSV (Kategorie, Název, Cena)
      */
     async loadDrinksData() {
@@ -1633,7 +1700,7 @@ function app() {
         const categorySet = new Map();
 
         for (let i = 1; i < lines.length; i++) {
-          const row = this.parseDrinksCsvRow(lines[i]);
+          const row = this.parseMenuCsvRow(lines[i]);
           if (row.length < 3 || !row[0].trim()) continue;
 
           const kategorie = row[0].trim();
@@ -1652,11 +1719,6 @@ function app() {
 
         this.drinkItems = items;
         this.drinkCategories = Array.from(categorySet.entries()).map(([key, label]) => ({ key, label }));
-
-        // Default to first tab if current tab doesn't exist
-        if (this.activeFoodTab === 'cold' && this.foodItems.length === 0 && this.drinkCategories.length > 0) {
-          this.activeFoodTab = this.drinkCategories[0].key;
-        }
       } catch (e) {
         console.warn('Failed to load drinks data:', e);
       }
@@ -1665,7 +1727,7 @@ function app() {
     /**
      * Parse a single CSV row handling quoted fields with commas
      */
-    parseDrinksCsvRow(line) {
+    parseMenuCsvRow(line) {
       const result = [];
       let current = '';
       let inQuotes = false;
@@ -1724,18 +1786,11 @@ function app() {
           .filter(e => !e.date || new Date(e.date) >= weekAgo)
           .slice(0, 6);
 
-        // Load food items (override hardcoded if Firebase has data)
-        const foodSnap = await getDocs(collection(db, 'food'));
-        const firebaseFood = foodSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        if (firebaseFood.length > 0) {
-          this.firebaseFoodItems = firebaseFood;
-        }
-
         // Load photos for gallery
         const photosSnap = await getDocs(query(collection(db, 'photos'), orderBy('createdAt', 'desc')));
         this.firebasePhotos = photosSnap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
-        console.log(`Firebase loaded: ${allEvents.length} events, ${firebaseFood.length} food, ${this.firebasePhotos.length} photos`);
+        console.log(`Firebase loaded: ${allEvents.length} events, ${this.firebasePhotos.length} photos`);
       } catch (e) {
         console.warn('Firebase public read failed:', e.message);
       }

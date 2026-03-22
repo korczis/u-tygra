@@ -584,39 +584,67 @@ window.FIREBASE_CONFIG = {
       </div>
     </div>
 
-    <!-- Tabs (Flowbite pill tabs pattern with Alpine.js behavior) -->
-    <div class="mb-10 flex justify-center gap-2" role="tablist">
-      <template x-for="tab in foodTabs" :key="tab.key">
-        <button @click="onFoodTabSwitch(tab.key)"
-                role="tab" :id="'tab-' + tab.key" :aria-controls="'panel-food-' + tab.key"
-                :aria-selected="activeFoodTab === tab.key"
-                class="px-6 py-3 rounded-lg text-sm font-semibold transition-all duration-200"
-                :class="activeFoodTab === tab.key
-                  ? 'bg-tiger-500 text-white shadow-lg shadow-tiger-500/20'
-                  : 'text-brew-400 hover:text-white hover:bg-white/5'"
-                x-text="tab.label">
-        </button>
-      </template>
-    </div>
-
-    <!-- Food grid -->
-    <div :id="'panel-food-' + activeFoodTab" role="tabpanel" :aria-labelledby="'tab-' + activeFoodTab"
-         class="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-4xl mx-auto">
-      <template x-for="item in filteredFood" :key="item.name">
-        <div class="glass rounded-xl p-5 flex items-center justify-between transition-all duration-200 hover:border-tiger-500/15 group"
-             @mouseenter="onFoodItemView(item)">
-          <div class="flex-1 mr-4">
-            <h3 class="text-base font-semibold text-white group-hover:text-tiger-400 transition-colors" x-text="item.name"></h3>
-            <p class="text-brew-400 text-sm mt-0.5" x-text="item.desc"></p>
-            <span class="text-brew-600 text-xs" x-text="item.weight"></span>
-          </div>
-          <div class="shrink-0 text-right">
-            <span class="text-white font-bold text-xl" x-text="item.price"></span>
-            <span class="text-brew-500 text-sm ml-0.5">Kč</span>
-          </div>
+    <!-- Loading skeleton -->
+    <template x-if="foodLoading">
+      <div class="max-w-4xl mx-auto">
+        <div class="flex justify-center gap-2 mb-10">
+          <div class="h-11 w-24 rounded-lg bg-brew-800/50 animate-pulse"></div>
+          <div class="h-11 w-24 rounded-lg bg-brew-800/50 animate-pulse"></div>
+          <div class="h-11 w-24 rounded-lg bg-brew-800/50 animate-pulse"></div>
         </div>
-      </template>
-    </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <template x-for="n in 6" :key="n">
+            <div class="glass rounded-xl p-5 animate-pulse">
+              <div class="h-4 w-3/4 bg-brew-800/50 rounded mb-2"></div>
+              <div class="h-3 w-1/2 bg-brew-800/30 rounded"></div>
+            </div>
+          </template>
+        </div>
+      </div>
+    </template>
+
+    <!-- Tabs (Flowbite pill tabs pattern with Alpine.js behavior) -->
+    <template x-if="!foodLoading && foodTabs.length > 0">
+      <div>
+        <div class="mb-10 flex flex-wrap justify-center gap-2" role="tablist">
+          <template x-for="tab in foodTabs" :key="tab.key">
+            <button @click="onFoodTabSwitch(tab.key)"
+                    role="tab" :id="'tab-' + tab.key" :aria-controls="'panel-food-' + tab.key"
+                    :aria-selected="activeFoodTab === tab.key"
+                    class="px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200"
+                    :class="activeFoodTab === tab.key
+                      ? 'bg-tiger-500 text-white shadow-lg shadow-tiger-500/20'
+                      : 'text-brew-400 hover:text-white hover:bg-white/5'"
+                    x-text="tab.label">
+            </button>
+          </template>
+        </div>
+
+        <!-- Food grid -->
+        <div :id="'panel-food-' + activeFoodTab" role="tabpanel" :aria-labelledby="'tab-' + activeFoodTab"
+             class="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-4xl mx-auto">
+          <template x-for="item in filteredFood" :key="item.name + item.weight">
+            <div class="glass rounded-xl p-5 flex items-center justify-between transition-all duration-200 hover:border-tiger-500/15 group"
+                 @mouseenter="onFoodItemView(item)">
+              <div class="flex-1 mr-4">
+                <h3 class="text-base font-semibold text-white group-hover:text-tiger-400 transition-colors" x-text="item.name"></h3>
+                <p class="text-brew-500 text-sm mt-0.5" x-text="item.desc" x-show="item.desc"></p>
+                <span class="text-brew-600 text-xs" x-text="item.weight" x-show="item.weight"></span>
+              </div>
+              <div class="shrink-0 text-right">
+                <span class="text-white font-bold text-xl" x-text="item.price"></span>
+                <span class="text-brew-500 text-sm ml-0.5">Kč</span>
+              </div>
+            </div>
+          </template>
+          <template x-if="filteredFood.length === 0">
+            <div class="col-span-full text-center py-8 text-brew-500">
+              <p>Žádné položky v této kategorii.</p>
+            </div>
+          </template>
+        </div>
+      </div>
+    </template>
 
     <div class="text-center mt-10">
       <p class="text-brew-600 text-sm">Aktuální nabídka se může lišit. Kompletní menu k nahlédnutí u baru.</p>
