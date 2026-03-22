@@ -640,7 +640,7 @@ function app() {
     firebasePhotos: [],
 
     navItems: [
-      { id: 'home', href: '#home', label: 'Domů', title: 'Pivnice U Tygra', desc: 'Budvar & řemeslná piva u Lužánek. Brno.' },
+      { id: 'home', href: '#home', label: 'Domů', title: 'Pivnice U Tygra', desc: 'Budvar & řemeslná piva u Lužánek. Brno.', hideNav: true },
       { id: 'aktuality', href: '#aktuality', label: 'Aktuality', title: 'Aktuality – Pivnice U Tygra', desc: 'Akce, novinky a speciální nabídky.' },
       { id: 'o-nas', href: '#o-nas', label: 'O pivnici', title: 'O pivnici – Pivnice U Tygra', desc: 'Vaše oblíbená pivnice u Lužánek v centru Brna.' },
       { id: 'na-cepu', href: '#na-cepu', label: 'Na čepu', title: 'Na čepu – Pivnice U Tygra', desc: 'Živá nabídka čepovaných piv. Budvar, řemeslná piva a speciály.' },
@@ -650,7 +650,7 @@ function app() {
       { id: 'galerie', href: '#galerie', label: 'Galerie', title: 'Galerie – Pivnice U Tygra', desc: 'Atmosféra Pivnice U Tygra. Interiér, bar, zahrádka.' },
       { id: 'glosar', href: (window.BASE_URL || '') + '/glosar/', label: 'Glosář', title: 'Glosář pivních pojmů', desc: '100+ pivních pojmů od ABV po Žatecký chmel.', external: true },
       { id: 'kontakt', href: '#kontakt', label: 'Kontakt', title: 'Kontakt – Pivnice U Tygra', desc: 'Vrchlického sad 1893/3, Brno. Otevřeno denně 16:00–24:00.' },
-      { id: 'kiosk', href: (window.BASE_URL || '') + '/kiosk/', label: 'Kiosk', title: 'Na čepu – Kiosk', desc: 'Živá pivní tabule pro display.', external: true },
+      { id: 'kiosk', href: (window.BASE_URL || '') + '/kiosk/', label: 'Kiosk', title: 'Na čepu – Kiosk', desc: 'Živá pivní tabule pro display.', external: true, hideNav: true },
     ],
 
     // Drink menu items (non-beer beverages)

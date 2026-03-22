@@ -50,7 +50,7 @@ window.FIREBASE_CONFIG = {
 
       <!-- Desktop -->
       <div class="hidden md:flex items-center gap-1">
-        <template x-for="item in navItems" :key="item.href">
+        <template x-for="item in navItems.filter(i => !i.hideNav)" :key="item.href">
           <a :href="item.href"
              @click="!item.external && onNavClick(item.id)"
              :aria-current="activeSection === item.id ? 'page' : false"
