@@ -939,8 +939,12 @@ function onGlossaryReady(cb) {
 // Params: ?interval=5 (minutes), ?duration=15 (seconds)
 // Console: kiosk.showTerm(), kiosk.showTerm(3), kiosk.nextTerm()
 (function() {
-  var params = new URLSearchParams(window.location.search);
-  if (params.get('dynamic') === 'false') return;
+  // ES5-safe query param parser (URLSearchParams not available on Chromecast Gen 1)
+  function getParam(name) {
+    var match = window.location.search.match(new RegExp('[?&]' + name + '=([^&]*)'));
+    return match ? decodeURIComponent(match[1]) : null;
+  }
+  if (getParam('dynamic') === 'false') return;
 
   var glossaryTerms = [];
   var overlay = document.getElementById('glossary-overlay');
@@ -948,8 +952,8 @@ function onGlossaryReady(cb) {
   var elEn = document.getElementById('gc-en');
   var elDesc = document.getElementById('gc-desc');
   var elFunfact = document.getElementById('gc-funfact');
-  var intervalMin = parseInt(params.get('interval'), 10) || 5;
-  var durationSec = parseInt(params.get('duration'), 10) || 7;
+  var intervalMin = parseInt(getParam('interval'), 10) || 5;
+  var durationSec = parseInt(getParam('duration'), 10) || 7;
   var INTERVAL = intervalMin * 60 * 1000;
   var DISPLAY = durationSec * 1000;
   var lastIdx = -1;
@@ -1103,8 +1107,9 @@ function onGlossaryReady(cb) {
 
   // State: 'idle' | 'fadeout' | 'scrolling' | 'pause' | 'fadein'
   var state = 'idle';
-  var animId = null; // current requestAnimationFrame ID
-  var timer = null;  // current setTimeout ID
+  var animId = null;       // current requestAnimationFrame ID
+  var pauseTimer = null;   // setTimeout for pause between scroll and fade-in
+  var wisdomTimer = null;  // setTimeout for next wisdom scheduling
 
   // Config
   var WISDOM_INTERVAL = 45000;
@@ -1127,10 +1132,10 @@ function onGlossaryReady(cb) {
   el.textContent = defaultText;
   el.style.opacity = '1';
 
-  // Cancel any running animation
+  // Cancel any running animation (does NOT cancel wisdom scheduler)
   function cancel() {
     if (animId) { cancelAnimationFrame(animId); animId = null; }
-    if (timer) { clearTimeout(timer); timer = null; }
+    if (pauseTimer) { clearTimeout(pauseTimer); pauseTimer = null; }
   }
 
   // Animate opacity from→to
@@ -1192,7 +1197,7 @@ function onGlossaryReady(cb) {
       state = 'scrolling';
       animateScroll(function() {
         state = 'pause';
-        timer = setTimeout(function() {
+        pauseTimer = setTimeout(function() {
           // Reset to default, fade in
           resetEl();
           el.style.opacity = '0';
@@ -1208,7 +1213,8 @@ function onGlossaryReady(cb) {
 
   // === Wisdom scheduling ===
   function scheduleNextWisdom() {
-    timer = setTimeout(triggerWisdom, WISDOM_INTERVAL);
+    if (wisdomTimer) clearTimeout(wisdomTimer);
+    wisdomTimer = setTimeout(triggerWisdom, WISDOM_INTERVAL);
   }
 
   function triggerWisdom() {
@@ -1263,6 +1269,8 @@ function onGlossaryReady(cb) {
     return t.getFullYear() === e.getFullYear() && t.getMonth() === e.getMonth() && t.getDate() === e.getDate();
   }
 
+  var MONTHS_CS = ['led','úno','bře','dub','kvě','čvn','čvc','srp','zář','říj','lis','pro'];
+
   function formatEventText(ev) {
     if (!ev || !ev.title) return '';
     var label = categoryLabels[ev.category] || 'Akce';
@@ -1270,11 +1278,7 @@ function onGlossaryReady(cb) {
     if (ev.date && !isToday(ev.date)) {
       var d = new Date(ev.date);
       if (!isNaN(d.getTime())) {
-        try {
-          dateStr = d.getDate() + '. ' + d.toLocaleDateString('cs-CZ', { month: 'short' });
-        } catch (e) {
-          dateStr = d.getDate() + '/' + (d.getMonth() + 1);
-        }
+        dateStr = d.getDate() + '. ' + MONTHS_CS[d.getMonth()];
       }
     }
     var time = ev.time ? ' ' + ev.time : '';
@@ -1296,6 +1300,12 @@ function onGlossaryReady(cb) {
   var EVENT_REFRESH_MS = 10 * 60 * 1000;
   var _eventsScheduled = false;
   var _firebaseDb = null;
+
+  // Skip Firebase on very old browsers without Promise (Chromecast Gen 1)
+  if (typeof Promise === 'undefined') {
+    console.log('Ticker: Promise not supported, skipping Firebase events');
+    return;
+  }
 
   function loadScript(src, cb) {
     var s = document.createElement('script');
