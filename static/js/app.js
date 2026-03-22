@@ -1522,11 +1522,10 @@ function app() {
       if (html === this._kioskDataFingerprint) return;
       this._kioskDataFingerprint = html;
 
-      // First render — no fade, just set content
-      if (!content.childElementCount || content.querySelector('.kiosk-empty')) {
-        content.textContent = '';
-        content.insertAdjacentHTML('beforeend', html);
-        content.style.opacity = '1';
+      // First render or loading state — just set content, no fade
+      if (!this._kioskFirstRenderDone) {
+        content.innerHTML = html;
+        if (this.liveBeers.length > 0) this._kioskFirstRenderDone = true;
         return;
       }
 
@@ -1534,8 +1533,7 @@ function app() {
       content.style.transition = 'opacity 0.3s ease';
       content.style.opacity = '0';
       setTimeout(function() {
-        content.textContent = '';
-        content.insertAdjacentHTML('beforeend', html);
+        content.innerHTML = html;
         content.style.opacity = '1';
       }, 300);
     },
