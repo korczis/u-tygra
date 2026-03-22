@@ -1264,11 +1264,19 @@ function onGlossaryReady(cb) {
   }
 
   function formatEventText(ev) {
+    if (!ev || !ev.title) return '';
     var label = categoryLabels[ev.category] || 'Akce';
-    var d = new Date(ev.date);
-    var dateStr = isToday(ev.date)
-      ? 'DNES'
-      : d.getDate() + '. ' + d.toLocaleDateString('cs-CZ', { month: 'short' });
+    var dateStr = 'DNES';
+    if (ev.date && !isToday(ev.date)) {
+      var d = new Date(ev.date);
+      if (!isNaN(d.getTime())) {
+        try {
+          dateStr = d.getDate() + '. ' + d.toLocaleDateString('cs-CZ', { month: 'short' });
+        } catch (e) {
+          dateStr = d.getDate() + '/' + (d.getMonth() + 1);
+        }
+      }
+    }
     var time = ev.time ? ' ' + ev.time : '';
     return '\u25B6 ' + label.toUpperCase() + ' \u2022 ' + dateStr + time + ' \u2022 ' + ev.title;
   }
@@ -1277,70 +1285,96 @@ function onGlossaryReady(cb) {
     if (events.length === 0) return;
     var idx = Math.floor(Math.random() * events.length);
     var ev = events[idx];
+    var text = formatEventText(ev);
+    if (!text) return;
     var cls = isToday(ev.date) ? 'ticker-event-today' : 'ticker-event';
-    scrollMessage(formatEventText(ev), cls);
+    scrollMessage(text, cls);
   }
 
   // Load events from Firebase via compat SDK (ES5-safe, no dynamic import)
-  (function loadTickerEvents() {
-    // Load Firebase compat SDK via script tags (works on old Chromecast/LG TV)
-    function loadScript(src, cb) {
-      var s = document.createElement('script');
-      s.src = src;
-      s.onload = cb;
-      s.onerror = function() { console.warn('Ticker: failed to load ' + src); };
-      document.head.appendChild(s);
-    }
+  // Periodic re-fetch every 10min to keep kiosk data fresh on long-running displays
+  var EVENT_REFRESH_MS = 10 * 60 * 1000;
+  var _eventsScheduled = false;
+  var _firebaseDb = null;
 
-    loadScript('https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js', function() {
-      loadScript('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js', function() {
-        try {
-          if (!firebase || !firebase.firestore) { return; }
+  function loadScript(src, cb) {
+    var s = document.createElement('script');
+    s.src = src;
+    s.onload = cb;
+    s.onerror = function() { console.warn('Ticker: failed to load ' + src); };
+    document.head.appendChild(s);
+  }
 
-          var config = {
-            apiKey: 'AIzaSyB50U3NrQzDM5EtUKZ0TTwc4VXRSfN5v4o',
-            authDomain: 'u-tygra.firebaseapp.com',
-            projectId: 'u-tygra',
-            storageBucket: 'u-tygra.firebasestorage.app',
-            messagingSenderId: '342065439807',
-            appId: '1:342065439807:web:87227a21a6ad2a12c7048a'
-          };
-
-          var app;
-          if (firebase.apps && firebase.apps.length > 0) {
-            app = firebase.apps[0];
-          } else {
-            app = firebase.initializeApp(config);
-          }
-          var db = firebase.firestore(app);
-
-          db.collection('events').orderBy('date', 'asc').get().then(function(snap) {
-            var now = new Date();
-            var weekAgo = new Date(now.getTime() - 1 * 24 * 60 * 60 * 1000);
-            snap.forEach(function(doc) {
-              var data = doc.data();
-              data.id = doc.id;
-              if (data.date && new Date(data.date) >= weekAgo) {
-                events.push(data);
-              }
-            });
-
-            if (events.length > 0) {
-              console.log('Ticker: loaded ' + events.length + ' events from Firebase');
-              setTimeout(function() {
-                triggerEvent();
-                setInterval(triggerEvent, EVENT_INTERVAL);
-              }, 15000);
-            }
-          }).catch(function(e) {
-            console.warn('Ticker: Firestore query failed', e);
-          });
-        } catch (e) {
-          console.warn('Ticker: Firebase events init failed', e);
+  function fetchEvents() {
+    if (!_firebaseDb) return;
+    _firebaseDb.collection('events').orderBy('date', 'asc').get().then(function(snap) {
+      var now = new Date();
+      var dayAgo = new Date(now.getTime() - 1 * 24 * 60 * 60 * 1000);
+      var loaded = [];
+      snap.forEach(function(doc) {
+        var data = doc.data();
+        data.id = doc.id;
+        // Validate required fields + freshness
+        if (data.date && data.title && new Date(data.date) >= dayAgo) {
+          loaded.push(data);
         }
       });
+
+      // Replace events array contents (keep same reference)
+      events.length = 0;
+      for (var i = 0; i < loaded.length; i++) events.push(loaded[i]);
+      console.log('Ticker: loaded ' + events.length + ' events from Firebase');
+
+      // Schedule event ticker on first successful load
+      if (!_eventsScheduled && events.length > 0) {
+        _eventsScheduled = true;
+        setTimeout(function() {
+          triggerEvent();
+          setInterval(triggerEvent, EVENT_INTERVAL);
+        }, 15000);
+      }
+    }).catch(function(e) {
+      console.warn('Ticker: Firestore query failed, will retry', e);
     });
-  })();
+  }
+
+  function initFirebaseEvents() {
+    try {
+      if (typeof firebase === 'undefined' || !firebase.firestore) {
+        console.warn('Ticker: Firebase SDK not available, events disabled');
+        return;
+      }
+
+      var config = {
+        apiKey: 'AIzaSyB50U3NrQzDM5EtUKZ0TTwc4VXRSfN5v4o',
+        authDomain: 'u-tygra.firebaseapp.com',
+        projectId: 'u-tygra',
+        storageBucket: 'u-tygra.firebasestorage.app',
+        messagingSenderId: '342065439807',
+        appId: '1:342065439807:web:87227a21a6ad2a12c7048a'
+      };
+
+      var app;
+      if (firebase.apps && firebase.apps.length > 0) {
+        app = firebase.apps[0];
+      } else {
+        app = firebase.initializeApp(config);
+      }
+      _firebaseDb = firebase.firestore(app);
+
+      // Initial fetch + periodic refresh
+      fetchEvents();
+      setInterval(fetchEvents, EVENT_REFRESH_MS);
+    } catch (e) {
+      console.warn('Ticker: Firebase events init failed', e);
+    }
+  }
+
+  loadScript('https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js', function() {
+    loadScript('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js', function() {
+      initFirebaseEvents();
+    });
+  });
 
   // === Click handlers ===
   var labelEl = document.querySelector('.ticker-label');
@@ -1359,6 +1393,7 @@ function onGlossaryReady(cb) {
     showWisdom: function() { triggerWisdom(); return 'Wisdom triggered'; },
     showPromo: function() { triggerPromo(); return 'Promo triggered'; },
     showEvent: function() { triggerEvent(); return events.length > 0 ? 'Event triggered' : 'No events loaded'; },
+    refreshEvents: function() { fetchEvents(); return 'Refreshing events...'; },
     scrollText: function(text, cls) { scrollMessage(text || 'Test', cls || 'ticker-wisdom'); return 'Scrolling'; },
     setInterval: function(s) { WISDOM_INTERVAL = s * 1000; return 'Interval: ' + s + 's'; },
     state: function() { return state; },
