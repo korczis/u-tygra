@@ -1071,6 +1071,25 @@ function app() {
     /**
      * Track food menu interactions
      */
+    isEventToday(dateStr) {
+      if (!dateStr) return false;
+      const today = new Date();
+      const eventDate = new Date(dateStr);
+      return today.getFullYear() === eventDate.getFullYear()
+        && today.getMonth() === eventDate.getMonth()
+        && today.getDate() === eventDate.getDate();
+    },
+
+    isEventTomorrow(dateStr) {
+      if (!dateStr) return false;
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const eventDate = new Date(dateStr);
+      return tomorrow.getFullYear() === eventDate.getFullYear()
+        && tomorrow.getMonth() === eventDate.getMonth()
+        && tomorrow.getDate() === eventDate.getDate();
+    },
+
     onFoodTabSwitch(category) {
       const previousTab = this.activeFoodTab;
       this.activeFoodTab = category;
