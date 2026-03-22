@@ -418,14 +418,14 @@ window.FIREBASE_CONFIG = {
                :href="breweryUrl(beer['pivovar'])" target="_blank" rel="noopener noreferrer"
                @click.stop="onBreweryClick(beer['pivovar'])"
                class="text-tiger-400 hover:text-tiger-300 text-sm font-medium transition-colors inline-flex items-center gap-2">
-              <svg class="w-4 h-4 opacity-70" :class="`text-${breweryIcon(beer['pivovar']) === 'czech-traditional' ? 'yellow' : breweryIcon(beer['pivovar']) === 'craft-brewery' ? 'orange' : breweryIcon(beer['pivovar']) === 'international' ? 'blue' : breweryIcon(beer['pivovar']) === 'moravian' ? 'purple' : 'green'}-400`">
+              <svg class="w-4 h-4 opacity-70" :class="'text-' + breweryIconColor(beer['pivovar']) + '-400'">
                 <use :href="`${window.BASE_URL}/img/brewery-icons.svg#icon-${breweryIcon(beer['pivovar'])}`"></use>
               </svg>
               <span x-text="beer['pivovar']"></span>
               <svg class="w-3 h-3 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
             </a>
             <span x-show="!breweryUrl(beer['pivovar'])" class="text-tiger-500/70 text-sm inline-flex items-center gap-2">
-              <svg class="w-4 h-4 opacity-50" :class="`text-${breweryIcon(beer['pivovar']) === 'czech-traditional' ? 'yellow' : breweryIcon(beer['pivovar']) === 'craft-brewery' ? 'orange' : breweryIcon(beer['pivovar']) === 'international' ? 'blue' : breweryIcon(beer['pivovar']) === 'moravian' ? 'purple' : 'green'}-400`">
+              <svg class="w-4 h-4 opacity-50" :class="'text-' + breweryIconColor(beer['pivovar']) + '-400'">
                 <use :href="`${window.BASE_URL}/img/brewery-icons.svg#icon-${breweryIcon(beer['pivovar'])}`"></use>
               </svg>
               <span x-text="beer['pivovar'] || ''"></span>
@@ -457,13 +457,13 @@ window.FIREBASE_CONFIG = {
             <div class="flex flex-wrap items-center gap-2 text-xs text-brew-400">
               <a x-show="breweryUrl(beer['pivovar'])" :href="breweryUrl(beer['pivovar'])" target="_blank"
                  class="text-tiger-400 hover:text-tiger-300 inline-flex items-center gap-1">
-                <svg class="w-3 h-3 opacity-60" :class="`text-${breweryIcon(beer['pivovar']) === 'czech-traditional' ? 'yellow' : breweryIcon(beer['pivovar']) === 'craft-brewery' ? 'orange' : breweryIcon(beer['pivovar']) === 'international' ? 'blue' : breweryIcon(beer['pivovar']) === 'moravian' ? 'purple' : 'green'}-400`">
+                <svg class="w-3 h-3 opacity-60" :class="'text-' + breweryIconColor(beer['pivovar']) + '-400'">
                   <use :href="`${window.BASE_URL}/img/brewery-icons.svg#icon-${breweryIcon(beer['pivovar'])}`"></use>
                 </svg>
                 <span x-text="beer['pivovar']"></span>
               </a>
               <span x-show="!breweryUrl(beer['pivovar'])" class="text-tiger-500 inline-flex items-center gap-1">
-                <svg class="w-3 h-3 opacity-40" :class="`text-${breweryIcon(beer['pivovar']) === 'czech-traditional' ? 'yellow' : breweryIcon(beer['pivovar']) === 'craft-brewery' ? 'orange' : breweryIcon(beer['pivovar']) === 'international' ? 'blue' : breweryIcon(beer['pivovar']) === 'moravian' ? 'purple' : 'green'}-400`">
+                <svg class="w-3 h-3 opacity-40" :class="'text-' + breweryIconColor(beer['pivovar']) + '-400'">
                   <use :href="`${window.BASE_URL}/img/brewery-icons.svg#icon-${breweryIcon(beer['pivovar'])}`"></use>
                 </svg>
                 <span x-text="beer['pivovar']"></span>
@@ -495,14 +495,14 @@ window.FIREBASE_CONFIG = {
                  :href="breweryUrl(beer['pivovar'])" target="_blank" rel="noopener noreferrer"
                  @click.stop="onBreweryClick(beer['pivovar'])"
                  class="text-tiger-400 hover:text-tiger-300 text-sm font-medium transition-colors inline-flex items-center gap-2">
-                <svg class="w-4 h-4 opacity-70" :class="`text-${breweryIcon(beer['pivovar']) === 'czech-traditional' ? 'yellow' : breweryIcon(beer['pivovar']) === 'craft-brewery' ? 'orange' : breweryIcon(beer['pivovar']) === 'international' ? 'blue' : breweryIcon(beer['pivovar']) === 'moravian' ? 'purple' : 'green'}-400`">
+                <svg class="w-4 h-4 opacity-70" :class="'text-' + breweryIconColor(beer['pivovar']) + '-400'">
                   <use :href="`${window.BASE_URL}/img/brewery-icons.svg#icon-${breweryIcon(beer['pivovar'])}`"></use>
                 </svg>
                 <span x-text="beer['pivovar']"></span>
                 <svg class="w-3 h-3 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
               </a>
               <span x-show="!breweryUrl(beer['pivovar'])" class="text-tiger-500/70 text-sm inline-flex items-center gap-2">
-                <svg class="w-4 h-4 opacity-50" :class="`text-${breweryIcon(beer['pivovar']) === 'czech-traditional' ? 'yellow' : breweryIcon(beer['pivovar']) === 'craft-brewery' ? 'orange' : breweryIcon(beer['pivovar']) === 'international' ? 'blue' : breweryIcon(beer['pivovar']) === 'moravian' ? 'purple' : 'green'}-400`">
+                <svg class="w-4 h-4 opacity-50" :class="'text-' + breweryIconColor(beer['pivovar']) + '-400'">
                   <use :href="`${window.BASE_URL}/img/brewery-icons.svg#icon-${breweryIcon(beer['pivovar'])}`"></use>
                 </svg>
                 <span x-text="beer['pivovar'] || ''"></span>
@@ -586,33 +586,17 @@ window.FIREBASE_CONFIG = {
 
     <!-- Tabs (Flowbite pill tabs pattern with Alpine.js behavior) -->
     <div class="mb-10 flex justify-center gap-2" role="tablist">
-      <button @click="onFoodTabSwitch('cold')"
-              role="tab" id="tab-cold" aria-controls="panel-food-cold"
-              :aria-selected="activeFoodTab === 'cold'"
-              class="px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200"
-              :class="activeFoodTab === 'cold'
-                ? 'bg-tiger-500 text-white shadow-lg shadow-tiger-500/20'
-                : 'text-brew-400 hover:text-white hover:bg-white/5'">
-        Studené
-      </button>
-      <button @click="onFoodTabSwitch('warm')"
-              role="tab" id="tab-warm" aria-controls="panel-food-warm"
-              :aria-selected="activeFoodTab === 'warm'"
-              class="px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200"
-              :class="activeFoodTab === 'warm'
-                ? 'bg-tiger-500 text-white shadow-lg shadow-tiger-500/20'
-                : 'text-brew-400 hover:text-white hover:bg-white/5'">
-        Teplé
-      </button>
-      <button @click="onFoodTabSwitch('drinks')"
-              role="tab" id="tab-drinks" aria-controls="panel-food-drinks"
-              :aria-selected="activeFoodTab === 'drinks'"
-              class="px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200"
-              :class="activeFoodTab === 'drinks'
-                ? 'bg-tiger-500 text-white shadow-lg shadow-tiger-500/20'
-                : 'text-brew-400 hover:text-white hover:bg-white/5'">
-        Nápoje
-      </button>
+      <template x-for="tab in [{key: 'cold', label: 'Studené'}, {key: 'warm', label: 'Teplé'}, {key: 'drinks', label: 'Nápoje'}]" :key="tab.key">
+        <button @click="onFoodTabSwitch(tab.key)"
+                role="tab" :id="'tab-' + tab.key" :aria-controls="'panel-food-' + tab.key"
+                :aria-selected="activeFoodTab === tab.key"
+                class="px-6 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200"
+                :class="activeFoodTab === tab.key
+                  ? 'bg-tiger-500 text-white shadow-lg shadow-tiger-500/20'
+                  : 'text-brew-400 hover:text-white hover:bg-white/5'"
+                x-text="tab.label">
+        </button>
+      </template>
     </div>
 
     <!-- Food grid -->

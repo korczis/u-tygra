@@ -121,14 +121,6 @@
   overflow: hidden;
 }
 
-/* Glass effect for glossary cards */
-.glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(16px) saturate(1.1);
-  -webkit-backdrop-filter: blur(16px) saturate(1.1);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
 /* === Smooth scrolling + page snap === */
 html {
   scroll-behavior: smooth;
@@ -542,7 +534,6 @@ body.kiosk-mode .foam-border::before {
 #kiosk-container .kiosk-list {
   display: flex;
   flex-direction: column;
-  gap: 0;
 }
 
 #kiosk-container .kiosk-list-header {

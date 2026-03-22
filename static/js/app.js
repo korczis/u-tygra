@@ -337,12 +337,12 @@ const charlie = new CharlieAnalytics();
 function sanitizeText(text) {
   if (!text || typeof text !== 'string') return '';
 
-  // Only escape HTML-dangerous characters. Alpine x-text uses textContent
-  // (not innerHTML) so XSS is already prevented. Don't escape / or '
-  // as they display literally via textContent.
   return text
+    .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
     .trim();
 }
 
@@ -760,6 +760,17 @@ function app() {
       return 'czech-traditional'; // default
     },
 
+    breweryIconColor(name) {
+      const icon = this.breweryIcon(name);
+      const colorMap = {
+        'czech-traditional': 'yellow',
+        'craft-brewery': 'orange',
+        'international': 'blue',
+        'moravian': 'purple',
+      };
+      return colorMap[icon] || 'green';
+    },
+
     // Resolve brewery name to URL
     breweryUrl(name) {
       if (!name) return '';
@@ -786,7 +797,7 @@ function app() {
     didYouKnow: [
       'Česko má nejvyšší spotřebu piva na osobu na světě — přes 140 litrů ročně.',
       'IBU (International Bitterness Units) měří hořkost piva. Ležák má typicky 20–40 IBU.',
-      'Plzeňský typ piva (Pilsner) vznikl v roce 1842 a změnil svět pivovarniství.',
+      'Plzeňský typ piva (Pilsner) vznikl v roce 1842 a změnil svět pivovarnictví.',
       'Teplota servírování ovlivňuje chuť — lager 4–7°C, ale 8–12°C, stout 12–14°C.',
       'Pěna na pivu není jen estetika — chrání před oxidací a udrží aroma.',
       'Kvasnice typu Ale kvasí nahoře (top-fermenting), Lager dole (bottom-fermenting).',
@@ -805,7 +816,7 @@ function app() {
       {
         id: 'svetlylezak', name: 'Světlý ležák', nameEn: '(Czech Pale Lager)',
         color: '#f7c46d',
-        desc: 'Nejrozšířenější český pivní styl. Spodně kvašený, světlý, s výraznou chmelovou hořcí a čistou sladovou chutí. Základní kámen české pivní tradice. Zrání minimálně 4–6 týdnů za nízkých teplot.',
+        desc: 'Nejrozšířenější český pivní styl. Spodně kvašený, světlý, s výraznou chmelovou hořkostí a čistou sladovou chutí. Základní kámen české pivní tradice. Zrání minimálně 4–6 týdnů za nízkých teplot.',
         abv: '4.0–5.5 %', ibu: '25–45', barva: 'Zlatá', ebc: '6–12',
         examples: ['Pilsner Urquell', 'Budvar', 'Staropramen'],
         pairing: 'Svíčková, smažený sýr, kuřecí řízek',
@@ -939,10 +950,10 @@ function app() {
       { term: 'Stupňovitost', en: '(Original Gravity / °Plato)', desc: 'Obsah extraktu v mladině před kvašením. 10° = desítka, 12° = dvanáctka. Vyšší stupeň = silnější pivo.' },
 
       // Suroviny
-      { term: 'Chmel', en: '(Hops)', desc: 'Rostlina dodávající pivu hořkost, aróma a konzervační vlastnosti. Český Saaz (Žatecký) je světově proslýlý aromatický chmel.' },
+      { term: 'Chmel', en: '(Hops)', desc: 'Rostlina dodávající pivu hořkost, aróma a konzervační vlastnosti. Český Saaz (Žatecký) je světově proslulý aromatický chmel.' },
       { term: 'Slad', en: '(Malt)', desc: 'Naklíčený a usušený ječmen (nebo pšenice). Základ chuti a barvy piva. Pražené slady dávají tmavé pivo, karamely přidávají sladkost.' },
       { term: 'Kvasnice', en: '(Yeast)', desc: 'Jednobuňečné houby přeměňující cukry na alkohol a CO₂. Ale kvasnice (Saccharomyces cerevisiae) pracují nahoře, Lager (S. pastorianus) dole.' },
-      { term: 'Voda', en: '(Water)', desc: 'Tvoří 90–95 % piva. Sloužení vody (tvrdost, minerály) zásadně ovlivňuje výslednou chuť. Plzeňská měkká voda = základ Pilsneru.' },
+      { term: 'Voda', en: '(Water)', desc: 'Tvoří 90–95 % piva. Složení vody (tvrdost, minerály) zásadně ovlivňuje výslednou chuť. Plzeňská měkká voda = základ Pilsneru.' },
 
       // Výroba
       { term: 'Kvašení', en: '(Fermentation)', desc: 'Proces, při kterém kvasnice přetvářejí cukry na alkohol a CO₂. Svrchní (ale, 15–24 °C) nebo spodní (lager, 7–13 °C).' },
@@ -964,7 +975,7 @@ function app() {
 
       // Stylové pojmy
       { term: 'Plzeň', en: '(Pilsner style)', desc: 'Pivní styl pojmenovaný po městě Plzeň. Světlý spodně kvašený ležák s výrazným chmelem. Světový standard od 1842.' },
-      { term: 'NEIPA', en: '(New England IPA)', desc: 'Moderní styl IPA se zakalenným vzhledem, nížší hořkostí a intenzívním ovocným arómem (tropické ovoce). Měkké tělo díky ovsu.' },
+      { term: 'NEIPA', en: '(New England IPA)', desc: 'Moderní styl IPA se zakaleným vzhledem, nižší hořkostí a intenzívním ovocným arómem (tropické ovoce). Měkké tělo díky ovsu.' },
       { term: 'Session', en: '', desc: 'Označení pro piva s nižším obsahem alkoholu (do 4,5 %), určená pro delší posezení bez těžké hlavy.' },
       { term: 'Imperial', en: '', desc: 'Označení pro silnější verzi stylu. Imperial Stout (8–12 %), Imperial IPA / DIPA (7–10 %). Více sladu, chmele, chutí.' },
       { term: 'Craft / Řemeslné', en: '(Craft Beer)', desc: 'Pivo z malého nezávislého pivovaru s důrazem na kvalitu, kreativitu a tradiční postupy. V ČR boom od 2010.' },
@@ -977,12 +988,12 @@ function app() {
       // Chmelové odrůdy
       { term: 'Žatecký (Saaz)', en: '', desc: 'Nejslavnější český chmel. Jemné, kořeněné, bylinkové aróma. Základ Pilsneru a českých ležáků.' },
       { term: 'Citra', en: '', desc: 'Americký chmel s intenzívním citrusovým a tropickým arómatem (grep, liči, mango). Hvězda moderních IPA.' },
-      { term: 'Mosaic', en: '', desc: 'Americký chmel s komplexním profilem: borůvky, tropické ovoce, kvěťiny. Populární v NEIPA a APA.' },
-      { term: 'Cascade', en: '', desc: 'Průkopnický americký chmel (1972). Grapefruitové, kvěťinové aróma. Základ Sierra Nevada Pale Ale.' },
+      { term: 'Mosaic', en: '', desc: 'Americký chmel s komplexním profilem: borůvky, tropické ovoce, květiny. Populární v NEIPA a APA.' },
+      { term: 'Cascade', en: '', desc: 'Průkopnický americký chmel (1972). Grapefruitové, květinové aróma. Základ Sierra Nevada Pale Ale.' },
       { term: 'Kazbek', en: '', desc: 'Český moderní chmel s citrusovým a ovocným arómatem (citrón, limeta). Oblíbený v českých řemeslných pivovarech.' },
 
       // Párování a kultura
-      { term: 'Párování', en: '(Food Pairing)', desc: 'Kombináce piva s jídlem. Ležák + řízek, IPA + burger, Stout + čokoláda, Wheat + salát, Sour + sýr.' },
+      { term: 'Párování', en: '(Food Pairing)', desc: 'Kombinace piva s jídlem. Ležák + řízek, IPA + burger, Stout + čokoláda, Wheat + salát, Sour + sýr.' },
       { term: 'Pivní lázně', en: '(Beer Spa)', desc: 'Česká specialita — koupel v pivě s chmelou a kvasnicemi. Relax pro tělo i duši. Populární turistická atrakce.' },
     ],
 
@@ -1538,11 +1549,11 @@ function app() {
       const ageSec = Math.floor(age / 1000);
 
       if (ageSec < 120) {
-        el.textContent = 'Aktualni';
+        el.textContent = 'Aktuální';
         el.className = 'kiosk-staleness';
       } else {
         const ageMin = Math.floor(ageSec / 60);
-        el.textContent = `Pred ${ageMin} min`;
+        el.textContent = `Před ${ageMin} min`;
         el.className = 'kiosk-staleness stale';
       }
     },
@@ -1625,10 +1636,12 @@ function app() {
       if (!config) return;
 
       try {
-        const { initializeApp } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js');
+        const { initializeApp, getApps, getApp } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js');
         const { getFirestore, collection, getDocs, query, orderBy } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js');
 
-        const app = initializeApp(config, 'public-reader');
+        const app = getApps().find(a => a.name === 'public-reader')
+          ? getApp('public-reader')
+          : initializeApp(config, 'public-reader');
         const db = getFirestore(app);
 
         // Load events → aktuality
