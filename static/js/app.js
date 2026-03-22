@@ -586,7 +586,7 @@ async function fetchBeerData() {
     return parseBeerCSV(csvText);
   } catch (error) {
     console.error('Failed to fetch beer data:', error);
-    return { announcement: '', beers: [] };
+    throw error;
   }
 }
 
@@ -598,7 +598,7 @@ window.__BEER_DATA__ = null;
   var skip = /\/(admin|ochrana-udaju|glosar)\b/.test(path);
   if (!skip) {
     fetch(SHEETS_CSV_URL)
-      .then(function(r) { return r.text(); })
+      .then(function(r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
       .then(function(csv) { window.__BEER_DATA__ = parseBeerCSV(csv); })
       .catch(function(e) { console.warn('Preload failed, will retry in init:', e); });
   }
@@ -1523,7 +1523,7 @@ function app() {
           });
         }
       } catch (e) {
-        // Wake Lock not supported or permission denied
+        console.warn('Wake Lock unavailable:', e.name, e.message);
       }
     },
 

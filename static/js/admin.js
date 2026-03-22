@@ -381,6 +381,7 @@ function adminApp() {
         var data = localStorage.getItem(STORAGE_PREFIX + key);
         return data ? JSON.parse(data) : null;
       } catch (e) {
+        console.error('Failed to load local data for "' + key + '":', e.message);
         return null;
       }
     },
