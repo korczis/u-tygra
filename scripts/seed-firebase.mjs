@@ -24,6 +24,7 @@
     { id: 'evt-003', title: 'Živá hudba — jazz večer', date: '2026-04-19', time: '20:00', category: 'hudba', description: 'Jazz trio z Brna. Vstup zdarma, rezervace doporučena.' },
     { id: 'evt-004', title: 'Pivní maraton — 10 čepů', date: '2026-05-03', time: '16:00', category: 'degustace', description: 'Celodenní akce: 10 speciálních piv rotujících na čepu. Sběratelský tácek pro každého účastníka.' },
     { id: 'evt-005', title: 'Grilování na zahrádce', date: '2026-05-17', time: '15:00', category: 'akce', description: 'Zahájení letní sezóny! Grilované speciality, koktejly a pivo za akční ceny.' },
+    { id: 'evt-006', title: 'Zelené pivo — Zelený čtvrtek', date: '2026-04-02', time: '16:00', category: 'akce', description: 'Tradiční velikonoční speciál! Na Zelený čtvrtek čepujeme zelené pivo — speciálně barvený ležák s kopřivovým extraktem. K tomu velikonoční menu: špenátová polévka, nádivka a jidášky. Zelené pivo na čepu od 16:00 do vyprodání zásob. Přijďte v zeleném a dostanete první pivo za polovinu!' },
   ];
 
   const food = [

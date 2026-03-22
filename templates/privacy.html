@@ -12,27 +12,20 @@
 {% block twitter_title %}Ochrana osobních údajů | Pivnice U Tygra{% endblock %}
 {% block twitter_description %}GDPR, cookies a analytika. Jak zpracováváme osobní údaje na webu Pivnice U Tygra.{% endblock %}
 {% block preloads %}{% endblock %}
+{% block app_script %}{% endblock %}
 
 {% block body_tag %}<body class="bg-brew-950 text-brew-100 font-body antialiased">{% endblock %}
 
 {% block body %}
-<div class="min-h-screen bg-brew-950 text-brew-100">
-  <!-- Header -->
-  <header class="bg-brew-950/95 backdrop-blur-xl border-b border-brew-800/30 sticky top-0 z-50">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center h-16">
-        <a href="{{ config.base_url }}" class="flex items-center gap-3 text-brew-400 hover:text-tiger-400 transition-colors">
-          <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-          </svg>
-          <span class="text-sm font-medium">Zpět na hlavní stránku</span>
-        </a>
-      </div>
-    </div>
-  </header>
+<main class="pt-24 pb-16 min-h-screen">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Breadcrumb -->
+    <nav class="mb-8 text-sm text-brew-500" aria-label="Breadcrumb">
+      <a href="{{ config.base_url | safe }}" class="hover:text-tiger-400 transition-colors">Domů</a>
+      <span class="mx-2">/</span>
+      <span class="text-brew-300" aria-current="page">Ochrana údajů</span>
+    </nav>
 
-  <!-- Content -->
-  <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <h1 class="text-3xl md:text-4xl font-bold text-white mb-8">Zásady ochrany osobních údajů</h1>
 
     <div class="space-y-8 text-brew-300 leading-relaxed">
@@ -145,13 +138,6 @@
         <p>Verze: 1.0</p>
       </div>
     </div>
-  </main>
-
-  <!-- Minimal footer -->
-  <footer class="border-t border-brew-800/20 py-6">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-brew-700 text-sm">
-      &copy; {{ now() | date(format="%Y") }} {{ config.extra.business_name }}
-    </div>
-  </footer>
-</div>
+  </div>
+</main>
 {% endblock %}
