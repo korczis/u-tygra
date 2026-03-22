@@ -451,6 +451,22 @@ tbody tr:nth-child(odd) .td-num {
   text-shadow: 0 0 12px rgba(255, 215, 0, 0.3);
 }
 
+.ticker-event {
+  color: #6ee7b7;
+  font-weight: 600;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 0.03em;
+  text-shadow: 0 0 10px rgba(110, 231, 183, 0.25);
+}
+
+.ticker-event-today {
+  color: #f08c0f;
+  font-weight: 700;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 0.03em;
+  text-shadow: 0 0 14px rgba(240, 140, 15, 0.35);
+}
+
 @media (min-width: 1920px) {
   #ticker-table td { height: 68px; }
   #ticker-table .ticker-label { font-size: 18px; }
@@ -1102,6 +1118,7 @@ function onGlossaryReady(cb) {
 
   // Data pools
   var wisdoms = [];
+  var events = [];
   var promos = (typeof KIOSK_PROMOS !== 'undefined') ? KIOSK_PROMOS : [
     'korczis@gmail.com \u2022 linkedin.com/in/korcaktomas \u2022 S laskou vyrobil Tomas Korcak'
   ];
@@ -1233,6 +1250,89 @@ function onGlossaryReady(cb) {
   }
   schedulePromo();
 
+  // === Event ticker: load from Firebase and schedule ===
+  var EVENT_INTERVAL = 60000; // show event every 60s
+  var categoryLabels = {
+    hudba: 'Hudba', sport: 'Sport', zapas: 'Zápas', degustace: 'Degustace',
+    kviz: 'Kvíz', akce: 'Akce', turnaj: 'Turnaj', tema: 'Tématický večer'
+  };
+
+  function isToday(dateStr) {
+    if (!dateStr) return false;
+    var t = new Date(), e = new Date(dateStr);
+    return t.getFullYear() === e.getFullYear() && t.getMonth() === e.getMonth() && t.getDate() === e.getDate();
+  }
+
+  function formatEventText(ev) {
+    var label = categoryLabels[ev.category] || 'Akce';
+    var d = new Date(ev.date);
+    var dateStr = isToday(ev.date)
+      ? 'DNES'
+      : d.getDate() + '. ' + d.toLocaleDateString('cs-CZ', { month: 'short' });
+    var time = ev.time ? ' ' + ev.time : '';
+    return '\u25B6 ' + label.toUpperCase() + ' \u2022 ' + dateStr + time + ' \u2022 ' + ev.title;
+  }
+
+  function triggerEvent() {
+    if (events.length === 0) return;
+    var idx = Math.floor(Math.random() * events.length);
+    var ev = events[idx];
+    var cls = isToday(ev.date) ? 'ticker-event-today' : 'ticker-event';
+    scrollMessage(formatEventText(ev), cls);
+  }
+
+  // Load events from Firebase
+  (function loadTickerEvents() {
+    try {
+      Promise.all([
+        import('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js'),
+        import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js')
+      ]).then(function(modules) {
+        var initializeApp = modules[0].initializeApp;
+        var getApps = modules[0].getApps;
+        var getApp = modules[0].getApp;
+        var getFirestore = modules[1].getFirestore;
+        var collection = modules[1].collection;
+        var getDocs = modules[1].getDocs;
+        var query = modules[1].query;
+        var orderBy = modules[1].orderBy;
+
+        var config = {
+          apiKey: 'AIzaSyB50U3NrQzDM5EtUKZ0TTwc4VXRSfN5v4o',
+          authDomain: 'u-tygra.firebaseapp.com',
+          projectId: 'u-tygra',
+          storageBucket: 'u-tygra.firebasestorage.app',
+          messagingSenderId: '342065439807',
+          appId: '1:342065439807:web:87227a21a6ad2a12c7048a'
+        };
+
+        var app = getApps().find(function(a) { return a.name === 'kiosk-ticker'; })
+          ? getApp('kiosk-ticker')
+          : initializeApp(config, 'kiosk-ticker');
+        var db = getFirestore(app);
+
+        getDocs(query(collection(db, 'events'), orderBy('date', 'asc'))).then(function(snap) {
+          var now = new Date();
+          var weekAgo = new Date(now.getTime() - 1 * 24 * 60 * 60 * 1000);
+          events = snap.docs
+            .map(function(d) { return Object.assign({ id: d.id }, d.data()); })
+            .filter(function(e) { return e.date && new Date(e.date) >= weekAgo; });
+
+          if (events.length > 0) {
+            console.log('Ticker: loaded ' + events.length + ' events from Firebase');
+            // Show first event after 15s, then every EVENT_INTERVAL
+            setTimeout(function() {
+              triggerEvent();
+              setInterval(triggerEvent, EVENT_INTERVAL);
+            }, 15000);
+          }
+        });
+      });
+    } catch (e) {
+      console.warn('Ticker: Firebase events not available', e);
+    }
+  })();
+
   // === Click handlers ===
   var labelEl = document.querySelector('.ticker-label');
   if (labelEl) {
@@ -1249,6 +1349,7 @@ function onGlossaryReady(cb) {
   window.ticker = {
     showWisdom: function() { triggerWisdom(); return 'Wisdom triggered'; },
     showPromo: function() { triggerPromo(); return 'Promo triggered'; },
+    showEvent: function() { triggerEvent(); return events.length > 0 ? 'Event triggered' : 'No events loaded'; },
     scrollText: function(text, cls) { scrollMessage(text || 'Test', cls || 'ticker-wisdom'); return 'Scrolling'; },
     setInterval: function(s) { WISDOM_INTERVAL = s * 1000; return 'Interval: ' + s + 's'; },
     state: function() { return state; },
@@ -1262,6 +1363,7 @@ function onGlossaryReady(cb) {
     },
     help: function() {
       console.log('ticker.showWisdom()        \u2014 trigger wisdom');
+      console.log('ticker.showEvent()         \u2014 trigger event');
       console.log('ticker.showPromo()         \u2014 trigger promo');
       console.log('ticker.scrollText("text")  \u2014 scroll custom text');
       console.log('ticker.setInterval(30)     \u2014 wisdom interval (sec)');
