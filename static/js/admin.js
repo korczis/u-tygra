@@ -1,7 +1,8 @@
 /**
  * Admin Panel - Pivnice U Tygra
- * Firebase-powered admin interface for managing photos, events, and food menu.
- * Falls back to localStorage when Firebase is not available.
+ * Firebase-powered admin interface for managing photos, events, food menu,
+ * announcements, and settings. Falls back to localStorage when Firebase
+ * is not available.
  */
 
 const STORAGE_PREFIX = 'utygra_admin_';
@@ -12,16 +13,20 @@ function adminApp() {
     authUser: null,
     firebaseConnected: false,
 
+    // Toast notifications
+    toasts: [],
+    _toastId: 0,
+
     // Navigation (hash-routed)
     activeTab: (function() {
       var hash = window.location.hash.replace('#', '');
       var valid = ['photos', 'events', 'food', 'settings'];
-      return valid.indexOf(hash) !== -1 ? hash : 'photos';
+      return valid.indexOf(hash) !== -1 ? hash : 'events';
     })(),
     tabs: [
-      { id: 'photos', label: 'Fotografie' },
       { id: 'events', label: 'Akce' },
-      { id: 'food', label: 'Jídelní lístek' },
+      { id: 'food', label: 'Menu' },
+      { id: 'photos', label: 'Fotografie' },
       { id: 'settings', label: 'Nastavení' },
     ],
 
@@ -29,6 +34,7 @@ function adminApp() {
     photos: [],
     uploading: false,
     photoCategoryFilter: 'all',
+    editingPhoto: null,
     photoCategories: [
       { id: 'all', label: 'Vše' },
       { id: 'interior', label: 'Interiér' },
@@ -48,11 +54,20 @@ function adminApp() {
     foodItems: [],
     showFoodForm: false,
     editingFood: null,
+    foodCategoryFilter: 'all',
     foodForm: { name: '', price: '', weight: '', category: 'cold', desc: '' },
+
+    // Settings
+    announcementText: '',
 
     get filteredPhotos() {
       if (this.photoCategoryFilter === 'all') return this.photos;
       return this.photos.filter(function(p) { return p.category === this.photoCategoryFilter; }.bind(this));
+    },
+
+    get filteredFoodItems() {
+      if (this.foodCategoryFilter === 'all') return this.foodItems;
+      return this.foodItems.filter(function(f) { return f.category === this.foodCategoryFilter; }.bind(this));
     },
 
     async init() {
@@ -74,10 +89,25 @@ function adminApp() {
       window.location.hash = tabId;
     },
 
+    // === Toast Notifications ===
+
+    showToast(message, type) {
+      type = type || 'success';
+      var id = ++this._toastId;
+      var toast = { id: id, message: message, type: type, visible: true };
+      this.toasts.push(toast);
+      var self = this;
+      setTimeout(function() {
+        toast.visible = false;
+        setTimeout(function() {
+          self.toasts = self.toasts.filter(function(t) { return t.id !== id; });
+        }, 300);
+      }, 3000);
+    },
+
     // === Auth ===
 
     async signIn() {
-      // Retry Firebase init if not connected
       if (!this.firebaseConnected) {
         await this._initFirebase();
       }
@@ -90,6 +120,7 @@ function adminApp() {
           this.authUser = { email: result.user.email, uid: result.user.uid };
           this._saveLocal('auth', this.authUser);
           await this._loadFirestoreData();
+          this.showToast('Přihlášení úspěšné');
         } catch (e) {
           console.error('Firebase auth error:', e);
           this._fallbackAuth();
@@ -104,6 +135,7 @@ function adminApp() {
       this.authUser = { email: 'local@admin', uid: 'local' };
       this._saveLocal('auth', this.authUser);
       this._loadLocalData();
+      this.showToast('Lokální režim — data v prohlížeči', 'info');
     },
 
     signOut() {
@@ -145,7 +177,6 @@ function adminApp() {
         this.firebaseConnected = true;
         console.log('Firebase connected successfully');
 
-        // Wait for auth state — don't load from localStorage
         var self = this;
         onAuthStateChanged(window._firebaseAuth, async function(user) {
           if (user) {
@@ -177,51 +208,67 @@ function adminApp() {
       }
 
       try {
-        var { collection, getDocs, orderBy, query } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js');
+        var { collection, getDocs, orderBy, query, doc, getDoc } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js');
         var db = window._firebaseDb;
 
         // Load photos
         var photosSnap = await getDocs(query(collection(db, 'photos'), orderBy('createdAt', 'desc')));
-        this.photos = photosSnap.docs.map(function(doc) { return Object.assign({ id: doc.id }, doc.data()); });
+        this.photos = photosSnap.docs.map(function(d) { return Object.assign({ id: d.id }, d.data()); });
 
         // Load events
         var eventsSnap = await getDocs(query(collection(db, 'events'), orderBy('date', 'asc')));
-        this.events = eventsSnap.docs.map(function(doc) { return Object.assign({ id: doc.id }, doc.data()); });
+        this.events = eventsSnap.docs.map(function(d) { return Object.assign({ id: d.id }, d.data()); });
 
         // Load food
         var foodSnap = await getDocs(collection(db, 'food'));
-        var foodData = foodSnap.docs.map(function(doc) { return Object.assign({ id: doc.id }, doc.data()); });
+        var foodData = foodSnap.docs.map(function(d) { return Object.assign({ id: d.id }, d.data()); });
         this.foodItems = foodData.length > 0 ? foodData : this._defaultFood();
+
+        // Load announcement
+        try {
+          var announcementDoc = await getDoc(doc(db, 'settings', 'announcement'));
+          if (announcementDoc.exists()) {
+            this.announcementText = announcementDoc.data().text || '';
+          }
+        } catch (e) {
+          // Settings may not exist yet
+        }
 
         // Sync to localStorage as backup
         this._saveLocal('photos', this.photos);
         this._saveLocal('events', this.events);
         this._saveLocal('food', this.foodItems);
       } catch (e) {
-        console.warn('Firestore load failed, using localStorage:', e);
+        console.error('Firestore load failed, using localStorage:', e);
         this._loadLocalData();
       }
     },
 
     async _firestoreSave(collectionName, id, data) {
-      if (!this.firebaseConnected || !window._firebaseDb) return;
+      if (!this.firebaseConnected || !window._firebaseDb) return false;
 
       try {
         var { doc, setDoc } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js');
         await setDoc(doc(window._firebaseDb, collectionName, id), data);
+        return true;
       } catch (e) {
         console.error('Firestore save error:', e);
+        this.showToast('Chyba při ukládání do Firebase', 'error');
+        return false;
       }
     },
 
     async _firestoreDelete(collectionName, id) {
-      if (!this.firebaseConnected || !window._firebaseDb) return;
+      if (!this.firebaseConnected || !window._firebaseDb) return false;
 
       try {
         var { doc, deleteDoc } = await import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js');
         await deleteDoc(doc(window._firebaseDb, collectionName, id));
+        return true;
       } catch (e) {
         console.error('Firestore delete error:', e);
+        this.showToast('Chyba při mazání z Firebase', 'error');
+        return false;
       }
     },
 
@@ -232,6 +279,7 @@ function adminApp() {
       if (!files.length) return;
 
       this.uploading = true;
+      var successCount = 0;
 
       for (var i = 0; i < files.length; i++) {
         var file = files[i];
@@ -243,11 +291,10 @@ function adminApp() {
             createdAt: new Date().toISOString(),
           };
 
-          // Store as data URL (no Firebase Storage needed — existing photos served from GitHub Pages)
           photo.url = await this._fileToDataUrl(file);
-
           this.photos.unshift(photo);
           await this._firestoreSave('photos', photo.id, photo);
+          successCount++;
         } catch (e) {
           console.error('Photo upload error:', e);
         }
@@ -256,6 +303,7 @@ function adminApp() {
       this._saveLocal('photos', this.photos);
       this.uploading = false;
       event.target.value = '';
+      this.showToast('Nahráno ' + successCount + ' z ' + files.length + ' fotek');
     },
 
     _fileToDataUrl(file) {
@@ -267,13 +315,21 @@ function adminApp() {
       });
     },
 
-    async editPhoto(photo) {
-      var newCategory = prompt('Kategorie (interior, beer, food, events, salonek):', photo.category);
-      if (newCategory && this.photoCategories.some(function(c) { return c.id === newCategory; })) {
-        photo.category = newCategory;
+    editPhotoInline(photo) {
+      this.editingPhoto = Object.assign({}, photo);
+    },
+
+    async savePhotoEdit() {
+      if (!this.editingPhoto) return;
+      var photo = this.photos.find(function(p) { return p.id === this.editingPhoto.id; }.bind(this));
+      if (photo) {
+        photo.alt = this.editingPhoto.alt;
+        photo.category = this.editingPhoto.category;
         this._saveLocal('photos', this.photos);
         await this._firestoreSave('photos', photo.id, photo);
+        this.showToast('Fotka aktualizována');
       }
+      this.editingPhoto = null;
     },
 
     async deletePhoto(photo) {
@@ -281,22 +337,27 @@ function adminApp() {
         this.photos = this.photos.filter(function(p) { return p.id !== photo.id; });
         this._saveLocal('photos', this.photos);
         await this._firestoreDelete('photos', photo.id);
-
+        this.showToast('Fotka smazána');
       }
     },
 
     // === Events ===
 
     async saveEvent() {
-      if (!this.eventForm.title || !this.eventForm.date) return;
+      if (!this.eventForm.title || !this.eventForm.date) {
+        this.showToast('Vyplňte název a datum', 'error');
+        return;
+      }
 
       if (this.editingEvent) {
         Object.assign(this.editingEvent, this.eventForm);
         await this._firestoreSave('events', this.editingEvent.id, this.editingEvent);
+        this.showToast('Akce aktualizována');
       } else {
         var newEvent = Object.assign({}, this.eventForm, { id: Date.now().toString() });
         this.events.push(newEvent);
         await this._firestoreSave('events', newEvent.id, newEvent);
+        this.showToast('Akce přidána');
       }
 
       this._saveLocal('events', this.events);
@@ -314,6 +375,7 @@ function adminApp() {
         this.events = this.events.filter(function(e) { return e.id !== event.id; });
         this._saveLocal('events', this.events);
         await this._firestoreDelete('events', event.id);
+        this.showToast('Akce smazána');
       }
     },
 
@@ -326,12 +388,16 @@ function adminApp() {
     // === Food ===
 
     async saveFood() {
-      if (!this.foodForm.name || !this.foodForm.price) return;
+      if (!this.foodForm.name || !this.foodForm.price) {
+        this.showToast('Vyplňte název a cenu', 'error');
+        return;
+      }
 
       if (this.editingFood) {
         Object.assign(this.editingFood, this.foodForm);
         this.editingFood.price = parseInt(this.editingFood.price, 10);
         await this._firestoreSave('food', this.editingFood.id, this.editingFood);
+        this.showToast('Položka aktualizována');
       } else {
         var newItem = Object.assign({}, this.foodForm, {
           id: Date.now().toString(),
@@ -339,6 +405,7 @@ function adminApp() {
         });
         this.foodItems.push(newItem);
         await this._firestoreSave('food', newItem.id, newItem);
+        this.showToast('Položka přidána');
       }
 
       this._saveLocal('food', this.foodItems);
@@ -357,6 +424,7 @@ function adminApp() {
         this.foodItems = this.foodItems.filter(function(f) { return f.id !== itemId; });
         this._saveLocal('food', this.foodItems);
         await this._firestoreDelete('food', itemId);
+        this.showToast('Položka smazána');
       }
     },
 
@@ -364,6 +432,34 @@ function adminApp() {
       this.showFoodForm = false;
       this.editingFood = null;
       this.foodForm = { name: '', price: '', weight: '', category: 'cold', desc: '' };
+    },
+
+    // === Announcement ===
+
+    async saveAnnouncement() {
+      var saved = await this._firestoreSave('settings', 'announcement', { text: this.announcementText });
+      this._saveLocal('announcement', this.announcementText);
+      this.showToast(saved ? 'Oznámení uloženo' : 'Oznámení uloženo lokálně', saved ? 'success' : 'info');
+    },
+
+    // === Data Export ===
+
+    exportData() {
+      var data = {
+        exportDate: new Date().toISOString(),
+        events: this.events,
+        foodItems: this.foodItems,
+        photos: this.photos.map(function(p) { return { id: p.id, alt: p.alt, category: p.category, createdAt: p.createdAt }; }),
+        announcement: this.announcementText,
+      };
+      var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = 'u-tygra-backup-' + new Date().toISOString().slice(0, 10) + '.json';
+      a.click();
+      URL.revokeObjectURL(url);
+      this.showToast('Záloha stažena');
     },
 
     // === Local Storage ===
@@ -391,22 +487,23 @@ function adminApp() {
       this.events = this._loadLocal('events') || [];
       var savedFood = this._loadLocal('food');
       this.foodItems = (savedFood && savedFood.length > 0) ? savedFood : this._defaultFood();
+      this.announcementText = this._loadLocal('announcement') || '';
     },
 
     _defaultFood() {
       return [
-        { id: '1', name: 'Utopenci', desc: 'Domácí, pikantní', weight: '150g', price: 89, category: 'cold' },
-        { id: '2', name: 'Tlačenka s cibulí', desc: 'S octem a chlebem', weight: '200g', price: 79, category: 'cold' },
-        { id: '3', name: 'Chlebíčky', desc: 'Mix 3ks', weight: '250g', price: 99, category: 'cold' },
-        { id: '4', name: 'Nakládaný hermelín', desc: 'V oleji s kořením', weight: '150g', price: 89, category: 'cold' },
-        { id: '5', name: 'Pivní sýr', desc: 'Olomoucké tvarůžky', weight: '100g', price: 69, category: 'cold' },
-        { id: '6', name: 'Studená mísa', desc: 'Mix šunky, sýru, zeleniny', weight: '300g', price: 159, category: 'cold' },
-        { id: '7', name: 'Smažený sýr', desc: 'S hranolkami a tatarkou', weight: '150g', price: 139, category: 'warm' },
-        { id: '8', name: 'Klobása', desc: 'Grilovaná s hořčicí a chlebem', weight: '200g', price: 109, category: 'warm' },
-        { id: '9', name: 'Topinky', desc: 'S česnekem nebo pomazánkou', weight: '200g', price: 79, category: 'warm' },
-        { id: '10', name: 'Bramborák', desc: 'Domácí, křupavý', weight: '200g', price: 89, category: 'warm' },
-        { id: '11', name: 'Párek v rohlíku', desc: 'Klasika s hořčicí', weight: '150g', price: 59, category: 'warm' },
-        { id: '12', name: 'Hovězí guláš', desc: 'S houskovým knedlíkem', weight: '300g', price: 149, category: 'warm' },
+        { id: '1', name: 'Utopenci', desc: 'Domácí, pikantní', weight: '150 g', price: 89, category: 'cold' },
+        { id: '2', name: 'Tlačenka s cibulí', desc: 'S octem a chlebem', weight: '200 g', price: 79, category: 'cold' },
+        { id: '3', name: 'Chlebíčky', desc: 'Mix 3ks', weight: '250 g', price: 99, category: 'cold' },
+        { id: '4', name: 'Nakládaný hermelín', desc: 'V oleji s kořením', weight: '150 g', price: 89, category: 'cold' },
+        { id: '5', name: 'Pivní sýr', desc: 'Olomoucké tvarůžky', weight: '100 g', price: 69, category: 'cold' },
+        { id: '6', name: 'Studená mísa', desc: 'Mix šunky, sýru, zeleniny', weight: '300 g', price: 159, category: 'cold' },
+        { id: '7', name: 'Smažený sýr', desc: 'S hranolkami a tatarkou', weight: '150 g', price: 139, category: 'warm' },
+        { id: '8', name: 'Klobása', desc: 'Grilovaná s hořčicí a chlebem', weight: '200 g', price: 109, category: 'warm' },
+        { id: '9', name: 'Topinky', desc: 'S česnekem nebo pomazánkou', weight: '200 g', price: 79, category: 'warm' },
+        { id: '10', name: 'Bramborák', desc: 'Domácí, křupavý', weight: '200 g', price: 89, category: 'warm' },
+        { id: '11', name: 'Párek v rohlíku', desc: 'Klasika s hořčicí', weight: '150 g', price: 59, category: 'warm' },
+        { id: '12', name: 'Hovězí guláš', desc: 'S houskovým knedlíkem', weight: '300 g', price: 149, category: 'warm' },
       ];
     },
   };
