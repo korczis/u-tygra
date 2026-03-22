@@ -1295,7 +1295,6 @@ function app() {
         setInterval(async () => {
           await this.refreshBeerData();
           this._lastDataRefresh = Date.now();
-          this.updateKioskUI();
         }, 90000);
         return; // Skip normal initialization in kiosk mode
       }
@@ -1465,58 +1464,80 @@ function app() {
       this.updateKioskUI();
     },
 
-    updateKioskUI() {
-      const content = document.getElementById('kiosk-content');
-      if (!content) return;
+    // Fingerprint of last rendered kiosk data (skip re-render when unchanged)
+    _kioskDataFingerprint: '',
 
+    _buildKioskHTML: function() {
       if (this.liveBeers.length === 0) {
-        content.innerHTML = `<div class="kiosk-empty">Načítám nabídku...</div>`;
-        return;
+        return '<div class="kiosk-empty">Načítám nabídku...</div>';
       }
 
       if (this.kioskView === 'list') {
-        content.innerHTML = `
-          <div class="kiosk-list">
-            <div class="kiosk-list-header">
-              <span class="kiosk-col-name">Název</span>
-              <span class="kiosk-col-brewery">Pivovar</span>
-              <span class="kiosk-col-style">Styl</span>
-              <span class="kiosk-col-abv">Alk.</span>
-              <span class="kiosk-col-price">Cena</span>
-            </div>
-            ${this.liveBeers.map(beer => `
-              <div class="kiosk-list-row">
-                <span class="kiosk-col-name">${beer.nazev || ''}</span>
-                <span class="kiosk-col-brewery">${beer.pivovar || ''}</span>
-                <span class="kiosk-col-style">${beer.styl || ''}</span>
-                <span class="kiosk-col-abv">${beer.abv || ''}</span>
-                <span class="kiosk-col-price">${beer.cena ? beer.cena + ' Kč' : ''}</span>
-              </div>
-            `).join('')}
-          </div>
-        `;
-        return;
+        return '<div class="kiosk-list">' +
+          '<div class="kiosk-list-header">' +
+            '<span class="kiosk-col-name">Název</span>' +
+            '<span class="kiosk-col-brewery">Pivovar</span>' +
+            '<span class="kiosk-col-style">Styl</span>' +
+            '<span class="kiosk-col-abv">Alk.</span>' +
+            '<span class="kiosk-col-price">Cena</span>' +
+          '</div>' +
+          this.liveBeers.map(function(beer) {
+            return '<div class="kiosk-list-row">' +
+              '<span class="kiosk-col-name">' + (beer.nazev || '') + '</span>' +
+              '<span class="kiosk-col-brewery">' + (beer.pivovar || '') + '</span>' +
+              '<span class="kiosk-col-style">' + (beer.styl || '') + '</span>' +
+              '<span class="kiosk-col-abv">' + (beer.abv || '') + '</span>' +
+              '<span class="kiosk-col-price">' + (beer.cena ? beer.cena + ' Kč' : '') + '</span>' +
+            '</div>';
+          }).join('') +
+        '</div>';
       }
 
       // Grid view
-      content.innerHTML = `
-        <div class="kiosk-grid">
-          ${this.liveBeers.map(beer => `
-            <div class="kiosk-card">
-              <div class="kiosk-card-top">
-                <h2 class="kiosk-beer-name">${beer.nazev || 'Bez názvu'}</h2>
-                <span class="kiosk-price">${beer.cena ? beer.cena + ' Kč' : ''}</span>
-              </div>
-              <div class="kiosk-brewery">${beer.pivovar || ''}</div>
-              <div class="kiosk-card-bottom">
-                ${beer.styl ? `<span class="kiosk-style">${beer.styl}</span>` : ''}
-                ${beer.abv ? `<span class="kiosk-stats">Alk: ${beer.abv}</span>` : ''}
-                ${beer.ibu ? `<span class="kiosk-stats">Hořkost: ${beer.ibu} IBU</span>` : ''}
-              </div>
-            </div>
-          `).join('')}
-        </div>
-      `;
+      return '<div class="kiosk-grid">' +
+        this.liveBeers.map(function(beer) {
+          return '<div class="kiosk-card">' +
+            '<div class="kiosk-card-top">' +
+              '<h2 class="kiosk-beer-name">' + (beer.nazev || 'Bez názvu') + '</h2>' +
+              '<span class="kiosk-price">' + (beer.cena ? beer.cena + ' Kč' : '') + '</span>' +
+            '</div>' +
+            '<div class="kiosk-brewery">' + (beer.pivovar || '') + '</div>' +
+            '<div class="kiosk-card-bottom">' +
+              (beer.styl ? '<span class="kiosk-style">' + beer.styl + '</span>' : '') +
+              (beer.abv ? '<span class="kiosk-stats">Alk: ' + beer.abv + '</span>' : '') +
+              (beer.ibu ? '<span class="kiosk-stats">Hořkost: ' + beer.ibu + ' IBU</span>' : '') +
+            '</div>' +
+          '</div>';
+        }).join('') +
+      '</div>';
+    },
+
+    updateKioskUI: function() {
+      var content = document.getElementById('kiosk-content');
+      if (!content) return;
+
+      var html = this._buildKioskHTML();
+
+      // Skip re-render if data hasn't changed
+      if (html === this._kioskDataFingerprint) return;
+      this._kioskDataFingerprint = html;
+
+      // First render — no fade, just set content
+      if (!content.childElementCount || content.querySelector('.kiosk-empty')) {
+        content.textContent = '';
+        content.insertAdjacentHTML('beforeend', html);
+        content.style.opacity = '1';
+        return;
+      }
+
+      // Crossfade: fade out -> swap -> fade in
+      content.style.transition = 'opacity 0.3s ease';
+      content.style.opacity = '0';
+      setTimeout(function() {
+        content.textContent = '';
+        content.insertAdjacentHTML('beforeend', html);
+        content.style.opacity = '1';
+      }, 300);
     },
 
     /**
