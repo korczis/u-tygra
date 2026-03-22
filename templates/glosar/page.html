@@ -56,8 +56,9 @@
       <h2 class="text-sm font-semibold text-brew-300 mb-4 uppercase tracking-wider">Související pojmy</h2>
       <div class="flex flex-wrap gap-2">
         {% for term in page.extra.related %}
+        {% set term_page = get_page(path="glosar/" ~ term ~ ".md", required=false) %}
         <a href="{{ get_url(path='glosar/' ~ term) }}" class="px-3 py-1.5 rounded-lg glass text-brew-300 hover:text-tiger-400 text-sm font-medium transition-all hover:bg-white/5">
-          {{ term | replace(from="-", to=" ") | title }}
+          {% if term_page %}{{ term_page.title }}{% else %}{{ term | replace(from="-", to=" ") | title }}{% endif %}
         </a>
         {% endfor %}
       </div>
