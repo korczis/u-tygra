@@ -1281,56 +1281,65 @@ function onGlossaryReady(cb) {
     scrollMessage(formatEventText(ev), cls);
   }
 
-  // Load events from Firebase
+  // Load events from Firebase via compat SDK (ES5-safe, no dynamic import)
   (function loadTickerEvents() {
-    try {
-      Promise.all([
-        import('https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js'),
-        import('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js')
-      ]).then(function(modules) {
-        var initializeApp = modules[0].initializeApp;
-        var getApps = modules[0].getApps;
-        var getApp = modules[0].getApp;
-        var getFirestore = modules[1].getFirestore;
-        var collection = modules[1].collection;
-        var getDocs = modules[1].getDocs;
-        var query = modules[1].query;
-        var orderBy = modules[1].orderBy;
-
-        var config = {
-          apiKey: 'AIzaSyB50U3NrQzDM5EtUKZ0TTwc4VXRSfN5v4o',
-          authDomain: 'u-tygra.firebaseapp.com',
-          projectId: 'u-tygra',
-          storageBucket: 'u-tygra.firebasestorage.app',
-          messagingSenderId: '342065439807',
-          appId: '1:342065439807:web:87227a21a6ad2a12c7048a'
-        };
-
-        var app = getApps().find(function(a) { return a.name === 'kiosk-ticker'; })
-          ? getApp('kiosk-ticker')
-          : initializeApp(config, 'kiosk-ticker');
-        var db = getFirestore(app);
-
-        getDocs(query(collection(db, 'events'), orderBy('date', 'asc'))).then(function(snap) {
-          var now = new Date();
-          var weekAgo = new Date(now.getTime() - 1 * 24 * 60 * 60 * 1000);
-          events = snap.docs
-            .map(function(d) { return Object.assign({ id: d.id }, d.data()); })
-            .filter(function(e) { return e.date && new Date(e.date) >= weekAgo; });
-
-          if (events.length > 0) {
-            console.log('Ticker: loaded ' + events.length + ' events from Firebase');
-            // Show first event after 15s, then every EVENT_INTERVAL
-            setTimeout(function() {
-              triggerEvent();
-              setInterval(triggerEvent, EVENT_INTERVAL);
-            }, 15000);
-          }
-        });
-      });
-    } catch (e) {
-      console.warn('Ticker: Firebase events not available', e);
+    // Load Firebase compat SDK via script tags (works on old Chromecast/LG TV)
+    function loadScript(src, cb) {
+      var s = document.createElement('script');
+      s.src = src;
+      s.onload = cb;
+      s.onerror = function() { console.warn('Ticker: failed to load ' + src); };
+      document.head.appendChild(s);
     }
+
+    loadScript('https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js', function() {
+      loadScript('https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js', function() {
+        try {
+          if (!firebase || !firebase.firestore) { return; }
+
+          var config = {
+            apiKey: 'AIzaSyB50U3NrQzDM5EtUKZ0TTwc4VXRSfN5v4o',
+            authDomain: 'u-tygra.firebaseapp.com',
+            projectId: 'u-tygra',
+            storageBucket: 'u-tygra.firebasestorage.app',
+            messagingSenderId: '342065439807',
+            appId: '1:342065439807:web:87227a21a6ad2a12c7048a'
+          };
+
+          var app;
+          if (firebase.apps && firebase.apps.length > 0) {
+            app = firebase.apps[0];
+          } else {
+            app = firebase.initializeApp(config);
+          }
+          var db = firebase.firestore(app);
+
+          db.collection('events').orderBy('date', 'asc').get().then(function(snap) {
+            var now = new Date();
+            var weekAgo = new Date(now.getTime() - 1 * 24 * 60 * 60 * 1000);
+            snap.forEach(function(doc) {
+              var data = doc.data();
+              data.id = doc.id;
+              if (data.date && new Date(data.date) >= weekAgo) {
+                events.push(data);
+              }
+            });
+
+            if (events.length > 0) {
+              console.log('Ticker: loaded ' + events.length + ' events from Firebase');
+              setTimeout(function() {
+                triggerEvent();
+                setInterval(triggerEvent, EVENT_INTERVAL);
+              }, 15000);
+            }
+          }).catch(function(e) {
+            console.warn('Ticker: Firestore query failed', e);
+          });
+        } catch (e) {
+          console.warn('Ticker: Firebase events init failed', e);
+        }
+      });
+    });
   })();
 
   // === Click handlers ===
